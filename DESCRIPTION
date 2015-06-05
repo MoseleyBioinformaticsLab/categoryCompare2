@@ -1,11 +1,11 @@
-Package: categoryComparev2
-Version: 1.99.129
+Package: categoryCompare2
+Version: 0.99.129
 Title: Meta-analysis of high-throughput experiments using feature
         annotations
 Author: Robert M. Flight <rflight79@gmail.com>
 Maintainer: Robert M. Flight <rflight79@gmail.com>
-URL: https://github.com/rmflight/categoryCompare
-BugReports: https://github.com/rmflight/categoryCompare/issues
+URL: https://github.com/rmflight/categoryCompare2
+BugReports: https://github.com/rmflight/categoryCompare2/issues
 License: GPL-2
 Depends: R (>= 3.1.0), Biobase, BiocGenerics
 Suggests: knitr, methods, GO.db, estrogen, org.Hs.eg.db, hgu95av2.db,

@@ -1,6 +1,6 @@
 # testing the basic enriched class
 
-library(categoryComparev2)
+library(categoryCompare2)
 library(GO.db)
 library(parallel)
 options(mc.cores = 4)
@@ -26,12 +26,15 @@ c2 <- enriched_result(c2_enrichment$features,
                             statistic_data = c2_enrichment$enrich[c("pvalues", "odds_ratio", "counts")],
                             annotation_id = c2_enrichment$enrich$stat_names))
 
-enriched <- list(c1 = c1, c2 = c2)
+sum(c1@statistics@statistic_data$pvalues <= 0.05)
+sum(c2@statistics@statistic_data$pvalues <= 0.05)
+# get 328 and 307 in C1 and C2, respectively
 
 bp_combined <- combine_enrichments(c1 = c1, c2 = c2)
 
-# if there are no significant things set, then generate the full graph
-bp_graph <- generate_annotation_graph(bp_combined) # default graph gen
+bp_sig <- get_significant_annotations(bp_combined, pvalues <= 0.05)
+
+bp_graph <- generate_annotation_graph(bp_sig, low_cut = 10) # default graph gen
 
 bp_sig <- get_significant_annotations(bp_combined, pvalues <= 0.05, counts >= 2) # add significant annotations
 

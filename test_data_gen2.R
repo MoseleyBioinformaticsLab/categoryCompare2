@@ -48,10 +48,13 @@ c1_enrich <- hyperGTest(c1_hyper)
 c2_enrich <- hyperGTest(c2_hyper)
 
 
-bp_annotation <- select(org.Hs.eg.db, keys = universe_genes, keytype = "ENTREZID", columns = "GOALL")
-bp_annotation <- bp_annotation[(bp_annotation$ONTOLOGYALL %in% "BP"),]
+all_hs_go <- keys(org.Hs.eg.db, keytype = "GOALL")
+all_hs_gotype <- select(GO.db, keys = all_hs_go, columns = "ONTOLOGY")
+all_hs_bp <- all_hs_gotype$GOID[all_hs_gotype$ONTOLOGY == "BP"]
 
-bp_annotation <- split(bp_annotation$ENTREZID, bp_annotation$GOALL)
+all_hs_bp2gene <- select(org.Hs.eg.db, keys = all_hs_bp, keytype = "GOALL", columns = c("ENTREZID"))
+
+bp_annotation <- split(all_hs_bp2gene$ENTREZID, all_hs_bp2gene$GOALL)
 bp_annotation <- lapply(bp_annotation, unique)
 
 c1_enrichment <- list(features = c1_diff,
