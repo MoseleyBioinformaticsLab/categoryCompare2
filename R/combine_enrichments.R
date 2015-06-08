@@ -325,68 +325,33 @@ generate_annotation_similarity_graph <- function(annotation_features, similarity
   
   all_comparisons <- expand.grid(seq(1, n_annotation), seq(1, n_annotation))
   all_comparisons <- all_comparisons[(all_comparisons[,2] > all_comparisons[,1]), ]
-    
-  similarity <- lapply(seq(1, nrow(all_comparisons)), function(x){
+  all_comparisons <- as.matrix(all_comparisons)
+  
+  calc_similarity <- function(x){
     do_comparison <- all_comparisons[x, ]
-    n1 <- annotation_features[[do_comparison[1,1]]]
-    n2 <- annotation_features[[do_comparison[1,2]]]
+    n1 <- annotation_features[[do_comparison[1]]]
+    n2 <- annotation_features[[do_comparison[2]]]
     
-    use_similarity <- switch(similarity_type,
-                             overlap = overlap_coefficient(n1, n2),
-                             jaccard = jaccard_coefficient(n1, n2),
-                             combined = combined_coefficient(n1, n2))
+    l_n1 <- length(n1)
+    l_n2 <- length(n2)
+    len_union <- length(base::union(n1, n2))
+    len_intersect <- length(base::intersect(n1,n2))
+    min_len <- min(c(l_n1, l_n2))
     
-    use_similarity
-  })
-  similarity <- unlist(similarity)
-  similarity_non_zero <- similarity != 0
-  all_comparisons <- all_comparisons[similarity_non_zero, ]
-  similarity <- similarity[similarity_non_zero]
-  
-  from_edge <- use_annotations[all_comparisons[,1]]
-  to_edge <- use_annotations[all_comparisons[,2]]
-  
-  edgeDataDefaults(out_graph, attr = "weight") <- 0
-  attr(edgeDataDefaults(out_graph, attr = "weight"), "class") <- "FLOATING"
-  
-  out_graph <- addEdge(from_edge, to_edge, out_graph, similarity)
-  return(out_graph)
-}
-
-#' annotation similarity graph
-#' 
-#' given an annotation-feature list, generate a similarity graph between all of 
-#' the annotations
-#' 
-#' @param annotation_features list where each entry is a set of features to that annotation
-#' @param similarity_type which type of overlap coefficient to report
-#' 
-#' @export
-#' @return cc_graph
-#' 
-#' @import graph
-generate_annotation_similarity_graph2 <- function(annotation_features, similarity_type = "combined"){
-  
-  use_annotations <- names(annotation_features)
-  n_annotation <- length(use_annotations)
-  out_graph <- new("cc_graph", nodes = use_annotations, edgemode = "directed")
-  
-  all_comparisons <- expand.grid(seq(1, n_annotation), seq(1, n_annotation))
-  all_comparisons <- all_comparisons[(all_comparisons[,2] > all_comparisons[,1]), ]
-  
-  similarity_function <- switch(similarity_type,
-                                overlap = overlap_coefficient,
-                                jaccard = jaccard_coefficient,
-                                combined = combined_coefficient)
-  
-  similarity <- lapply(seq(1, nrow(all_comparisons)), function(x){
-    do_comparison <- all_comparisons[x, ]
-    n1 <- annotation_features[[do_comparison[1,1]]]
-    n2 <- annotation_features[[do_comparison[1,2]]]
+    similarity_value <- 0
+    if (len_intersect != 0){
+      similarity_value <- switch(similarity_type,
+                     overlap = len_intersect / min_len,
+                     jaccard = len_intersect / len_union,
+                     combined = (len_intersect * (min_len + len_union)) / (min_len * len_union) / 2)
+    }
     
-    similarity_function(n1, n2)
-  })
-  similarity <- unlist(similarity)
+    similarity_value
+  }
+  
+    
+  similarity <- vapply(seq(1, nrow(all_comparisons)), calc_similarity, numeric(1))
+  
   similarity_non_zero <- similarity != 0
   all_comparisons <- all_comparisons[similarity_non_zero, ]
   similarity <- similarity[similarity_non_zero]
