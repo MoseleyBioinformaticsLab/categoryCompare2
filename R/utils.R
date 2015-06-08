@@ -9,7 +9,9 @@
 #' @param ... other parameters
 #' @export
 #' @return list results
-choose_mclapply <- function(x, fun, ...){
+have_parallel <- function(){
+  has_parallel <- FALSE
+  
   loaded_packages <- loadedNamespaces()
   num_cores <- getOption("mc.cores")
 
@@ -18,11 +20,9 @@ choose_mclapply <- function(x, fun, ...){
   }
 
   if (("parallel" %in% loaded_packages) && (num_cores > 1)){
-    out_apply <- parallel::mclapply(x, fun, ...)
-  } else {
-    out_apply <- lapply(x, fun, ...)
-  }
+    has_parallel <- TRUE
+  } 
 
-  out_apply
+  has_parallel
 }
 

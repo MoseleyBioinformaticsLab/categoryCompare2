@@ -349,8 +349,13 @@ generate_annotation_similarity_graph <- function(annotation_features, similarity
     similarity_value
   }
   
-    
-  similarity <- vapply(seq(1, nrow(all_comparisons)), calc_similarity, numeric(1))
+  # choosing to do some parallel
+  if (have_parallel()){
+    similarity <- parallel::mclapply(seq(1, nrow(all_comparisons)), calc_similarity)
+    similarity <- unlist(similarity)
+  } else {
+    similarity <- vapply(seq(1, nrow(all_comparisons)), calc_similarity, numeric(1))
+  }
   
   similarity_non_zero <- similarity != 0
   all_comparisons <- all_comparisons[similarity_non_zero, ]
