@@ -118,10 +118,23 @@ combined_enrichment <- setClass("combined_enrichment",
 #' @slot significant numeric matrix of ones and zeros
 #' 
 #' @export
-#' @importFrom graph graphNEL
 cc_graph <- setClass("cc_graph",
                      contains = "graphNEL",
                      slots = list(significant = "matrix"))
+
+#' cc_graph constructor
+#' 
+#' constructs a \S4class{cc_graph} given a \linkS4class{graphNEL} and a \code{significant} matrix.
+#' 
+#' @param graph the \linkS4class{graphNEL}
+#' @param significant a matrix indicating which nodes are significant in which experiment
+#' 
+#' @export
+cc_graph <- function(graph, significant){
+  out_graph <- as(graph, "cc_graph")
+  out_graph@significant <- significant
+  out_graph
+}
 
 #' node_assign
 #' 
