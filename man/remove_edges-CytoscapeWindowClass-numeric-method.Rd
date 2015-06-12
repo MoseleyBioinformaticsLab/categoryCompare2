@@ -21,7 +21,7 @@
 nothing
 }
 \description{
-given a \linkS4Class{CytoscapeWindowClass}, remove edges according to provided
+given a \linkS4class{CytoscapeWindowClass}, remove edges according to provided
 values.
 }
 

@@ -1,10 +1,10 @@
 #' unique combinations
 #' 
 #' determine the unique combinations of annotations that exist in the 
-#' significant matrix of the \S4Class{cc_graph} and assign each node in the graph
+#' significant matrix of the \linkS4class{cc_graph} and assign each node in the graph
 #' to a group.
 #' 
-#' @param in_graph the \S4Class{cc_graph} to work on
+#' @param in_graph the \linkS4class{cc_graph} to work on
 #' 
 #' @return node_assignment
 #' @exportMethod annotation_combinations
@@ -100,10 +100,10 @@ generate_colors <- function(n_color){
 
 #' assign colors
 #' 
-#' given a \linkS4Class{node_assign}, assign colors to either the independent groups
+#' given a \linkS4class{node_assign}, assign colors to either the independent groups
 #' of unique annotations, or to each of the experiments independently.
 #' 
-#' @param in_assign the \linkS4Class{node_assign} object generated from a \linkS4Class{cc_graph}
+#' @param in_assign the \linkS4class{node_assign} object generated from a \linkS4class{cc_graph}
 #' @param type either "group" or "experiment"
 #' 
 #' @export
@@ -217,7 +217,7 @@ vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
 
 #' remove edges
 #' 
-#' given a \linkS4Class{CytoscapeWindowClass}, remove edges according to provided
+#' given a \linkS4class{CytoscapeWindowClass}, remove edges according to provided
 #' values.
 #' 
 #' @param edge_obj a CytoscapeWindowClass

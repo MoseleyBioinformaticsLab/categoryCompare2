@@ -1,12 +1,12 @@
 #' creates enriched result
 #' 
-#' given all the slots for an \linkS4Class{enriched_result}, checks that all
+#' given all the slots for an \linkS4class{enriched_result}, checks that all
 #' the data is self-consistent, and creates the \code{enriched_result} object.
 #' 
 #' @param features the features that were differentially expressed (see details)
 #' @param universe all of the features that were measured
-#' @param annotation an \linkS4Class{annotation} object
-#' @param statistics a \linkS4Class{statistical_results} object
+#' @param annotation an \linkS4class{annotation} object
+#' @param statistics a \linkS4class{statistical_results} object
 #' 
 #' @export
 #' @return enriched_result

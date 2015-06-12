@@ -20,8 +20,5 @@ and combined \linkS4class{annotation} objects.
 
 \item{\code{annotation}}{\linkS4class{annotation} where the annotation_features
 have been combined across the \linkS4class{enriched_results}}
-
-\item{\code{graph}}{the annotation graph, where nodes are annotations, and edges are
-weighted by similarity between annotation_features.}
 }}
 

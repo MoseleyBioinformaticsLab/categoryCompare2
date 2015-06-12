@@ -7,7 +7,7 @@
 assign_colors(in_assign, type = "experiment")
 }
 \arguments{
-\item{in_assign}{the \linkS4Class{node_assign} object generated from a \linkS4Class{cc_graph}}
+\item{in_assign}{the \linkS4class{node_assign} object generated from a \linkS4class{cc_graph}}
 
 \item{type}{either "group" or "experiment"}
 }
@@ -15,7 +15,7 @@ assign_colors(in_assign, type = "experiment")
 node_assign with colors
 }
 \description{
-given a \linkS4Class{node_assign}, assign colors to either the independent groups
+given a \linkS4class{node_assign}, assign colors to either the independent groups
 of unique annotations, or to each of the experiments independently.
 }
 

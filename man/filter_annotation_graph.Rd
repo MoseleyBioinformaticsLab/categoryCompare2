@@ -7,9 +7,9 @@
 filter_annotation_graph(in_graph, comb_enrich)
 }
 \arguments{
-\item{in_graph}{the \linkS4Class{cc_graph} previously generated}
+\item{in_graph}{the \linkS4class{cc_graph} previously generated}
 
-\item{comb_enrich}{the \linkS4Class{combined_enrichment} that you want to use to filter with}
+\item{comb_enrich}{the \linkS4class{combined_enrichment} that you want to use to filter with}
 }
 \value{
 cc_graph

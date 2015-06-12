@@ -8,14 +8,14 @@
 \S4method{annotation_combinations}{cc_graph}(in_graph)
 }
 \arguments{
-\item{in_graph}{the \S4Class{cc_graph} to work on}
+\item{in_graph}{the \linkS4class{cc_graph} to work on}
 }
 \value{
 node_assignment
 }
 \description{
 determine the unique combinations of annotations that exist in the
-significant matrix of the \S4Class{cc_graph} and assign each node in the graph
+significant matrix of the \linkS4class{cc_graph} and assign each node in the graph
 to a group.
 }
 

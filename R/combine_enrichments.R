@@ -75,7 +75,6 @@ setMethod("generate_annotation_graph", signature = list(comb_enrichment = "combi
 #' 
 #' @param graph the graph to work on
 #' @param data the data to add to it
-#' @import graph
 #' 
 #' @return graphNEL
 add_data_to_graph <- function(graph, data){

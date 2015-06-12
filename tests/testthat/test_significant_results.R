@@ -68,8 +68,7 @@ en2 <- new("enriched_result",
 
 test_combined <- new("combined_enrichment",
                      enriched = list(en1 = en1, en2 = en2),
-                     annotation = new("annotation"),
-                     graph = new("graphNEL"))
+                     annotation = new("annotation"))
 
 combined_stats <- extract_statistics(test_combined)
 test_combined@statistics <- combined_stats

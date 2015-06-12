@@ -47,8 +47,7 @@ en2 <- new("enriched_result",
 
 test_combined <- new("combined_enrichment",
                      enriched = list(en1 = en1, en2 = en2),
-                     annotation = new("annotation"),
-                     graph = new("graphNEL"))
+                     annotation = new("annotation"))
 
 out_stats_data <- matrix(NA, nrow = 4, ncol = 6)
 rownames(out_stats_data) <- c("a1", "a2", "a3", "a4")

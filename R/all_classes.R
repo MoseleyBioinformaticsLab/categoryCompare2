@@ -100,14 +100,11 @@ combined_statistics <- setClass("combined_statistics",
 #' @slot enriched_type character describing the enrichment annotation
 #' @slot annotation \linkS4class{annotation} where the annotation_features
 #' have been combined across the \linkS4class{enriched_results}
-#' @slot graph the annotation graph, where nodes are annotations, and edges are
-#' weighted by similarity between annotation_features.
 #' 
 #' @export
 combined_enrichment <- setClass("combined_enrichment",
                                 slots = list(enriched = "list",
                                              annotation = "annotation",
-                                             graph = "graphNEL",
                                              statistics = "combined_statistics"))
 
 #' cc_graph

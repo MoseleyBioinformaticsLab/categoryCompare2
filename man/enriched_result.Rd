@@ -13,9 +13,9 @@ enriched_result(features, universe, annotation, statistics)
 
 \item{universe}{all of the features that were measured}
 
-\item{annotation}{an \linkS4Class{annotation} object}
+\item{annotation}{an \linkS4class{annotation} object}
 
-\item{statistics}{a \linkS4Class{statistical_results} object}
+\item{statistics}{a \linkS4class{statistical_results} object}
 }
 \value{
 enriched_result
@@ -23,7 +23,7 @@ enriched_result
 \description{
 the enriched results class
 
-given all the slots for an \linkS4Class{enriched_result}, checks that all
+given all the slots for an \linkS4class{enriched_result}, checks that all
 the data is self-consistent, and creates the \code{enriched_result} object.
 }
 \section{Slots}{

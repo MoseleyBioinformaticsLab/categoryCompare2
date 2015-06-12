@@ -135,11 +135,10 @@ setMethod("get_significant_annotations",
 #' If a graph has already been generated, it may be faster to filter a previously
 #' generated one than generate a new one from significant data.
 #' 
-#' @param in_graph the \linkS4Class{cc_graph} previously generated
-#' @param comb_enrich the \linkS4Class{combined_enrichment} that you want to use to filter with
+#' @param in_graph the \linkS4class{cc_graph} previously generated
+#' @param comb_enrich the \linkS4class{combined_enrichment} that you want to use to filter with
 #' 
 #' @export
-#' @importFrom graph subGraph nodes
 #' @return cc_graph
 filter_annotation_graph <- function(in_graph, comb_enrich){
   sig_matrix <- comb_enrich@statistics@significant@significant
