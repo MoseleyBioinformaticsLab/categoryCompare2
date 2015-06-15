@@ -124,7 +124,7 @@ cc_graph <- setClass("cc_graph",
 
 #' cc_graph constructor
 #' 
-#' constructs a \S4class{cc_graph} given a \linkS4class{graphNEL} and a \code{significant} matrix.
+#' constructs a \emph{cc_graph} given a \linkS4class{graphNEL} and a \emph{significant} matrix.
 #' 
 #' @param graph the \linkS4class{graphNEL}
 #' @param significant a matrix indicating which nodes are significant in which experiment
