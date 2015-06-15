@@ -21,6 +21,42 @@ annotation <- setClass("annotation",
                                     links = "character",
                                     type = "character"))
 
+annotation <- function(annotation_features, type = NULL, description = character(0), links = character(0)){
+  if (is.null(type)){
+    type <- "generic_annotation"
+  }
+  
+  annotation_names <- names(annotation_features)
+  n_annot <- length(annotation_names)
+  
+  if (length(description) > 0){
+    desc_names <- names(description)
+    if (sum(annotation_names %in% desc_names) == n_annot){
+      description <- description[annotation_names]
+    } else {
+      stop("description names don't match annotation names!", call. = FALSE)
+    }
+  }
+  
+  if (length(links) > 0){
+    link_names <- names(links)
+    if (sum(annotation_names %in% link_names) == n_annot){
+      links <- links[annotation_names]
+    } else {
+      stop("description names don't match annotation names!", call. = FALSE)
+    }
+  }
+  
+  counts <- vapply(annotation_features, length, numeric(1))
+  
+  new("annotation",
+      type = type,
+      description = description,
+      links = links,
+      counts = counts)
+  
+}
+
 #' statistical results class
 #' 
 #' This class holds the part of an enrichment that is the statistical results.
