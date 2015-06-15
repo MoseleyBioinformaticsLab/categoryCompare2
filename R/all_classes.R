@@ -115,6 +115,26 @@ significant_annotations <- setClass("significant_annotations",
                                                  measured = "matrix",
                                                  sig_calls = "character"))
 
+#' create significant annotations
+#' 
+#' Makes a new significant_annotation while checking that everything is valid.
+#' 
+#' @param significant logical matrix of annotations (rows) and experiments (columns)
+#' @param measured logical matrix of annotations (rows) and experiments (columns)
+#' @param sig_calls character vector of deparsed calls that resulted in signficant and
+#' measured
+#' 
+#' @export
+significant_annotations <- function(significant, measured, sig_calls = NULL){
+  stopifnot(nrow(significant) != nrow(measured))
+  stopifnot(ncol(significant) != ncol(measured))
+  
+  new("signficant_annotations",
+      significant = significant,
+      measured = measured,
+      sig_calls = sig_calls)
+}
+
 #' combined statistics
 #' 
 #' holds the results of extracting a bunch of statistics from a \linkS4class{combined_enrichment}
