@@ -21,6 +21,20 @@ annotation <- setClass("annotation",
                                     links = "character",
                                     type = "character"))
 
+#' annotation constructor
+#' 
+#' Does sensical checks when creating an \linkS4class{annotation} object.
+#' 
+#' See the \linkS4class{annotation}, each slot is a parameter.
+#' 
+#' @param annotation_features list of annotation to feature relationships
+#' @param description character vector providing descriptive text about the annotation
+#' @param counts numeric vector of how many features are in each annotation
+#' @param links character vector defining html links for each annotation (may be empty)
+#' @param type a one word short description of the "type" of annotation
+#' 
+#' @rdname annotation_constructor
+#' @export
 annotation <- function(annotation_features, type = NULL, description = character(0), links = character(0)){
   if (is.null(type)){
     type <- "generic_annotation"
