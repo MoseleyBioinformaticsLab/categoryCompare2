@@ -21,6 +21,16 @@ annotation <- setClass("annotation",
                                     links = "character",
                                     type = "character"))
 
+#' show annotation
+#' @exportMethod 
+setMethod("show", signature = list(object = "annotation"),
+          function(object){
+            cat(object@type, "Annotation Object\n", sep = " ")
+            n_gene <- length(unique(unlist(object@annotation_features)))
+            n_annot <- length(object@annotation_features)
+            cat("with ", n_annot, "annotations with ", n_gene, "genes\n", sep = "")
+          })
+
 #' annotation constructor
 #' 
 #' Does sensical checks when creating an \linkS4class{annotation} object.
@@ -113,7 +123,7 @@ enriched_result <- setClass("enriched_result",
 #' 
 #' @export
 #' @return enriched_result
-#' 
+#' @rdname enriched_result_constructor
 enriched_result <- function(features, universe, annotation, statistics){
   stopifnot(class(statistics) == "statistical_results")
   stopifnot(class(annotation) == "annotation")
