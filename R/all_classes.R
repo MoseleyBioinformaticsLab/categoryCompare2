@@ -91,11 +91,13 @@ annotation <- function(annotation_features, type = NULL, description = character
 #' 
 #' @slot statistic_data list of numerical statistics
 #' @slot annotation_id vector of ids
+#' @slot method how the statistics were calculated
 #' 
 #' @export
 statistical_results <- setClass("statistical_results",
                                 slots = list(statistic_data = "list",
-                                             annotation_id = "ANY"))
+                                             annotation_id = "ANY",
+                                             method = "character"))
 
 #' the enriched results class
 #' 
@@ -110,6 +112,23 @@ enriched_result <- setClass("enriched_result",
                                          universe = "ANY",
                                          annotation = "annotation",
                                          statistics = "statistical_results"))
+
+#' show enriched_result
+#' @exportMethod show
+setMethod("show", signature = list(object = "enriched_result"),
+          function(object){
+            stat_method <- object@statistics@method
+            n_feature <- length(unique(object@features))
+            n_universe <- length(unique(object@universe))
+            
+            enrich_type <- object@annotation@type
+            n_annot <- length(object@annotation@annotation_features)
+            
+            cat("   Enrichment Method:", stat_method, "\n")
+            cat("     Annotation Type:", enrich_type, "\n")
+            cat("Significant Features:", n_feature, "\n")
+            cat("       Universe Size:", n_universe, "\n")
+          })
 
 #' creates enriched result
 #' 
