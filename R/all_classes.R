@@ -236,6 +236,16 @@ combined_statistics <- setClass("combined_statistics",
                                              which_enrichment = "character",
                                              which_statistic = "character"))
 
+#' show combined_statistics
+#' 
+#' @param object \linkS4class{combined_statistics}
+#' 
+#' @exportMethod show
+setMethod("show", signature = list(object = "combined_statistics"),
+          function(object){
+            object
+          })
+
 #' combined enrichments
 #' 
 #' The \code{combined_enrichment} class holds the results of combining several 
@@ -301,3 +311,23 @@ node_assign <- setClass("node_assign",
                                      colors = "character",
                                      color_type = "character",
                                      pie_locs = "character"))
+
+#' show node_assign
+#' 
+#' @param object the node_assign to see
+#' 
+#' @exportMethod show
+setMethod("show", signature = list(object = "node_assign"),
+          function(object){
+            group_matrix <- object@matrix
+            assignments <- object@assignments
+            
+            group_names <- rownames(group_matrix)
+            numerical_group <- apply(group_matrix, 2, as.numeric)
+            rownames(numerical_group) <- group_names
+            
+            group_counts <- vapply(group_names, function(x){sum(assignments %in% x)}, numeric(1))
+            numerical_group <- cbind(numerical_group, group_counts)
+            colnames(numerical_group) <- c(colnames(numerical_group), "counts")
+            numerical_group
+          })
