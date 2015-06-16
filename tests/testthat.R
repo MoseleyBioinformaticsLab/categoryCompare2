@@ -1,4 +1,4 @@
 library(testthat)
-suppressPackageStartupMessages(library(categoryComparev2))
+suppressPackageStartupMessages(library(categoryCompare2))
 
-test_check("categoryComparev2")
+test_check("categoryCompare2")

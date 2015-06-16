@@ -48,7 +48,7 @@ group6 <- letters[11:12]
 feature_list <- list(g1 = group1, g2 = group2, g3 = group3,
                      g4 = group4, g5 = group5, g6 = group6)
 
-jaccard_graph <- categoryComparev2:::generate_annotation_similarity_graph(feature_list, "jaccard")
+jaccard_graph <- categoryCompare2:::generate_annotation_similarity_graph(feature_list, "jaccard")
 test_that("number nodes and edges are correct", {
   expect_equal(numNodes(jaccard_graph), 6)
   expect_equal(numEdges(jaccard_graph), 8)

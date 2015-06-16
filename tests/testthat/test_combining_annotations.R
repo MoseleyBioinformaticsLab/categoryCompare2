@@ -1,4 +1,4 @@
-library("categoryComparev2")
+library("categoryCompare2")
 
 context("combining annotations")
 
