@@ -22,13 +22,13 @@ annotation <- setClass("annotation",
                                     type = "character"))
 
 #' show annotation
-#' @exportMethod 
+#' @exportMethod show
 setMethod("show", signature = list(object = "annotation"),
           function(object){
-            cat(object@type, "Annotation Object\n", sep = " ")
             n_gene <- length(unique(unlist(object@annotation_features)))
             n_annot <- length(object@annotation_features)
-            cat("with ", n_annot, "annotations with ", n_gene, "genes\n", sep = "")
+            cat(object@type, "Annotation Object\n", sep = " ")
+            cat("with ", n_annot, " annotations and ", n_gene, " genes\n", sep = "")
           })
 
 #' annotation constructor
