@@ -4,16 +4,29 @@
 #' significant matrix of the \linkS4class{cc_graph} and assign each node in the graph
 #' to a group.
 #' 
-#' @param in_graph the \linkS4class{cc_graph} to work on
+#' @param object the \linkS4class{cc_graph} to work on
 #' 
 #' @return node_assignment
 #' @exportMethod annotation_combinations
 setMethod("annotation_combinations", 
-          signature = list(in_graph = "cc_graph"),
-          function(in_graph) .annotation_combinations(in_graph))
+          signature = list(object = "cc_graph"),
+          function(object) .annotation_combinations(object@significant))
 
-.annotation_combinations <- function(in_graph){
-  sig_matrix <- in_graph@significant
+#' unique combinations
+#' 
+#' determine the unique combinations of annotations that exist in the 
+#' significant matrix of the \linkS4class{combined_statistics} and assign each 
+#' annotation to a group.
+#' 
+#' @param object the \linkS4class{combined_statistics} to work on
+#' 
+#' @return node_assignment
+#' @exportMethod annotation_combinations
+setMethod("annotation_combinations", 
+          signature = list(object = "combined_statistics"),
+          function(object) .annotation_combinations(object@significant@significant))
+
+.annotation_combinations <- function(sig_matrix){
   
   unique_combinations <- unique(sig_matrix)
   name_combinations <- paste("G", seq(1, nrow(unique_combinations)), sep = "")
