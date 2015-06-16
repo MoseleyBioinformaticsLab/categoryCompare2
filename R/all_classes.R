@@ -27,8 +27,9 @@ setMethod("show", signature = list(object = "annotation"),
           function(object){
             n_gene <- length(unique(unlist(object@annotation_features)))
             n_annot <- length(object@annotation_features)
-            cat(object@type, "Annotation Object\n", sep = " ")
-            cat("with ", n_annot, " annotations and ", n_gene, " genes\n", sep = "")
+            cat("      Annotation Type:", object@type, "\n")
+            cat("Number of Annotations:", n_annot, "\n")
+            cat("      Number of Genes:", n_gene, "\n")
           })
 
 #' annotation constructor
