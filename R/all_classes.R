@@ -319,15 +319,19 @@ node_assign <- setClass("node_assign",
 #' @exportMethod show
 setMethod("show", signature = list(object = "node_assign"),
           function(object){
-            group_matrix <- object@matrix
+            group_matrix <- object@groups
             assignments <- object@assignments
             
             group_names <- rownames(group_matrix)
             numerical_group <- apply(group_matrix, 2, as.numeric)
+            
+            # we do this in case we have created a vector instead of a matrix from the 
+            # apply step above
+            numerical_group <- matrix(numerical_group, nrow = nrow(group_matrix), ncol = ncol(group_matrix))
             rownames(numerical_group) <- group_names
+            colnames(numerical_group) <- colnames(group_matrix)
             
             group_counts <- vapply(group_names, function(x){sum(assignments %in% x)}, numeric(1))
-            numerical_group <- cbind(numerical_group, group_counts)
-            colnames(numerical_group) <- c(colnames(numerical_group), "counts")
-            numerical_group
+            numerical_group <- cbind(numerical_group, counts=group_counts)
+            print(numerical_group)
           })
