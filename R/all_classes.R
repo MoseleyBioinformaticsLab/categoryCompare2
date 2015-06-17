@@ -296,6 +296,19 @@ cc_graph <- setClass("cc_graph",
                      contains = "graphNEL",
                      slots = list(significant = "matrix"))
 
+#' show cc_graph enrichment
+#' 
+#' @exportMethod show
+setMethod("show", signature = list(object = "cc_graph"),
+          function(object) {
+            numNodes<- numNodes(object)
+            numEdge<-numEdges(object)
+            node_assign <- annotation_combinations(object)
+            cat("A cc_graph with\n")
+            cat("Number of Nodes =", numNodes, "\n")
+            cat("Number of Edges =", numEdge, "\n")
+            print(node_assign)
+          })
 #' cc_graph constructor
 #' 
 #' constructs a \emph{cc_graph} given a \linkS4class{graphNEL} and a \emph{significant} matrix.
