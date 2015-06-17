@@ -195,6 +195,23 @@ significant_annotations <- setClass("significant_annotations",
                                                  measured = "matrix",
                                                  sig_calls = "character"))
 
+#' show signficant_annotations
+#' 
+#' @exportMethod show
+setMethod("show", signature = list(object = "significant_annotations"),
+          function(object){
+            sig_calls <- object@sig_calls
+            if (length(sig_calls) == 0){
+              sig_calls <- "none"
+            }
+            out_calls <- paste("  ", sig_calls, sep = "")
+            cat("Signficance Cutoffs:\n")
+            cat(out_calls, sep = "\n")
+            cat("\nCounts:\n")
+            node_assign <- annotation_combinations(object)
+            print(node_assign)
+          })
+
 #' create significant annotations
 #' 
 #' Makes a new significant_annotation while checking that everything is valid.
@@ -243,7 +260,7 @@ combined_statistics <- setClass("combined_statistics",
 #' @exportMethod show
 setMethod("show", signature = list(object = "combined_statistics"),
           function(object){
-            object
+            print(object@significant_annotations)
           })
 
 #' combined enrichments
