@@ -75,6 +75,7 @@ annotation <- function(annotation_features, type = NULL, description = character
   counts <- vapply(annotation_features, length, numeric(1))
   
   new("annotation",
+      annotation_features = annotation_features,
       type = type,
       description = description,
       links = links,
