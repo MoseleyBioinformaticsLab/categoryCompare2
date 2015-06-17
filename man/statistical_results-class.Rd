@@ -18,5 +18,7 @@ is the \code{annotation_id} vector defining which entry in each vector of the
 \item{\code{statistic_data}}{list of numerical statistics}
 
 \item{\code{annotation_id}}{vector of ids}
+
+\item{\code{method}}{how the statistics were calculated}
 }}
 

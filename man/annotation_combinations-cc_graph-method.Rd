@@ -5,10 +5,10 @@
 \alias{annotation_combinations,cc_graph-method}
 \title{unique combinations}
 \usage{
-\S4method{annotation_combinations}{cc_graph}(in_graph)
+\S4method{annotation_combinations}{cc_graph}(object)
 }
 \arguments{
-\item{in_graph}{the \linkS4class{cc_graph} to work on}
+\item{object}{the \linkS4class{cc_graph} to work on}
 }
 \value{
 node_assignment

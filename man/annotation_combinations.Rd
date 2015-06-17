@@ -4,7 +4,7 @@
 \alias{annotation_combinations}
 \title{unique annotation combinations}
 \usage{
-annotation_combinations(in_graph)
+annotation_combinations(object)
 }
 \description{
 unique annotation combinations
