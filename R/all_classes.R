@@ -260,7 +260,7 @@ combined_statistics <- setClass("combined_statistics",
 #' @exportMethod show
 setMethod("show", signature = list(object = "combined_statistics"),
           function(object){
-            print(object@significant_annotations)
+            print(object@significant)
           })
 
 #' combined enrichments
