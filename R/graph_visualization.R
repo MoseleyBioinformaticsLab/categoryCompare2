@@ -23,12 +23,20 @@ setMethod("annotation_combinations",
 #' @return node_assignment
 #' @exportMethod annotation_combinations
 setMethod("annotation_combinations", 
-          signature = list(object = "combined_statistics"),
-          function(object) .annotation_combinations(object@significant@significant))
+          signature = list(object = "significant_annotations"),
+          function(object) .annotation_combinations(object@significant))
 
 .annotation_combinations <- function(sig_matrix){
   
   unique_combinations <- unique(sig_matrix)
+  
+  # after generating the unique_combinations, we then want them ordered such
+  # that a FALSE, FALSE, ... would be last, because this is often not that
+  # interesting. This does that.
+  n_col <- ncol(unique_combinations)
+  uniq_order <- do.call(order, c(lapply(1:n_col), function(i) unique_combinations[, i]), decreasing=TRUE)
+  unique_combinations <- unique_combinations[uniq_order, ]
+  
   name_combinations <- paste("G", seq(1, nrow(unique_combinations)), sep = "")
   
   rownames(unique_combinations) <- name_combinations
