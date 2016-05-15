@@ -1,12 +1,3 @@
-[![Bioconductor Time](http://bioconductor.org/shields/years-in-bioc/categoryCompare2.svg)](http://bioconductor.org/packages/release/bioc/html/categoryCompare2.html "Bioconductor status")
-
-[![Bioconductor Availability](http://bioconductor.org/shields/availability/release/categoryCompare2.svg)](http://bioconductor.org/packages/release/bioc/html/categoryCompare2.html#archives "Platform availability") 
-[![Bioconductor Downloads](http://bioconductor.org/shields/downloads/categoryCompare2.svg)](http://bioconductor.org/packages/stats/bioc/categoryCompare2.html "Percentile downloads")
-[![Bioconductor Commits](http://bioconductor.org/shields/commits/bioc/categoryCompare2.svg)](http://bioconductor.org/packages/release/bioc/html/categoryCompare2.html#svn_source "svn commits")
-[![Support posts](http://bioconductor.org/shields/posts/categoryCompare2.svg)](https://support.bioconductor.org/t/categorycompare2/ "Bioconductor support posts")
-
-[![Build Status](https://travis-ci.org/rmflight/categoryCompare2.svg?branch=master)](https://travis-ci.org/rmflight/categoryCompare2 "travis build status") [![Bioconductor Release Build](http://bioconductor.org/shields/build/release/bioc/categoryCompare.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/categoryCompare2/ "Bioconductor release build") [![Bioconductor Devel Build](http://bioconductor.org/shields/build/devel/bioc/categoryCompare2.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/categoryCompare2/ "Bioconductor devel build")
-
 # categoryCompare2
 
 A Bioconductor package for meta analysis of high-throughput datasets using 
@@ -29,7 +20,7 @@ package.
 ```r
 install.packages("devtools")
 library(devtools)
-install_github("categoryCompare2", "rmflight")
+install_github("rmflight/categoryCompare2@emma_adams_phd_thesis")
 ```
 
 [vignLink]: http://rmflight.github.io/categoryCompare/index.html "categoryCompare Vignette"
