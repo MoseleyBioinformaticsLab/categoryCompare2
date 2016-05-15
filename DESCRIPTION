@@ -1,23 +1,44 @@
 Package: categoryCompare2
 Version: 0.99.158
 Title: Meta-analysis of high-throughput experiments using feature
-        annotations
+    annotations
 Author: Robert M. Flight <rflight79@gmail.com>
 Maintainer: Robert M. Flight <rflight79@gmail.com>
 URL: https://github.com/rmflight/categoryCompare2
 BugReports: https://github.com/rmflight/categoryCompare2/issues
 License: GPL-2
-Depends: R (>= 3.1.0), Biobase, BiocGenerics
-Suggests: knitr, methods, GO.db, estrogen, org.Hs.eg.db, hgu95av2.db,
-        limma, affy, genefilter, testthat
-Imports: AnnotationDbi, hwriter, GSEABase, Category, GOstats, annotate,
-        colorspace, graph, RCytoscape (>= 1.5.11)
+Depends:
+    R (>= 3.1.0),
+    Biobase,
+    BiocGenerics
+Suggests:
+    knitr,
+    methods,
+    GO.db,
+    estrogen,
+    org.Hs.eg.db,
+    hgu95av2.db,
+    limma,
+    affy,
+    genefilter,
+    testthat
+Imports:
+    AnnotationDbi,
+    hwriter,
+    GSEABase,
+    Category,
+    GOstats,
+    annotate,
+    colorspace,
+    graph,
+    RCytoscape (>= 1.5.11)
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
-        (categories) generated on one or more feature lists.
-        Interactive exploration is facilitated through the use of
-        RCytoscape (heavily suggested).
+    (categories) generated on one or more feature lists.
+    Interactive exploration is facilitated through the use of
+    RCytoscape (heavily suggested).
 SystemRequirements: Cytoscape (>= 2.8.0) (if used for visualization of
-        results, heavily suggested), CytoscapeRPC plugin (>= 1.8)
+    results, heavily suggested), CytoscapeRPC plugin (>= 1.8)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

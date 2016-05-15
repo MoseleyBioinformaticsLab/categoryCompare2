@@ -16,10 +16,11 @@ setClass("hypergeom_features",
 #' 
 #' @param hypergeom_features a hypergeometric_features object
 #' @param direction which direction to do the enrichment (over or under)
+#' @param p_adjust how to correct the p-values (default is "none")
 #' @export
 #' @return enriched_result
 #' 
-hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "over"){
+hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "over", p_adjust = "none"){
   
   # cleanup the features and annotations (should be in separate function)
   hypergeom_features@universe <- unique(hypergeom_features@universe)
@@ -67,6 +68,7 @@ hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "o
   hyper_stats <- hypergeometric_basic(num_white, num_black, num_drawn, num_white_drawn, direction)
   
   hyper_stats$counts <- num_white_drawn[names(hyper_stats$p)]
+  hyper_stats$padjust <- p.adjust(hyper_stats$p, p_adjust)
   
   out_stats <- new("statistical_results",
                    statistic_data = hyper_stats,
