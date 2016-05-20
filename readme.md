@@ -3,30 +3,11 @@
 A Bioconductor package for meta analysis of high-throughput datasets using 
 enriched feature annotations instead of just the features themselves.
 
-Note that this is a rewrite of the categoryCompare package. As of May 28, it is still only available from Github, but is expected to be part of the Fall 2015 Bioconductor (3.2) release.
+Note that this is a rewrite of the categoryCompare package. As of May 28, it is still only available from Github, but is expected to eventually be part of `Bioconductor`.
 
-See the "Description" file for additional requirements.
+# Emma Adam
 
-## Documentation
+This is the specific version of the package that was used to generate the results
+reported in the PhD thesis of Emma Adam. 
 
-The [Vignette][vignLink] provides a description of the thinking behind
-this package as well as a toy example for demonstration purposes.
-
-## Installation
-
-Installation of this package from Github requires the [devtools][devtoolsLink]
-package.
-
-```r
-install.packages("devtools")
-library(devtools)
-install_github("rmflight/categoryCompare2@emma_adams_phd_thesis")
-```
-
-[vignLink]: http://rmflight.github.io/categoryCompare/index.html "categoryCompare Vignette"
-[devtoolsLink]: https://github.com/hadley/devtools "devtools"
-
-## Citation
-
-Flight RM, Harrison BJ, Mohammad F, Bunge MB, Moon LDF, Petruska JC and Rouchka EC (2014). .CATEGORYCOMPARE, an analytical tool based on feature annotations.
-_Frontiers in Genetics_. [link](http://dx.doi.org/10.3389/fgene.2014.00098)
+This package is also archived on [Figshare](https://dx.doi.org/10.6084/m9.figshare.3381253.v1)
