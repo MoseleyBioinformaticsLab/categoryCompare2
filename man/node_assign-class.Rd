@@ -16,6 +16,8 @@ assignment of the nodes to those combinations for use in visualization.
 
 \item{\code{assignments}}{named character vector providing association with groups}
 
+\item{\code{description}}{named character vector providing a description to group}
+
 \item{\code{colors}}{named character vector of hex colors for groups or experiments}
 
 \item{\code{color_type}}{whether doing group or experiment based colors}
