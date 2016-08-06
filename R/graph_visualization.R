@@ -193,6 +193,13 @@ generate_piecharts <- function(grp_matrix, use_color){
     par(mai = c(0, 0, 0, 0))
     pie(pie_area, col = tmp_color, clockwise = TRUE)
     dev.off()
+    
+    if (Sys.info()['sysname'] == "Windows") {
+      out_file <- gsub("\\", "/", out_file, fixed = TRUE)
+      out_file <- paste0("file:///", out_file)
+    } else {
+      out_file <- paste0("file://localhost", out_file)
+    }
     out_file
   })
   return(piecharts)
@@ -230,7 +237,7 @@ vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
   } else if (in_assign@color_type == "pie"){
     pie_images <- in_assign@pie_locs[in_assign@assignments]
     names(pie_images) <- NULL
-    pie_images <- paste("file://localhost", pie_images, sep = "")
+    #pie_images <- paste("file://localhost", pie_images, sep = "")
     setNodeImageDirect(cyt_window, names(in_assign@assignments), pie_images)
     setDefaultNodeColor(cyt_window, 'transparent')
     setNodeOpacityDirect(cyt_window, names(in_assign@assignments), 0)
