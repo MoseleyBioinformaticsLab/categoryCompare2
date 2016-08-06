@@ -45,16 +45,32 @@ setMethod("annotation_combinations",
 
   rownames(unique_combinations) <- name_combinations
 
+  # also generate a textual description of each group that can be added 
+  # to the graph visualization
+  tmp_names <- colnames(unique_combinations)
+  group_description <- vapply(rownames(unique_combinations), function(in_comb){
+    use_comb <- unique_combinations[in_comb, ]
+    paste(tmp_names[use_comb], collapse = ",")
+  }, character(1))
+  
+  # initialize the things that store our assignments to GO terms
   combination_assign <- rep("G", nrow(sig_matrix))
   names(combination_assign) <- rownames(sig_matrix)
+  
+  description_assign <- rep("G", nrow(sig_matrix))
+  names(description_assign) <- rownames(sig_matrix)
 
   for (in_comb in name_combinations){
     has_match <- apply(sig_matrix, 1, function(in_sig){
       identical(in_sig, unique_combinations[in_comb, ])
     })
     combination_assign[has_match] <- in_comb
+    description_assign[has_match] <- group_description[in_comb]
   }
-  new("node_assign", groups = unique_combinations, assignments = combination_assign)
+  
+  
+  new("node_assign", groups = unique_combinations, assignments = combination_assign,
+      description = description_assign)
 }
 
 #' generate colors
