@@ -221,6 +221,35 @@ generate_piecharts <- function(grp_matrix, use_color){
   return(piecharts)
 }
 
+#' add tooltip
+#' 
+#' before passing to Cytoscape, add a tooltip attribute to the graph
+#' 
+#' @param in_graph the graph to work with
+#' @param node_data which pieces of node data to use
+#' @param description other descriptive text to use
+#' 
+#' @return the graph with a new nodeData member "tooltip"
+#' 
+add_tooltip <- function(in_graph, node_data = c("name", "description"), description){
+  use_nodes <- graph::nodes(in_graph)
+  n_nodes <- length(use_nodes)
+  tooltips <- vapply(use_nodes, function(in_node){
+    out_tooltip <- ""
+    for (i_dat in node_data) {
+      out_tooltip <- paste0(out_tooltip, graph::nodeData(in_graph, in_node, i_dat), "<br>")
+    }
+    out_tooltip <- paste0(out_tooltip, description[in_node])
+    out_tooltip
+  }, character(1))
+  
+  graph::nodeDataDefaults(in_graph, "tooltip") <- "NA"
+  attr(graph::nodeDataDefaults(in_graph, "tooltip"), "class") <- "STRING"
+  graph::nodeData(in_graph, use_nodes, "tooltip") <- tooltips
+  
+  in_graph
+}
+
 #' visualize in cytoscape
 #'
 #' given a graph, and the node assignments, visualize the graph in cytoscape
@@ -236,6 +265,7 @@ generate_piecharts <- function(grp_matrix, use_color){
 #' @return something
 vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
 
+  in_graph <- add_tooltip(in_graph, description = in_assign@description)
   # initialize and add the visual attribute so we can color according to the
   # data that lives in in_assign
   nodeDataDefaults(in_graph, "visattr") <- ""
@@ -246,6 +276,8 @@ vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
   displayGraph(cyt_window)
   setLayoutProperties(cyt_window, 'force-directed', list(edge_attribute='weight'))
   layoutNetwork(cyt_window, 'force-directed')
+  
+  setNodeTooltipRule(cyt_window, "tooltip")
 
   if (in_assign@color_type == "solid"){
     setNodeColorRule(cyt_window, "visattr", names(in_assign@colors), in_assign@colors, mode = "lookup")
@@ -260,6 +292,7 @@ vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
     setDefaultNodeShape(cyt_window, "diamond")
     redraw(cyt_window)
   }
+  
   return(cyt_window)
 }
 
