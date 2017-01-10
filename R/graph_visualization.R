@@ -468,5 +468,21 @@ graph_to_visnetwork <- function(in_graph, in_assign, use_nodes = NULL){
   return(list(graph = out_graph, nodes = g_nodes, edges = g_edges))
 }
 
-
+#' assign communities
+#' 
+#' given a \code{cc_graph}, find communities of nodes based on their connectivity
+#' and weights. 
+#' 
+#' @param in_graph the \code{cc_graph} object to use
+#' 
+#' @importFrom igraph igraph.from.graphnel cluster_walktrap membership
+#' @export
+#' 
+#' @return list
+assign_communities <- function(in_graph){
+  igraph_graph <- igraph::igraph.from.graphNEL(in_graph)
+  walk_membership <- igraph::cluster_walktrap(igraph_graph)
+  walk_communities <- igraph::membership(walk_membership)
+  split(names(walk_communities), walk_communities)
+}
 
