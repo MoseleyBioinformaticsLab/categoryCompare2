@@ -417,13 +417,15 @@ base64_encode_images <- function(in_assign){
 #' @export
 #' @return list
 graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, use_nodes = NULL){
-  in_graph <- add_tooltip(in_graph, description = in_assign@description)
-  in_nodes <- graph::nodes(in_graph)
+  in_graph <- categoryCompare2:::add_tooltip(in_graph, description = in_assign@description)
+  graph_nodes <- graph::nodes(in_graph)
   edge_list <- graph::edgeMatrix(in_graph)
   edge_weight <- unlist(graph::edgeData(in_graph, , , "weight"))
   
   if (is.null(use_nodes)) {
-    use_nodes <- in_nodes
+    use_nodes <- graph_nodes
+  } else {
+    use_nodes <- intersect(use_nodes, graph_nodes)
   }
   
   if (!is.null(node_communities)) {
@@ -431,8 +433,8 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
     use_nodes <- intersect(use_nodes, comm_nodes)
   }
   
-  from_list <- use_nodes[edge_list["from", ]]
-  to_list <- use_nodes[edge_list["to", ]]
+  from_list <- graph_nodes[edge_list["from", ]]
+  to_list <- graph_nodes[edge_list["to", ]]
   
   #in_nodes <- intersect(in_nodes, use_nodes)
   from_to <- data.frame(from = from_list, to = to_list)
@@ -462,7 +464,11 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
     }
   }
   
-  g_nodes$tooltip <- g_nodes$title <- graph::nodeData(in_graph, use_nodes, "tooltip")
+  for (inode in g_nodes$label) {
+    which_node <- which(g_nodes$label %in% inode)
+    g_nodes[which_node, "tooltip"] <- g_nodes[which_node, "title"] <- graph::nodeData(in_graph, inode, "tooltip")[[1]]
+  }
+  
   
   if (!is.null(node_communities)) {
     g_nodes$community <- ""
@@ -588,3 +594,25 @@ label_communities <- function(community_defs){
   
   
 }
+
+
+#' vis in visNetwork
+#' 
+#' Visualize a \code{cc_graph} in \code{visNetwork}, with selection for communities
+#' if that exists.
+#' 
+#' @param in_graph_info the graph structure from \code{graph_to_visnetwork}
+#' 
+#' @export
+#' @return NULL
+vis_visnetwork <- function(in_graph_info){
+  if (!is.null(in_graph_info$nodes$community)) {
+    visNetwork::visOptions(visNetwork::visNetwork(edges = in_graph_info$edges,
+                                                  nodes = in_graph_info$nodes),
+                           selectedBy = "community")
+  } else {
+    visNetwork::visNetwork(edges = in_graph_info$edges,
+                           nodes = in_graph_info$nodes)
+  }
+}
+
