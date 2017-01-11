@@ -475,14 +475,54 @@ graph_to_visnetwork <- function(in_graph, in_assign, use_nodes = NULL){
 #' 
 #' @param in_graph the \code{cc_graph} object to use
 #' 
-#' @importFrom igraph igraph.from.graphnel cluster_walktrap membership
+#' @importFrom igraph graph_from_graphnel cluster_walktrap membership
 #' @export
 #' 
 #' @return list
 assign_communities <- function(in_graph){
-  igraph_graph <- igraph::igraph.from.graphNEL(in_graph)
+  igraph_graph <- igraph::graph_from_graphnel(in_graph)
   walk_membership <- igraph::cluster_walktrap(igraph_graph)
   walk_communities <- igraph::membership(walk_membership)
   split(names(walk_communities), walk_communities)
 }
+
+#' GO children
+#' 
+#' counts all of the children for particular set of GO terms.
+#' 
+#' @param go_terms
+#' @param which_go which Gene Ontology should be used?
+#' 
+#' @import GO.db
+#' @export
+#' @return numeric
+count_go_children <- function(go_terms, which_go = c("BP", "MF", "CC")){
+  go_list <- list()
+  
+  if ("BP" %in% which_go) {
+    go_list <- c(go_list, as.list(GOBPOFFSPRING))
+  }
+  if ("MF" %in% which_go) {
+    go_list <- c(go_list, as.list(GOMFOFFSPRING))
+  }
+  if ("CC" %in% which_go) {
+    go_list <- c(go_list, as.list(GOCCOFFSPRING))
+  }
+  
+  go_list <- go_list[intersect(go_terms, names(go_list))]
+  
+  if (length(go_list) > 0) {
+    go_counts <- vapply(go_list, function(in_list){
+      in_list <- unique(in_list)
+      length(in_list)
+    }, numeric(1))
+  } else {
+    go_counts <- NA
+  }
+  go_counts
+}
+
+#' name communities
+#' 
+#' determine the names of communities by deciding on the most generic
 
