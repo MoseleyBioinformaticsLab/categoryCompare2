@@ -182,6 +182,18 @@ bp_assign <- assign_colors(bp_assign)
 We can use the `DiagrammeR` and `visNetwork` html widgets to create interactive
 visualizations either in the `RStudio` viewer, or as panes in the html report.
 
+### Find Communities
+
+It is useful to define the annotations in terms of their **communities**. To do
+this we run methods that find and then label the communities, before generating
+the visualization and table.
+
+```{r find_communities}
+bp_communities <- assign_communities(bp_graph)
+bp_comm_labels <- label_go_communities(bp_communities)
+```
+
+
 ```{r bp_visnetwork}
 bp_vis <- graph_to_visnetwork(bp_graph, bp_assign)
 ```
