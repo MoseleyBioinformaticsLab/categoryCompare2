@@ -193,13 +193,14 @@ bp_communities <- assign_communities(bp_graph)
 bp_comm_labels <- label_go_communities(bp_communities)
 ```
 
+### Actually Visualize It!
 
 ```{r bp_visnetwork}
-bp_vis <- graph_to_visnetwork(bp_graph, bp_assign)
+bp_network <- graph_to_visnetwork(bp_graph, bp_assign, bp_comm_labels)
 ```
 
 ```{r out_vis}
-visNetwork::visNetwork(bp_vis$nodes, bp_vis$edges)
+vis_visnetwork(bp_network)
 ```
 
 
