@@ -483,14 +483,16 @@ assign_communities <- function(in_graph){
   igraph_graph <- igraph::graph_from_graphnel(in_graph)
   walk_membership <- igraph::cluster_walktrap(igraph_graph)
   walk_communities <- igraph::membership(walk_membership)
-  split(names(walk_communities), walk_communities)
+  split_comms <- split(names(walk_communities), walk_communities)
+  names(split_comms) <- NULL
+  split_comms
 }
 
 #' GO children
 #' 
 #' counts all of the children for particular set of GO terms.
 #' 
-#' @param go_terms
+#' @param go_terms the terms to do counting on
 #' @param which_go which Gene Ontology should be used?
 #' 
 #' @import GO.db
@@ -500,13 +502,13 @@ count_go_children <- function(go_terms, which_go = c("BP", "MF", "CC")){
   go_list <- list()
   
   if ("BP" %in% which_go) {
-    go_list <- c(go_list, as.list(GOBPOFFSPRING))
+    go_list <- c(go_list, AnnotationDbi::as.list(GOBPOFFSPRING))
   }
   if ("MF" %in% which_go) {
-    go_list <- c(go_list, as.list(GOMFOFFSPRING))
+    go_list <- c(go_list, AnnotationDbi::as.list(GOMFOFFSPRING))
   }
   if ("CC" %in% which_go) {
-    go_list <- c(go_list, as.list(GOCCOFFSPRING))
+    go_list <- c(go_list, AnnotationDbi::as.list(GOCCOFFSPRING))
   }
   
   go_list <- go_list[intersect(go_terms, names(go_list))]
