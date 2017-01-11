@@ -524,7 +524,37 @@ count_go_children <- function(go_terms, which_go = c("BP", "MF", "CC")){
   go_counts
 }
 
-#' name communities
+#' name GO communities
 #' 
-#' determine the names of communities by deciding on the most generic
+#' determine the names of Gene Ontology communities by deciding on the most generic
+#' GO terms in each community.
+#' 
+#' @param community_defs list of GO communities (from \code{assign_communities})
+#' 
+#' @export
+#' @return list
+name_go_communities <- function(community_defs){
+  n_members <- vapply(community_defs, length, numeric(1))
+  
+  community_defs <- community_defs[n_members > 1]
+  
+  all_go <- unique(unlist(community_defs))
+  
+  go_counts <- count_go_children(all_go)
+  
+  get_rep_go <- lapply(community_defs, function(in_def){
+    def_counts <- go_counts[names(go_counts) %in% in_def]
+    max_go <- names(def_counts)[which.max(def_counts)]
+    max_go
+  })
+  
+  community_info <- lapply(seq(1, length(community_defs)), function(i_def){
+    list(rep_go = get_rep_go[[i_def]],
+         rep_name = Term(GOTERM[[get_rep_go[[i_def]]]]),
+         members = community_defs[[i_def]])
+  })
+  
+  community_info
+}
+
 
