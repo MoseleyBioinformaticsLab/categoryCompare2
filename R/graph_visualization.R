@@ -524,19 +524,21 @@ count_go_children <- function(go_terms, which_go = c("BP", "MF", "CC")){
   go_counts
 }
 
-#' name GO communities
+#' label GO communities
 #' 
-#' determine the names of Gene Ontology communities by deciding on the most generic
+#' determine the labels of Gene Ontology communities by deciding on the most generic
 #' GO terms in each community.
 #' 
 #' @param community_defs list of GO communities (from \code{assign_communities})
 #' 
 #' @export
 #' @return list
-name_go_communities <- function(community_defs){
+label_go_communities <- function(community_defs){
   n_members <- vapply(community_defs, length, numeric(1))
   
   community_defs <- community_defs[n_members > 1]
+  n_members <- n_members[n_members > 1]
+  community_defs <- community_defs[order(n_members, decreasing = TRUE)]
   
   all_go <- unique(unlist(community_defs))
   
@@ -557,4 +559,16 @@ name_go_communities <- function(community_defs){
   community_info
 }
 
-
+#' label communities
+#' 
+#' @param community_defs the communities from \code{assign_communities}
+#' 
+#' @export
+#' @return list
+label_communities <- function(community_defs){
+  n_members <- vapply(community_defs, length, numeric(1))
+  
+  community_defs <- community_defs[n_members > 1]
+  
+  
+}
