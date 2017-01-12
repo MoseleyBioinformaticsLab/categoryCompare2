@@ -616,3 +616,89 @@ vis_visnetwork <- function(in_graph_info){
   }
 }
 
+#' table from graph
+#' 
+#' Creates a table from the annotation graph, and if provided, adds the
+#' community information to the table.
+#' 
+#' @param in_graph the \code{cc_graph} object
+#' @param in_assign the \code{node_assign} object
+#' @param community_info the \code{community_info} object
+#' 
+#' @export
+#' @return data.frame
+table_from_graph <- function(in_graph, in_assign = NULL, community_info = NULL){
+  node_data <- graph::nodeData(in_graph, , )
+  node_data <- lapply(node_data, as.data.frame, stringsAsFactors = FALSE)
+  node_table <- do.call(rbind, node_data)
+  
+  if (!is.null(in_assign)) {
+    sig_loc <- grep("sig$", names(node_table), value = TRUE)
+    meas_loc <- grep("meas$", names(node_table), value = TRUE)
+    
+    node_table[, c(sig_loc, meas_loc)] <- NULL
+    
+    sig_group <- in_assign@description[node_table$name]
+    
+    if ("description" %in% names(node_table)) {
+      cut_table_loc <- grep("description", names(node_table))
+    } else {
+      cut_table_loc <- grep("name", names(node_table))
+    }
+    
+    tmp_table_1 <- cbind(node_table[, seq(1, cut_table_loc)], sig_group)
+    node_table_2 <- cbind(tmp_table_1, node_table[, seq(cut_table_loc + 1, ncol(node_table))])
+    
+  } else {
+    node_table_2 <- node_table
+  }
+  
+  if (!is.null(community_info)) {
+    in_members <- unique(unlist(lapply(community_info, function(x){x$members})))
+    out_members <- setdiff(node_table_2$name, in_members)
+    n_comm <- length(community_info)
+    community_info[[n_comm+1]] <- list(label = "other", members = out_members)
+    
+    null_table <- node_table_2[1, ]
+    rownames(null_table) <- NULL
+    null_table <- lapply(null_table, function(x){
+      if (is.character(x)) {
+        out_value <- ""
+      } else {
+        out_value <- as.numeric(NA)
+      }
+      out_value
+    })
+    null_table <- as.data.frame(null_table, stringsAsFactors = FALSE)
+    
+    node_table_split <- lapply(community_info, function(in_info){
+      header_table <- null_table
+      if ("description" %in% names(node_table_2)) {
+        header_table$description <- paste0("**", in_info$label, "**")
+      } else {
+        header_table$name <- in_info$label
+      }
+      tmp_table <- node_table_2[(node_table_2$name %in% in_info$members), ]
+      sort_cols <- character(0)
+      if ("sig_group" %in% names(tmp_table)) {
+        sort_cols <- c(sort_cols, "sig_group")
+      } else if (length(grep("padjust$", names(tmp_table))) != 0) {
+        padjust_cols <- grep("padjust$", names(tmp_table), value = TRUE)
+        sort_cols <- c(sort_cols, padjust_cols)
+      }
+      
+      if (length(sort_cols) > 0) {
+        tmp_table <- dplyr::arrange_(tmp_table, sort_cols)
+      }
+      
+      out_table <- rbind(header_table, tmp_table)
+      rownames(out_table) <- NULL
+      out_table
+    })
+    out_node_table <- do.call(rbind, node_table_split)
+  } else {
+    out_node_table <- node_table_2
+  }
+  out_node_table
+}
+
