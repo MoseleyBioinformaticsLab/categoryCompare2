@@ -193,6 +193,18 @@ bp_communities <- assign_communities(bp_graph)
 bp_comm_labels <- label_go_communities(bp_communities)
 ```
 
+### Create Stats Table
+
+To provide a list of which GO terms are in each of the communities we found,
+lets generate a table, with the community labels so it makes it easier to find 
+them in the graph if desired.
+
+```{r stats_table}
+bp_table <- table_from_graph(bp_graph, bp_assign, bp_comm_labels)
+knitr::kable(bp_table)
+```
+
+
 ### Actually Visualize It!
 
 ```{r bp_visnetwork}
