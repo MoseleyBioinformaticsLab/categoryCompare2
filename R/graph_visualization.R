@@ -657,7 +657,7 @@ table_from_graph <- function(in_graph, in_assign = NULL, community_info = NULL){
     in_members <- unique(unlist(lapply(community_info, function(x){x$members})))
     out_members <- setdiff(node_table_2$name, in_members)
     n_comm <- length(community_info)
-    community_info[[n_comm+1]] <- list(label = "other", members = out_members)
+    community_info[[n_comm + 1]] <- list(label = "other", members = out_members)
     
     null_table <- node_table_2[1, ]
     rownames(null_table) <- NULL
