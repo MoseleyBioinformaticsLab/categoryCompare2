@@ -216,7 +216,25 @@ vis_visnetwork(bp_network)
 ```
 
 
-```{r bp_legend, eval = FALSE}
-generate_legend(bp_assign)
+```{r bp_legend, echo = FALSE, results='asis'}
+generate_legend(bp_assign, img = TRUE)
+```
+
+```{r}
+annotation_table <- annotation_gene_table(bp_combined, graph::nodes(bp_graph))
+```
+
+We will show the table that is generated here for the first 3 GO terms.
+
+This one is not run, below you find the table.
+
+```{r out_example, eval = FALSE}
+kable_annotation_table(annotation_table, header = 4)
+csv_annotation_table(annotation_table, out_file = "bp_annotations.csv")
+```
+
+
+```{r out_table1, results='asis', echo=FALSE}
+kable_annotation_table(annotation_table[1:3], header_level = 4)
 ```
 

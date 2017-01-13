@@ -4,12 +4,15 @@
 \alias{generate_legend}
 \title{generate a legend}
 \usage{
-generate_legend(in_assign, upper_names = TRUE)
+generate_legend(in_assign, upper_names = TRUE, img = FALSE, width = 800,
+  height = 400, pointsize = 70)
 }
 \arguments{
 \item{in_assign}{the assign object from \code{annotation_combinations}}
 
 \item{upper_names}{whether to make names uppercase for easier viewing}
+
+\item{img}{should a base64 encoded data uri be returned for embedding?}
 }
 \description{
 it often helps to have a legend displayed for reference.
