@@ -370,10 +370,15 @@ setMethod("remove_edges", signature=list(edge_obj="cc_graph", cutoff="numeric"),
 #'
 #' @param in_assign the assign object from \code{annotation_combinations}
 #' @param upper_names whether to make names uppercase for easier viewing
+#' @param img should a base64 encoded data uri be returned for embedding?
+#' @param width how wide should the image be if saving to an image
+#' @param height how high should it be
+#' @param pointsize the pointsize parameter for Cairo, determines textsize in the image
 #'
 #' @return NULL
 #' @export
-generate_legend <- function(in_assign, upper_names = TRUE){
+generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
+                            width = 800, height = 400, pointsize = 70){
   if (in_assign@color_type == "pie") {
     use_color <- in_assign@colors
     n_color <- length(use_color)
@@ -386,8 +391,19 @@ generate_legend <- function(in_assign, upper_names = TRUE){
       use_labels <- toupper(use_labels)
     }
 
-    par(mai = c(0, 0, 0, 0))
-    pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
+    if (!img) {
+      par(mai = c(0, 0, 0, 0), ps = 40)
+      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
+    } else {
+      out_file <- tempfile(pattern = "legendfile", fileext = ".png")
+      CairoPNG(file = out_file, bg = "white", width = width, height = height, pointsize = pointsize)
+      par(mai = c(0, 0, 0, 0))
+      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
+      dev.off()
+      base64_encode <- base64enc::dataURI(file = out_file)
+      base64_encode <- sub("data:", "data:image/png", base64_encode, fixed = TRUE)
+      cat(paste0('<img src="', base64_encode, '", width="200px">'))
+    }
   }
 }
 
