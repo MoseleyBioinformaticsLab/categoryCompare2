@@ -16,4 +16,3 @@ list
 given a \code{cc_graph}, find communities of nodes based on their connectivity
 and weights.
 }
-

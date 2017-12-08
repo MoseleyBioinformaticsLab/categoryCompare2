@@ -20,4 +20,3 @@ data.frame
 Creates a table from the annotation graph, and if provided, adds the
 community information to the table.
 }
-

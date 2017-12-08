@@ -24,4 +24,3 @@ Does sensical checks when creating an \linkS4class{annotation} object.
 \details{
 See the \linkS4class{annotation}, each slot is a parameter.
 }
-

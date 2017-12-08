@@ -13,8 +13,13 @@ generate_legend(in_assign, upper_names = TRUE, img = FALSE, width = 800,
 \item{upper_names}{whether to make names uppercase for easier viewing}
 
 \item{img}{should a base64 encoded data uri be returned for embedding?}
+
+\item{width}{how wide should the image be if saving to an image}
+
+\item{height}{how high should it be}
+
+\item{pointsize}{the pointsize parameter for Cairo, determines textsize in the image}
 }
 \description{
 it often helps to have a legend displayed for reference.
 }
-

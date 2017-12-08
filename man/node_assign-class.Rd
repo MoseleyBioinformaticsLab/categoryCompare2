@@ -2,8 +2,8 @@
 % Please edit documentation in R/all_classes.R
 \docType{class}
 \name{node_assign-class}
-\alias{node_assign}
 \alias{node_assign-class}
+\alias{node_assign}
 \title{node_assign}
 \description{
 The \code{node_assign} class holds the unique annotation combinations and the

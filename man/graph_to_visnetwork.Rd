@@ -23,4 +23,3 @@ list
 takes a \code{cc_graph} object and transforms it into something that can
 be visualized using \code{visNetwork}
 }
-

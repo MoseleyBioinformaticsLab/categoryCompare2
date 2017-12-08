@@ -13,4 +13,3 @@ vis_visnetwork(in_graph_info)
 Visualize a \code{cc_graph} in \code{visNetwork}, with selection for communities
 if that exists.
 }
-

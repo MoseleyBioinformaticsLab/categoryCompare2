@@ -18,4 +18,3 @@ cc_graph
 If a graph has already been generated, it may be faster to filter a previously
 generated one than generate a new one from significant data.
 }
-

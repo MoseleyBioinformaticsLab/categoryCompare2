@@ -26,4 +26,3 @@ the \code{link_type} controls whether to create an "explicit" link
   that is part of the \code{@name} column in the returned data.frame. Useful
   if you are embedding the data.frame in an html report.
 }
-

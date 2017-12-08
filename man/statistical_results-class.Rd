@@ -2,8 +2,8 @@
 % Please edit documentation in R/all_classes.R
 \docType{class}
 \name{statistical_results-class}
-\alias{statistical_results}
 \alias{statistical_results-class}
+\alias{statistical_results}
 \title{statistical results class}
 \description{
 This class holds the part of an enrichment that is the statistical results.

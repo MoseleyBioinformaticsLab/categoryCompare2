@@ -10,4 +10,3 @@ generate_annotation_graph(comb_enrichment, annotation_similarity = "combined",
 \description{
 generate annotation graph
 }
-

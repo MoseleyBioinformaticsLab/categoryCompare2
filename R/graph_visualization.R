@@ -260,7 +260,7 @@ add_tooltip <- function(in_graph, node_data = c("name", "description"), descript
 #' @param description something descriptive about the vis (useful when lots of different visualizations)
 #' @param ... other parameters for \code{CytoscapeWindow}
 #'
-#' @import RCytoscape
+#' @import RCy3
 #' @export
 #' @return something
 vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
@@ -513,12 +513,12 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
 #' 
 #' @param in_graph the \code{cc_graph} object to use
 #' 
-#' @importFrom igraph graph_from_graphnel cluster_walktrap membership
+#' @importFrom igraph cluster_walktrap membership
 #' @export
 #' 
 #' @return list
 assign_communities <- function(in_graph){
-  igraph_graph <- igraph::graph_from_graphnel(in_graph)
+  igraph_graph <- igraph:::graph_from_graphnel(in_graph)
   walk_membership <- igraph::cluster_walktrap(igraph_graph)
   walk_communities <- igraph::membership(walk_membership)
   split_comms <- split(names(walk_communities), walk_communities)

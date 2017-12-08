@@ -9,4 +9,3 @@ extract_statistics(in_results)
 \description{
 get statistics
 }
-

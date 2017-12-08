@@ -17,4 +17,3 @@ double
 \description{
 takes an average of the \code{overlap} and \code{jaccard} coefficients
 }
-

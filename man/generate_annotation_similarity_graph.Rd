@@ -19,4 +19,3 @@ cc_graph
 given an annotation-feature list, generate a similarity graph between all of 
 the annotations
 }
-

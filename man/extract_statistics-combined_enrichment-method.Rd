@@ -19,4 +19,3 @@ create a \linkS4class{combined_statistics} where each statistic from the underly
 \linkS4class{statistical_results} object in each of the enrichments
 is named according to which enrichment it was in and what statistic it was.
 }
-

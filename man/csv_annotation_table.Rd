@@ -14,4 +14,3 @@ csv_annotation_table(annotation_gene_table, out_file = NULL)
 \description{
 print the annotation gene table to a CSV file
 }
-

@@ -18,4 +18,3 @@ extract all statistics for a \linkS4class{statistical_results} object. These
 can then be combined into a \code{data.frame} that can be returned or used
 to annotate the graph of annotations.
 }
-

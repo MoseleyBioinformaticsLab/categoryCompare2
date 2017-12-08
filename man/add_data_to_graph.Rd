@@ -19,4 +19,3 @@ given the annotation_graph and a data.frame, add all of the data in the data.fra
 to the graph so it is available elsewhere. Note that for NA integer and numerics,
 the value is modified to -100, and for infinite values, it is modified to 1e100.
 }
-

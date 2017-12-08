@@ -20,4 +20,3 @@ of different enrichment analyses. To facilitate that, we must first
 \strong{combine} one (really, we can do this with a single) or more 
 \linkS4class{enriched_results}
 }
-

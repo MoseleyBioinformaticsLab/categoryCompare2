@@ -23,4 +23,3 @@ cc_graph
 \description{
 remove graph edges
 }
-

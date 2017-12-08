@@ -20,4 +20,3 @@ calculates the similarity using the "overlap" coefficient, which is
 \details{
 length(intersect(n1, n2)) / length(union(n1, n2))
 }
-

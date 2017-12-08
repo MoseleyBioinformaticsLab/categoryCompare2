@@ -2,8 +2,8 @@
 % Please edit documentation in R/all_classes.R
 \docType{class}
 \name{combined_enrichment-class}
-\alias{combined_enrichment}
 \alias{combined_enrichment-class}
+\alias{combined_enrichment}
 \title{combined enrichments}
 \description{
 The \code{combined_enrichment} class holds the results of combining several 

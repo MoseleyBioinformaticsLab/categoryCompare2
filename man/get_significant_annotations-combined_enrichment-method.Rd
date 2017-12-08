@@ -24,4 +24,3 @@ together so we can start doing real meta-analysis.
 Note that this function returns the original \linkS4class{combined_enrichment} object with a modified
 \linkS4class{combined_statistics} slot where the significant annotations have been added in.
 }
-

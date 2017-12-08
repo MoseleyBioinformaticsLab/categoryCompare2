@@ -20,4 +20,3 @@ enriched_result
 \description{
 do hypergeometric enrichment
 }
-

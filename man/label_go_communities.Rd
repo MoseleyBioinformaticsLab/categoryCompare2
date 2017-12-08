@@ -16,4 +16,3 @@ list
 determine the labels of Gene Ontology communities by deciding on the most generic
 GO terms in each community.
 }
-

@@ -21,4 +21,3 @@ that will be used as glyphs in Cytoscape
 \details{
 this should \emph{not be exported in the final version}
 }
-

@@ -17,4 +17,3 @@ numeric
 \description{
 counts all of the children for particular set of GO terms.
 }
-

@@ -18,4 +18,3 @@ Takes multiple \linkS4class{annotation} objects and combines them so that there
 is a consistent sole set for creating the \code{annotation_graph} and providing
 other information about each annotation entry.
 }
-

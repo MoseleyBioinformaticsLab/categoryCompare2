@@ -15,4 +15,3 @@ character
 \description{
 given a named vector of links, generate an actual html link formatted for output in html documents
 }
-

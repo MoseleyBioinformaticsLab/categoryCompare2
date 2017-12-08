@@ -19,4 +19,3 @@ the graph with a new nodeData member "tooltip"
 \description{
 before passing to Cytoscape, add a tooltip attribute to the graph
 }
-

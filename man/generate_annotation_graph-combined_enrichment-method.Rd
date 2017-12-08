@@ -23,4 +23,3 @@
 \description{
 given a \linkS4class{combined_enrichment}, generate the annotation similarity graph
 }
-

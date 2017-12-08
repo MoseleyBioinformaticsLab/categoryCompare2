@@ -21,4 +21,3 @@ based on whether the parallel package is loaded and options(mc.cores) is not 1,
 passes data on to the base lapply or the mclapply function, and returns
 the results.
 }
-

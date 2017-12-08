@@ -24,4 +24,3 @@ nothing
 given a \linkS4class{CytoscapeWindowClass}, remove edges according to provided
 values.
 }
-

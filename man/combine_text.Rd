@@ -20,4 +20,3 @@ in the final object, either get the character string from the list that has
 the names, or check that the character string is the same across all of the
 lists.
 }
-

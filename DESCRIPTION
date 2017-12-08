@@ -31,14 +31,15 @@ Imports:
     annotate,
     colorspace,
     graph,
-    RCytoscape (>= 1.5.11)
+    RCy3,
+    igraph
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
     (categories) generated on one or more feature lists.
     Interactive exploration is facilitated through the use of
     RCytoscape (heavily suggested).
-SystemRequirements: Cytoscape (>= 2.8.0) (if used for visualization of
-    results, heavily suggested), CytoscapeRPC plugin (>= 1.8)
+SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
+    results, heavily suggested)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

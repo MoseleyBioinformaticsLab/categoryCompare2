@@ -22,4 +22,3 @@ something
 given a graph, and the node assignments, visualize the graph in cytoscape
 for manipulation
 }
-

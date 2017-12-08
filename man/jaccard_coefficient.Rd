@@ -21,4 +21,3 @@ defined as:
 \details{
 length(intersect(n1, n2)) / min(c(length(n1), length(n2)))
 }
-

@@ -17,4 +17,3 @@ character
 \description{
 print the annotation gene table in \code{knitr::kable} format
 }
-

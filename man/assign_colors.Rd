@@ -18,4 +18,3 @@ node_assign with colors
 given a \linkS4class{node_assign}, assign colors to either the independent groups
 of unique annotations, or to each of the experiments independently.
 }
-

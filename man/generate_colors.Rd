@@ -16,4 +16,3 @@ and for \code{n_color >= 5}, the colors are re-ordered in an attempt to create
 the largest contrasts between colors, as they result from being picked on a
 circle in \emph{hcl} space.
 }
-

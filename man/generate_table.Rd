@@ -9,4 +9,3 @@ generate_table(comb_enrichment, link_type = "explicit")
 \description{
 generate statistical table
 }
-

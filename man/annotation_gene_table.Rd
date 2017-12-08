@@ -24,4 +24,3 @@ data.frame
 Creates a tabular output of annotations to genes providing lookup of which
 genes are contributing to a particular annotation.
 }
-

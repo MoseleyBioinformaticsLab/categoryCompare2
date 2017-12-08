@@ -22,4 +22,3 @@ enriched_result
 given all the slots for an \linkS4class{enriched_result}, checks that all
 the data is self-consistent, and creates the \code{enriched_result} object.
 }
-

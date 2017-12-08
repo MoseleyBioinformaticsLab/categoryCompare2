@@ -18,4 +18,3 @@ determine the unique combinations of annotations that exist in the
 significant matrix of the \linkS4class{combined_statistics} and assign each
 annotation to a group.
 }
-

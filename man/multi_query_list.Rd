@@ -19,4 +19,3 @@ Provided a list, and a condition, returns the logical indices into the named
 part of the list provided. Uses \code{subset} like non-standard evaluation
 so that we can define appropriate expressions.
 }
-

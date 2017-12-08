@@ -18,4 +18,3 @@ determine the unique combinations of annotations that exist in the
 significant matrix of the \linkS4class{cc_graph} and assign each node in the graph
 to a group.
 }
-
