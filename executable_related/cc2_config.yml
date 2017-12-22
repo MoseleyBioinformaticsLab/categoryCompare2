@@ -1,5 +1,5 @@
 genes: gene_file.json
-gene-type: ENTREZID
+geneid-type: ENTREZID
 output-directory: cc2_results
 annotations: org.Hs.eg.db
 annotation-type: BP
