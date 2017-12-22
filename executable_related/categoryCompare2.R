@@ -194,9 +194,7 @@ main <- function(script_options){
   
   combined_significant <- combined_significant_calls(combined_enrichments, significant_calls)
   
-  results_table <- combined_significant@statistics@statistic_data
-  results_table$AnnotationID <- rownames(results_table)
-  results_table$annotationDescription <- combined_significant@annotation@description[results_table$AnnotationID]
+  results_table <- generate_table(combined_significant)
   
   if (!dir.exists(script_options$`output-directory`)) {
     dir.create(script_options$`output-directory`)
