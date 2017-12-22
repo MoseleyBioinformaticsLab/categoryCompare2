@@ -1,0 +1,15 @@
+genes: gene_file.json
+gene-type: ENTREZID
+output-directory: cc2_results
+annotations: org.Hs.eg.db
+annotation-type: BP
+enrichment-test: hypergeometric
+enrichment-direction: over
+p-adjustment: BH
+p-cutoff: 0.01
+count-cutoff: 2
+graph:
+  min-edge-weight: 0.8
+  communities: TRUE
+  vis-type: pie
+  vis-engine: cytoscape
