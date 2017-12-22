@@ -11,10 +11,23 @@
 #' @return \linkS4class{combined_enrichment}
 #' @export
 setMethod("combine_enrichments", signature = "enriched_result", 
-          function(...) .combine_enrichments(...))
+          function(...) .combine_enrichments_multiple(...))
 
-.combine_enrichments <- function(...){
+setMethod("combine_enrichments", signature = "list",
+          function(...) .combine_enrichments_single(...))
+
+.combine_enrichments_multiple <- function(...){
   enriched <- list(...)
+  .combine_enrichments(enriched)
+}
+
+.combine_enrichments_single <- function(...){
+  enriched <- list(...)[[1]]
+  .combine_enrichments(enriched)
+}
+
+.combine_enrichments <- function(enriched){
+  #enriched <- list(...)
   
   all_annotation <- combine_annotations(lapply(enriched, function(x){x@annotation}))
   
