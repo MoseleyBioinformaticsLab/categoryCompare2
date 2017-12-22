@@ -4,7 +4,17 @@ Usage:
   gene_files_2_json.R [--json=<jsonfile>] [--file1=<file1>] [--file2=<file2>] [--file3=<file3>] [--file4=<file4>] [--universe=<universe>]
   gene_files_2_json.R (-h | --help)
 
-Description: Concatenates multiple gene list files into a single JSON file.
+Description: Concatenates multiple gene list files into a single JSON file. Each
+gene list will be named according to the file name that it came from. So, for example
+if you did: 
+
+./gene_files_2_json.R --file1=treatment1.txt --file2=treatment2.txt --universe=universe.txt
+
+Then there would be *treatment1*, *treatment2*, and *universe* in the JSON file
+
+Note that if *universe* is not supplied, then it will be the combination of all
+of the other gene lists supplied.
+
 Options:
   --json=<jsonfile>     The JSON file to save to [default: gene_file.json]
   --file1=<file1>       The first list of genes (optional)
