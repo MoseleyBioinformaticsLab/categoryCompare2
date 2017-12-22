@@ -141,7 +141,7 @@ main <- function(script_options){
         
         
         ann_gene_list <- split(gene_ann_map[[script_options$`geneid-type`]], gene_ann_map[["GOALL"]])
-        ann_gene_list <- purrr::map(ann_gene_list, unique)
+        ann_gene_list <- lapply(ann_gene_list, unique)
         ann_description <- suppressMessages(AnnotationDbi::select(GO.db, keys = names(ann_gene_list), columns = "TERM", keytype = "GOID")$TERM)
         names(ann_description) <- names(ann_gene_list)
         
@@ -164,7 +164,7 @@ main <- function(script_options){
   # now that we are done making annotations, can remove the universe
   gene_list$universe <- NULL
   
-  gene_enrichments <- purrr::map(gene_list, function(in_genes){
+  gene_enrichments <- lapply(gene_list, function(in_genes){
     hypergeometric_feature_enrichment(
       new("hypergeom_features", significant = in_genes,
           universe = gene_universe, annotation = annotation_obj),
