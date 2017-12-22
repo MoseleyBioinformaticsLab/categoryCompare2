@@ -6,7 +6,7 @@ annotation-type: BP
 enrichment-test: hypergeometric
 enrichment-direction: over
 p-adjustment: BH
-p-cutoff: 0.01
+p-cutoff: 0.001
 count-cutoff: 2
 graph:
   min-edge-weight: 0.8
