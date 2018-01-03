@@ -11,7 +11,8 @@
 #' @slot description character vector providing descriptive text about the annotation
 #' @slot counts numeric vector of how many features are in each annotation
 #' @slot links character vector defining html links for each annotation (may be empty)
-#' @slot type a one word short description of the "type" of annotation
+#' @slot annotation_type a one word short description of the "type" of annotation
+#' @slot feature_type a one word short description of the "type" of features
 #' 
 #' @export
 annotation <- setClass("annotation",
@@ -19,7 +20,8 @@ annotation <- setClass("annotation",
                                     description = "character",
                                     counts = "numeric",
                                     links = "character",
-                                    type = "character"))
+                                    annotation_type = "character",
+                                    feature_type = "character"))
 
 #' show annotation
 #' @exportMethod show
@@ -27,7 +29,8 @@ setMethod("show", signature = list(object = "annotation"),
           function(object){
             n_gene <- length(unique(unlist(object@annotation_features)))
             n_annot <- length(object@annotation_features)
-            cat("      Annotation Type:", object@type, "\n")
+            cat("      Annotation Type:", object@annotation_type, "\n")
+            cat("         Feature Type:", object@feature_type, "\n")
             cat("Number of Annotations:", n_annot, "\n")
             cat("      Number of Genes:", n_gene, "\n")
           })
@@ -42,13 +45,18 @@ setMethod("show", signature = list(object = "annotation"),
 #' @param description character vector providing descriptive text about the annotation
 #' @param counts numeric vector of how many features are in each annotation
 #' @param links character vector defining html links for each annotation (may be empty)
-#' @param type a one word short description of the "type" of annotation
+#' @param annotation_type a one word short description of the "type" of annotation
+#' @param feature_type one word description of the feature type
 #' 
 #' @rdname annotation_constructor
 #' @export
-annotation <- function(annotation_features, type = NULL, description = character(0), links = character(0)){
-  if (is.null(type)){
-    type <- "generic_annotation"
+annotation <- function(annotation_features, annotation_type = NULL, description = character(0), links = character(0),
+                       feature_type = NULL){
+  if (is.null(annotation_type)){
+    annotation_type <- "GENERIC"
+  }
+  if (is.null(feature_type)) {
+    feature_type <- "UNKNOWN"
   }
   
   annotation_names <- names(annotation_features)
@@ -76,7 +84,8 @@ annotation <- function(annotation_features, type = NULL, description = character
   
   new("annotation",
       annotation_features = annotation_features,
-      type = type,
+      annotation_type = annotation_type,
+      feature_type = feature_type,
       description = description,
       links = links,
       counts = counts)

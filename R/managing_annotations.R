@@ -93,7 +93,8 @@ get_db_annotation <- function(orgdb = "org.Hs.eg.db", features = NULL, feature_t
       
       annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
                                                      description = ann_description,
-                                                     type = annotation_type)
+                                                     annotation_type = annotation_type,
+                                                     feature_type = feature_type)
     } else {
       feature_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = features,
                                                                 keytype = feature_type,
@@ -102,9 +103,24 @@ get_db_annotation <- function(orgdb = "org.Hs.eg.db", features = NULL, feature_t
       ann_feature_list <- lapply(ann_feature_list, unique)
       
       annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
-                                                     type = annotation_type)
+                                                     annotation_type = annotation_type,
+                                                     feature_type = feature_type)
     }
     
   }
   annotation_obj
+}
+
+
+#' annotation to json
+#' 
+#' Given a `categoryCompare2` annotation object, generate a JSON representation
+#' that can be used with the command line executable
+#' 
+#' @param annotation_obj the annotation object
+#' 
+#' @return a json string
+#' @export
+annotation_2_json <- function(annotation_obj){
+  
 }
