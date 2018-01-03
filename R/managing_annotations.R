@@ -118,9 +118,76 @@ get_db_annotation <- function(orgdb = "org.Hs.eg.db", features = NULL, feature_t
 #' that can be used with the command line executable
 #' 
 #' @param annotation_obj the annotation object
+#' @param json_file the file to save it to
 #' 
-#' @return a json string
+#' @return the json string (invisibly)
 #' @export
-annotation_2_json <- function(annotation_obj){
+annotation_2_json <- function(annotation_obj, json_file = NULL){
+  obj_list <- purrr::map(slotNames(annotation_obj), function(x){
+    tmp_data <- slot(annotation_obj, x)
+    
+    if (length(tmp_data) != 0) {
+      if (x %in% c("description", "links")) {
+        out_data <- as.list(tmp_data)
+      } else {
+        out_data <- tmp_data
+      }
+    } else {
+      out_data <- NULL
+    }
+    out_data
+  })
+  names(obj_list) <- slotNames(annotation_obj)
   
+  obj_list <- obj_list[!purrr::map_lgl(obj_list, is.null)]
+  
+  obj_json <- jsonlite::toJSON(obj_list, pretty = TRUE, auto_unbox = TRUE)
+  if (!is.null(json_file)) {
+    cat(obj_json, file = json_file, sep = "\n")
+  } 
+  invisible(obj_json)
+}
+
+replace_null <- function(x){
+  if (is.null(x)) {
+    NA
+  } else {
+    x
+  }
+}
+
+#' json to annotation
+#' 
+#' Given a JSON based annotation object, read it in and create the `annotation`
+#' for actually doing enrichment. 
+#' 
+#' @param json_file the json annotation file
+#' 
+#' @return annotation object
+#' @export
+json_2_annotation <- function(json_file){
+  stopifnot(file.exists(json_file))
+  annotation_list <- jsonlite::fromJSON(json_file, simplifyVector = TRUE, flatten = TRUE)
+  
+  if (is.null(names(annotation_list))) {
+    annotation_list <- annotation_list[[1]]
+  }
+  
+  if (!is.null(annotation_list$description)) {
+    annotation_list$description <- purrr::map(annotation_list$description, replace_null)
+    annotation_list$description <- unlist(annotation_list$description, use.names = TRUE)
+  } else {
+    annotation_list$description <- character(0)
+  }
+  if (!is.null(annotation_list$links)) {
+    annotation_list$links <- unlist(annotation_list$links)
+  } else {
+    annotation_list$links <- character(0)
+  }
+
+  annotation(annotation_features = annotation_list$annotation_features,
+             annotation_type = annotation_list$annotation_type,
+             description = annotation_list$description,
+             links = annotation_list$links,
+             feature_type = annotation_list$feature_type)
 }
