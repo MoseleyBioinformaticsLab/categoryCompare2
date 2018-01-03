@@ -1,24 +1,22 @@
 #!/usr/bin/Rscript
 "
 Usage: 
-  categoryCompare2.R [--genes=<gene-file>] [--output-directory=<save-location>] [--annotations=<annotation-source>] [--annotation-type=<type>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--p-cutoff=<p-value cutoff>] [--count-cutoff=<min-genes>] [--graph=<use-graph>] [--graph-min-edge-weight=<weight-cutoff>] [--graph-communities=<use-communities>] [--graph-vis-type=<visual-node-type>] [--graph-vis-engine=<visualization-engine>]
+  categoryCompare2.R [--features=<feature-file>] [--output-directory=<save-location>] [--annotations=<annotation-source>] [--annotation-type=<type>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--p-cutoff=<p-value cutoff>] [--count-cutoff=<min-genes>] [--graph=<use-graph>] [--graph-min-edge-weight=<weight-cutoff>] [--graph-communities=<use-communities>] [--graph-vis-type=<visual-node-type>] [--graph-vis-engine=<visualization-engine>]
   categoryCompare2.R [--config=<config-file>]
   categoryCompare2.R [--default-config]
   categoryCompare2.R (-h | --help)
   categoryCompare2.R (-v | --version)
 
-Description: Runs categoryCompare2 on one or more gene lists. Note that there are
+Description: Runs categoryCompare2 on one or more feature lists. Note that there are
 a lot of parameters, with several defaults. See the accompanying vignette for a
 description of what each one does. The default values can be changed at the command
 line, or using a yaml config file.
 Options:
   --config=<config-file>                A YAML configuration file [default: NULL]
   --default-config                      Display a default configuration file
-  --genes=<gene-file>                   The JSON file containing the genes [default: gene_file.json]
-  --geneid-type=<type>                    What type of gene IDs are provided? [default: ENTREZID]
+  --features=<gene-file>                The JSON file containing the features (genes) [default: feature_file.json]
   --output-directory=<save-location>    Where to save the results [default: cc2_results]
-  --annotations=<annotation-source>     The annotations to use, either a file or Bioconductor DB [default: org.Hs.eg.db]
-  --annotation-type=<type>              If annotations is a Bioconductor DB, then specify the type [default: BP]
+  --annotations=<annotation-source>     The annotations to use, as a file [default: annotations.json]
   --enrichment-test=<enrichment-test>   What type of test to do [default: hypergeometric]
   --enrichment-direction=<direction>    Do you want over- or under-enrichment [default: over]
   --p-adjustment=<p-value adjustment>   What kind of p-value correction to perform [default: BH]
@@ -118,51 +116,8 @@ main <- function(script_options){
     stop("The gene list file ", script_options$genes, " does not exist. Make sure it exists on the search path!")
   }
   
-  go_types <- c("GO", "BP", "MF", "CC")
-  go_sub <- c("BP", "MF", "CC")
-  
-  # check if we are working with an organism db annotation
-  
-  if (grepl("eg.db", script_options$annotations)) {
-    if (!require(script_options$annotations, character.only = TRUE, quietly = TRUE)) {
-      stop("The package ", script_options$annotations, " is not installed/available. Try installing it with biocLite('", script_options$annotations, "')")
-    } else {
-      annotation_src <- eval(parse(text = script_options$annotations))
-      
-      if (script_options$`annotation-type` %in% go_types) {
-        suppressMessages(require("GO.db", character.only = TRUE))
-        gene_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = gene_list$universe,
-                                                               keytype = script_options$`geneid-type`,
-                                                               columns = "GOALL"))
-        
-        if (script_options$`annotation-type` %in% go_sub) {
-          gene_ann_map <- gene_ann_map[gene_ann_map$ONTOLOGYALL %in% script_options$`annotation-type`, ]
-        }
-        
-        
-        ann_gene_list <- split(gene_ann_map[[script_options$`geneid-type`]], gene_ann_map[["GOALL"]])
-        ann_gene_list <- lapply(ann_gene_list, unique)
-        ann_description <- suppressMessages(AnnotationDbi::select(GO.db, keys = names(ann_gene_list), columns = "TERM", keytype = "GOID")$TERM)
-        names(ann_description) <- names(ann_gene_list)
-        
-        if (script_options$`annotation-type` %in% "GO") {
-          go_ontology_map <- unique(gene_ann_map[, c("GOALL", "ONTOLOGYALL")])
-          go_ontology <- go_ontology_map$ONTOLOGYALL
-          names(go_ontology) <- go_ontology_map$GOALL
-          go_ontology <- go_ontology[names(ann_description)]
-          ann_description <- paste0(go_ontology, ":", ann_description)
-        }
-        
-        
-        annotation_obj <- categoryCompare2::annotation(annotation_features = ann_gene_list,
-                                                       description = ann_description,
-                                                       type = script_options$`annotation-type`)
-      }
-    }
-  }
-  
-  # now that we are done making annotations, can remove the universe
-  gene_list$universe <- NULL
+  # read in the annotations and create the annotation object
+  annotation_obj <- json_2_annotation(script_options$annotations)
   
   gene_enrichments <- lapply(gene_list, function(in_genes){
     hypergeometric_feature_enrichment(
