@@ -1,0 +1,8 @@
+features: features.json
+output-directory: cc2_results
+annotations: annotations.json
+enrichment-test: hypergeometric
+enrichment-direction: over
+p-adjustment: BH
+p-cutoff: 0.001
+count-cutoff: 2
