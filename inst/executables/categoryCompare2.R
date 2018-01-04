@@ -14,13 +14,13 @@ line, or using a yaml config file.
 Options:
   --config=<config-file>                A YAML configuration file [default: NULL]
   --default-config                      Display a default configuration file
-  --features=<feature-file>                The JSON file containing the features (genes) [default: feature_file.json]
+  --features=<feature-file>                The JSON file containing the features (genes) [default: features.json]
   --output-directory=<save-location>    Where to save the results [default: cc2_results]
   --annotations=<annotation-source>     The annotations to use, as a file [default: annotations.json]
   --enrichment-test=<enrichment-test>   What type of test to do [default: hypergeometric]
   --enrichment-direction=<direction>    Do you want over- or under-enrichment [default: over]
   --p-adjustment=<p-value adjustment>   What kind of p-value correction to perform [default: BH]
-  --p-cutoff=<p-value cutoff>           What cutoff is required to denote significance? [default: 0.01]
+  --p-cutoff=<p-value cutoff>           What cutoff is required to denote significance? [default: 0.001]
   --count-cutoff=<min-genes>            How many genes need to be annotated to keep the annotation? [default: 2]
 
 " -> doc
@@ -52,7 +52,7 @@ script_options <- docopt(doc)
 
 main <- function(script_options){
   
-  print(script_options)
+  #print(script_options)
   
   #browser(expr = TRUE)
   if (!is.null(script_options$`default-config`)) {
@@ -98,6 +98,7 @@ main <- function(script_options){
       stop("The feature list does not have a universe / background!")
     } else {
       feature_universe <- feature_list$universe
+      feature_list$universe <- NULL
     }
   } else {
     stop("The feature list file ", script_options$features, " does not exist. Make sure it exists on the search path!")
