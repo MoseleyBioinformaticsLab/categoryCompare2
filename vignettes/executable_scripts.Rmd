@@ -1,0 +1,158 @@
+---
+title: "categoryCompare2 Scripts"
+author: "Robert M Flight"
+date: "`r Sys.time()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+root_loc <- rprojroot::find_root("DESCRIPTION")
+
+tmp_loc <- tempdir()
+Sys.setenv(file_loc = root_loc)
+Sys.setenv(exec_loc = file.path(root_loc, "inst/executables"))
+Sys.setenv(test_loc = file.path(root_loc, "inst/extdata/test_data"))
+Sys.setenv(results_loc = tmp_loc)
+
+Sys.chmod(dir(file.path(root_loc, "inst", "executables"), pattern = "*.R", full.names = TRUE), "0750")
+```
+
+## Scripts??
+
+This version of `categoryCompare2` now includes a set of executable scripts that
+can be used to perform an analysis from the command line. This document attempts
+to document what these scripts do. The scripts are found in the folder `executables`
+from the package directory.
+
+You can run the `install_executables` function to move the scripts somewhere more
+useful, or `list_executables` to provide the locations of the scripts so that you
+can make aliases and change their permissions yourself so that
+they are accessible from the command line directly.
+
+## Workflow
+
+### Feature Lists
+
+`categoryCompare2` assumes you have one or more feature lists (normally genes) that you want to
+run enrichment on and compare the enrichments from the feature lists. For enrichment,
+one also needs the full list or **universe** of features that were measured in
+the experiment. 
+
+The easiest way to generate the input file in the expected format is to provide
+newline separated feature lists, each one in a separate file, where the file name
+indicates what condition the features came from.
+
+In this example, we have the gene **symbols** for the differential genes at two
+different timepoints, **10** and **48** hours. These were calculated using the
+`estrogen` dataset from Bioconductor.
+
+
+```{sh show_symbols_10}
+head $test_loc/10_symbol.txt
+```
+
+```{sh show_symbols_48}
+head $test_loc/48_symbol.txt
+```
+
+There is also a file with the full set of features measured on the Affymetrix
+chip for this data set.
+
+To generate the feature file, we need to combine these individual files into
+a single JSON file. This uses `feature_files_2_json.R`
+
+```{sh show_help}
+$exec_loc/feature_files_2_json.R --help
+```
+
+Let's run it!
+
+```{sh run_features}
+$exec_loc/feature_files_2_json.R --json="$results_loc/features.json" \
+  --file1="$test_loc/10_symbol.txt" \
+  --file2="$test_loc/48_symbol.txt" \
+  --universe="$test_loc/universe_symbol.txt"
+```
+
+Now we can see that the `features.json` file has the three sets of gene symbols
+in it.
+
+```{sh show_features_json}
+head $results_loc/features.json
+```
+
+### Annotations
+
+```{sh annotation_help}
+$exec_loc/create_annotations.R --help
+```
+
+#### Organism DB
+
+Often times you will want to generate annotations from an included organism
+database that generated and maintained by Bioconductor. These are *normally*
+the `org.*.eg.db`, also known as organism entrez gene databases. There are
+other databases, including the various measurement platform databases.
+
+See `?get_db_annotation` for all the various feature types and annotation types
+available.
+
+We will create an annotation object using the `cellular component` sub-ontology
+of the Gene Ontology mapped to gene *symbols*.
+
+```{sh create_annotation}
+$exec_loc/create_annotations.R --orgdb="org.Hs.eg.db" \
+  --feature-type="SYMBOL" \
+  --annotation-type="CC" \
+  --json="$results_loc/annotations.json"
+```
+
+#### User Provided Annotations
+
+If you have annotations you want to use, they should be in a JSON file where
+each JSON object is the feature, with the annotations that it has.
+
+An example would be:
+
+```{sh show_custom_annotation}
+head $test_loc/create_annotations_example_input.json
+```
+
+Using this file, you would run:
+
+```sh
+$exec_loc/create_annotations.R --input="create_annotations_example_input.json" \
+  --feature-type="SYMBOL" \
+  --annotation-type="CC" \
+  --json="$results_loc/annotations.json"
+```
+
+In this case the `--feature-type` and `--annotation-type` should reflect what
+the original sources that were used to generate these annotations.
+
+### Comparisons!
+
+Finally, with the features and annotations in hand, we can do the enrichments
+and comparisons between them using `categoryCompare2.R`.
+
+```{sh cc2_help}
+$exec_loc/categoryCompare2.R --help
+```
+
+So, with our generated files, we would now do:
+
+```{sh cc2_run}
+$exec_loc/categoryCompare2.R --features="$results_loc/features.json" \
+  --annotations="$results_loc/annotations.json" \
+  --p-cutoff=0.001 \
+  --output-directory="$results_loc" 
+```
+
+Which provides the output in `r file.path(tmp_loc, "full_table.txt")`. Here is a preview
+of the results:
+
+```{r show_results, echo=FALSE, results='asis'}
+in_results <- read.table(file.path(tmp_loc, "full_table.txt"), sep = "\t", header = TRUE)
+knitr::kable(head(in_results), digits = 2)
+```
