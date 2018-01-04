@@ -22,12 +22,6 @@ Options:
   --p-adjustment=<p-value adjustment>   What kind of p-value correction to perform [default: BH]
   --p-cutoff=<p-value cutoff>           What cutoff is required to denote significance? [default: 0.01]
   --count-cutoff=<min-genes>            How many genes need to be annotated to keep the annotation? [default: 2]
-  --graph=<use-graph>                   Should the annotation similarity graph be used? [default: TRUE]
-  --graph-min-edge-weight=<weight-cutoff> The minimum edge weight to keep graph connections [default: 0.8]
-  --graph-communities=<use-communities> Should annotation communities be detected? [default: TRUE]
-  --graph-vis-type=<visual-node-type>   How to color the annotation nodes in the graph? [default: pie]
-  --graph-vis-engine=<visualization-engine> What software to use to visualize the annotation graph? [default: cytoscape]
-
 
 " -> doc
 
@@ -39,11 +33,6 @@ enrichment-direction: over
 p-adjustment: BH
 p-cutoff: 0.001
 count-cutoff: 2
-graph:
-  min-edge-weight: 0.8
-  communities: TRUE
-  vis-type: pie
-  vis-engine: cytoscape
 "
 
 # testing:
