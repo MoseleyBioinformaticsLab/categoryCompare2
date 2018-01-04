@@ -21,7 +21,7 @@ library(methods)
 library(docopt)
 library(tools)
 library(jsonlite)
-library(categoryCompare2)
+suppressMessages(library(categoryCompare2))
 script_options <- docopt(doc)
 
 main <- function(script_options){
@@ -32,7 +32,7 @@ main <- function(script_options){
   }
   
   if (!is.null(script_options$input)) {
-    annotation_reversal(script_options$input, out_file = script_options$json, 
+    json_annotation_reversal(script_options$input, out_file = script_options$json, 
                         feature_type = script_options$`feature-type`,
                         annotation_type = script_options$`annotation-type`)
   }
