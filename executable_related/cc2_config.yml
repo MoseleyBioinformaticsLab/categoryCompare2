@@ -6,8 +6,3 @@ enrichment-direction: over
 p-adjustment: BH
 p-cutoff: 0.001
 count-cutoff: 2
-graph:
-  min-edge-weight: 0.8
-  communities: TRUE
-  vis-type: pie
-  vis-engine: cytoscape
