@@ -213,7 +213,9 @@ setMethod("combine_annotations", signature = "list", function(annotation_list) .
 
 .combine_annotations <- function(annotation_list){
   
-  combined_type <- unique(unlist(lapply(annotation_list, function(x){x@type})))
+  combined_type <- unique(unlist(lapply(annotation_list, function(x){x@annotation_type})))
+  
+  combined_feature_type <- unique(unlist(lapply(annotation_list, function(x){x@feature_type})))
   
   # stop if there are more than one type
   n_type <- length(combined_type)
@@ -234,12 +236,15 @@ setMethod("combine_annotations", signature = "list", function(annotation_list) .
   
   combined_counts <- sapply(combined_features, length)
   
+  #combined_feature_type <- paste(unique())
+  
   out_annotation <- new("annotation",
                         annotation_features = combined_features,
                         description = combined_description,
                         counts = combined_counts,
                         links = combined_links,
-                        type = combined_type)
+                        annotation_type = combined_type,
+                        feature_type = combined_feature_type)
   
   out_annotation
   

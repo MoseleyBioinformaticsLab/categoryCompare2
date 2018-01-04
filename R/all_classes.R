@@ -132,7 +132,7 @@ setMethod("show", signature = list(object = "enriched_result"),
             n_feature <- length(unique(object@features))
             n_universe <- length(unique(object@universe))
             
-            enrich_type <- object@annotation@type
+            enrich_type <- object@annotation@annotation_type
             n_annot <- length(object@annotation@annotation_features)
             
             cat("   Enrichment Method:", stat_method, "\n")
