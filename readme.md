@@ -30,7 +30,7 @@ package.
 ```r
 install.packages("devtools")
 library(devtools)
-install_github("categoryCompare2", "rmflight")
+install_github("rmflight/categoryCompare2")
 ```
 
 [devtoolsLink]: https://github.com/hadley/devtools "devtools"
