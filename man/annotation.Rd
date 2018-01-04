@@ -4,8 +4,8 @@
 \alias{annotation}
 \title{annotation class}
 \usage{
-annotation(annotation_features, type = NULL, description = character(0),
-  links = character(0))
+annotation(annotation_features, annotation_type = NULL,
+  description = character(0), links = character(0), feature_type = NULL)
 }
 \description{
 This class holds an annotation object that defines how annotations relate to
@@ -27,6 +27,8 @@ a Gene Ontology annotation.
 
 \item{\code{links}}{character vector defining html links for each annotation (may be empty)}
 
-\item{\code{type}}{a one word short description of the "type" of annotation}
+\item{\code{annotation_type}}{a one word short description of the "type" of annotation}
+
+\item{\code{feature_type}}{a one word short description of the "type" of features}
 }}
 

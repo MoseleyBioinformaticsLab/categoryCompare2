@@ -4,17 +4,19 @@
 \alias{annotation}
 \title{annotation constructor}
 \usage{
-annotation(annotation_features, type = NULL, description = character(0),
-  links = character(0))
+annotation(annotation_features, annotation_type = NULL,
+  description = character(0), links = character(0), feature_type = NULL)
 }
 \arguments{
 \item{annotation_features}{list of annotation to feature relationships}
 
-\item{type}{a one word short description of the "type" of annotation}
+\item{annotation_type}{a one word short description of the "type" of annotation}
 
 \item{description}{character vector providing descriptive text about the annotation}
 
 \item{links}{character vector defining html links for each annotation (may be empty)}
+
+\item{feature_type}{one word description of the feature type}
 
 \item{counts}{numeric vector of how many features are in each annotation}
 }
