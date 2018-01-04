@@ -191,3 +191,39 @@ json_2_annotation <- function(json_file){
              links = annotation_list$links,
              feature_type = annotation_list$feature_type)
 }
+
+#' annotation reversal
+#' 
+#' Given a JSON file of features to annotations, reverse to turn it into
+#' annotations to features, and optionally add some meta-information about them.
+#' 
+#' @param json_file the json file to use
+#' @param out_file the json file to write out to
+#' @param feature_type the type of features
+#' @param annotation_type the type of annotations
+#' 
+#' @importFrom jsonlite fromJSON toJSON
+#' @export
+#' @return the json object, invisibly
+#' 
+json_annotation_reversal <- function(json_file, out_file = "annotations.json",
+                                feature_type = NULL, annotation_type = NULL){
+  stopifnot(file.exists(json_file))
+  
+  in_annotation <- jsonlite::fromJSON(json_file, simplifyVector = FALSE, flatten = TRUE)
+  if (length(in_annotation) == 1) {
+    in_annotation <- in_anntation[[1]]
+  }
+  
+  rev_annotation <- Biobase::reverseSplit(in_annotation)
+  rev_annotation <- purrr::map(rev_annotation, unique)
+  
+  out_annotation <- annotation(annotation_features = rev_annotation,
+                               description = character(0),
+                               links = character(0),
+                               annotation_type = annotation_type,
+                               feature_type = feature_type)
+  
+  out_json <- annotation_2_json(out_annotation, out_file)
+  out_json
+}
