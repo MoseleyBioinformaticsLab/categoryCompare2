@@ -123,11 +123,11 @@ main <- function(script_options){
     p_cutoff_column <- "p"
   }
   
-  p_cutoff_value <- script_options$`p-cutoff`
+  p_cutoff_value <- as.double(script_options$`p-cutoff`)
   p_cutoff_direction <- "<="
   
   count_cutoff_column <- "counts"
-  count_cutoff_value <- script_options$`count-cutoff`
+  count_cutoff_value <- as.double(script_options$`count-cutoff`)
   count_cutoff_direction <- ">="
   
   count_call_info <- list(fun = count_cutoff_direction, var_1 = count_cutoff_column, var_2 = count_cutoff_value)
@@ -136,12 +136,15 @@ main <- function(script_options){
   significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
   
   combined_significant <- combined_significant_calls(combined_enrichments, significant_calls)
+  print(combined_significant)
+  
   
   results_table <- generate_table(combined_significant)
   
   if (!dir.exists(script_options$`output-directory`)) {
     dir.create(script_options$`output-directory`)
   }
+  saveRDS(combined_significant, file = file.path(script_options$`output-directory`, "combined_significant.rds"))
   write.table(results_table, file = file.path(script_options$`output-directory`, "full_table.txt"),
               sep = "\t", row.names = FALSE, col.names = TRUE)
   
