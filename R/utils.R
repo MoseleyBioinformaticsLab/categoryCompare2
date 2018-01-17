@@ -44,7 +44,7 @@ install_executables <- function(path = "~/bin"){
   if (!is.null(exec_locs)) {
     exec_files <- dir(path = exec_locs, pattern = "*.R")
     
-    file.copy(from = file.path(exec_locs, exec_files), to = file.path(path, exec_files))
+    file.copy(from = file.path(exec_locs, exec_files), to = file.path(path, exec_files), overwrite = TRUE)
     
     Sys.chmod(file.path(path, exec_files), mode = "0750")
     message(cat(file.path(path, exec_files), sep = "\n"))
