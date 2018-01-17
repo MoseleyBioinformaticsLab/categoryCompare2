@@ -14,14 +14,14 @@ line, or using a yaml config file.
 Options:
   --config=<config-file>                A YAML configuration file [default: NULL]
   --default-config                      Display a default configuration file
-  --features=<feature-file>                The JSON file containing the features (genes) [default: features.json]
+  --features=<feature-file>             The JSON file containing the features (genes) [default: features.json]
   --output-directory=<save-location>    Where to save the results [default: cc2_results]
   --annotations=<annotation-source>     The annotations to use, as a file [default: annotations.json]
   --enrichment-test=<enrichment-test>   What type of test to do [default: hypergeometric]
   --enrichment-direction=<direction>    Do you want over- or under-enrichment [default: over]
   --p-adjustment=<p-value adjustment>   What kind of p-value correction to perform [default: BH]
-  --p-cutoff=<p-value cutoff>           What cutoff is required to denote significance? [default: 0.001]
-  --count-cutoff=<min-genes>            How many genes need to be annotated to keep the annotation? [default: 2]
+  --p-cutoff=<p-value cutoff>           What cutoff is required to denote significance (numeric)? [default: 0.001]
+  --count-cutoff=<min-genes>            How many genes need to be annotated to keep the annotation (numeric)?  [default: 2]
 
 " -> doc
 
@@ -73,6 +73,32 @@ main <- function(script_options){
     
   }
   
+  # fail before doing enrichment!
+  p_cutoff_value <- as.double(script_options$`p-cutoff`)
+  if (is.na(p_cutoff_value)) {
+    stop("The p-cutoff MUST be a number, or Inf")
+  }
+  p_cutoff_direction <- "<="
+  
+  count_cutoff_column <- "counts"
+  count_cutoff_value <- as.double(script_options$`count-cutoff`)
+  if (is.na(count_cutoff_value)) {
+    stop("The count-cutoff MUST be a number, or Inf")
+  }
+  count_cutoff_direction <- ">="
+  
+  if (!(script_options$`p-adjustment` %in% "none")) {
+    p_cutoff_column <- "padjust"
+  } else {
+    p_cutoff_column <- "p"
+  }
+  
+  
+  count_call_info <- list(fun = count_cutoff_direction, var_1 = count_cutoff_column, var_2 = count_cutoff_value)
+  p_call_info <- list(fun = p_cutoff_direction, var_1 = p_cutoff_column, var_2 = p_cutoff_value)
+  
+  significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
+  
   #print(script_options)
   
   #script_options <- script_options[!is.null(script_options)]
@@ -117,23 +143,6 @@ main <- function(script_options){
   
   combined_enrichments <- combine_enrichments(gene_enrichments)
   
-  if (!(script_options$`p-adjustment` %in% "none")) {
-    p_cutoff_column <- "padjust"
-  } else {
-    p_cutoff_column <- "p"
-  }
-  
-  p_cutoff_value <- as.double(script_options$`p-cutoff`)
-  p_cutoff_direction <- "<="
-  
-  count_cutoff_column <- "counts"
-  count_cutoff_value <- as.double(script_options$`count-cutoff`)
-  count_cutoff_direction <- ">="
-  
-  count_call_info <- list(fun = count_cutoff_direction, var_1 = count_cutoff_column, var_2 = count_cutoff_value)
-  p_call_info <- list(fun = p_cutoff_direction, var_1 = p_cutoff_column, var_2 = p_cutoff_value)
-  
-  significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
   
   combined_significant <- combined_significant_calls(combined_enrichments, significant_calls)
   
