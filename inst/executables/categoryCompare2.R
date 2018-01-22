@@ -133,6 +133,15 @@ main <- function(script_options){
   # read in the annotations and create the annotation object
   annotation_obj <- json_2_annotation(script_options$annotations)
   
+  annotation_features <- unique(unlist(annotation_obj@annotation_features))
+  features_in_annotations <- vapply(feature_list, function(x){
+    sum(x %in% annotation_features)
+  }, numeric(1))
+  
+  if (any(vapply(features_in_annotations, function(x){sum(x) == 0}, logical(1)))) {
+    stop("One or more of your feature lists has 0 matches to the features in the annotations!")
+  }
+  
   gene_enrichments <- lapply(feature_list, function(in_genes){
     hypergeometric_feature_enrichment(
       new("hypergeom_features", significant = in_genes,

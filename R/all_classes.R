@@ -71,6 +71,7 @@ annotation <- function(annotation_features, annotation_type = NULL, description 
     }
   }
   
+  
   if (length(links) > 0){
     link_names <- names(links)
     if (sum(annotation_names %in% link_names) == n_annot){
@@ -81,6 +82,13 @@ annotation <- function(annotation_features, annotation_type = NULL, description 
   }
   
   counts <- vapply(annotation_features, length, numeric(1))
+  
+  # print(class(annotation_features))
+  # print(class(annotation_type))
+  # print(class(description))
+  # print(class(links))
+  # print(class(feature_type))
+  # print(class(counts))
   
   new("annotation",
       annotation_features = annotation_features,

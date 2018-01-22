@@ -167,7 +167,8 @@ replace_null <- function(x){
 #' @export
 json_2_annotation <- function(json_file){
   stopifnot(file.exists(json_file))
-  annotation_list <- jsonlite::fromJSON(json_file, simplifyVector = TRUE, flatten = TRUE)
+  annotation_list <- jsonlite::fromJSON(json_file, simplifyVector = TRUE)
+  #print(names(annotation_list))
   
   if (is.null(names(annotation_list))) {
     annotation_list <- annotation_list[[1]]
@@ -185,6 +186,8 @@ json_2_annotation <- function(json_file){
     annotation_list$links <- character(0)
   }
 
+  #print(names(annotation_list))
+  #print(annotation_list$description)
   annotation(annotation_features = annotation_list$annotation_features,
              annotation_type = annotation_list$annotation_type,
              description = annotation_list$description,

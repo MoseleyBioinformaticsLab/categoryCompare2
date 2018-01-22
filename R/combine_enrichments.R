@@ -212,40 +212,44 @@ setMethod("generate_table", signature = list(comb_enrichment = "combined_enrichm
 setMethod("combine_annotations", signature = "list", function(annotation_list) .combine_annotations(annotation_list))
 
 .combine_annotations <- function(annotation_list){
-  
-  combined_type <- unique(unlist(lapply(annotation_list, function(x){x@annotation_type})))
-  
-  combined_feature_type <- unique(unlist(lapply(annotation_list, function(x){x@feature_type})))
-  
-  # stop if there are more than one type
-  n_type <- length(combined_type)
-  if (n_type != 1){
-    stop("Cannot combine annotation's with more than one annotation type.", call.=FALSE)
+  if (length(annotation_list) > 1) {
+    
+    combined_type <- unique(unlist(lapply(annotation_list, function(x){x@annotation_type})))
+    
+    combined_feature_type <- unique(unlist(lapply(annotation_list, function(x){x@feature_type})))
+    
+    # stop if there are more than one type
+    n_type <- length(combined_type)
+    if (n_type != 1){
+      stop("Cannot combine annotation's with more than one annotation type.", call.=FALSE)
+    }
+    
+    combined_features <- combine_annotation_features(lapply(annotation_list, function(x){x@annotation_features}))
+    
+    all_annotation_names <- names(combined_features)
+    
+    combined_description <- combine_text(lapply(annotation_list, function(x){x@description}),
+                                         all_annotation_names,
+                                         "description")
+    combined_links <- combine_text(lapply(annotation_list, function(x){x@links}),
+                                   all_annotation_names,
+                                   "links")
+    
+    combined_counts <- sapply(combined_features, length)
+    
+    #combined_feature_type <- paste(unique())
+    
+    out_annotation <- new("annotation",
+                          annotation_features = combined_features,
+                          description = combined_description,
+                          counts = combined_counts,
+                          links = combined_links,
+                          annotation_type = combined_type,
+                          feature_type = combined_feature_type)
+    
+  } else {
+    out_annotation <- annotation_list[[1]]
   }
-  
-  combined_features <- combine_annotation_features(lapply(annotation_list, function(x){x@annotation_features}))
-  
-  all_annotation_names <- names(combined_features)
-  
-  combined_description <- combine_text(lapply(annotation_list, function(x){x@description}),
-                                       all_annotation_names,
-                                       "description")
-  combined_links <- combine_text(lapply(annotation_list, function(x){x@links}),
-                                 all_annotation_names,
-                                 "links")
-  
-  combined_counts <- sapply(combined_features, length)
-  
-  #combined_feature_type <- paste(unique())
-  
-  out_annotation <- new("annotation",
-                        annotation_features = combined_features,
-                        description = combined_description,
-                        counts = combined_counts,
-                        links = combined_links,
-                        annotation_type = combined_type,
-                        feature_type = combined_feature_type)
-  
   out_annotation
   
 }
