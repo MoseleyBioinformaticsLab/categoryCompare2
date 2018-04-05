@@ -215,7 +215,7 @@ json_annotation_reversal <- function(json_file, out_file = "annotations.json",
   
   in_annotation <- jsonlite::fromJSON(json_file, simplifyVector = FALSE, flatten = TRUE)
   if (length(in_annotation) == 1) {
-    in_annotation <- in_anntation[[1]]
+    in_annotation <- in_annotation[[1]]
   }
   
   rev_annotation <- Biobase::reverseSplit(in_annotation)
