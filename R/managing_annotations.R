@@ -218,11 +218,29 @@ json_annotation_reversal <- function(json_file, out_file = "annotations.json",
     in_annotation <- in_annotation[[1]]
   }
   
+  if (!is.null(in_annotation$Annotations)) {
+    gene_annotations <- in_annotation$Annotations
+  } else {
+    gene_annotations <- in_annotation[[1]]
+  }
+  
+  if (!is.null(in_annotation$Description)) {
+    annotation_description <- in_annotation$Description
+    if (is.list(annotation_description)) {
+      annotation_description <- unlist(annotation_description, use.names = TRUE)
+    } else {
+      warning("Description must be a named list! Removing Descriptions!")
+      annotation_description <- character(0)
+    } 
+  } else {
+    annotation_description <- character(0)
+  }
+  
   rev_annotation <- Biobase::reverseSplit(in_annotation)
   rev_annotation <- purrr::map(rev_annotation, unique)
   
   out_annotation <- annotation(annotation_features = rev_annotation,
-                               description = character(0),
+                               description = annotation_description,
                                links = character(0),
                                annotation_type = annotation_type,
                                feature_type = feature_type)
