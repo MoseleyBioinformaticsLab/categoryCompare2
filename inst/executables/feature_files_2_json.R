@@ -42,6 +42,17 @@ script_options <- script_options[!is.null(script_options)]
 file_args_loc <- grepl("^file", names(script_options)) | grepl("^universe", names(script_options))
 file_args <- script_options[file_args_loc]
 
+
+check_feature_lists <- function(feature_list, name_list, universe){
+  n_not <- length(setdiff(feature_list, universe))
+  
+  if (n_not > 0) {
+    warn_message <- paste0("There are ", n_not, " features from ", name_list, " list not in the Universe list!")
+    warning(warn_message)
+  }
+}
+
+
 get_feature_lists <- function(file_list){
   file_not_universe <- unlist(file_list[!(names(file_list) %in% "universe")])
   
@@ -58,6 +69,11 @@ get_feature_lists <- function(file_list){
   } else {
     file_data$universe <- readLines(file_list$universe)
   }
+  
+  not_universe <- file_data[!(names(file_data) %in% "universe")]
+  invisible(purrr::imap(not_universe, function(.x, .y){
+    check_feature_lists(.x, .y, file_data$universe)
+  }))
   
   file_data
 }
