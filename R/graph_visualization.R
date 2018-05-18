@@ -600,15 +600,36 @@ label_go_communities <- function(community_defs){
 #' label communities
 #' 
 #' @param community_defs the communities from \code{assign_communities}
+#' @param annotation the annotation object used for enrichment
 #' 
 #' @export
 #' @return list
-label_communities <- function(community_defs){
+label_communities <- function(community_defs, annotation){
   n_members <- vapply(community_defs, length, numeric(1))
   
   community_defs <- community_defs[n_members > 1]
   
+  all_members <- unique(unlist(community_defs))
+  member_annotation_counts <- annotation@counts[all_members]
   
+  get_rep_member <- lapply(community_defs, function(in_def){
+    def_counts <- member_annotation_counts[names(member_annotation_counts) %in% in_def]
+    max_member <- names(def_counts)[which.max(def_counts)]
+    max_member[1]
+  })
+  
+  community_info <- lapply(seq(1, length(community_defs)), function(i_def){
+    if (length(annotation@description) != 0) {
+      label <- annotation@description[[get_rep_member[[i_def]]]]
+    } else {
+      label <- get_rep_member[[i_def]]
+    }
+    list(rep = get_rep_member[[i_def]],
+         label = label,
+         members = community_defs[[i_def]])
+  })
+  
+  community_info
 }
 
 

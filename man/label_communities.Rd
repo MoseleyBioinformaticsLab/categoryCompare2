@@ -4,10 +4,12 @@
 \alias{label_communities}
 \title{label communities}
 \usage{
-label_communities(community_defs)
+label_communities(community_defs, annotation)
 }
 \arguments{
 \item{community_defs}{the communities from \code{assign_communities}}
+
+\item{annotation}{the annotation object used for enrichment}
 }
 \value{
 list

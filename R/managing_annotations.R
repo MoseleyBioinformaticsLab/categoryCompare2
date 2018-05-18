@@ -236,7 +236,7 @@ json_annotation_reversal <- function(json_file, out_file = "annotations.json",
     annotation_description <- character(0)
   }
   
-  rev_annotation <- Biobase::reverseSplit(in_annotation)
+  rev_annotation <- Biobase::reverseSplit(gene_annotations)
   rev_annotation <- purrr::map(rev_annotation, unique)
   
   out_annotation <- annotation(annotation_features = rev_annotation,
