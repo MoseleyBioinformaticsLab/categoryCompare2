@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 "
 Usage: 
-  run_enrichment.R [--features=<feature-file>] [--output-directory=<save-location>] [--annotations=<annotation-source>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>]
+  run_enrichment.R [--features=<feature-file>] [--annotations=<annotation-source>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--output-file=<output_file>] [--text-only=<text-only>]
   categoryCompare2.R [--config=<config-file>]
   categoryCompare2.R [--default-config]
   categoryCompare2.R (-h | --help)
@@ -11,15 +11,23 @@ Description: Runs categoryCompare2 on one or more feature lists. Note that there
 a lot of parameters, with several defaults. See the accompanying vignette for a
 description of what each one does. The default values can be changed at the command
 line, or using a yaml config file.
+
+Unless --output-text-only=TRUE, then both a tab delimited text file and a binary
+`rds` file will be written. The `rds` file is necessary for `filter_and_group.R`.
+If you don't want to do filtering and grouping, then you probably want to use
+--output-text-only=TRUE.
+
 Options:
   --config=<config-file>                A YAML configuration file [default: NULL]
   --default-config                      Display a default configuration file
   --features=<feature-file>             The JSON file containing the features (genes) [default: features.json]
-  --output-directory=<save-location>    Where to save the results [default: cc2_results]
   --annotations=<annotation-source>     The annotations to use, as a file [default: annotations.json]
   --enrichment-test=<enrichment-test>   What type of test to do [default: hypergeometric]
   --enrichment-direction=<direction>    Do you want over- or under-enrichment [default: over]
   --p-adjustment=<p-value adjustment>   What kind of p-value correction to perform [default: BH]
+  --output-file=<save-location>         Where to save the results [default: cc2_results.txt]
+  --text-only=<text-only>               Should only the text file be generated? [default: FALSE]
+
 
 " -> doc
 
@@ -48,7 +56,7 @@ script_options <- docopt(doc)
 
 main <- function(script_options){
   
-  #print(script_options)
+  print(script_options)
   
   #browser(expr = TRUE)
   if (!is.null(script_options$`default-config`)) {
@@ -124,18 +132,26 @@ main <- function(script_options){
   
   combined_enrichments <- combine_enrichments(gene_enrichments)
   
-  if (!dir.exists(script_options$`output-directory`)) {
-    dir.create(script_options$`output-directory`, recursive = TRUE)
+  output_dir <- dirname(script_options$`output-file`)
+  
+  if (!dir.exists(output_dir)) {
+    message(paste0("Creating directory ", output_dir))
+    dir.create(output_dir, recursive = TRUE)
   }
   
-  saveRDS(combined_enrichments, file = file.path(script_options$`output-directory`, "enrichments.rds"))
+  rds_file <- paste0(tools::file_path_sans_ext(script_options$`output-file`), ".rds")
+  
+  if (!as.logical(script_options$`text-only`)) {
+    saveRDS(combined_enrichments, file = file.path(rds_file))
+  }
+  
   
   results_table <- generate_table(combined_enrichments)
   
   
   #saveRDS(combined_significant, file = file.path(script_options$`output-directory`, "combined_significant.rds"))
   #print(combined_significant)
-  write.table(results_table, file = file.path(script_options$`output-directory`, "full_table.txt"),
+  write.table(results_table, file = file.path(script_options$`output-file`),
               sep = "\t", row.names = FALSE, col.names = TRUE)
   
   # next up will be code useful for handling wanting to make a graph

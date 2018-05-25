@@ -54,7 +54,7 @@ install_executables <- function(path = "~/bin"){
   
 }
 
-#' list executables
+#' executable path
 #' 
 #' Show the path to the executables, so the user can add them to whatever they
 #' want.
@@ -62,9 +62,9 @@ install_executables <- function(path = "~/bin"){
 #' @export
 #' @return NULL
 #' 
-list_executables <- function(){
-  exec_locs <- system.file("executables", package = "categoryCompare2")
-  exec_files <- dir(exec_locs, pattern = "*.R", full.names = TRUE)
+executable_path <- function(){
+  exec_path <- system.file("exec", package = "categoryCompare2")
   
-  message(cat(exec_files, sep = "\n"))
+  message(paste0("To access executables, add this path to your $PATH variable: \n",
+                 exec_path))
 }

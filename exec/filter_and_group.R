@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 "
 Usage: 
-  filter_and_group.R --enrichment-directory=<enrichment_directory> [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
+  filter_and_group.R --enrichment-results=<enrichment_results> [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
   filter_and_group.R (-h | --help)
 
 Description: Given an enrichment directory, will load up the enrichment results, and then performs filtering
@@ -18,15 +18,19 @@ Valid choices for the grouping algorithm include:
   spinglass
   walktrap
 
+Note that although the enrichment-results is specified as a `.txt`, this script
+will look for a matching `.rds` file, and will use that instead. All of the information
+needed for filtering and grouping is not captured in the text file representation.
+
 Options:
-  --enrichment-directory=<enrichment_directory>   where the enrichment results are found
+  --enrichment-results=<enrichment_results>       where the enrichment results are found [default: cc2_results.txt]
   --p-cutoff=<max-p-value>                        the maximum p-value to consider signifcant [default: 0.01] 
   --adjusted-p-values=<use-adjusted-p-values>     should adjusted p-values be used if they exist? [default: TRUE]
   --count-cutoff=<min-genes>                      minimum number of genes annotated [default: 2] 
   --group=<do-grouping>                           should grouping of annotations be attempted [default: TRUE]
   --similarity-cutoff=<minimum similarity>        minimum similarity measure to consider annotations linked [default: 0] 
   --grouping-algorithm=<group-algorithm>          what algorithm should be used to find the groups [default: walktrap]
-  --table-file=<table-file>                       the results file to save the results
+  --table-file=<table-file>                       the results file to save the results [default: cc2_results_grouped.txt]
   --network-file=<network-file>                   if desired, save the network as well [default: NULL ]
 
 " -> doc
@@ -86,7 +90,7 @@ main <- function(script_options){
   
   significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
   
-  enrichment_file <- file.path(script_options$`enrichment-directory`, "enrichments.rds")
+  enrichment_file <- paste0(tools::file_path_sans_ext(script_options$`enrichment-results`), ".rds")
   if (file.exists(enrichment_file)) {
     enrichments <- readRDS(enrichment_file)
   } else {
@@ -97,11 +101,14 @@ main <- function(script_options){
   message("Significant Annotations:")
   print(significant@statistics@significant)
   
-  table_file <- file.path(script_options$`enrichment-directory`, script_options$`table-file`)
+  table_dir <- dirname(script_options$`table-file`)
+  if (!dir.exists(table_dir)) {
+    dir.create(table_dir, recursive = TRUE)
+  }
   
   if (!as.logical(script_options$group)) {
     results_table <- generate_table(significant)
-    write.table(results_table, file = table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
+    write.table(results_table, file = script_options$`table-file`, sep = "\t", row.names = FALSE, col.names = TRUE)
   } else {
     similarity_graph <- generate_annotation_graph(significant)
     
@@ -115,7 +122,7 @@ main <- function(script_options){
     community_labels <- label_communities(graph_communities, enrichments@annotation)
     
     results_table <- table_from_graph(similarity_graph, significant_assignments, community_labels)
-    write.table(results_table, file = table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
+    write.table(results_table, file = script_options$`table-file`, sep = "\t", row.names = FALSE, col.names = TRUE)
   }
 }
 
