@@ -221,7 +221,9 @@ json_annotation_reversal <- function(json_file, out_file = "annotations.json",
   if (!is.null(in_annotation$Annotations)) {
     gene_annotations <- in_annotation$Annotations
   } else {
-    gene_annotations <- in_annotation[[1]]
+    gene_annotations <- in_annotation # we assume that if there is no Annotation
+                                      # specific entry, then it is probably just the
+                                      # gene annotations, and grab them all.
   }
   
   if (!is.null(in_annotation$Description)) {
