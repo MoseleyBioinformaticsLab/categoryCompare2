@@ -38,18 +38,22 @@ have_parallel <- function(){
 #' @return the listing of the files.
 #' 
 install_executables <- function(path = "~/bin"){
-  stopifnot(dir.exists(path))
-  exec_locs <- system.file("executables", package = "categoryCompare2")
+  path_exists = dir.exists(path)
   
-  if (!is.null(exec_locs)) {
+  if (!path_exists) {
+    stop(paste0("Provided path ", path, " does not exist!"))
+  }
+  
+  exec_locs <- system.file("exec", package = "categoryCompare2")
+  
+  if (dir.exists(exec_locs)) {
     exec_files <- dir(path = exec_locs, pattern = "*.R")
     
     file.copy(from = file.path(exec_locs, exec_files), to = file.path(path, exec_files), overwrite = TRUE)
     
-    Sys.chmod(file.path(path, exec_files), mode = "0750")
     message(cat(file.path(path, exec_files), sep = "\n"))
   } else {
-    stop("No scripts to move!")
+    stop("Exec directory does not exist, and therefore there are no scripts to move!")
   }
   
 }
