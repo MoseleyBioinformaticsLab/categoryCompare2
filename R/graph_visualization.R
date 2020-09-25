@@ -588,6 +588,10 @@ label_go_communities <- function(community_defs){
     max_go
   })
   
+  has_no_rep = purrr::map_lgl(get_rep_go, ~ length(.x) == 0)
+  get_rep_go = get_rep_go[!has_no_rep]
+  community_defs = community_defs[!has_no_rep]
+  
   community_info <- lapply(seq(1, length(community_defs)), function(i_def){
     list(go = get_rep_go[[i_def]],
          label = Term(GOTERM[[get_rep_go[[i_def]]]]),
