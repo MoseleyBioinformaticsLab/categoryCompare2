@@ -4,8 +4,14 @@
 \alias{generate_legend}
 \title{generate a legend}
 \usage{
-generate_legend(in_assign, upper_names = TRUE, img = FALSE, width = 800,
-  height = 400, pointsize = 70)
+generate_legend(
+  in_assign,
+  upper_names = TRUE,
+  img = FALSE,
+  width = 800,
+  height = 400,
+  pointsize = 70
+)
 }
 \arguments{
 \item{in_assign}{the assign object from \code{annotation_combinations}}

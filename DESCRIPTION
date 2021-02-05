@@ -15,14 +15,14 @@ Depends:
 Suggests:
     knitr,
     methods,
-    GO.db,
     estrogen,
     org.Hs.eg.db,
     hgu95av2.db,
     limma,
     affy,
     genefilter,
-    testthat
+    testthat,
+    visNetwork
 Imports:
     AnnotationDbi,
     hwriter,
@@ -33,7 +33,12 @@ Imports:
     colorspace,
     graph,
     RCy3,
-    igraph
+    igraph,
+    DiagrammeR,
+    GO.db,
+    Cairo,
+    jsonlite,
+    base64enc
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
     (categories) generated on one or more feature lists.
@@ -43,4 +48,4 @@ SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
     results, heavily suggested)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1

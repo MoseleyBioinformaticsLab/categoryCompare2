@@ -4,8 +4,12 @@
 \alias{graph_to_visnetwork}
 \title{cc_graph to visnetwork}
 \usage{
-graph_to_visnetwork(in_graph, in_assign, node_communities = NULL,
-  use_nodes = NULL)
+graph_to_visnetwork(
+  in_graph,
+  in_assign,
+  node_communities = NULL,
+  use_nodes = NULL
+)
 }
 \arguments{
 \item{in_graph}{the cc_graph object}

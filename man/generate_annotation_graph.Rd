@@ -4,8 +4,12 @@
 \alias{generate_annotation_graph}
 \title{generate annotation graph}
 \usage{
-generate_annotation_graph(comb_enrichment, annotation_similarity = "combined",
-  low_cut = 5, hi_cut = 500)
+generate_annotation_graph(
+  comb_enrichment,
+  annotation_similarity = "combined",
+  low_cut = 5,
+  hi_cut = 500
+)
 }
 \description{
 generate annotation graph

@@ -4,8 +4,13 @@
 \alias{hypergeometric_basic}
 \title{do hypergeometric test}
 \usage{
-hypergeometric_basic(num_white, num_black, num_drawn, num_white_drawn,
-  direction = "over")
+hypergeometric_basic(
+  num_white,
+  num_black,
+  num_drawn,
+  num_white_drawn,
+  direction = "over"
+)
 }
 \arguments{
 \item{num_white}{number of white balls in urn}

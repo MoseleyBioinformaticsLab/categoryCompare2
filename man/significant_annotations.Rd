@@ -2,7 +2,6 @@
 % Please edit documentation in R/all_classes.R
 \name{significant_annotations}
 \alias{significant_annotations}
-\alias{significant_annotations}
 \title{significant annotations}
 \usage{
 significant_annotations(significant, measured, sig_calls = NULL)

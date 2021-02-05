@@ -2,7 +2,6 @@
 % Please edit documentation in R/all_classes.R
 \name{cc_graph}
 \alias{cc_graph}
-\alias{cc_graph}
 \title{cc_graph}
 \usage{
 cc_graph(graph, significant)

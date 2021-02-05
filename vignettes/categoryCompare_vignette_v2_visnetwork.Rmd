@@ -1,7 +1,12 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 <!--
 % \VignetteEngine{knitr}
 % \VignetteIndexEntry{categoryCompare2: Alternative Visualization}
-% \VignetteDepends{categoryCompare2, GO.db, KEGG.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork}
+% \VignetteDepends{categoryCompare2, GO.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork}
 % \VignetteKeyword{categoryCompare, meta-analysis, gene ontology, kegg}
 % \VignettePackage{categoryCompare2}
 -->
@@ -128,7 +133,7 @@ names(bp_desc) <- names(bp_2_gene)
 
 bp_annotation <- annotation(annotation_features = bp_2_gene,
                             description = bp_desc,
-                            type = "GO.BP")
+                            annotation_type = "GO.BP")
 ```
 
 ## Do Enrichment
@@ -211,7 +216,7 @@ knitr::kable(bp_table)
 bp_network <- graph_to_visnetwork(bp_graph, bp_assign, bp_comm_labels)
 ```
 
-```{r out_vis}
+```{r out_vis, eval = FALSE}
 vis_visnetwork(bp_network)
 ```
 

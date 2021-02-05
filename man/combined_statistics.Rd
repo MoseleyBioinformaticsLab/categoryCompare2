@@ -2,14 +2,27 @@
 % Please edit documentation in R/all_classes.R, R/combine_enrichments.R
 \name{combined_statistics}
 \alias{combined_statistics}
-\alias{combined_statistics}
 \title{combined statistics}
 \usage{
-combined_statistics(statistic_data, which_enrichment, which_statistic,
-  annotation_id, significant = NULL, measured = NULL, use_names = NULL)
+combined_statistics(
+  statistic_data,
+  which_enrichment,
+  which_statistic,
+  annotation_id,
+  significant = NULL,
+  measured = NULL,
+  use_names = NULL
+)
 
-combined_statistics(statistic_data, which_enrichment, which_statistic,
-  annotation_id, significant = NULL, measured = NULL, use_names = NULL)
+combined_statistics(
+  statistic_data,
+  which_enrichment,
+  which_statistic,
+  annotation_id,
+  significant = NULL,
+  measured = NULL,
+  use_names = NULL
+)
 }
 \arguments{
 \item{statistic_data}{the data.frame of statistics}

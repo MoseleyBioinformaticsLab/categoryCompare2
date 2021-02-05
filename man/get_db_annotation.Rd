@@ -4,8 +4,12 @@
 \alias{get_db_annotation}
 \title{orgdb annotations}
 \usage{
-get_db_annotation(orgdb = "org.Hs.eg.db", features = NULL,
-  feature_type = "ENTREZID", annotation_type = "GO")
+get_db_annotation(
+  orgdb = "org.Hs.eg.db",
+  features = NULL,
+  feature_type = "ENTREZID",
+  annotation_type = "GO"
+)
 }
 \arguments{
 \item{orgdb}{the name of the org.*.db object}

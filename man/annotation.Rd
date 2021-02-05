@@ -4,8 +4,13 @@
 \alias{annotation}
 \title{annotation class}
 \usage{
-annotation(annotation_features, annotation_type = NULL,
-  description = character(0), links = character(0), feature_type = NULL)
+annotation(
+  annotation_features,
+  annotation_type = NULL,
+  description = character(0),
+  links = character(0),
+  feature_type = NULL
+)
 }
 \description{
 This class holds an annotation object that defines how annotations relate to

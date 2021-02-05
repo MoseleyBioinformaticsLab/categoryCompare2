@@ -4,8 +4,10 @@
 \alias{generate_annotation_similarity_graph}
 \title{annotation similarity graph}
 \usage{
-generate_annotation_similarity_graph(annotation_features,
-  similarity_type = "combined")
+generate_annotation_similarity_graph(
+  annotation_features,
+  similarity_type = "combined"
+)
 }
 \arguments{
 \item{annotation_features}{list where each entry is a set of features to that annotation}

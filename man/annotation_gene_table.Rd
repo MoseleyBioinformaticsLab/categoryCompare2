@@ -4,9 +4,13 @@
 \alias{annotation_gene_table}
 \title{annotation to genes}
 \usage{
-annotation_gene_table(combined_enrichment, annotations = NULL,
-  use_db = org.Hs.eg.db, input_type = "ENTREZID", gene_info = c("SYMBOL",
-  "GENENAME"))
+annotation_gene_table(
+  combined_enrichment,
+  annotations = NULL,
+  use_db = org.Hs.eg.db,
+  input_type = "ENTREZID",
+  gene_info = c("SYMBOL", "GENENAME")
+)
 }
 \arguments{
 \item{combined_enrichment}{combined enrichment object}

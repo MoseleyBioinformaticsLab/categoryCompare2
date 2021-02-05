@@ -4,8 +4,13 @@
 \alias{annotation}
 \title{annotation constructor}
 \usage{
-annotation(annotation_features, annotation_type = NULL,
-  description = character(0), links = character(0), feature_type = NULL)
+annotation(
+  annotation_features,
+  annotation_type = NULL,
+  description = character(0),
+  links = character(0),
+  feature_type = NULL
+)
 }
 \arguments{
 \item{annotation_features}{list of annotation to feature relationships}

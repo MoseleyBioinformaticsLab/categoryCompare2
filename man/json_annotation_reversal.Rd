@@ -4,8 +4,12 @@
 \alias{json_annotation_reversal}
 \title{annotation reversal}
 \usage{
-json_annotation_reversal(json_file, out_file = "annotations.json",
-  feature_type = NULL, annotation_type = NULL)
+json_annotation_reversal(
+  json_file,
+  out_file = "annotations.json",
+  feature_type = NULL,
+  annotation_type = NULL
+)
 }
 \arguments{
 \item{json_file}{the json file to use}

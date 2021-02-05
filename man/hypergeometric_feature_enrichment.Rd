@@ -4,8 +4,11 @@
 \alias{hypergeometric_feature_enrichment}
 \title{do hypergeometric enrichment}
 \usage{
-hypergeometric_feature_enrichment(hypergeom_features, direction = "over",
-  p_adjust = "none")
+hypergeometric_feature_enrichment(
+  hypergeom_features,
+  direction = "over",
+  p_adjust = "none"
+)
 }
 \arguments{
 \item{hypergeom_features}{a hypergeometric_features object}

@@ -1,14 +1,18 @@
+---
+title: "categoryCompare: High-throughput data meta-analysis using feature annotations"
+author: "Robert M Flight"
+date: "`r Sys.time()`"
+---
+
+
 <!--
 % \VignetteEngine{knitr}
-% \VignetteIndexEntry{categoryCompare: High-throughput data meta-analysis using gene annotations}
-% \VignetteDepends{categoryCompare, GO.db, KEGG.db, affy, hgu95av2.db, genefilter, estrogen, limma}
+% \VignetteIndexEntry{categoryCompare: High-throughput data meta-analysis using gene annotations, V2}
+% \VignetteDepends{categoryCompare2, GO.db, affy, hgu95av2.db, genefilter, estrogen, limma}
 % \VignetteKeyword{categoryCompare, meta-analysis, gene ontology, kegg}
-% \VignettePackage{categoryCompare}
+% \VignettePackage{categoryCompare2}
 -->
 
-# categoryCompare: High-throughput data meta-analysis using feature annotations
-
-Authored by: **Robert M Flight** `<rflight79@gmail.com>` on `r Sys.time()`
 
 ## Introduction
 
@@ -128,7 +132,7 @@ names(bp_desc) <- names(bp_2_gene)
 
 bp_annotation <- annotation(annotation_features = bp_2_gene,
                             description = bp_desc,
-                            type = "GO.BP")
+                            annotation_type = "GO.BP")
 ```
 
 ## Do Enrichment
