@@ -24,16 +24,16 @@ The [Vignette](https://github.com/rmflight/categoryCompare2/blob/master/vignette
 
 ## Installation
 
-Installation of this package from Github requires the [devtools][devtoolsLink]
+Installation of this package from Github requires the [remotes][remotesLink]
 package.
 
 ```r
-install.packages("devtools")
-library(devtools)
+install.packages("remotes")
+library(remotes)
 install_github("rmflight/categoryCompare2")
 ```
 
-[devtoolsLink]: https://github.com/hadley/devtools "devtools"
+[remotesLink]: https://cran.r-project.org/web/packages/remotes/index.html "remotes"
 
 ## Citation
 
