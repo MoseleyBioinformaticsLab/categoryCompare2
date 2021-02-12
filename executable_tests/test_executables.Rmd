@@ -1,0 +1,178 @@
+---
+title: "categoryCompare2: Checking Executables"
+author: "Robert M Flight"
+date: "`r Sys.time()`"
+---
+
+<!--
+% \VignetteEngine{knitr}
+% \VignetteIndexEntry{categoryCompare2: Checking Executables}
+% \VignetteDepends{categoryCompare2, GO.db, KEGG.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork}
+% \VignetteKeyword{categoryCompare, meta-analysis, gene ontology, kegg}
+% \VignettePackage{categoryCompare2}
+-->
+
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+root_loc <- rprojroot::find_root("DESCRIPTION")
+
+tmp_loc <- tempdir()
+Sys.setenv(exec_loc = system.file("exec", package = "categoryCompare2"))
+Sys.setenv(test_loc = system.file("extdata", "test_data", package = "categoryCompare2"))
+Sys.setenv(results_loc = tmp_loc)
+
+Sys.chmod(dir(file.path(root_loc, "inst", "executables"), pattern = "*.R", full.names = TRUE), "0750")
+library(categoryCompare2)
+library(tools)
+```
+
+## Purpose
+
+Verify that the executables give the same results as running `categoryCompare` itself.
+
+## R Version
+
+We will use our R programming to read in the data and generate the annotations.
+
+```{r read_in_data}
+get_feature_lists <- function(file_list){
+  file_not_universe <- unlist(file_list[!(names(file_list) %in% "universe")])
+  
+  condition_names <- basename(file_not_universe)
+  condition_names <- gsub(paste0(".", file_ext(condition_names[1])), "", condition_names)
+  
+  file_data <- lapply(file_not_universe, function(x){
+    readLines(x)
+  })
+  names(file_data) <- condition_names
+  
+  if (is.null(file_list$universe)) {
+    file_data$universe <- unique(unlist(file_data))
+  } else {
+    file_data$universe <- readLines(file_list$universe)
+  }
+  
+  file_data
+}
+
+file_list <- list(file1 = file.path(test_loc, "10_symbol.txt"), universe = file.path(test_loc, "universe_symbol.txt"))
+feature_list <- get_feature_lists(file_list)
+feature_universe <- feature_list$universe
+feature_list$universe <- NULL
+```
+
+```{r generate_annotations}
+annotation_obj <- get_db_annotation("org.Hs.eg.db", feature_type = "SYMBOL", annotation_type = "CC")
+```
+
+```{r enrichments_R}
+gene_enrichments <- lapply(feature_list, function(in_genes){
+  hypergeometric_feature_enrichment(
+    new("hypergeom_features", significant = in_genes,
+        universe = feature_universe, annotation = annotation_obj),
+    p_adjust = "BH"
+  )
+})
+
+combined_enrichments <- combine_enrichments(gene_enrichments)
+
+p_cutoff_column <- "padjust"
+p_cutoff_value <- 0.01
+p_cutoff_direction <- "<="
+
+count_cutoff_column <- "counts"
+count_cutoff_value <- 2
+count_cutoff_direction <- ">="
+
+count_call_info <- list(fun = count_cutoff_direction, var_1 = count_cutoff_column, var_2 = count_cutoff_value)
+p_call_info <- list(fun = p_cutoff_direction, var_1 = p_cutoff_column, var_2 = p_cutoff_value)
+
+significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
+
+combined_significant <- combined_significant_calls(combined_enrichments, significant_calls)
+
+results_table <- generate_table(combined_significant)
+```
+
+## Executable Version
+
+```{sh}
+$exec_loc/feature_files_2_json.R --json="$results_loc/features.json" \
+  --file1="$test_loc/10_symbol.txt" \
+  --universe="$test_loc/universe_symbol.txt"
+```
+
+```{sh}
+$exec_loc/create_annotations.R --orgdb="org.Hs.eg.db" \
+  --feature-type="SYMBOL" \
+  --annotation-type="CC" \
+  --json="$results_loc/annotations.json"
+```
+
+```{sh}
+$exec_loc/run_enrichment.R --features="$results_loc/features.json" \
+  --output-file="$results_loc/cc2_results.txt" \
+  --text-only="TRUE" \
+  --annotations="$results_loc/annotations.json"
+```
+
+```{sh}
+$exec_loc/filter_and_group.R --enrichment-result="$results_loc/cc2_results.txt" \
+  --table-file="$results_loc/cc2_results_grouped.txt"
+```
+
+## Comparison
+
+```{r read_exec_results}
+exec_results <- read.table(file.path(tmp_loc, "full_table.txt"), sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+```
+
+```{r join_results}
+both_results <- dplyr::full_join(results_table, exec_results)
+
+p_diff <- data.frame(diff = both_results$`10_symbol.p` - both_results$X10_symbol.p)
+max(p_diff$diff)
+```
+
+```{r visualize_diffs}
+library(ggplot2)
+sum(is.na(both_results$`10_symbol.p`))
+sum(is.na(both_results$X10_symbol.p))
+ggplot(p_diff, aes(x = -1*log10(diff))) + geom_histogram(bins = 100)
+```
+
+OK, so where there are both GO terms, the differences are on the order of machine
+precision, but there are `r sum(is.na(both_results$X10_symbol.p))` GO terms missing
+from the executable case. That is not good!
+
+## Missing GO terms
+
+Lets read in the annotation object and see what GO terms are present there compared
+to the one we generated.
+
+```{r read_annotations}
+json_annotations <- json_2_annotation(file.path(tmp_loc, "annotations.json"))
+```
+
+
+```{r compare_annotations}
+all.equal(json_annotations, annotation_obj)
+```
+
+Nope, supposedly have the exact same set of annotations.
+
+## Different Genes Measured
+
+```{r load_json_genes}
+json_genes <- jsonlite::fromJSON(file.path(tmp_loc, "features.json"))
+
+setdiff(json_genes$`10_symbol`, feature_list$`10_symbol`)
+length(json_genes$`10_symbol`)
+length(feature_list$`10_symbol`)
+
+setdiff(json_genes$universe, feature_universe)
+length(json_genes$universe)
+length(feature_universe)
+```
+
