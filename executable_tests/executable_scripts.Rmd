@@ -33,11 +33,11 @@ Sys.chmod(dir(file.path(root_loc, "inst", "executables"), pattern = "*.R", full.
 
 This version of `categoryCompare2` now includes a set of executable scripts that
 can be used to perform an analysis from the command line. This document attempts
-to document what these scripts do. The scripts are found in the folder `executables`
+to document what these scripts do. The scripts are found in the folder `exec`
 from the package directory.
 
 You can run the `install_executables` function to move the scripts somewhere more
-useful, or `list_executables` to provide the locations of the scripts so that you
+useful, or `executable_path` to provide the locations of the scripts so that you
 can make aliases and change their permissions yourself so that
 they are accessible from the command line directly.
 
