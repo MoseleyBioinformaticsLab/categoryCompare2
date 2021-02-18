@@ -603,6 +603,10 @@ label_go_communities <- function(community_defs){
 
 #' label communities
 #' 
+#' Determine the label of a community based on the most generic member of
+#' each community, which is defined as being the one with the most
+#' annotations.
+#' 
 #' @param community_defs the communities from \code{assign_communities}
 #' @param annotation the annotation object used for enrichment
 #' 
@@ -700,6 +704,11 @@ table_from_graph <- function(in_graph, in_assign = NULL, community_info = NULL){
     n_comm <- length(community_info)
     community_info[[n_comm + 1]] <- list(label = "other", members = out_members)
     
+    community_info = purrr::map(seq(1, length(community_info)), function(comm_id){
+      community_info[[comm_id]]$group = comm_id
+      community_info[[comm_id]]
+    })
+    
     null_table <- node_table_2[1, ]
     rownames(null_table) <- NULL
     null_table <- lapply(null_table, function(x){
@@ -734,6 +743,7 @@ table_from_graph <- function(in_graph, in_assign = NULL, community_info = NULL){
       
       out_table <- rbind(header_table, tmp_table)
       rownames(out_table) <- NULL
+      out_table$group <- in_info$group
       out_table
     })
     out_node_table <- do.call(rbind, node_table_split)
