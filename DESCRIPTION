@@ -22,7 +22,8 @@ Suggests:
     affy,
     genefilter,
     testthat,
-    visNetwork
+    visNetwork,
+    Cairo
 Imports:
     AnnotationDbi,
     hwriter,
@@ -36,7 +37,6 @@ Imports:
     igraph,
     DiagrammeR,
     GO.db,
-    Cairo,
     jsonlite,
     base64enc
 LazyLoad: yes
@@ -48,4 +48,4 @@ SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
     results, heavily suggested)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

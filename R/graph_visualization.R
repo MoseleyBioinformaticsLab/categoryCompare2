@@ -12,6 +12,16 @@ setMethod("annotation_combinations",
           signature = list(object = "cc_graph"),
           function(object) .annotation_combinations(object@significant))
 
+check_cairo = function(){
+  cairo_install = try(find.package("Cairo"))
+  
+  if (inherits(cairo_install, "try-error")) {
+    stop("Cairo is not installed, but is required for this function!")
+  } else {
+    return(NULL)
+  }
+}
+
 #' unique combinations
 #'
 #' determine the unique combinations of annotations that exist in the
@@ -184,8 +194,8 @@ assign_colors <- function(in_assign, type = "experiment"){
 #' @export
 #' @return list of png files that are pie graphs
 #' @importFrom colorspace desaturate
-#' @import Cairo
 generate_piecharts <- function(grp_matrix, use_color){
+  check_cairo()
   n_grp <- nrow(grp_matrix)
   n_color <- length(use_color)
 
@@ -205,7 +215,7 @@ generate_piecharts <- function(grp_matrix, use_color){
 
     # use a tempfile so that multiple runs should generate their own files
     out_file <- tempfile(i_grp, fileext = ".png")
-    Cairo(width = 640, height = 640, file = out_file, type = "png", bg = "transparent")
+    Cairo::Cairo(width = 640, height = 640, file = out_file, type = "png", bg = "transparent")
     par(mai = c(0, 0, 0, 0))
     pie(pie_area, col = tmp_color, clockwise = TRUE)
     dev.off()
@@ -379,6 +389,7 @@ setMethod("remove_edges", signature=list(edge_obj="cc_graph", cutoff="numeric"),
 #' @export
 generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
                             width = 800, height = 400, pointsize = 70){
+  check_cairo()
   if (in_assign@color_type == "pie") {
     use_color <- in_assign@colors
     n_color <- length(use_color)
@@ -396,7 +407,7 @@ generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
       pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
     } else {
       out_file <- tempfile(pattern = "legendfile", fileext = ".png")
-      CairoPNG(file = out_file, bg = "white", width = width, height = height, pointsize = pointsize)
+      Cairo::CairoPNG(file = out_file, bg = "white", width = width, height = height, pointsize = pointsize)
       par(mai = c(0, 0, 0, 0))
       pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
       dev.off()
