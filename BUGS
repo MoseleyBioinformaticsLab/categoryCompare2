@@ -1,3 +1,7 @@
-Known categoryCompare Bugs
+Known categoryCompare2 Bugs
 
-None currently.
+* When using cc2 as part of an Rmarkdown report that is being managed by `{callr}` or a `{drake}` or `{targets}` workflow, and using a variable to hold a cutoff for significance, you may see the error that **`variable` is not found** (see reprex repo [here](https://github.com/rmflight/cc2_nse_rmarkdown_bug)).
+This seems due to a less than ideal implementation of non-standard-evaluation on the part of the developer.
+Because the significance call is **really** a filter operation, I think we should just depend on `{dplyr::filter}`, and pass the `...` all the way down.
+However, this means changing the statistical results to a proper data.frame, and other things.
+* To test the fix **before** mangling code across the statistical results class, etc, I think we should create a recursive function that upon reaching level 5 does the filtering and returns it, and verify it works via `{callr}`.
