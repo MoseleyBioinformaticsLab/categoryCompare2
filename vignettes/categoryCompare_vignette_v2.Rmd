@@ -180,6 +180,17 @@ bp_assign <- annotation_combinations(bp_graph)
 bp_assign <- assign_colors(bp_assign)
 ```
 
+### Find Communities
+
+It is useful to define the annotations in terms of their **communities**. To do
+this we run methods that find and then label the communities, before generating
+the visualization and table.
+
+```{r find_communities}
+bp_communities <- assign_communities(bp_graph)
+bp_comm_labels <- label_communities(bp_communities, bp_annotation)
+```
+
 
 ## Cytoscape Visualization
 

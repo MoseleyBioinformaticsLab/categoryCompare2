@@ -195,7 +195,7 @@ the visualization and table.
 
 ```{r find_communities}
 bp_communities <- assign_communities(bp_graph)
-bp_comm_labels <- label_go_communities(bp_communities)
+bp_comm_labels <- label_communities(bp_communities, bp_annotation)
 ```
 
 ### Create Stats Table
