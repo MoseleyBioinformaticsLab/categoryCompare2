@@ -22,7 +22,6 @@ Suggests:
     visNetwork,
     Cairo,
     DiagrammeR,
-    GO.db,
     KEGGREST,
     docopt,
     RCy3
@@ -37,7 +36,8 @@ Imports:
     base64enc,
     dplyr,
     purrr,
-    rlang
+    rlang,
+    GO.db
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
     (categories) generated on one or more feature lists.

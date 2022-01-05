@@ -20,7 +20,7 @@ Things that are still needed include:
 
 ## Documentation
 
-The [Vignette](https://github.com/rmflight/categoryCompare2/blob/master/vignettes/categoryCompare_vignette_v2_visnetwork.Rmd) provides a description of the thinking behind this package as well as a toy example for demonstration purposes.
+The [Vignette](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob/master/vignettes/categoryCompare_vignette_v2_visnetwork.Rmd) provides a description of the thinking behind this package as well as a toy example for demonstration purposes.
 
 ## Installation
 
