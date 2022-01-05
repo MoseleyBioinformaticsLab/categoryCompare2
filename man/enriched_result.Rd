@@ -5,9 +5,24 @@
 \title{the enriched results class}
 \usage{
 enriched_result(features, universe, annotation, statistics)
+
+enriched_result(features, universe, annotation, statistics)
+}
+\arguments{
+\item{features}{the features that were differentially expressed (see details)}
+
+\item{universe}{all of the features that were measured}
+
+\item{annotation}{an \code{\link{annotation}} object}
+
+\item{statistics}{a \code{\link{statistical_results}} object}
+}
+\value{
+enriched_result
 }
 \description{
-the enriched results class
+given all the slots for an \code{\link{enriched_result}}, checks that all
+the data is self-consistent, and creates the \code{\link{enriched_result}} object.
 }
 \section{Slots}{
 
@@ -18,6 +33,6 @@ the enriched results class
 
 \item{\code{annotation}}{list giving the annotation to feature relationship}
 
-\item{\code{statistics}}{a \linkS4class{statistical_results} object}
+\item{\code{statistics}}{a \code{\link{statistical_results}} object}
 }}
 

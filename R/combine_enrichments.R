@@ -1,18 +1,26 @@
 #' combine enrichments
 #' 
-#' This is one of the primary workhorse functions behind \pkg{categoryCompare}.
+#' This is one of the primary workhorse functions behind \pkg{categoryCompare2}.
 #' The primary function of \code{categoryCompare} is to enable \emph{comparisons}
 #' of different enrichment analyses. To facilitate that, we must first 
 #' \strong{combine} one (really, we can do this with a single) or more 
-#' \linkS4class{enriched_results}
+#' \code{\link{enriched_result}}.
 #' 
-#' @param ... one or more \linkS4class{enriched_results}
+#' @param ... one or more \code{\link{enriched_result}}
 #' 
-#' @return \linkS4class{combined_enrichment}
+#' @return \code{\link{combined_enrichment}}
 #' @export
+#' @rdname combine_enrichments
+#' @aliases combine_enrichments
 setMethod("combine_enrichments", signature = "enriched_result", 
           function(...) .combine_enrichments_multiple(...))
 
+#' combine enrichments
+#' 
+#' @param ... list of enriched_result
+#' 
+#' @export
+#' @rdname combine_enrichments
 setMethod("combine_enrichments", signature = "list",
           function(...) .combine_enrichments_single(...))
 
@@ -47,16 +55,17 @@ setMethod("combine_enrichments", signature = "list",
 
 #' generate the annotation graph
 #' 
-#' given a \linkS4class{combined_enrichment}, generate the annotation similarity graph
+#' given a \code{\link{combined_enrichment}}, generate the annotation similarity graph
 #' 
 #' @param comb_enrichment the combined_enrichment object
 #' @param annotation_similarity which similarity measure to use
 #' @param low_cut keep only those annotations in the graph with at least this many annotated features
 #' @param hi_cut keep only those annotations with less than this many annotated features
 #' 
-#' @return \linkS4class{cc_graph}
+#' @return \code{\link{cc_graph}}
 #' 
 #' @export
+#' @rdname generate_annotation_graph
 setMethod("generate_annotation_graph", signature = list(comb_enrichment = "combined_enrichment"),
           function(comb_enrichment, annotation_similarity, low_cut, hi_cut) .generate_annotation_graph(comb_enrichment, annotation_similarity, low_cut, hi_cut))
 
@@ -97,15 +106,15 @@ add_data_to_graph <- function(graph, data){
   
   data_types <- lapply(data, class)
   
-  graph_entries <- nodes(graph)
+  graph_entries <- graph::nodes(graph)
   data_entries <- rownames(data)
   
   match_entries <- intersect(graph_entries, data_entries)
   
   for (i_data in names(data_types)){
     use_type <- data_types[[i_data]][1]
-    nodeDataDefaults(graph, i_data) <- type_defaults[[use_type]][1]
-    attr(nodeDataDefaults(graph, i_data), "class") <- type_convert[use_type]
+    graph::nodeDataDefaults(graph, i_data) <- type_defaults[[use_type]][1]
+    attr(graph::nodeDataDefaults(graph, i_data), "class") <- type_convert[use_type]
     
     # NA is not nice in RCy, so convert to the default, which is -100, pretty non-sensical
     tmp_data <- data[match_entries, i_data]
@@ -114,7 +123,7 @@ add_data_to_graph <- function(graph, data){
       tmp_data[is.infinite(tmp_data)] <- 1e100
     }
     
-    nodeData(graph, match_entries, i_data) <- tmp_data
+    graph::nodeData(graph, match_entries, i_data) <- tmp_data
   }
   
   graph
@@ -122,10 +131,10 @@ add_data_to_graph <- function(graph, data){
 
 #' generate table
 #' 
-#' given a \linkS4class{combined_enrichment} object, get out the data.frame
-#' either for investigation or to add data to the \linkS4class{annotation_graph}.
+#' given a \code{\link{combined_enrichment}} object, get out the data.frame
+#' either for investigation or to add data to the \code{\link{cc_graph}}.
 #' 
-#' @param comb_enrichment the combined_enrichment object
+#' @param comb_enrichment the \code{\link{combined_enrichment}} object
 #' @param link_type should their be an "explicit" link (see details)
 #' @details the \code{link_type} controls whether to create an "explicit" link
 #'   that is actually a column in the data.frame, or create an "implicit" html link
@@ -133,6 +142,7 @@ add_data_to_graph <- function(graph, data){
 #'   if you are embedding the data.frame in an html report.
 #' @return data.frame
 #' @export
+#' @rdname generate_table
 setMethod("generate_table", signature = list(comb_enrichment = "combined_enrichment"),
           function(comb_enrichment, link_type) .generate_table(comb_enrichment, link_type))
 
@@ -201,14 +211,16 @@ setMethod("generate_table", signature = list(comb_enrichment = "combined_enrichm
 
 #' combine annotations
 #' 
-#' Takes multiple \linkS4class{annotation} objects and combines them so that there
-#' is a consistent sole set for creating the \code{annotation_graph} and providing
+#' Takes multiple \code{\link{annotation}} objects and combines them so that there
+#' is a consistent sole set for creating the \code{\link{cc_graph}} and providing
 #' other information about each annotation entry.
 #' 
-#' @param ... one or more \linkS4class{annotation}
+#' @param annotation_list one or more \code{\link{annotation}}
 #' 
-#' @return \linkS4class{annotation}
+#' @return \code{\link{annotation}}
 #' @export
+#' @rdname combine_annotations
+#' @aliases combine_annotations
 setMethod("combine_annotations", signature = "list", function(annotation_list) .combine_annotations(annotation_list))
 
 .combine_annotations <- function(annotation_list){
@@ -258,7 +270,7 @@ setMethod("combine_annotations", signature = "list", function(annotation_list) .
 #' 
 #' For the generation of a proper annotation-annotation relationship graph, we
 #' need to combine the annotation-feature relationships across multiple
-#' \linkS4class{annotation} objects
+#' \code{\link{annotation}} objects
 #' 
 #' @param annotation_features list of annotation_features to combine
 #' 
@@ -289,6 +301,7 @@ combine_annotation_features <- function(annotation_features){
 #' 
 #' @param list_characters list containing named character strings
 #' @param names_out the full list of names to use
+#' @param text_id what is the name for that thing being put out
 #' 
 #' @export
 #' @return named character vector
@@ -336,8 +349,6 @@ combine_text <- function(list_characters, names_out, text_id){
 #' 
 #' @export
 #' @return cc_graph
-#' 
-#' @import graph
 generate_annotation_similarity_graph <- function(annotation_features, similarity_type = "combined"){
     
   use_annotations <- names(annotation_features)
@@ -385,10 +396,10 @@ generate_annotation_similarity_graph <- function(annotation_features, similarity
   from_edge <- use_annotations[all_comparisons[,1]]
   to_edge <- use_annotations[all_comparisons[,2]]
   
-  edgeDataDefaults(out_graph, attr = "weight") <- 0
-  attr(edgeDataDefaults(out_graph, attr = "weight"), "class") <- "FLOATING"
+  graph::edgeDataDefaults(out_graph, attr = "weight") <- 0
+  attr(graph::edgeDataDefaults(out_graph, attr = "weight"), "class") <- "FLOATING"
   
-  out_graph <- addEdge(from_edge, to_edge, out_graph, similarity)
+  out_graph <- graph::addEdge(from_edge, to_edge, out_graph, similarity)
   return(out_graph)
 }
 
@@ -441,13 +452,15 @@ combined_coefficient <- function(n1, n2){
 
 #' extract statistics
 #' 
-#' extract all statistics for a \linkS4class{statistical_results} object. These
+#' extract all statistics for a \code{\link{statistical_results}} object. These
 #' can then be combined into a \code{data.frame} that can be returned or used
 #' to annotate the graph of annotations.
 #' 
-#' @param in_results the \linkS4class{statistical_results} object
+#' @param in_results the \code{\link{statistical_results}} object
+#' 
 #' @return data.frame
 #' @exportMethod extract_statistics
+#' @rdname extract_statistics
 setMethod("extract_statistics", signature = list(in_results = "statistical_results"),
           function(in_results) .extract_statistics_statistical_results(in_results))
 
@@ -514,12 +527,12 @@ combined_statistics <- function(statistic_data, which_enrichment, which_statisti
 
 #' extract statistics
 #' 
-#' extract all statistics from a \linkS4class{combined_enrichment} object and 
-#' create a \linkS4class{combined_statistics} where each statistic from the underlying 
-#' \linkS4class{statistical_results} object in each of the enrichments
+#' extract all statistics from a \code{\link{combined_enrichment}} object and 
+#' create a \code{\link{combined_statistics}} where each statistic from the underlying 
+#' \code{\link{statistical_results}} object in each of the enrichments
 #' is named according to which enrichment it was in and what statistic it was.
 #' 
-#' @param in_results the \linkS4class{combined_enrichment} object
+#' @param in_results the \code{\link{combined_enrichment}} object
 #' @return combined_statistics
 #' @exportMethod extract_statistics
 setMethod("extract_statistics", signature = list(in_results = "combined_enrichment"),
@@ -565,9 +578,9 @@ setMethod("extract_statistics", signature = list(in_results = "combined_enrichme
 
 #' add data to graph
 #' 
-#' given a \linkS4class{combined_enrichment} object, add the data about the significant 
+#' given a \code{\link{combined_enrichment}} object, add the data about the significant 
 #' and present annotations, their descriptions, links (if present), and all the statistics, 
 #' and add that data to the annotation graph object.
 #' 
-#' @param combined_enrichment a \linkS4class{combined_enrichment} object
+#' @param combined_enrichment a \code{\link{combined_enrichment}} object
 #' @exportMethod

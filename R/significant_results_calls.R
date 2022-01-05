@@ -1,16 +1,16 @@
 #' get significant annotations calls
 #' 
-#' In the case where we have a \linkS4class{combined_enrichment} and we want
+#' In the case where we have a \code{\link{combined_enrichment}} and we want
 #' to get all of the significant annotations from each of them, and put them
 #' together so we can start doing real meta-analysis.
 #' 
-#' Note that this function returns the original \linkS4class{combined_enrichment} object with a modified
-#' \linkS4class{combined_statistics} slot where the significant annotations have been added in. 
+#' Note that this function returns the original \code{\link{combined_enrichment}} object with a modified
+#' \code{\link{combined_statistics}} slot where the significant annotations have been added in. 
 #' 
-#' @param in_results a \linkS4class{combined_enrichment} object
+#' @param in_results a \code{\link{combined_enrichment}} object
 #' @param queries a list of queries that can form a call object
 #' 
-#' @return \linkS4class{combined_enrichment} object
+#' @return \code{\link{combined_enrichment}} object
 #' @export
 combined_significant_calls <- function(in_results, queries){
   all_measured <- lapply(in_results@enriched,
@@ -51,10 +51,10 @@ combined_significant_calls <- function(in_results, queries){
 
 #' get significant annotations calls
 #' 
-#' In the case where we have a \linkS4class{statistical_results} and we want
+#' In the case where we have a \code{\link{statistical_results}} and we want
 #' to get all of the significant annotations from it
 #' 
-#' @param in_results a \linkS4class{statistical_results} object
+#' @param in_results a \code{\link{statistical_results}} object
 #' @param queries a list of queries that can form a call object
 #' 
 #' @return vector of significant annotation_id's

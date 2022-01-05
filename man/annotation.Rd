@@ -2,6 +2,7 @@
 % Please edit documentation in R/all_classes.R
 \name{annotation}
 \alias{annotation}
+\alias{show,annotation-method}
 \title{annotation class}
 \usage{
 annotation(
@@ -11,15 +12,42 @@ annotation(
   links = character(0),
   feature_type = NULL
 )
+
+\S4method{show}{annotation}(object)
+
+annotation(
+  annotation_features,
+  annotation_type = NULL,
+  description = character(0),
+  links = character(0),
+  feature_type = NULL
+)
+}
+\arguments{
+\item{annotation_features}{list of annotation to feature relationships}
+
+\item{annotation_type}{a simple one word description of the annotations}
+
+\item{description}{character vector providing descriptive text about the annotation}
+
+\item{links}{character vector defining html links for each annotation (may be empty)}
+
+\item{feature_type}{one word description of the feature type}
+
+\item{object}{the annotation object}
 }
 \description{
 This class holds an annotation object that defines how annotations relate to
 features, as well as various pieces about each annotation
+
+Does sensical checks when creating an \code{annotation} object.
 }
 \details{
 These objects may be created by hand, or may result from specific functions
 to create them. Most notably, this package provides functions for creating
 a Gene Ontology annotation.
+
+See the \code{annotation}, each slot is a parameter.
 }
 \section{Slots}{
 

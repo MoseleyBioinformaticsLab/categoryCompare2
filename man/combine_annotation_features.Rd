@@ -15,5 +15,5 @@ list of combined annotations
 \description{
 For the generation of a proper annotation-annotation relationship graph, we
 need to combine the annotation-feature relationships across multiple
-\linkS4class{annotation} objects
+\code{\link{annotation}} objects
 }

@@ -4,6 +4,7 @@
 #' information from it.
 #' 
 #' @param orgdb the name of the org.*.db object
+#' @param features which features to get annotations for
 #' @param feature_type which type of IDs to map (see details)
 #' @param annotation_type the type of annotation to grab (see details)
 #' 
@@ -45,69 +46,68 @@ get_db_annotation <- function(orgdb = "org.Hs.eg.db", features = NULL, feature_t
                               annotation_type = "GO"){
   go_types <- c("GO", "BP", "MF", "CC")
   go_sub <- c("BP", "MF", "CC")
+  check_package_installed(orgdb)
   
-  if (!require(orgdb, character.only = TRUE, quietly = TRUE)) {
-    stop("The package ", orgdb, " is not installed/available. Try installing it with biocLite('", orgdb, "')")
-  } else {
-    annotation_src <- eval(parse(text = orgdb))
-    annotation_columns <- AnnotationDbi::columns(annotation_src)
-    annotation_keytypes <- AnnotationDbi::keytypes(annotation_src)
+  annotation_src <- eval(parse(text = orgdb))
+  annotation_columns <- AnnotationDbi::columns(annotation_src)
+  annotation_keytypes <- AnnotationDbi::keytypes(annotation_src)
     
-    if (!(annotation_type %in% c(go_types, annotation_columns))) {
-      stop("Unknown annotation type!")
-    }
-    
-    if (!(feature_type %in% annotation_keytypes)) {
-      stop("Unknown feature_type!")
-    }
-    
-    if (is.null(features)) {
-      features <- AnnotationDbi::keys(annotation_src, feature_type)
-    }
-    
-    if (annotation_type %in% go_types) {
-      suppressMessages(require("GO.db", character.only = TRUE))
-      feature_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = features,
-                                                             keytype = feature_type,
-                                                             columns = "GOALL"))
-      
-      if (annotation_type %in% go_sub) {
-        feature_ann_map <- feature_ann_map[feature_ann_map$ONTOLOGYALL %in% annotation_type, ]
-      }
-      
-      
-      ann_feature_list <- split(feature_ann_map[[feature_type]], feature_ann_map[["GOALL"]])
-      ann_feature_list <- lapply(ann_feature_list, unique)
-      ann_description <- suppressMessages(AnnotationDbi::select(GO.db, keys = names(ann_feature_list), columns = "TERM", keytype = "GOID")$TERM)
-      names(ann_description) <- names(ann_feature_list)
-      
-      if (annotation_type %in% "GO") {
-        go_ontology_map <- unique(feature_ann_map[, c("GOALL", "ONTOLOGYALL")])
-        go_ontology <- go_ontology_map$ONTOLOGYALL
-        names(go_ontology) <- go_ontology_map$GOALL
-        go_ontology <- go_ontology[names(ann_description)]
-        ann_description <- paste0(go_ontology, ":", ann_description)
-        names(ann_description) <- names(go_ontology)
-      }
-      
-      
-      annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
-                                                     description = ann_description,
-                                                     annotation_type = annotation_type,
-                                                     feature_type = feature_type)
-    } else {
-      feature_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = features,
-                                                                keytype = feature_type,
-                                                                columns = annotation_type))
-      ann_feature_list <- split(feature_ann_map[[feature_type]], feature_ann_map[[annotation_type]])
-      ann_feature_list <- lapply(ann_feature_list, unique)
-      
-      annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
-                                                     annotation_type = annotation_type,
-                                                     feature_type = feature_type)
-    }
-    
+  if (!(annotation_type %in% c(go_types, annotation_columns))) {
+    stop("Unknown annotation type!")
   }
+    
+  if (!(feature_type %in% annotation_keytypes)) {
+    stop("Unknown feature_type!")
+  }
+  
+  if (is.null(features)) {
+    features <- AnnotationDbi::keys(annotation_src, feature_type)
+  }
+  
+  if (annotation_type %in% go_types) {
+    check_package_installed("GO.db")
+    requireNamespace("GO.db")
+    godb = GO.db::GO.db
+    feature_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = features,
+                                                           keytype = feature_type,
+                                                           columns = "GOALL"))
+    
+    if (annotation_type %in% go_sub) {
+      feature_ann_map <- feature_ann_map[feature_ann_map$ONTOLOGYALL %in% annotation_type, ]
+    }
+    
+    
+    ann_feature_list <- split(feature_ann_map[[feature_type]], feature_ann_map[["GOALL"]])
+    ann_feature_list <- lapply(ann_feature_list, unique)
+    ann_description <- suppressMessages(AnnotationDbi::select(godb, keys = names(ann_feature_list), columns = "TERM", keytype = "GOID")$TERM)
+    names(ann_description) <- names(ann_feature_list)
+    
+    if (annotation_type %in% "GO") {
+      go_ontology_map <- unique(feature_ann_map[, c("GOALL", "ONTOLOGYALL")])
+      go_ontology <- go_ontology_map$ONTOLOGYALL
+      names(go_ontology) <- go_ontology_map$GOALL
+      go_ontology <- go_ontology[names(ann_description)]
+      ann_description <- paste0(go_ontology, ":", ann_description)
+      names(ann_description) <- names(go_ontology)
+    }
+    
+    
+    annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
+                                                   description = ann_description,
+                                                   annotation_type = annotation_type,
+                                                   feature_type = feature_type)
+  } else {
+    feature_ann_map <- suppressMessages(AnnotationDbi::select(annotation_src, keys = features,
+                                                              keytype = feature_type,
+                                                              columns = annotation_type))
+    ann_feature_list <- split(feature_ann_map[[feature_type]], feature_ann_map[[annotation_type]])
+    ann_feature_list <- lapply(ann_feature_list, unique)
+    
+    annotation_obj <- categoryCompare2::annotation(annotation_features = ann_feature_list,
+                                                   annotation_type = annotation_type,
+                                                   feature_type = feature_type)
+  }
+  
   annotation_obj
 }
 

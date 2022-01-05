@@ -1,5 +1,11 @@
+#' combine enrichments
+#' 
+#' @export
 setGeneric("combine_enrichments", function(...) standardGeneric("combine_enrichments"))
 
+#' combine annotations
+#' 
+#' @export
 setGeneric("combine_annotations", function(annotation_list) standardGeneric("combine_annotations"))
 
 #' get significant annotations
@@ -28,4 +34,7 @@ setGeneric("generate_table", function(comb_enrichment, link_type = "explicit") s
 setGeneric("annotation_combinations", function(object) standardGeneric("annotation_combinations"))
 # we may unexport this eventually
 
+#' remove edges
+#' 
+#' @export
 setGeneric("remove_edges", function(edge_obj, cutoff, edge_attr = "weight", value_direction = "under") standardGeneric("remove_edges"))

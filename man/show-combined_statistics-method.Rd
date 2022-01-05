@@ -7,7 +7,7 @@
 \S4method{show}{combined_statistics}(object)
 }
 \arguments{
-\item{object}{\linkS4class{combined_statistics}}
+\item{object}{\code{\link{combined_statistics}}}
 }
 \description{
 show combined_statistics

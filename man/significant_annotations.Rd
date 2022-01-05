@@ -20,7 +20,7 @@ measured}
 The \code{significant_annotations} class holds which annotations from which
 enrichment were both \strong{measured} and \strong{significant}. Each of these
 slots is a \emph{logical matrix} with rows named by \emph{annotation_id} and 
-columns named by the names of the \linkS4class{enriched_result} that was combined.
+columns named by the names of the \code{\link{enriched_result}} that was combined.
 
 Makes a new significant_annotation while checking that everything is valid.
 }

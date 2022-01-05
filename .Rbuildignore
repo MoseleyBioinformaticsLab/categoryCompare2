@@ -20,3 +20,5 @@ test_combine_filter.rda
 ^cc2_results$
 ^bp_annotations\.csv$
 ^annotations\.json$
+^test_cytoscape\.rda$
+^cc2_results_grouped\.txt$

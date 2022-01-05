@@ -6,6 +6,9 @@
 \usage{
 \S4method{show}{significant_annotations}(object)
 }
+\arguments{
+\item{object}{the significant annotations object to show}
+}
 \description{
 show signficant_annotations
 }

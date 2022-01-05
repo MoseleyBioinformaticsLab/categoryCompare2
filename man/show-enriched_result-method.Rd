@@ -6,6 +6,9 @@
 \usage{
 \S4method{show}{enriched_result}(object)
 }
+\arguments{
+\item{object}{the enriched_result object to show}
+}
 \description{
 show enriched_result
 }

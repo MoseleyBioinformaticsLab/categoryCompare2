@@ -226,7 +226,7 @@ generate_legend(bp_assign, img = TRUE)
 ```
 
 ```{r}
-annotation_table <- annotation_gene_table(bp_combined, graph::nodes(bp_graph))
+annotation_table <- annotation_gene_table(bp_combined, graph::nodes(bp_graph), use_db = org.Hs.eg.db)
 ```
 
 We will show the table that is generated here for the first 3 GO terms.

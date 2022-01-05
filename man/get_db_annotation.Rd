@@ -14,6 +14,8 @@ get_db_annotation(
 \arguments{
 \item{orgdb}{the name of the org.*.db object}
 
+\item{features}{which features to get annotations for}
+
 \item{feature_type}{which type of IDs to map (see details)}
 
 \item{annotation_type}{the type of annotation to grab (see details)}
