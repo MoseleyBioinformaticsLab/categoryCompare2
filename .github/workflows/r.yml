@@ -28,6 +28,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Install X11 dependencies on MacOS
+        if: runner.os == 'macOS'
+        run: |
+          brew --cask install xquartz
 
       - uses: r-lib/actions/setup-pandoc@v1
 
