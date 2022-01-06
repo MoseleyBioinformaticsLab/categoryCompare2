@@ -4,7 +4,7 @@
 \alias{vis_in_cytoscape}
 \title{visualize in cytoscape}
 \usage{
-vis_in_cytoscape(in_graph, in_assign, description = "", ...)
+vis_in_cytoscape(in_graph, in_assign, description = "cc2 enrichment")
 }
 \arguments{
 \item{in_graph}{the cc_graph to visualize}
@@ -12,8 +12,6 @@ vis_in_cytoscape(in_graph, in_assign, description = "", ...)
 \item{in_assign}{the node_assign generated}
 
 \item{description}{something descriptive about the vis (useful when lots of different visualizations)}
-
-\item{...}{other parameters for \code{CytoscapeWindow}}
 }
 \value{
 something

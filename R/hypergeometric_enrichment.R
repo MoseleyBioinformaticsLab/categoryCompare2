@@ -56,7 +56,7 @@ hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "o
     num_white_drawn <- 0
   }
   
-  num_white <- Biobase:::listLen(hypergeom_features@annotation@annotation_features)
+  num_white <- Biobase::listLen(hypergeom_features@annotation@annotation_features)
   
   if (length(num_white) == 0){
     num_white <- 0

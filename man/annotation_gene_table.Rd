@@ -7,13 +7,15 @@
 annotation_gene_table(
   combined_enrichment,
   annotations = NULL,
-  use_db = org.Hs.eg.db,
+  use_db = NULL,
   input_type = "ENTREZID",
   gene_info = c("SYMBOL", "GENENAME")
 )
 }
 \arguments{
 \item{combined_enrichment}{combined enrichment object}
+
+\item{annotations}{which annotations to grab features from}
 
 \item{use_db}{the annotation database}
 

@@ -7,7 +7,7 @@
 get_significant_annotations_calls(in_results, queries)
 }
 \arguments{
-\item{in_results}{a \linkS4class{statistical_results} object}
+\item{in_results}{a \code{\link{statistical_results}} object}
 
 \item{queries}{a list of queries that can form a call object}
 }
@@ -15,6 +15,6 @@ get_significant_annotations_calls(in_results, queries)
 vector of significant annotation_id's
 }
 \description{
-In the case where we have a \linkS4class{statistical_results} and we want
+In the case where we have a \code{\link{statistical_results}} and we want
 to get all of the significant annotations from it
 }

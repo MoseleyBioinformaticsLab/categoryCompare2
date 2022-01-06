@@ -15,6 +15,7 @@
 #' @slot feature_type a one word short description of the "type" of features
 #' 
 #' @export
+#' @rdname annotation
 annotation <- setClass("annotation",
                        slots = list(annotation_features = "list",
                                     description = "character",
@@ -24,7 +25,11 @@ annotation <- setClass("annotation",
                                     feature_type = "character"))
 
 #' show annotation
+#' 
+#' @param object the annotation object
+#' 
 #' @exportMethod show
+#' @rdname annotation
 setMethod("show", signature = list(object = "annotation"),
           function(object){
             n_gene <- length(unique(unlist(object@annotation_features)))
@@ -37,18 +42,17 @@ setMethod("show", signature = list(object = "annotation"),
 
 #' annotation constructor
 #' 
-#' Does sensical checks when creating an \linkS4class{annotation} object.
+#' Does sensical checks when creating an \code{annotation} object.
 #' 
-#' See the \linkS4class{annotation}, each slot is a parameter.
+#' See the \code{annotation}, each slot is a parameter.
 #' 
 #' @param annotation_features list of annotation to feature relationships
+#' @param annotation_type a simple one word description of the annotations
 #' @param description character vector providing descriptive text about the annotation
-#' @param counts numeric vector of how many features are in each annotation
 #' @param links character vector defining html links for each annotation (may be empty)
-#' @param annotation_type a one word short description of the "type" of annotation
 #' @param feature_type one word description of the feature type
 #' 
-#' @rdname annotation_constructor
+#' @rdname annotation
 #' @export
 annotation <- function(annotation_features, annotation_type = NULL, description = character(0), links = character(0),
                        feature_type = NULL){
@@ -123,7 +127,7 @@ statistical_results <- setClass("statistical_results",
 #' @slot features the "features" of interest, a vector of class ANY
 #' @slot universe all of the "features" in the background
 #' @slot annotation list giving the annotation to feature relationship
-#' @slot statistics a \linkS4class{statistical_results} object
+#' @slot statistics a \code{\link{statistical_results}} object
 #' 
 #' @export
 enriched_result <- setClass("enriched_result",
@@ -133,6 +137,9 @@ enriched_result <- setClass("enriched_result",
                                          statistics = "statistical_results"))
 
 #' show enriched_result
+#' 
+#' @param object the enriched_result object to show
+#' 
 #' @exportMethod show
 setMethod("show", signature = list(object = "enriched_result"),
           function(object){
@@ -151,17 +158,17 @@ setMethod("show", signature = list(object = "enriched_result"),
 
 #' creates enriched result
 #' 
-#' given all the slots for an \linkS4class{enriched_result}, checks that all
-#' the data is self-consistent, and creates the \code{enriched_result} object.
+#' given all the slots for an \code{\link{enriched_result}}, checks that all
+#' the data is self-consistent, and creates the \code{\link{enriched_result}} object.
 #' 
 #' @param features the features that were differentially expressed (see details)
 #' @param universe all of the features that were measured
-#' @param annotation an \linkS4class{annotation} object
-#' @param statistics a \linkS4class{statistical_results} object
+#' @param annotation an \code{\link{annotation}} object
+#' @param statistics a \code{\link{statistical_results}} object
 #' 
 #' @export
 #' @return enriched_result
-#' @rdname enriched_result_constructor
+#' @rdname enriched_result
 enriched_result <- function(features, universe, annotation, statistics){
   stopifnot(class(statistics) == "statistical_results")
   stopifnot(class(annotation) == "annotation")
@@ -201,7 +208,7 @@ enriched_result <- function(features, universe, annotation, statistics){
 #' The \code{significant_annotations} class holds which annotations from which
 #' enrichment were both \strong{measured} and \strong{significant}. Each of these
 #' slots is a \emph{logical matrix} with rows named by \emph{annotation_id} and 
-#' columns named by the names of the \linkS4class{enriched_result} that was combined.
+#' columns named by the names of the \code{\link{enriched_result}} that was combined.
 #' 
 #' @slot significant logical matrix
 #' @slot measured logical matrix
@@ -214,6 +221,8 @@ significant_annotations <- setClass("significant_annotations",
                                                  sig_calls = "character"))
 
 #' show signficant_annotations
+#' 
+#' @param object the significant annotations object to show
 #' 
 #' @exportMethod show
 setMethod("show", signature = list(object = "significant_annotations"),
@@ -252,13 +261,13 @@ significant_annotations <- function(significant, measured, sig_calls = NULL){
 
 #' combined statistics
 #' 
-#' holds the results of extracting a bunch of statistics from a \linkS4class{combined_enrichment}
+#' holds the results of extracting a bunch of statistics from a \code{\link{combined_enrichment}}
 #' into one entity. This is useful because we want to enable multiple data representations and
 #' simple filtering on the actual \code{data.frame} of statistics, and this provides flexibility
 #' to enable that.
 #' 
 #' @slot statistic_data a \code{data.frame} of all of the statistics from all of the enrichments
-#' @slot significant a \linkS4class{significant_annotations} object, that may be empty
+#' @slot significant a \code{\link{significant_annotations}} object, that may be empty
 #' @slot which_enrichment a \code{vector} giving which enrichment each column of the statistics came from
 #' @slot which_statistic a \code{vector} providing which statistic each column contains
 #' 
@@ -273,7 +282,7 @@ combined_statistics <- setClass("combined_statistics",
 
 #' show combined_statistics
 #' 
-#' @param object \linkS4class{combined_statistics}
+#' @param object \code{\link{combined_statistics}}
 #' 
 #' @exportMethod show
 setMethod("show", signature = list(object = "combined_statistics"),
@@ -284,16 +293,17 @@ setMethod("show", signature = list(object = "combined_statistics"),
 #' combined enrichments
 #' 
 #' The \code{combined_enrichment} class holds the results of combining several 
-#' \linkS4class{enriched_result}s together, which includes the original 
-#' \linkS4class{enriched_result}s, as well as the \code{annotation_graph}
-#' and combined \linkS4class{annotation} objects.
+#' \code{\link{enriched_result}}s together, which includes the original 
+#' \code{\link{enriched_result}}s, as well as the \code{\link{cc_graph}}
+#' and combined \code{\link{annotation}} objects.
 #' 
 #' @slot enriched list of enriched objects
-#' @slot enriched_type character describing the enrichment annotation
-#' @slot annotation \linkS4class{annotation} where the annotation_features
-#' have been combined across the \linkS4class{enriched_results}
+#' @slot annotation \code{\link{annotation}} where the annotation_features
+#' have been combined across the \code{\link{enriched_result}}
+#' @slot statistics \code{\link{combined_statistics}} of both
 #' 
 #' @export
+#' @rdname combined_enrichment
 combined_enrichment <- setClass("combined_enrichment",
                                 slots = list(enriched = "list",
                                              annotation = "annotation",
@@ -310,31 +320,38 @@ combined_enrichment <- setClass("combined_enrichment",
 #' @slot significant numeric matrix of ones and zeros
 #' 
 #' @export
+#' @importFrom graph graphNEL
+#' @rdname cc_graph
 cc_graph <- setClass("cc_graph",
                      contains = "graphNEL",
                      slots = list(significant = "matrix"))
 
 #' show cc_graph enrichment
 #' 
+#' @param object the cc_graph to show
+#' 
 #' @exportMethod show
+#' @rdname cc_graph
 setMethod("show", signature = list(object = "cc_graph"),
           function(object) {
-            numNodes<- numNodes(object)
-            numEdge<-numEdges(object)
+            numNodes <- graph::numNodes(object)
+            numEdge <- graph::numEdges(object)
             node_assign <- annotation_combinations(object)
             cat("A cc_graph with\n")
             cat("Number of Nodes =", numNodes, "\n")
             cat("Number of Edges =", numEdge, "\n")
             print(node_assign)
           })
+
 #' cc_graph constructor
 #' 
-#' constructs a \emph{cc_graph} given a \linkS4class{graphNEL} and a \emph{significant} matrix.
+#' constructs a \emph{cc_graph} given a \code{\link[graph]{graphNEL}} and a \emph{significant} matrix.
 #' 
-#' @param graph the \linkS4class{graphNEL}
+#' @param graph the \code{\link[graph]{graphNEL}}
 #' @param significant a matrix indicating which nodes are significant in which experiment
 #' 
 #' @export
+#' @rdname cc_graph
 cc_graph <- function(graph, significant){
   out_graph <- as(graph, "cc_graph")
   out_graph@significant <- significant
@@ -360,7 +377,7 @@ node_assign <- setClass("node_assign",
                                      description = "character",
                                      colors = "character",
                                      color_type = "character",
-                                     pie_locs = "character"))
+                                     pie_locs = "ANY"))
 
 #' show node_assign
 #' 

@@ -43,7 +43,7 @@ combined_statistics(
 combined_statistics
 }
 \description{
-holds the results of extracting a bunch of statistics from a \linkS4class{combined_enrichment}
+holds the results of extracting a bunch of statistics from a \code{\link{combined_enrichment}}
 into one entity. This is useful because we want to enable multiple data representations and
 simple filtering on the actual \code{data.frame} of statistics, and this provides flexibility
 to enable that.
@@ -56,7 +56,7 @@ empty things get initialized correctly
 \describe{
 \item{\code{statistic_data}}{a \code{data.frame} of all of the statistics from all of the enrichments}
 
-\item{\code{significant}}{a \linkS4class{significant_annotations} object, that may be empty}
+\item{\code{significant}}{a \code{\link{significant_annotations}} object, that may be empty}
 
 \item{\code{which_enrichment}}{a \code{vector} giving which enrichment each column of the statistics came from}
 

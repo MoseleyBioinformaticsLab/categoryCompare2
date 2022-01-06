@@ -13,7 +13,7 @@ assign_features <- function(enrichment_obj){
     sig_matrix[sig_features[[isig]], isig] <- TRUE
   }
   
-  feature_description <- categoryCompare2:::.annotation_combinations(sig_matrix)@description
+  feature_description <- .annotation_combinations(sig_matrix)@description
   feature_description
 }
 
@@ -23,6 +23,7 @@ assign_features <- function(enrichment_obj){
 #' genes are contributing to a particular annotation.
 #' 
 #' @param combined_enrichment combined enrichment object
+#' @param annotations which annotations to grab features from
 #' @param use_db the annotation database
 #' @param input_type what type of gene id was it?
 #' @param gene_info what type of info to return for each gene
@@ -31,7 +32,7 @@ assign_features <- function(enrichment_obj){
 #' @return data.frame
 annotation_gene_table <- function(combined_enrichment,
                                   annotations = NULL,
-                                  use_db = org.Hs.eg.db,
+                                  use_db = NULL,
                                   input_type = "ENTREZID",
                                   gene_info = c("SYMBOL", "GENENAME")){
 
@@ -48,7 +49,7 @@ annotation_gene_table <- function(combined_enrichment,
   feature_info <- suppressMessages(AnnotationDbi::select(use_db, keys = all_features,
                                         keytype = input_type, columns = gene_info))
   
-  feature_description <- categoryCompare2:::assign_features(combined_enrichment@enriched)
+  feature_description <- assign_features(combined_enrichment@enriched)
   
   feature_info <- feature_info[(feature_info[, 1] %in% names(feature_description)), ]
   feature_info$significant <- feature_description[feature_info[, 1]]
@@ -100,6 +101,7 @@ csv_annotation_table <- function(annotation_gene_table, out_file = NULL){
 #' 
 #' @param annotation_gene_table list of tables
 #' @param header_level what header level should the labels be done at?
+#' @param cat whether to write it directly, or just return the table for later
 #' 
 #' @export
 #' @return character

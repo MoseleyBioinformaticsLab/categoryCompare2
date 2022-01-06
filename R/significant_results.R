@@ -40,17 +40,17 @@ multi_query_list <- function(list_to_query, ...){
 
 #' get significant annotations
 #' 
-#' given a \linkS4class{statistical_results} object and some conditional expressions,
+#' given a \code{\link{statistical_results}} object and some conditional expressions,
 #' return the significant annotations
 #' 
-#' @param in_results the \linkS4class{statistical_results} object
+#' @param in_results the \code{\link{statistical_results}} object
 #' @param ... conditional expressions
 #' 
 #' @examples
 #' 
 #' test_stat <- new("statistical_results",
 #'                  annotation_id = c("a1", "a2", "a3"),
-#'                  statistics = list(pvalues = c(a1 = 0.01, a2 = 0.5, a3 = 0.0001),
+#'                  statistic_data = list(pvalues = c(a1 = 0.01, a2 = 0.5, a3 = 0.0001),
 #'                    counts = c(a1 = 5, a2 = 10, a3 = 1),
 #'                    odds = c(a1 = 20, a2 = 100, a3 = 0)))
 #' get_significant_annotations(test_stat, pvalues < 0.05)
@@ -59,6 +59,7 @@ multi_query_list <- function(list_to_query, ...){
 #' 
 #' @return vector of significant annotation_id's
 #' @exportMethod get_significant_annotations
+#' @rdname get_significant_annotations
 setMethod("get_significant_annotations", 
           signature = list(in_results = "statistical_results"),
           function(in_results, ...) .get_significant_stat_results(in_results, ...))
@@ -76,18 +77,19 @@ setMethod("get_significant_annotations",
 
 #' get significant annotations
 #' 
-#' In the case where we have a \linkS4class{combined_enrichment} and we want
+#' In the case where we have a \code{\link{combined_enrichment}} and we want
 #' to get all of the significant annotations from each of them, and put them
 #' together so we can start doing real meta-analysis.
 #' 
-#' Note that this function returns the original \linkS4class{combined_enrichment} object with a modified
-#' \linkS4class{combined_statistics} slot where the significant annotations have been added in. 
+#' Note that this function returns the original \code{\link{combined_enrichment}} object with a modified
+#' \code{\link{combined_statistics}} slot where the significant annotations have been added in. 
 #' 
-#' @param in_results a \linkS4class{combined_enrichment} object
+#' @param in_results a \code{\link{combined_enrichment}} object
 #' @param ... conditional expressions
 #' 
-#' @return \linkS4class{combined_enrichment} object
+#' @return \code{\link{combined_enrichment}} object
 #' @exportMethod get_significant_annotations
+#' @rdname get_significant_annotations
 setMethod("get_significant_annotations",
           signature = list(in_results = "combined_enrichment"),
           function(in_results, ...) .get_significant_combined_enrichment(in_results, ...))
@@ -135,8 +137,8 @@ setMethod("get_significant_annotations",
 #' If a graph has already been generated, it may be faster to filter a previously
 #' generated one than generate a new one from significant data.
 #' 
-#' @param in_graph the \linkS4class{cc_graph} previously generated
-#' @param comb_enrich the \linkS4class{combined_enrichment} that you want to use to filter with
+#' @param in_graph the \code{\link{cc_graph}} previously generated
+#' @param comb_enrich the \code{\link{combined_enrichment}} that you want to use to filter with
 #' 
 #' @export
 #' @return cc_graph
@@ -150,10 +152,10 @@ filter_annotation_graph <- function(in_graph, comb_enrich){
   keep_annotation <- annotation_list[sig_entries]
   
   # use intersect in case there is something odd of the graph and significant entries
-  keep_intersect <- intersect(keep_annotation, nodes(in_graph))
+  keep_intersect <- intersect(keep_annotation, graph::nodes(in_graph))
   
   if (length(keep_intersect) > 0){
-    in_graph <- subGraph(keep_intersect, in_graph)
+    in_graph <- graph::subGraph(keep_intersect, in_graph)
     out_graph <- as(in_graph, "cc_graph")
     out_graph@significant <- sig_matrix[keep_intersect, ]
     

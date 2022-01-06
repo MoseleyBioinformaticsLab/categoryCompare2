@@ -7,18 +7,18 @@
 \title{combined enrichments}
 \description{
 The \code{combined_enrichment} class holds the results of combining several 
-\linkS4class{enriched_result}s together, which includes the original 
-\linkS4class{enriched_result}s, as well as the \code{annotation_graph}
-and combined \linkS4class{annotation} objects.
+\code{\link{enriched_result}}s together, which includes the original 
+\code{\link{enriched_result}}s, as well as the \code{\link{cc_graph}}
+and combined \code{\link{annotation}} objects.
 }
 \section{Slots}{
 
 \describe{
 \item{\code{enriched}}{list of enriched objects}
 
-\item{\code{enriched_type}}{character describing the enrichment annotation}
+\item{\code{annotation}}{\code{\link{annotation}} where the annotation_features
+have been combined across the \code{\link{enriched_result}}}
 
-\item{\code{annotation}}{\linkS4class{annotation} where the annotation_features
-have been combined across the \linkS4class{enriched_results}}
+\item{\code{statistics}}{\code{\link{combined_statistics}} of both}
 }}
 

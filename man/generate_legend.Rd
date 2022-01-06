@@ -10,7 +10,8 @@ generate_legend(
   img = FALSE,
   width = 800,
   height = 400,
-  pointsize = 70
+  pointsize = 70,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ generate_legend(
 \item{height}{how high should it be}
 
 \item{pointsize}{the pointsize parameter for Cairo, determines textsize in the image}
+
+\item{...}{any other parameter to \code{pie}}
 }
 \description{
 it often helps to have a legend displayed for reference.

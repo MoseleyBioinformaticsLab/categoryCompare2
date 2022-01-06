@@ -10,6 +10,8 @@ kable_annotation_table(annotation_gene_table, header_level = 3, cat = TRUE)
 \item{annotation_gene_table}{list of tables}
 
 \item{header_level}{what header level should the labels be done at?}
+
+\item{cat}{whether to write it directly, or just return the table for later}
 }
 \value{
 character

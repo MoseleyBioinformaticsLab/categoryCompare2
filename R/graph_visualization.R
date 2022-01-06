@@ -1,37 +1,41 @@
 #' unique combinations
 #'
 #' determine the unique combinations of annotations that exist in the
-#' significant matrix of the \linkS4class{cc_graph} and assign each node in the graph
+#' significant matrix of the \code{\link{cc_graph}} and assign each node in the graph
 #' to a group.
 #'
-#' @param object the \linkS4class{cc_graph} to work on
+#' @param object the \code{\link{cc_graph}} to work on
 #'
 #' @return node_assignment
 #' @exportMethod annotation_combinations
+#' @rdname annotation_combinations
 setMethod("annotation_combinations",
           signature = list(object = "cc_graph"),
           function(object) .annotation_combinations(object@significant))
 
-check_cairo = function(){
-  cairo_install = try(find.package("Cairo"))
+check_package_installed = function(packagename){
+  is_install = try(find.package(packagename))
   
-  if (inherits(cairo_install, "try-error")) {
-    stop("Cairo is not installed, but is required for this function!")
+  if (inherits(is_install, "try-error")) {
+    stop_message = paste0(packagename, " is not installed, but is required for this operation!")
+    stop(stop_message)
   } else {
     return(NULL)
   }
 }
 
+
 #' unique combinations
 #'
 #' determine the unique combinations of annotations that exist in the
-#' significant matrix of the \linkS4class{combined_statistics} and assign each
+#' significant matrix of the \code{\link{combined_statistics}} and assign each
 #' annotation to a group.
 #'
-#' @param object the \linkS4class{combined_statistics} to work on
+#' @param object the \code{\link{combined_statistics}} to work on
 #'
 #' @return node_assignment
 #' @exportMethod annotation_combinations
+#' @rdname annotation_combinations
 setMethod("annotation_combinations",
           signature = list(object = "significant_annotations"),
           function(object) .annotation_combinations(object@significant))
@@ -91,7 +95,7 @@ setMethod("annotation_combinations",
 #' the largest contrasts between colors, as they result from being picked on a
 #' circle in \emph{hcl} space.
 #'
-#' @param n_color
+#' @param n_color how many colors to generate
 #'
 #' @export
 #' @importFrom colorspace rainbow_hcl
@@ -151,10 +155,10 @@ generate_colors <- function(n_color){
 
 #' assign colors
 #'
-#' given a \linkS4class{node_assign}, assign colors to either the independent groups
+#' given a \code{\link{node_assign}}, assign colors to either the independent groups
 #' of unique annotations, or to each of the experiments independently.
 #'
-#' @param in_assign the \linkS4class{node_assign} object generated from a \linkS4class{cc_graph}
+#' @param in_assign the \code{\link{node_assign}} object generated from a \code{\link{cc_graph}}
 #' @param type either "group" or "experiment"
 #'
 #' @export
@@ -195,25 +199,32 @@ assign_colors <- function(in_assign, type = "experiment"){
 #' @return list of png files that are pie graphs
 #' @importFrom colorspace desaturate
 generate_piecharts <- function(grp_matrix, use_color){
-  check_cairo()
+  check_package_installed("Cairo")
   n_grp <- nrow(grp_matrix)
   n_color <- length(use_color)
-
+  
   # defines how many pie segments are needed, common to all the pie-charts
   pie_area <- rep(1 / n_color, n_color)
   names(pie_area) <- rep("", n_color) # add blank names so nothing gets printed
-
+  
   # use desaturated version of colors when there is non-significance
   desat_color <- desaturate(use_color)
   names(desat_color) <- names(use_color)
-  piecharts <- sapply(rownames(grp_matrix), function(i_grp){
+  piechart_strings <- purrr::map_dfr(rownames(grp_matrix), function(i_grp){
     tmp_logical <- grp_matrix[i_grp, ]
     tmp_color <- use_color
-
+    
     # add the proper desaturated versions of the colors
     tmp_color[!tmp_logical] <- desat_color[!tmp_logical]
-
-    # use a tempfile so that multiple runs should generate their own files
+    
+    out_str = paste0('piechart: attributelist="',
+                     paste(colnames(grp_matrix), collapse = ','),
+                     '" ',
+                     'colorlist="',
+                     paste(tmp_color, collapse = ','),
+                     '" ',
+                     'arcstart=-90 showlabels=false')
+    
     out_file <- tempfile(i_grp, fileext = ".png")
     Cairo::Cairo(width = 640, height = 640, file = out_file, type = "png", bg = "transparent")
     par(mai = c(0, 0, 0, 0))
@@ -226,10 +237,18 @@ generate_piecharts <- function(grp_matrix, use_color){
     } else {
       out_file <- paste0("file://localhost", out_file)
     }
-    out_file
+    data.frame(colorlist = out_str, piechart = out_file)
+    
   })
-  return(piecharts)
+  
+  tmp_matrix = as.data.frame(matrix(1, nrow = nrow(piechart_strings),
+                      ncol = ncol(grp_matrix)))
+  names(tmp_matrix) = colnames(grp_matrix) 
+  piechart_df = cbind(tmp_matrix, piechart_strings)
+  piechart_df$visattr = rownames(grp_matrix)
+  return(piechart_df)
 }
+
 
 #' add tooltip
 #' 
@@ -238,16 +257,17 @@ generate_piecharts <- function(grp_matrix, use_color){
 #' @param in_graph the graph to work with
 #' @param node_data which pieces of node data to use
 #' @param description other descriptive text to use
+#' @param separator what separator to use for the tooltip
 #' 
 #' @return the graph with a new nodeData member "tooltip"
 #' 
-add_tooltip <- function(in_graph, node_data = c("name", "description"), description){
+add_tooltip <- function(in_graph, node_data = c("name", "description"), description, separator = "\n"){
   use_nodes <- graph::nodes(in_graph)
   n_nodes <- length(use_nodes)
   tooltips <- vapply(use_nodes, function(in_node){
     out_tooltip <- ""
     for (i_dat in node_data) {
-      out_tooltip <- paste0(out_tooltip, graph::nodeData(in_graph, in_node, i_dat), "<br>")
+      out_tooltip <- paste0(out_tooltip, graph::nodeData(in_graph, in_node, i_dat), "\n")
     }
     out_tooltip <- paste0(out_tooltip, description[in_node])
     out_tooltip
@@ -268,39 +288,40 @@ add_tooltip <- function(in_graph, node_data = c("name", "description"), descript
 #' @param in_graph the cc_graph to visualize
 #' @param in_assign the node_assign generated
 #' @param description something descriptive about the vis (useful when lots of different visualizations)
-#' @param ... other parameters for \code{CytoscapeWindow}
 #'
-#' @import RCy3
 #' @export
 #' @return something
-vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
+vis_in_cytoscape <- function(in_graph, in_assign, description = "cc2 enrichment"){
 
+  check_package_installed("RCy3")
   in_graph <- add_tooltip(in_graph, description = in_assign@description)
   # initialize and add the visual attribute so we can color according to the
   # data that lives in in_assign
-  nodeDataDefaults(in_graph, "visattr") <- ""
-  attr(nodeDataDefaults(in_graph, "visattr"), "class") <- 'STRING'
-  nodeData(in_graph, names(in_assign@assignments), "visattr") <- in_assign@assignments
+  graph::nodeDataDefaults(in_graph, "visattr") <- ""
+  attr(graph::nodeDataDefaults(in_graph, "visattr"), "class") <- 'STRING'
+  graph::nodeData(in_graph, names(in_assign@assignments), "visattr") <- in_assign@assignments
 
-  cyt_window <- CytoscapeWindow(description, graph = in_graph, ...)
-  displayGraph(cyt_window)
-  setLayoutProperties(cyt_window, 'force-directed', list(edge_attribute='weight'))
-  layoutNetwork(cyt_window, 'force-directed')
+  cyt_window <- RCy3::createNetworkFromGraph(graph = in_graph, title = description)
   
-  setNodeTooltipRule(cyt_window, "tooltip")
+  RCy3::layoutNetwork('force-directed', network = cyt_window)
+  
+  RCy3::setNodeTooltipMapping("tooltip", network = cyt_window)
 
   if (in_assign@color_type == "solid"){
-    setNodeColorRule(cyt_window, "visattr", names(in_assign@colors), in_assign@colors, mode = "lookup")
-    redraw(cyt_window)
+    RCy3::setNodeColorMapping("visattr", names(in_assign@colors), colors = in_assign@colors, mapping.type = "discrete", network = cyt_window)
   } else if (in_assign@color_type == "pie"){
-    pie_images <- in_assign@pie_locs[in_assign@assignments]
-    names(pie_images) <- NULL
-    #pie_images <- paste("file://localhost", pie_images, sep = "")
-    setNodeImageDirect(cyt_window, names(in_assign@assignments), pie_images)
-    setDefaultNodeColor(cyt_window, 'transparent')
-    setNodeOpacityDirect(cyt_window, names(in_assign@assignments), 0)
-    setDefaultNodeShape(cyt_window, "diamond")
-    redraw(cyt_window)
+    RCy3::setNodeShapeDefault("ELLIPSE")
+    RCy3::setNodeSizeDefault(35)
+    all_nodes = graph::nodes(in_graph)
+    pie_data = in_assign@pie_locs
+    pie_names = names(pie_data)
+    pie_names = pie_names[!(pie_names %in% "piechart")]
+    node_vis = graph::nodeData(in_graph, all_nodes, "visattr")
+    node_vis_df = data.frame(name = names(node_vis), visattr = unlist(node_vis))
+    node_vis_df = dplyr::left_join(node_vis_df, pie_data[, pie_names], by = "visattr")
+    RCy3::loadTableData(node_vis_df, data.key.column = "name", table = "node", table.key.column = "name")
+    RCy3::updateStyleMapping("default", RCy3::mapVisualProperty("NODE_CUSTOMGRAPHICS_1", "colorlist", "p"))
+
   }
   
   return(cyt_window)
@@ -308,39 +329,35 @@ vis_in_cytoscape <- function(in_graph, in_assign, description = "", ...){
 
 #' remove edges
 #'
-#' given a \linkS4class{CytoscapeWindowClass}, remove edges according to provided
+#' given a RCy3 network connection, remove edges according to provided
 #' values.
 #'
-#' @param edge_obj a CytoscapeWindowClass
+#' @param edge_obj a network ID to an RCy3 Cytoscape connection
 #' @param cutoff what cutoff to use to remove edges
 #' @param edge_attr what attribute has the values
 #' @param value_direction remove those edges "under" or "over" the value
 #'
 #' @export
 #' @return nothing
-setMethod("remove_edges", signature=list(edge_obj="CytoscapeWindowClass", cutoff="numeric"), function(edge_obj, cutoff, edge_attr, value_direction)
+#' @rdname remove_edges
+#' @aliases remove_edges
+setMethod("remove_edges", signature=list(edge_obj="character", cutoff="numeric"), function(edge_obj, cutoff, edge_attr, value_direction)
   .remove_edges_cw(edge_obj, cutoff, edge_attr, value_direction))
 
-.remove_edges_cw <-	function(cyt_window, cutoff, edge_attr = "weight", value_direction = "under"){
-  edge_data <- getAllEdgeAttributes(cyt_window)
+.remove_edges_cw <-	function(edge_obj, cutoff, edge_attr = "weight", value_direction = "under"){
+  edge_data <- RCy3::getTableColumns('edge', network = edge_obj)
 
   switch(value_direction,
-         under = edge_data <- edge_data[(as.numeric(edge_data[, edge_attr]) < cutoff),],
-         over = edge_data <- edge_data[(as.numeric(edge_data[, edge_attr]) > cutoff),]
+         under = to_delete <- edge_data[(as.numeric(edge_data[, edge_attr]) < cutoff),],
+         over = to_delete <- edge_data[(as.numeric(edge_data[, edge_attr]) > cutoff),]
   )
 
-  attr_names <- names(edge_data)
-  if (!('edgeType' %in% attr_names)){
-    edge_names <- paste(edge_data$source,' (unspecified) ',edge_data$target,sep='')
-  } else {
-    edge_names <- paste(edge_data$source,' (',edge_data$edgeType,') ',edge_data$target, sep='')
-  }
-  selectEdges(cyt_window,edge_names)
-  deleteSelectedEdges(cyt_window)
+  RCy3::selectEdges(to_delete$SUID, by.col = "SUID", network = edge_obj)
+  RCy3::deleteSelectedEdges(network = edge_obj)
 
-  layoutNetwork(cyt_window, 'force-directed')
+  RCy3::layoutNetwork('force-directed', network = edge_obj)
 
-  message("Removed ", length(edge_names), " edges from graph\n")
+  message("Removed ", nrow(to_delete), " edges from graph\n")
 }
 
 #' remove graph edges
@@ -352,11 +369,12 @@ setMethod("remove_edges", signature=list(edge_obj="CytoscapeWindowClass", cutoff
 #'
 #' @export
 #' @return cc_graph
+#' @rdname remove_edges
 setMethod("remove_edges", signature=list(edge_obj="cc_graph", cutoff="numeric"), function(edge_obj, cutoff, edge_attr, value_direction)
   .remove_edges_ccgraph(edge_obj, cutoff, edge_attr, value_direction))
 
 .remove_edges_ccgraph <-	function(in_graph, cutoff, edge_attr = "weight", value_direction = "under"){
-  edge_data <- unlist(edgeData(in_graph, , , edge_attr))
+  edge_data <- unlist(graph::edgeData(in_graph, , , edge_attr))
 
   switch(value_direction,
          under = del_edges <- names(edge_data)[edge_data < cutoff],
@@ -367,7 +385,7 @@ setMethod("remove_edges", signature=list(edge_obj="cc_graph", cutoff="numeric"),
     del_edges <- strsplit(del_edges, "|", fixed = TRUE)
     from_node <- sapply(del_edges, function(x){x[1]})
     to_node <- sapply(del_edges, function(x){x[2]})
-    in_graph <- removeEdge(from_node, to_node, in_graph)
+    in_graph <- graph::removeEdge(from_node, to_node, in_graph)
   }
 
   message("Removed ", length(del_edges), " edges from graph\n")
@@ -384,12 +402,13 @@ setMethod("remove_edges", signature=list(edge_obj="cc_graph", cutoff="numeric"),
 #' @param width how wide should the image be if saving to an image
 #' @param height how high should it be
 #' @param pointsize the pointsize parameter for Cairo, determines textsize in the image
+#' @param ... any other parameter to \code{pie}
 #'
 #' @return NULL
 #' @export
 generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
-                            width = 800, height = 400, pointsize = 70){
-  check_cairo()
+                            width = 800, height = 400, pointsize = 70, ...){
+  
   if (in_assign@color_type == "pie") {
     use_color <- in_assign@colors
     n_color <- length(use_color)
@@ -403,13 +422,14 @@ generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
     }
 
     if (!img) {
-      par(mai = c(0, 0, 0, 0), ps = 40)
-      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
+      par(mai = c(0, 0, 0, 0), ps = pointsize)
+      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE, ...)
     } else {
+      check_package_installed("Cairo")
       out_file <- tempfile(pattern = "legendfile", fileext = ".png")
       Cairo::CairoPNG(file = out_file, bg = "white", width = width, height = height, pointsize = pointsize)
       par(mai = c(0, 0, 0, 0))
-      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE)
+      pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE, ...)
       dev.off()
       base64_encode <- base64enc::dataURI(file = out_file)
       base64_encode <- sub("data:", "data:image/png", base64_encode, fixed = TRUE)
@@ -419,8 +439,14 @@ generate_legend <- function(in_assign, upper_names = TRUE, img = FALSE,
 }
 
 base64_encode_images <- function(in_assign){
-  image_locs <- in_assign@pie_locs
-  image_locs <- gsub("file://localhost", "", image_locs)
+  if (Sys.info()['sysname'] == "Windows") {
+    sub_pattern = "file:///"
+  } else {
+    sub_pattern = "file://localhost"
+  }
+  image_locs <- in_assign@pie_locs$piechart
+  names(image_locs) = in_assign@pie_locs$visattr
+  image_locs <- gsub(sub_pattern, "", image_locs)
   base_64_imgs <- vapply(image_locs, function(x){
     base64enc::dataURI(file = x)
   }, character(1))
@@ -439,12 +465,13 @@ base64_encode_images <- function(in_assign){
 #' @param use_nodes the list of nodes to actually use
 #' 
 #' @importFrom base64enc dataURI
-#' @importFrom DiagrammeR create_node_df create_edge_df create_graph
+#' @importFrom rlang .data
 #' 
 #' @export
 #' @return list
 graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, use_nodes = NULL){
-  in_graph <- categoryCompare2:::add_tooltip(in_graph, description = in_assign@description)
+  check_package_installed("DiagrammeR")
+  in_graph <- add_tooltip(in_graph, description = in_assign@description, separator = "<br>")
   graph_nodes <- graph::nodes(in_graph)
   edge_list <- graph::edgeMatrix(in_graph)
   edge_weight <- unlist(graph::edgeData(in_graph, , , "weight"))
@@ -465,7 +492,7 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
   
   #in_nodes <- intersect(in_nodes, use_nodes)
   from_to <- data.frame(from = from_list, to = to_list)
-  from_to <- dplyr::filter(from_to, (from %in% use_nodes) & (to %in% use_nodes))
+  from_to <- dplyr::filter(from_to, (.data$from %in% use_nodes) & (.data$to %in% use_nodes))
   
   from_to$edgeid <- paste0(from_to$from, "|", from_to$to)
   from_to$weight <- edge_weight[from_to$edgeid]
@@ -478,7 +505,7 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
   if (in_assign@color_type == "pie") {
     g_nodes$shape = "image"
                            
-    web_locs <- categoryCompare2:::base64_encode_images(in_assign)
+    web_locs <- base64_encode_images(in_assign)
     
     for (igroup in g_nodes$group) {
       g_nodes[g_nodes$group == igroup, "image"] <- web_locs[igroup]
@@ -493,7 +520,7 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
   
   for (inode in g_nodes$label) {
     which_node <- which(g_nodes$label %in% inode)
-    g_nodes[which_node, "tooltip"] <- g_nodes[which_node, "title"] <- graph::nodeData(in_graph, inode, "tooltip")[[1]]
+    g_nodes[which_node, "tooltip"] <- g_nodes[which_node, "title"] <- gsub("\\n", "<br>", graph::nodeData(in_graph, inode, "tooltip")[[1]])
   }
   
   
@@ -523,13 +550,11 @@ graph_to_visnetwork <- function(in_graph, in_assign, node_communities = NULL, us
 #' and weights. 
 #' 
 #' @param in_graph the \code{cc_graph} object to use
-#' 
-#' @importFrom igraph cluster_walktrap membership
 #' @export
 #' 
 #' @return list
 assign_communities <- function(in_graph){
-  igraph_graph <- igraph:::graph_from_graphnel(in_graph)
+  igraph_graph <- igraph::graph_from_graphnel(in_graph)
   walk_membership <- igraph::cluster_walktrap(igraph_graph)
   walk_communities <- igraph::membership(walk_membership)
   split_comms <- split(names(walk_communities), walk_communities)
@@ -537,41 +562,6 @@ assign_communities <- function(in_graph){
   split_comms
 }
 
-#' GO children
-#' 
-#' counts all of the children for particular set of GO terms.
-#' 
-#' @param go_terms the terms to do counting on
-#' @param which_go which Gene Ontology should be used?
-#' 
-#' @import GO.db
-#' @export
-#' @return numeric
-count_go_children <- function(go_terms, which_go = c("BP", "MF", "CC")){
-  go_list <- list()
-  
-  if ("BP" %in% which_go) {
-    go_list <- c(go_list, AnnotationDbi::as.list(GOBPOFFSPRING))
-  }
-  if ("MF" %in% which_go) {
-    go_list <- c(go_list, AnnotationDbi::as.list(GOMFOFFSPRING))
-  }
-  if ("CC" %in% which_go) {
-    go_list <- c(go_list, AnnotationDbi::as.list(GOCCOFFSPRING))
-  }
-  
-  go_list <- go_list[intersect(go_terms, names(go_list))]
-  
-  if (length(go_list) > 0) {
-    go_counts <- vapply(go_list, function(in_list){
-      in_list <- unique(in_list)
-      length(in_list)
-    }, numeric(1))
-  } else {
-    go_counts <- NA
-  }
-  go_counts
-}
 
 #' label communities
 #' 
@@ -623,6 +613,7 @@ label_communities <- function(community_defs, annotation){
 #' @export
 #' @return NULL
 vis_visnetwork <- function(in_graph_info){
+  check_package_installed("visNetwork")
   if (!is.null(in_graph_info$nodes$community)) {
     visNetwork::visOptions(visNetwork::visNetwork(edges = in_graph_info$edges,
                                                   nodes = in_graph_info$nodes),
@@ -710,7 +701,7 @@ table_from_graph <- function(in_graph, in_assign = NULL, community_info = NULL){
       }
       
       if (length(sort_cols) > 0) {
-        tmp_table <- dplyr::arrange_(tmp_table, sort_cols)
+        tmp_table <- dplyr::arrange(tmp_table, .data[[sort_cols]])
       }
       
       out_table <- rbind(header_table, tmp_table)

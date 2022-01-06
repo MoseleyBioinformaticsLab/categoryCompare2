@@ -7,7 +7,7 @@
 generate_colors(n_color)
 }
 \arguments{
-\item{n_color}{}
+\item{n_color}{how many colors to generate}
 }
 \description{
 given a bunch of items, generate a set of colors for either single node colorings

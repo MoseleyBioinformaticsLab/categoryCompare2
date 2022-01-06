@@ -10,6 +10,8 @@ combine_text(list_characters, names_out, text_id)
 \item{list_characters}{list containing named character strings}
 
 \item{names_out}{the full list of names to use}
+
+\item{text_id}{what is the name for that thing being put out}
 }
 \value{
 named character vector

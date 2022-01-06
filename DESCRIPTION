@@ -1,21 +1,17 @@
 Package: categoryCompare2
 Version: 0.99.160
-Title: Meta-analysis of high-throughput experiments using feature
-    annotations
+Title: Meta-Analysis of High-Throughput Experiments Using Feature
+    Annotations
 Author: Robert M. Flight <rflight79@gmail.com>
 Maintainer: Robert M. Flight <rflight79@gmail.com>
-URL: https://github.com/rmflight/categoryCompare2
-BugReports: https://github.com/rmflight/categoryCompare2/issues
+URL: https://github.com/MoseleyBioinformaticsLab/categoryCompare2
+BugReports: https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues
 License: MIT + file LICENSE
 Depends:
-    R (>= 3.1.0),
-    Biobase,
-    BiocGenerics,
-    methods
+    R (>= 3.1.0)
 Suggests:
     knitr,
     markdown,
-    methods,
     estrogen,
     org.Hs.eg.db,
     hgu95av2.db,
@@ -24,22 +20,24 @@ Suggests:
     genefilter,
     testthat,
     visNetwork,
-    Cairo
+    Cairo,
+    DiagrammeR,
+    KEGGREST,
+    docopt,
+    RCy3
 Imports:
+    Biobase,
+    methods,
     AnnotationDbi,
-    hwriter,
-    GSEABase,
-    Category,
-    GOstats,
-    annotate,
     colorspace,
     graph,
-    RCy3,
     igraph,
-    DiagrammeR,
-    GO.db,
     jsonlite,
-    base64enc
+    base64enc,
+    dplyr,
+    purrr,
+    rlang,
+    GO.db
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
     (categories) generated on one or more feature lists.
