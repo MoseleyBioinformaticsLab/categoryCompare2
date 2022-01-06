@@ -30,10 +30,28 @@ package.
 ```r
 install.packages("remotes")
 library(remotes)
-install_github("rmflight/categoryCompare2")
+install_github("MoseleyBioinformaticsLab/categoryCompare2")
 ```
 
 [remotesLink]: https://cran.r-project.org/web/packages/remotes/index.html "remotes"
+
+### Mac Installation
+
+There is one issue with installation on MacOS, and that is the {Cairo} package.
+This is actually due to having to have `xquartz` installed.
+The easiest way I can find to install it is using homebrew.
+In a terminal, you can do:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install --cask xquartz
+
+R
+install.packages("Cairo") # skip if already installed
+library(Cairo)
+```
+
+Hopefully that worked fine, and now you should be able to use all the functionality in {categoryCompare2}.
 
 ## Citation
 
