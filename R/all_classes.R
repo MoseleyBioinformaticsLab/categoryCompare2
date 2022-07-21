@@ -203,6 +203,36 @@ enriched_result <- function(features, universe, annotation, statistics){
 }
 
 
+#' the binomial results class
+#' 
+#' @slot positivefc the positive log-fold-changed genes, a vector of class ANY
+#' @slot negativefc the negative log-fold-changed genes
+#' @slot annotation list giving the annotation to feature relationship
+#' @slot statistics a \code{\link{statistical_results}} object
+#' 
+#' @export
+binomial_result <- setClass("binomial_result",
+                            slots = list(positivefc = "ANY",
+                                         negativefc = "ANY",
+                                         annotation = "annotation",
+                                         statistics = "statistical_results"))
+
+#' show binomial_result
+#' 
+#' @param object the binomial_result object to show
+#' 
+#' @exportMethod show
+setMethod("show", signature = list(object = "binomial_result"),
+          function(object){
+            stat_method <- object@statistics@method
+            
+            enrich_type <- object@annotation@annotation_type
+            n_annot <- length(object@annotation@annotation_features)
+            
+            cat("   Enrichment Method:", stat_method, "\n")
+            cat("     Annotation Type:", enrich_type, "\n")
+          })
+
 #' significant annotations
 #' 
 #' The \code{significant_annotations} class holds which annotations from which

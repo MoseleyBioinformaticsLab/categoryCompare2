@@ -71,9 +71,10 @@ binomial_feature_enrichment = function(binomial_features,
   
   out_stats = new("statistical_results",
                    statistic_data = binom_stats,
-                   annotation_id = names(binomial_features@annotation@annotation_features))
+                   annotation_id = names(binomial_features@annotation@annotation_features),
+                   method = "binomial")
   
-  out_enrich = new("enriched_result",
+  out_enrich = new("binomial_result",
                     positivefc = posfc,
                     negativefc = negfc,
                     statistics = out_stats,
@@ -152,7 +153,7 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
     run_list = list(positive_cases = positive_cases,
                     total_cases = total_cases,
                     p_expected = p_expected)
-    p_values = purrr::pmap(run_list, two_sided_inner)
+    p_values = purrr::pmap_dbl(run_list, two_sided_inner)
     p_values
   }
   p_values = switch(direction, 
@@ -174,8 +175,7 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
   pvalues_two_sided = function(positive_cases, conf_level){
     conf_level = (1 - conf_level) / 2
     out_matrix = cbind(pvalues_lower(positive_cases, conf_level), pvalues_upper(positive_cases, conf_level))
-    split_matrix = split(out_matrix, rownames(out_matrix))
-    return(split_matrix)
+    return(out_matrix)
   }
   conf_interval = switch(direction, 
                          less = cbind(rep(0, length(positive_cases)), pvalues_upper(positive_cases, 1 - conf_level)), 
@@ -186,8 +186,9 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
   return(list(
     statistic = positive_cases,
     parameter = total_cases,
-    p_value = p_values,
-    conf_interval = conf_interval,
+    p = p_values,
+    conf_lower = conf_interval[, 1],
+    conf_upper = conf_interval[, 2],
     estimate = positive_cases / total_cases,
     null_value = p_expected,
     alternative = direction

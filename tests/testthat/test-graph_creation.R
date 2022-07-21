@@ -48,8 +48,8 @@ feature_list <- list(g1 = group1, g2 = group2, g3 = group3,
 
 jaccard_graph <- generate_annotation_similarity_graph(feature_list, "jaccard")
 test_that("number nodes and edges are correct", {
-  expect_equal(numNodes(jaccard_graph), 6)
-  expect_equal(numEdges(jaccard_graph), 8)
+  expect_equal(graph::numNodes(jaccard_graph), 6)
+  expect_equal(graph::numEdges(jaccard_graph), 8)
 })
 
 test_that("jaccard graph is correct", {

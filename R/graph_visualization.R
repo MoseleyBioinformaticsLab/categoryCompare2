@@ -41,6 +41,9 @@ setMethod("annotation_combinations",
           function(object) .annotation_combinations(object@significant))
 
 .annotation_combinations <- function(sig_matrix){
+  if (nrow(sig_matrix) == 0) {
+    return(NULL)
+  }
 
   unique_combinations <- unique(sig_matrix)
 
