@@ -1,7 +1,4 @@
-library("categoryCompare2")
-
-context("combining annotations")
-
+# combining annotations
 c1 <- list(a = c("1", "2"),
            b = c("5", "6"))
 
@@ -33,7 +30,7 @@ test_that("combining annotation features works correctly", {
   expect_equal(c1_c2_c3, combine_annotation_features(list(c1 = c1, c2 = c2, c3 = c3)))
 })
 
-context("combining text lists")
+# combining text lists
 
 c1 <- c(a = "a", b = "b", c = "c")
 c2 <- c(a = "a", b = "b", c = "c", d = "d")

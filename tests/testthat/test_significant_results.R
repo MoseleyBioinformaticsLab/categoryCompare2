@@ -1,7 +1,4 @@
 # runs the tests for getting significant results from combined objects
-
-context("basic logical indexing of list elements")
-
 c1 <- list(pvalues = c(a1 = 0.01, a2 = 0.5, a3 = 0.0001),
            counts = c(a1 = 5, a2 = 10, a3 = 1),
            odds = c(a1 = 20, a2 = 100, a3 = 0))
@@ -26,7 +23,6 @@ test_that("list indexing works properly", {
           expect_error(multi_query_list(c1, asdfghjkl))
           })
 
-context("significant annotations from statistical_results")
 
 test_stat <- new("statistical_results",
                   annotation_id = c("a1", "a2", "a3"),
@@ -41,8 +37,6 @@ test_that("get correct significant annotations", {
 })
 
 # here we test what we get back from a combined_enrichment object
-context("significant annotations from combined_enrichment")
-
 stat1 <- new("statistical_results",
              annotation_id = c("a1", "a2", "a3"),
              statistic_data = list(pvalues = c(a1 = 0.01, a2 = 0.5, a3 = 0.0001),

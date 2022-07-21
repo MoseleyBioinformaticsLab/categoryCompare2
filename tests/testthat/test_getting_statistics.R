@@ -1,7 +1,5 @@
 # tests getting statistics from different types of objects
 
-context("getting statistics from objects")
-
 # statistical results
 
 c1 <- new("statistical_results",
