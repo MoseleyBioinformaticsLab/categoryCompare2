@@ -18,7 +18,7 @@ Suggests:
     limma,
     affy,
     genefilter,
-    testthat,
+    testthat (>= 3.0.0),
     visNetwork,
     Cairo,
     DiagrammeR,
@@ -37,7 +37,8 @@ Imports:
     dplyr,
     purrr,
     rlang,
-    GO.db
+    GO.db,
+    stats
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
     (categories) generated on one or more feature lists.
@@ -47,4 +48,6 @@ SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
     results, heavily suggested)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
+Encoding: UTF-8
 RoxygenNote: 7.1.2
+Config/testthat/edition: 3
