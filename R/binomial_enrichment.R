@@ -119,10 +119,10 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
   }
   
   less_binom = function(positive_cases, total_cases, p_expected){
-    pbinom(positive_cases, total_cases, p_expected)
+    stats::pbinom(positive_cases, total_cases, p_expected)
   }
   greater_binom = function(positive_cases, total_cases, p_expected){
-    pbinom(positive_cases - 1, total_cases, p_expected, lower.tail = FALSE)
+    stats::pbinom(positive_cases - 1, total_cases, p_expected, lower.tail = FALSE)
   }
   two_sided_binom = function(positive_cases, total_cases, p_expected){
     two_sided_inner = function(positive_cases, total_cases, p_expected){
@@ -133,19 +133,19 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
         return(0)
       }
       rel_err = 1 + 1e-07
-      d_binom = dbinom(positive_cases, total_cases, p_expected)
+      d_binom = stats::dbinom(positive_cases, total_cases, p_expected)
       m_values = total_cases * p_expected
       if (positive_cases == m_values) {
         return(1)
       } else if (positive_cases < m_values) {
         i_sequence = seq.int(from = ceiling(m_values), to = total_cases)
-        y_values = sum(dbinom(i_sequence, total_cases, p_expected) <= d_binom * rel_err)
-        p_value = pbinom(positive_cases, total_cases, p_expected) + pbinom(total_cases - y_values, total_cases, p_expected, lower.tail = FALSE)
+        y_values = sum(stats::dbinom(i_sequence, total_cases, p_expected) <= d_binom * rel_err)
+        p_value = stats::pbinom(positive_cases, total_cases, p_expected) + stats::pbinom(total_cases - y_values, total_cases, p_expected, lower.tail = FALSE)
         return(p_value)
       } else {
         i_sequence = seq.int(from = 0, to = floor(m_values))
-        y_values = sum(dbinom(i_sequence, total_cases, p_expected) <= d_binom * rel_err)
-        p_value = pbinom(y_values - 1, total_cases, p_expected) + pbinom(positive_cases - 1, total_cases, p_expected, lower.tail = FALSE)
+        y_values = sum(stats::dbinom(i_sequence, total_cases, p_expected) <= d_binom * rel_err)
+        p_value = stats::pbinom(y_values - 1, total_cases, p_expected) + stats::pbinom(positive_cases - 1, total_cases, p_expected, lower.tail = FALSE)
         return(p_value)
       }
     }
@@ -163,12 +163,12 @@ binomial_basic = function(positive_cases, total_cases, p_expected = 0.5, directi
   )
 
   pvalues_lower = function(positive_cases, conf_level) {
-    out_values = qbeta(conf_level, positive_cases, total_cases - positive_cases + 1)
+    out_values = stats::qbeta(conf_level, positive_cases, total_cases - positive_cases + 1)
     out_values[positive_cases == 0] = 0
     return(out_values)
   }
   pvalues_upper = function(positive_cases, conf_level) {
-    out_values = qbeta(1 - conf_level, positive_cases + 1, total_cases - positive_cases)
+    out_values = stats::qbeta(1 - conf_level, positive_cases + 1, total_cases - positive_cases)
     out_values[positive_cases == 1] = 1
     return(out_values)
   }
