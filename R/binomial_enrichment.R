@@ -68,6 +68,8 @@ binomial_feature_enrichment = function(binomial_features,
   binom_stats = binomial_basic(num_positive, num_positive + num_negative, p_expected, direction, conf_level = conf_level)
   
   binom_stats$padjust = p.adjust(binom_stats$p, p_adjust)
+  binom_stats$num_positive = num_positive
+  binom_stats$num_negative = num_negative
   
   out_stats = new("statistical_results",
                    statistic_data = binom_stats,
