@@ -19,6 +19,7 @@ setClass("binomial_features",
 #' @param direction which direction to do the enrichment (two.sided, less, greater)
 #' @param p_adjust how to correct the p-values (default is "none")
 #' @param conf_level the confidence level for the confidence interval (default is 0.95)
+#' @param min_features a minimum number of features that are annotated to each annotation
 #' @export
 #' @return enriched_result
 #' 
@@ -26,7 +27,8 @@ binomial_feature_enrichment = function(binomial_features,
                                        p_expected = 0.5, 
                                        direction = "two.sided", 
                                        p_adjust = "none", 
-                                       conf_level = 0.95){
+                                       conf_level = 0.95,
+                                       min_features = 1){
   
   # cleanup the features and annotations (should be in separate function)
   posfc = unique(binomial_features@positivefc)
@@ -45,7 +47,7 @@ binomial_feature_enrichment = function(binomial_features,
   tmp_annot_feature = lapply(tmp_annot_feature, intersect, annotation_universe)
   
   n_feature = sapply(tmp_annot_feature, length)
-  keep_annot = n_feature > 0
+  keep_annot = n_feature >= min_features
   
   tmp_annot_feature = tmp_annot_feature[keep_annot]
   
