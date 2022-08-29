@@ -17,10 +17,15 @@ setClass("hypergeom_features",
 #' @param hypergeom_features a hypergeometric_features object
 #' @param direction which direction to do the enrichment (over or under)
 #' @param p_adjust how to correct the p-values (default is "none")
+#' @param min_features how many features should be annotated before testing it?
+#' 
+#' @details The \code{min_features} argument here applies to the minumum number of features an annotation has
+#'   from the universe of features supplied, \bold{not} the minumum number of features from the differential
+#'   list.
 #' @export
 #' @return enriched_result
 #' 
-hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "over", p_adjust = "none"){
+hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "over", p_adjust = "none", min_features = 1){
   
   # cleanup the features and annotations (should be in separate function)
   hypergeom_features@universe <- unique(hypergeom_features@universe)
@@ -32,7 +37,7 @@ hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "o
   tmp_annot_feature <- lapply(tmp_annot_feature, intersect, hypergeom_features@universe)
   
   n_feature <- sapply(tmp_annot_feature, length)
-  keep_annot <- n_feature > 0
+  keep_annot <- n_feature >= min_features
   
   tmp_annot_feature <- tmp_annot_feature[keep_annot]
   

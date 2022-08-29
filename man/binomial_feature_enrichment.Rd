@@ -9,7 +9,8 @@ binomial_feature_enrichment(
   p_expected = 0.5,
   direction = "two.sided",
   p_adjust = "none",
-  conf_level = 0.95
+  conf_level = 0.95,
+  min_features = 1
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ binomial_feature_enrichment(
 \item{p_adjust}{how to correct the p-values (default is "none")}
 
 \item{conf_level}{the confidence level for the confidence interval (default is 0.95)}
+
+\item{min_features}{a minimum number of features that are annotated to each annotation}
 }
 \value{
 enriched_result
