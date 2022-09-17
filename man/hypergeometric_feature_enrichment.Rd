@@ -7,7 +7,7 @@
 hypergeometric_feature_enrichment(
   hypergeom_features,
   direction = "over",
-  p_adjust = "none",
+  p_adjust = "BH",
   min_features = 1
 )
 }
@@ -16,7 +16,7 @@ hypergeometric_feature_enrichment(
 
 \item{direction}{which direction to do the enrichment (over or under)}
 
-\item{p_adjust}{how to correct the p-values (default is "none")}
+\item{p_adjust}{how to correct the p-values (default is "BH")}
 
 \item{min_features}{how many features should be annotated before testing it?}
 }
@@ -30,4 +30,5 @@ do hypergeometric enrichment
 The \code{min_features} argument here applies to the minumum number of features an annotation has
   from the universe of features supplied, \bold{not} the minumum number of features from the differential
   list.
+  For more about the p-value adjustment, see \code{stats::p.adjust}
 }

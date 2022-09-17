@@ -8,7 +8,7 @@ binomial_feature_enrichment(
   binomial_features,
   p_expected = 0.5,
   direction = "two.sided",
-  p_adjust = "none",
+  p_adjust = "BH",
   conf_level = 0.95,
   min_features = 1
 )
@@ -20,7 +20,7 @@ binomial_feature_enrichment(
 
 \item{direction}{which direction to do the enrichment (two.sided, less, greater)}
 
-\item{p_adjust}{how to correct the p-values (default is "none")}
+\item{p_adjust}{how to correct the p-values (default is "BH")}
 
 \item{conf_level}{the confidence level for the confidence interval (default is 0.95)}
 
