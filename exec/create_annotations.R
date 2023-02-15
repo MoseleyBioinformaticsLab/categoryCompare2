@@ -3,6 +3,7 @@
 Usage: 
   create_annotations.R [--input=<input-file>] [--orgdb=<organism_db>] [--feature-type=<feature-type>] [--annotation-type=<annotation-type>] [--json=<jsonfile>] 
   create_annotations.R (-h | --help)
+  create_annotations.R (-v | --version)
 
 Description: Either take a feature to annotation JSON file, and reverse them
   to create the needed annotation object for categoryCompare, or generate the
@@ -27,9 +28,20 @@ script_options <- docopt(doc)
 main <- function(script_options){
   null_input <- is.null(script_options$input)
   null_orgdb <- is.null(script_options$orgdb)
+  
+  if (!is.null(script_options$version)) {
+    if (script_options$version) {
+      message(paste0("This is categoryCompare2 ", packageVersion("categoryCompare2")))
+      return()
+    }
+    
+  }
+  
   if (null_input && null_orgdb) {
     stop("One of --input or --orgdb have to be defined!")
   }
+  
+  
   
   if (!is.null(script_options$input)) {
     json_annotation_reversal(script_options$input, out_file = script_options$json, 

@@ -3,6 +3,7 @@
 Usage: 
   feature_files_2_json.R [--json=<jsonfile>] [--file1=<file1>] [--file2=<file2>] [--file3=<file3>] [--file4=<file4>] [--universe=<universe>]
   feature_files_2_json.R (-h | --help)
+  feature_files_2_json.R (-v | --version)
 
 Description: Concatenates multiple feature list files into a single JSON file. Each
 feature list will be named according to the file name that it came from. So, for example
@@ -37,6 +38,14 @@ library(jsonlite)
 script_options <- docopt(doc)
 
 #print(script_options)
+
+if (!is.null(script_options$version)) {
+  if (script_options$version) {
+    message(paste0("This is categoryCompare2 ", packageVersion("categoryCompare2")))
+    return()
+  }
+  
+}
 
 script_options <- script_options[!is.null(script_options)]
 file_args_loc <- grepl("^file", names(script_options)) | grepl("^universe", names(script_options))

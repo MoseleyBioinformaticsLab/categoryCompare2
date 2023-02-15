@@ -3,6 +3,7 @@
 Usage: 
   filter_and_group.R --enrichment-results=<enrichment_results> [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
   filter_and_group.R (-h | --help)
+  filter_and_group.R (-v | --version)
 
 Description: Given an enrichment directory, will load up the enrichment results, and then performs filtering
 of results to denote significant annotations in each group, and optionally tries to group annotations based
@@ -55,6 +56,14 @@ main <- function(script_options){
                            "label_prop" = "cluster_label_prop",
                            "fast_greedy" = "cluster_fast_greedy",
                            "edge_betweenness" = "cluster_edge_betweenness")
+  
+  if (!is.null(script_options$version)) {
+    if (script_options$version) {
+      message(paste0("This is categoryCompare2 ", packageVersion("categoryCompare2")))
+      return()
+    }
+    
+  }
   
   # fail before doing enrichment!
   p_cutoff_value <- as.double(script_options$`p-cutoff`)
