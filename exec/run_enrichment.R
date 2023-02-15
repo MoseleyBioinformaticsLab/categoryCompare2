@@ -2,10 +2,10 @@
 "
 Usage: 
   run_enrichment.R [--features=<feature-file>] [--annotations=<annotation-source>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--output-file=<output_file>] [--text-only=<text-only>]
-  categoryCompare2.R [--config=<config-file>]
-  categoryCompare2.R [--default-config]
-  categoryCompare2.R (-h | --help)
-  categoryCompare2.R (-v | --version)
+  run_enrichment.R [--config=<config-file>]
+  run_enrichment.R [--default-config]
+  run_enrichment.R (--version | -v)
+  run_enrichment.R (--help | -h)
 
 Description: Runs categoryCompare2 on one or more feature lists. Note that there are
 a lot of parameters, with several defaults. See the accompanying vignette for a
@@ -32,7 +32,7 @@ Options:
 " -> doc
 
 default_config <- "features: features.json
-output-directory: cc2_results
+output-file: cc2_results/cc2_results.txt
 annotations: annotations.json
 enrichment-test: hypergeometric
 enrichment-direction: over
@@ -56,11 +56,11 @@ script_options <- docopt(doc)
 
 main <- function(script_options){
   
-  print(script_options)
+  #print(script_options)
   
   #browser(expr = TRUE)
-  if (!is.null(script_options$`default-config`)) {
-    if (script_options$`default-config`) {
+  if (!is.null(script_options$default_config)) {
+    if (script_options$default_config) {
       cat(default_config, sep = "\n")
       return()
     }
@@ -110,6 +110,15 @@ main <- function(script_options){
     stop("The feature list file ", script_options$features, " does not exist. Make sure it exists on the search path!")
   }
   
+  print(script_options$output_file)
+  output_dir <- dirname(script_options$output_file)
+  
+  if (!dir.exists(output_dir)) {
+    message(paste0("Creating directory ", output_dir))
+    dir.create(output_dir, recursive = TRUE)
+  }
+  
+  
   # read in the annotations and create the annotation object
   annotation_obj <- json_2_annotation(script_options$annotations)
   
@@ -132,16 +141,9 @@ main <- function(script_options){
   
   combined_enrichments <- combine_enrichments(gene_enrichments)
   
-  output_dir <- dirname(script_options$`output-file`)
+  rds_file <- paste0(tools::file_path_sans_ext(script_options$output_file), ".rds")
   
-  if (!dir.exists(output_dir)) {
-    message(paste0("Creating directory ", output_dir))
-    dir.create(output_dir, recursive = TRUE)
-  }
-  
-  rds_file <- paste0(tools::file_path_sans_ext(script_options$`output-file`), ".rds")
-  
-  if (!as.logical(script_options$`text-only`)) {
+  if (!as.logical(script_options$text_only)) {
     saveRDS(combined_enrichments, file = file.path(rds_file))
   }
   
@@ -151,7 +153,7 @@ main <- function(script_options){
   
   #saveRDS(combined_significant, file = file.path(script_options$`output-directory`, "combined_significant.rds"))
   #print(combined_significant)
-  write.table(results_table, file = file.path(script_options$`output-file`),
+  write.table(results_table, file = file.path(script_options$output_file),
               sep = "\t", row.names = FALSE, col.names = TRUE)
   
   # next up will be code useful for handling wanting to make a graph
