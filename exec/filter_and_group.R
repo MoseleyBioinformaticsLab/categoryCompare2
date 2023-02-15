@@ -46,7 +46,7 @@ suppressMessages(library(categoryCompare2))
 script_options <- docopt(doc)
 
 main <- function(script_options){
-  print(script_options)
+  #print(script_options)
   
   grouping_algorithms <- c("walktrap" = "cluster_walktrap",
                            "spinglass" = "cluster_spinglass",
@@ -66,28 +66,36 @@ main <- function(script_options){
   }
   
   # fail before doing enrichment!
-  p_cutoff_value <- as.double(script_options$`p-cutoff`)
+  enrichment_file <- paste0(tools::file_path_sans_ext(script_options$enrichment_results), ".rds")
+  if (file.exists(enrichment_file)) {
+    enrichments <- readRDS(enrichment_file)
+  } else {
+    stop("Enrichment results file does not exist!")
+  }
+  
+  
+  p_cutoff_value <- as.double(script_options$p_cutoff)
   if (is.na(p_cutoff_value)) {
     stop("The p-cutoff MUST be a number, or Inf")
   }
   p_cutoff_direction <- "<="
   
   count_cutoff_column <- "counts"
-  count_cutoff_value <- as.double(script_options$`count-cutoff`)
+  count_cutoff_value <- as.double(script_options$count_cutoff)
   if (is.na(count_cutoff_value)) {
     stop("The count-cutoff MUST be a number, or Inf")
   }
   count_cutoff_direction <- ">="
   
   if (script_options$group) {
-    similarity_cutoff <- as.double(script_options$`similarity-cutoff`)
+    similarity_cutoff <- as.double(script_options$similarity_cutoff)
     if (is.na(similarity_cutoff)) {
       stop("The similarity-cutoff MUST be a number!")
     }
   }
   
   
-  if (!(script_options$`adjusted-p-values` %in% "FALSE")) {
+  if (!(script_options$adjusted_p_values %in% "FALSE")) {
     p_cutoff_column <- "padjust"
   } else {
     p_cutoff_column <- "p"
@@ -99,12 +107,6 @@ main <- function(script_options){
   
   significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
   
-  enrichment_file <- paste0(tools::file_path_sans_ext(script_options$`enrichment-results`), ".rds")
-  if (file.exists(enrichment_file)) {
-    enrichments <- readRDS(enrichment_file)
-  } else {
-    stop("Enrichment results file does not exist!")
-  }
   
   significant <- combined_significant_calls(enrichments, significant_calls)
   message("Significant Annotations:")
@@ -117,7 +119,7 @@ main <- function(script_options){
   
   if (!as.logical(script_options$group)) {
     results_table <- generate_table(significant)
-    write.table(results_table, file = script_options$`table-file`, sep = "\t", row.names = FALSE, col.names = TRUE)
+    write.table(results_table, file = script_options$table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
   } else {
     similarity_graph <- generate_annotation_graph(significant)
     
@@ -131,7 +133,7 @@ main <- function(script_options){
     community_labels <- label_communities(graph_communities, enrichments@annotation)
     
     results_table <- table_from_graph(similarity_graph, significant_assignments, community_labels)
-    write.table(results_table, file = script_options$`table-file`, sep = "\t", row.names = FALSE, col.names = TRUE)
+    write.table(results_table, file = script_options$table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
   }
 }
 
