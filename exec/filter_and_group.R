@@ -112,8 +112,9 @@ main <- function(script_options){
   message("Significant Annotations:")
   print(significant@statistics@significant)
   
-  table_dir <- dirname(script_options$`table-file`)
+  table_dir <- dirname(script_options$table_file)
   if (!dir.exists(table_dir)) {
+    message(paste0("Creating directory: ", table_dir))
     dir.create(table_dir, recursive = TRUE)
   }
   
