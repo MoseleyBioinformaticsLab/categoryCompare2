@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 "
 Usage: 
-  filter_and_group.R --enrichment-results=<enrichment_results> [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
+  filter_and_group.R [--enrichment-results=<enrichment_results>] [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
   filter_and_group.R (-h | --help)
   filter_and_group.R (-v | --version)
 
@@ -32,7 +32,7 @@ Options:
   --similarity-cutoff=<minimum similarity>        minimum similarity measure to consider annotations linked [default: 0] 
   --grouping-algorithm=<group-algorithm>          what algorithm should be used to find the groups [default: walktrap]
   --table-file=<table-file>                       the results file to save the results [default: cc2_results_grouped.txt]
-  --network-file=<network-file>                   if desired, save the network as well [default: NULL ]
+  --network-file=<network-file>                   if desired, save the network as well [default: NULL]
 
 " -> doc
 
@@ -111,6 +111,13 @@ main <- function(script_options){
   significant <- combined_significant_calls(enrichments, significant_calls)
   message("Significant Annotations:")
   print(significant@statistics@significant)
+  
+  n_significant = unlist(significant@statistics@significant@significant) |> sum()
+  
+  if (n_significant == 0) {
+    message("Nothing significant in any enrichments, stopping.\nConsider adjusting `p-cutoff` or `count-cutoff`.")
+    return()
+  }
   
   table_dir <- dirname(script_options$table_file)
   if (!dir.exists(table_dir)) {

@@ -12,9 +12,6 @@ date: "`r Sys.time()`"
 % \VignettePackage{categoryCompare2}
 -->
 
-```{r setup}
-knitr::opts_chunk
-```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -145,15 +142,15 @@ the original sources that were used to generate these annotations.
 ### Comparisons!
 
 Finally, with the features and annotations in hand, we can do the enrichments
-and comparisons between them using `categoryCompare2.R`.
+and comparisons between them using `run_enrichments.R`.
 
-```{sh cc2_help}
-$exec_loc/categoryCompare2.R --help
+```{sh run_enrichments_help}
+$exec_loc/run_enrichments.R --help
 ```
 
 So, with our generated files, we would now do:
 
-```{sh cc2_run}
+```{sh run_enrichments}
 $exec_loc/categoryCompare2.R --features="$results_loc/features.json" \
   --annotations="$results_loc/annotations.json" \
   --p-cutoff=0.001 \

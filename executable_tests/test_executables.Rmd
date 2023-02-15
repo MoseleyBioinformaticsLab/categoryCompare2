@@ -16,11 +16,11 @@ date: "`r Sys.time()`"
 ```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
 root_loc <- rprojroot::find_root("DESCRIPTION")
-
+# 
 tmp_loc <- tempdir()
-Sys.setenv(exec_loc = system.file("exec", package = "categoryCompare2"))
-Sys.setenv(test_loc = system.file("extdata", "test_data", package = "categoryCompare2"))
-Sys.setenv(results_loc = tmp_loc)
+Sys.setenv(CC_EXEC = system.file("exec", package = "categoryCompare2"))
+Sys.setenv(CC_TEST = system.file("extdata", "test_data", package = "categoryCompare2"))
+Sys.setenv(CC_RESULTS = tmp_loc)
 
 Sys.chmod(dir(file.path(root_loc, "inst", "executables"), pattern = "*.R", full.names = TRUE), "0750")
 library(categoryCompare2)
@@ -98,28 +98,28 @@ results_table <- generate_table(combined_significant)
 ## Executable Version
 
 ```{sh}
-$exec_loc/feature_files_2_json.R --json="$results_loc/features.json" \
-  --file1="$test_loc/10_symbol.txt" \
-  --universe="$test_loc/universe_symbol.txt"
+$CC_EXEC/feature_files_2_json.R --json="$CC_RESULTS/features.json" \
+  --file1="$CC_TEST/10_symbol.txt" \
+  --universe="$CC_TEST/universe_symbol.txt"
 ```
 
 ```{sh}
-$exec_loc/create_annotations.R --orgdb="org.Hs.eg.db" \
+$CC_EXEC/create_annotations.R --orgdb="org.Hs.eg.db" \
   --feature-type="SYMBOL" \
   --annotation-type="CC" \
-  --json="$results_loc/annotations.json"
+  --json="$CC_RESULTS/annotations.json"
 ```
 
 ```{sh}
-$exec_loc/run_enrichment.R --features="$results_loc/features.json" \
-  --output-file="$results_loc/cc2_results.txt" \
-  --text-only="TRUE" \
-  --annotations="$results_loc/annotations.json"
+$CC_EXEC/run_enrichment.R --features="$CC_RESULTS/features.json" \
+  --output-file="$CC_RESULTS/cc2_results.txt" \
+  --text-only="FALSE" \
+  --annotations="$CC_RESULTS/annotations.json"
 ```
 
 ```{sh}
-$exec_loc/filter_and_group.R --enrichment-result="$results_loc/cc2_results.txt" \
-  --table-file="$results_loc/cc2_results_grouped.txt"
+$CC_EXEC/filter_and_group.R --enrichment-result="$CC_RESULTS/cc2_results.txt" \
+  --table-file="$CC_RESULTS/cc2_results_grouped.txt"
 ```
 
 ## Comparison

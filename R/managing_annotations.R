@@ -47,6 +47,7 @@ get_db_annotation <- function(orgdb = "org.Hs.eg.db", features = NULL, feature_t
   go_types <- c("GO", "BP", "MF", "CC")
   go_sub <- c("BP", "MF", "CC")
   check_package_installed(orgdb)
+  suppressPackageStartupMessages(library(orgdb, character.only = TRUE))
   
   annotation_src <- eval(parse(text = orgdb))
   annotation_columns <- AnnotationDbi::columns(annotation_src)

@@ -45,13 +45,13 @@ main <- function(script_options){
   
   if (!is.null(script_options$input)) {
     json_annotation_reversal(script_options$input, out_file = script_options$json, 
-                        feature_type = script_options$`feature-type`,
-                        annotation_type = script_options$`annotation-type`)
+                        feature_type = script_options$feature_type,
+                        annotation_type = script_options$annotation_type)
   }
   
   if (!is.null(script_options$orgdb)) {
-    annotation_obj <- get_db_annotation(orgdb = script_options$orgdb, feature_type = script_options$`feature-type`,
-                                        annotation_type = script_options$`annotation-type`)
+    annotation_obj <- get_db_annotation(orgdb = script_options$orgdb, feature_type = script_options$feature_type,
+                                        annotation_type = script_options$annotation_type)
     
     annotation_2_json(annotation_obj, script_options$json)
   }
