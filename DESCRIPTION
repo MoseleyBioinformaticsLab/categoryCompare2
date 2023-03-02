@@ -24,7 +24,8 @@ Suggests:
     DiagrammeR,
     KEGGREST,
     docopt,
-    RCy3
+    RCy3,
+    hgu95av2cdf
 Imports:
     Biobase,
     methods,
