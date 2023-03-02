@@ -46,18 +46,20 @@ setMethod("annotation_combinations",
   }
 
   unique_combinations <- unique(sig_matrix)
-
   # after generating the unique_combinations, we then want them ordered such
   # that a FALSE, FALSE, ... would be last, because this is often not that
   # interesting. This does that.
   # We can only do this if there is more than one row.
-  if ((nrow(unique_combinations) > 1) & (ncol(unique_combinations) > 1)){
+  if ((nrow(unique_combinations) > 1) && (ncol(unique_combinations) > 1)) {
+    
     n_col <- ncol(unique_combinations)
     uniq_order <- do.call(order, c(lapply(1:n_col, function(i) unique_combinations[, i]), decreasing=TRUE))
     unique_combinations <- unique_combinations[uniq_order, ]
+  } else {
+    uniq_order <- order(unique_combinations, decreasing = TRUE)
+    unique_combinations <- unique_combinations[uniq_order, , drop = FALSE]
   }
-
-
+  
   name_combinations <- paste("G", seq(1, nrow(unique_combinations)), sep = "")
 
   rownames(unique_combinations) <- name_combinations
@@ -79,7 +81,7 @@ setMethod("annotation_combinations",
 
   for (in_comb in name_combinations){
     has_match <- apply(sig_matrix, 1, function(in_sig){
-      identical(in_sig, unique_combinations[in_comb, ])
+      in_sig == unique_combinations[in_comb, ]
     })
     combination_assign[has_match] <- in_comb
     description_assign[has_match] <- group_description[in_comb]
