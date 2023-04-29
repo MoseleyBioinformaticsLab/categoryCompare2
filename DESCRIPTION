@@ -23,7 +23,7 @@ Suggests:
     Cairo,
     DiagrammeR,
     KEGGREST,
-    docopt,
+    docopt (>= 0.7.0),
     RCy3,
     hgu95av2cdf
 Imports:

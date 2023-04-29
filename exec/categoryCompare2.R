@@ -55,8 +55,8 @@ main <- function(script_options){
   #print(script_options)
   
   #browser(expr = TRUE)
-  if (!is.null(script_options$`default-config`)) {
-    if (script_options$`default-config`) {
+  if (!is.null(script_options$default_config)) {
+    if (script_options$default_config) {
       cat(default_config, sep = "\n")
       return()
     }
@@ -74,20 +74,20 @@ main <- function(script_options){
   }
   
   # fail before doing enrichment!
-  p_cutoff_value <- as.double(script_options$`p-cutoff`)
+  p_cutoff_value <- as.double(script_options$p_cutoff)
   if (is.na(p_cutoff_value)) {
     stop("The p-cutoff MUST be a number, or Inf")
   }
   p_cutoff_direction <- "<="
   
   count_cutoff_column <- "counts"
-  count_cutoff_value <- as.double(script_options$`count-cutoff`)
+  count_cutoff_value <- as.double(script_options$count_cutoff)
   if (is.na(count_cutoff_value)) {
     stop("The count-cutoff MUST be a number, or Inf")
   }
   count_cutoff_direction <- ">="
   
-  if (!(script_options$`p-adjustment` %in% "none")) {
+  if (!(script_options$p_adjustment %in% "none")) {
     p_cutoff_column <- "padjust"
   } else {
     p_cutoff_column <- "p"
@@ -146,7 +146,7 @@ main <- function(script_options){
     hypergeometric_feature_enrichment(
       new("hypergeom_features", significant = in_genes,
           universe = feature_universe, annotation = annotation_obj),
-      p_adjust = script_options$`p-adjustment`
+      p_adjust = script_options$p_adjustment
     )
   })
   
@@ -159,12 +159,12 @@ main <- function(script_options){
   
   results_table <- generate_table(combined_significant)
   
-  if (!dir.exists(script_options$`output-directory`)) {
-    dir.create(script_options$`output-directory`, recursive = TRUE)
+  if (!dir.exists(script_options$output_directory)) {
+    dir.create(script_options$output_directory, recursive = TRUE)
   }
   #saveRDS(combined_significant, file = file.path(script_options$`output-directory`, "combined_significant.rds"))
   #print(combined_significant)
-  write.table(results_table, file = file.path(script_options$`output-directory`, "full_table.txt"),
+  write.table(results_table, file = file.path(script_options$output_directory, "full_table.txt"),
               sep = "\t", row.names = FALSE, col.names = TRUE)
   
   # next up will be code useful for handling wanting to make a graph

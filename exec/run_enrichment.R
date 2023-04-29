@@ -135,7 +135,7 @@ main <- function(script_options){
     hypergeometric_feature_enrichment(
       new("hypergeom_features", significant = in_genes,
           universe = feature_universe, annotation = annotation_obj),
-      p_adjust = script_options$`p-adjustment`
+      p_adjust = script_options$p_adjustment
     )
   })
   
