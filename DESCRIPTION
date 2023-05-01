@@ -1,52 +1,26 @@
 Package: categoryCompare2
-Version: 0.100.4
+Version: 0.100.5
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
-    Annotations
+        Annotations
 Author: Robert M. Flight <rflight79@gmail.com>
 Maintainer: Robert M. Flight <rflight79@gmail.com>
 URL: https://github.com/MoseleyBioinformaticsLab/categoryCompare2
-BugReports: https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues
+BugReports:
+        https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues
 License: MIT + file LICENSE
-Depends:
-    R (>= 3.5.0)
-Suggests:
-    knitr,
-    markdown,
-    estrogen,
-    org.Hs.eg.db,
-    hgu95av2.db,
-    limma,
-    affy,
-    genefilter,
-    testthat (>= 3.0.0),
-    visNetwork,
-    Cairo,
-    DiagrammeR,
-    KEGGREST,
-    docopt (>= 0.7.0),
-    RCy3,
-    hgu95av2cdf
-Imports:
-    Biobase,
-    methods,
-    AnnotationDbi,
-    colorspace,
-    graph,
-    igraph,
-    jsonlite,
-    base64enc,
-    dplyr,
-    purrr,
-    rlang,
-    GO.db,
-    stats
+Depends: R (>= 3.5.0)
+Suggests: knitr, markdown, estrogen, org.Hs.eg.db, hgu95av2.db, limma,
+        affy, genefilter, testthat (>= 3.0.0), visNetwork, Cairo,
+        DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf
+Imports: Biobase, methods, AnnotationDbi, colorspace, graph, igraph,
+        jsonlite, base64enc, dplyr, purrr, rlang, GO.db, stats
 LazyLoad: yes
 Description: Facilitates comparison of significant annotations
-    (categories) generated on one or more feature lists.
-    Interactive exploration is facilitated through the use of
-    RCytoscape (heavily suggested).
+        (categories) generated on one or more feature lists.
+        Interactive exploration is facilitated through the use of
+        RCytoscape (heavily suggested).
 SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
-    results, heavily suggested)
+        results, heavily suggested)
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
 Encoding: UTF-8

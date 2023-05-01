@@ -200,7 +200,7 @@ setMethod("generate_table", signature = list(comb_enrichment = "combined_enrichm
   if (has_desc){
     out_data <- cbind(obj_desc[, c("name", "description")], sig_cols, meas_cols, base_data)
   } else {
-    out_data <- cbind(obj_desc[, "name"], sig_cols, meas_cols, base_data)
+    out_data <- cbind(obj_desc[, "name", drop = FALSE], sig_cols, meas_cols, base_data)
   }
   
   if (exists("link", where = -1)){
