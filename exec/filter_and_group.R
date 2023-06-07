@@ -1,7 +1,7 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 "
 Usage: 
-  filter_and_group.R [--enrichment-results=<enrichment_results>] [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-genes>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
+  filter_and_group.R [--enrichment-results=<enrichment_results>] [--p-cutoff=<max-p-value>] [--adjusted-p-values=<use-adjusted-p-values>] [--count-cutoff=<min-features>] [--group=<do-grouping>] [--similarity-cutoff=<minimum similarity>] [--grouping-algorithm=<group-algorithm>] [--table-file=<table-file>]
   filter_and_group.R (-h | --help)
   filter_and_group.R (-v | --version)
 
@@ -25,9 +25,9 @@ needed for filtering and grouping is not captured in the text file representatio
 
 Options:
   --enrichment-results=<enrichment_results>       where the enrichment results are found [default: cc2_results.txt]
-  --p-cutoff=<max-p-value>                        the maximum p-value to consider signifcant [default: 0.01] 
+  --p-cutoff=<max-p-value>                        the maximum p-value to consider significant [default: 0.01] 
   --adjusted-p-values=<use-adjusted-p-values>     should adjusted p-values be used if they exist? [default: TRUE]
-  --count-cutoff=<min-genes>                      minimum number of genes annotated [default: 2] 
+  --count-cutoff=<min-features>                   minimum number of features annotated [default: 2] 
   --group=<do-grouping>                           should grouping of annotations be attempted [default: TRUE]
   --similarity-cutoff=<minimum similarity>        minimum similarity measure to consider annotations linked [default: 0] 
   --grouping-algorithm=<group-algorithm>          what algorithm should be used to find the groups [default: walktrap]
@@ -65,7 +65,7 @@ main <- function(script_options){
     
   }
   
-  # fail before doing enrichment!
+  # fail before doing filtering!
   enrichment_file <- paste0(tools::file_path_sans_ext(script_options$enrichment_results), ".rds")
   if (file.exists(enrichment_file)) {
     enrichments <- readRDS(enrichment_file)

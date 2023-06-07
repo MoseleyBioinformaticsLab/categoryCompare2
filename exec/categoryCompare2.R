@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 "
 Usage: 
   categoryCompare2.R [--features=<feature-file>] [--output-directory=<save-location>] [--annotations=<annotation-source>] [--annotation-type=<type>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--p-cutoff=<p-value cutoff>] [--count-cutoff=<min-genes>] [--graph=<use-graph>] [--graph-min-edge-weight=<weight-cutoff>] [--graph-communities=<use-communities>] [--graph-vis-type=<visual-node-type>] [--graph-vis-engine=<visualization-engine>]

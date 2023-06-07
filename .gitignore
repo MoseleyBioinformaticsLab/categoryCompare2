@@ -2,3 +2,4 @@
 .Rhistory
 .RData
 executable_related/
+inst/doc

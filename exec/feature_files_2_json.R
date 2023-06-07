@@ -1,7 +1,7 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 "
 Usage: 
-  feature_files_2_json.R [--json=<jsonfile>] [--file1=<file1>] [--file2=<file2>] [--file3=<file3>] [--file4=<file4>] [--universe=<universe>]
+  feature_files_2_json.R [--file1=<file1>] [--file2=<file2>] [--file3=<file3>] [--file4=<file4>] [--universe=<universe>] [--json=<jsonfile>]
   feature_files_2_json.R (-h | --help)
   feature_files_2_json.R (-v | --version)
 
@@ -17,12 +17,12 @@ Note that if *universe* is not supplied, then it will be the combination of all
 of the other feature lists supplied.
 
 Options:
-  --json=<jsonfile>     The JSON file to save to [default: features.json]
   --file1=<file1>       The first list of features (optional)
   --file2=<file2>       The second list of features (optional)
   --file3=<file3>       The third list of features (optional)
   --file4=<file4>       The fourth list of features (optional)
   --universe=<universe> All the features measured (optional)
+  --json=<jsonfile>     The JSON file to save to [default: features.json]
   
 " -> doc
 

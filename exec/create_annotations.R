@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 "
 Usage: 
   create_annotations.R [--input=<input-file>] [--orgdb=<organism_db>] [--feature-type=<feature-type>] [--annotation-type=<annotation-type>] [--json=<jsonfile>] 

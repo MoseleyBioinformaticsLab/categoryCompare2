@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 "
 Usage: 
   run_enrichment.R [--features=<feature-file>] [--annotations=<annotation-source>] [--enrichment-test=<enrichment-test>] [--enrichment-direction=<direction>] [--p-adjustment=<p-value adjustment>] [--output-file=<output_file>] [--text-only=<text-only>]

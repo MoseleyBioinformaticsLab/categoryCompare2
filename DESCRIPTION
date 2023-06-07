@@ -1,5 +1,5 @@
 Package: categoryCompare2
-Version: 0.100.5
+Version: 0.100.6
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
         Annotations
 Author: Robert M. Flight <rflight79@gmail.com>
@@ -11,7 +11,8 @@ License: MIT + file LICENSE
 Depends: R (>= 3.5.0)
 Suggests: knitr, markdown, estrogen, org.Hs.eg.db, hgu95av2.db, limma,
         affy, genefilter, testthat (>= 3.0.0), visNetwork, Cairo,
-        DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf
+        DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf,
+        rmarkdown
 Imports: Biobase, methods, AnnotationDbi, colorspace, graph, igraph,
         jsonlite, base64enc, dplyr, purrr, rlang, GO.db, stats
 LazyLoad: yes
