@@ -1,0 +1,247 @@
+---
+title: "Command Line Interface"
+output: rmarkdown::html_vignette
+date: "`r Sys.time()`"
+editor_options: 
+  chunk_output_type: console
+vignette: >
+  %\VignetteIndexEntry{categoryCompare2: Command Line Internet}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(categoryCompare2)
+```
+
+In addition to using it as part of an R script, there are some utilities included in `{CategoryCompare2}` to allow use from the command line.
+This is known as a **command line interface**, or CLI.
+
+Although it still requires having R and the `{categoryCompare2}` package installed, once installed, you should be able to do a full analysis from the command line.
+
+## Installation
+
+```{r}
+#| label: install
+#| eval: false
+remotes::install("moseleybioinformaticslab/categorycompare2")
+```
+
+```{r}
+#| label: add-to-path
+cli_location = system.file("exec", package = "categoryCompare2")
+cli_location
+dir(cli_location)
+Sys.setenv(CLI_LOCATION = cli_location)
+```
+
+Assuming you are on a linux type system, we can add these to the path, and set them to be executable.
+I'm going to set them here in R, because that's what I have access to.
+We show how to do it in the shell as well.
+
+```{r}
+#| label: set-things
+old_path = Sys.getenv("PATH")
+new_path = paste0(old_path, ":", cli_location)
+Sys.setenv(PATH = new_path)
+```
+
+Assuming that we've saved the path in a shell variable, `CLI_LOCATION`, we can add it to the path, and change the executables to be executable.
+
+```{sh}
+#| label: add-path-check
+export PATH="$PATH:$CLI_LOCATION"
+chmod 0750 $CLI_LOCATION/*.R 
+```
+
+After we make the scripts executable, we can check that we can actually use it.
+
+```{bash}
+categoryCompare2.R --help
+```
+
+Now, we will create a directory to put our input files and results.
+
+## Inputs
+
+`{categoryCompare2}` CLI needs a few different pieces of information to work:
+
+1. Annotations of the features to do enrichment on. An example would be Gene Ontology terms of gene products.
+1. The set of all features that were measured. For RNA-Seq, this would be all genes or transcripts in the genome of the organism.
+1. One or more sets of differentially expressed features (genes or transcripts).
+
+For this small example, we are going to use the same estrogen microarray dataset as in the main vignette.
+We've found the differential sets of genes for each timepoint, 10 and 48 hours.
+The set of all genes measured on the array is in `universe_entrez.txt`, the 10 hour differential genes are in `10_entrez.txt`, and the 48 hour differential genes in `48_entrez.txt`.
+
+## Running
+
+`{knitr}` is not good at running sequential bash or shell commands, so we are going to go through the whole analysis via CLI here, with some comments, but we will then discuss each one further down, just without any output.
+
+
+```{r}
+#| label: get-files
+test_loc = system.file("extdata", "test_data", package = "categoryCompare2")
+Sys.setenv(TESTLOC = test_loc)
+```
+
+```{bash}
+#| label: run-everything
+#| eval: false
+export CURR_DIR=$(pwd)
+export WORKING=$CURR_DIR/cc2_1234
+mkdir -p $WORKING
+cd $WORKING
+cp $TESTLOC/10_entrez.txt .
+cp $TESTLOC/48_entrez.txt .
+cp $TESTLOC/universe_entrez.txt .
+
+# get the annotations from installed organism database
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+
+# setup the gene lists
+feature_files_2_json.R --file1=10_entrez.txt --file2=48_entrez.txt \
+  --universe=universe_entrez.txt --json=example_features.json
+
+# do the enrichments
+run_enrichment.R --features=example_features.json \
+  --annotations=example_annotations.json --output-file=example_enrichment.txt
+
+# filter and find communities of related GO terms by shared feature annotations
+filter_and_group.R --enrichment-results=example_enrichment.txt \
+  --p-cutoff=0.01 --count-cutoff=2 --group=TRUE --similarity-cutoff=0.8 \
+  --table-file=example_grouping.txt
+  
+# cleanup
+rm -rf $WORKING
+```
+
+## Annotations
+
+OK, let's break that down a little more.
+Annotations are information about the features.
+For example, for gene products, we have Gene Ontology terms, that describe what pathways those products are involved in (Biological Process), any chemical transformations or binding properties those gene products might do (Molecular Function), and where in a cell or other biological structure they might be (Cellular Component).
+Other common gene product annotations are also biological pathway membership like those from Kyoto Encyclopedia of Genes and Genomes (KEGG), or pathways from Reactome.
+Similarly, chemical compounds might be annotated to pathways in KEGG and Reactome.
+
+One of the more common feature annotations are Gene Ontology (GO) terms.
+Bioconductor includes GO terms in their organism databases (org-db), such as `org.Hs.eg.db`, which is the organism database for *Homo sapiens*, indexed by Entrez Gene (`eg`).
+
+`categoryCompare2` includes a CLI utility for getting the GO terms from the included org-db into a form that can be used by the rest of the CLI, `create_annotations.R`.
+
+The arguments are:
+
+  * --orgdb: which org-db to use
+  * --feature-type: what type of feature IDs should be used to map to GO terms
+  * --annotation-type: what annotations to pull out
+  * --json: where the output json should be stored
+
+```bash
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+```
+
+Alternatively, if you have a source of annotations, you can pass that directly using:
+
+```bash
+create_annotations.R --input=annotations.json --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+```
+
+For example, the Moseley Bioinformatics Lab has a python project, [`gocats`](https://pypi.org/project/GOcats/), that enables fuller consideration of term-term relationships in the GO ontology structure.
+One of the `gocats` sub-commands outputs a json structured file of gene to term mappings that can be used as input to `create_annotations.R`, `gocats remap_goterms`.
+
+
+## Features
+
+Features are the things we've measured.
+In this example, they are are genes.
+They can also be metabolites, chromosomal regions, etc.
+For annotation / category enrichment, we need to know what features we measured (universe), and then what features we are interested in.
+Part of the utility of `categoryCompare2` is providing the ability to compare the enrichments from multiple lists.
+
+```bash
+feature_files_2_json.R --file1=10_entrez.txt --file2=48_entrez.txt \
+  --universe=universe_entrez.txt --json=example_features.json
+```
+
+In this case, we can combine up to **four** feature lists using the CLI.
+If you need to combine more than four feature lists, you might want to look at the R API directly, or write some code to create your JSON file directly.
+The name of the group of features is taken from the file name.
+The inputs are:
+
+  * --file1: a set of features (required)
+  * --file2: another set of features (optional)
+  * --file3: more features (optional)
+  * --file4: more features (optional)
+  * --universe: all the features that were measured
+  * --json: the output file
+
+## Running Enrichments
+
+```bash
+run_enrichment.R --features=example_features.json \
+  --annotations=example_annotations.json --output-file=example_enrichment.txt
+```
+
+This runs hypergeometric enrichment for each of the feature lists in the output json file from creating [features](#features) above.
+
+At the very least, there should be the features, annotations, and the output.
+A full list of options includes:
+
+  * --config: a YAML configuration file
+  * --default-config: display a default configuration file
+  * --features: the JSON file containing the features (genes) [default: features.json]
+  * --annotations: the annotations to use, as a file [default: annotations.json]
+  * --enrichment-test: what type of test to do [default: hypergeometric]
+  * --enrichment-direction: do you want over- or under-enrichment [default: over]
+  * --p-adjustment: what kind of p-value correction to perform [default: BH]
+  * --output-file: Where to save the results [default: cc2_results.txt]
+  * --text-only: should only the text file be generated? [default: FALSE] 
+  
+### Text Only FALSE  
+
+It's very important, if you want to do anything further on the CLI with your results, that you keep `--text-only=FALSE`.
+The next step in the CLI uses an `rds` file that is generated by default from the enrichment results.
+If you use `--text-only=TRUE`, then you cannot do [Filter and Group Annotations](#filter-and-group-annotations).
+Depending on the analysis you want to do, or your needs, then that may be fine.
+Just be aware.
+
+## Filter and Group Annotations
+
+Finally, after running the enrichments, we filter to what we think should be significant, and alternatively group GO terms by similarity and look for communities of GO terms.
+
+```bash
+filter_and_group.R --enrichment-results=example_enrichment.txt \
+  --p-cutoff=0.01 --count-cutoff=2 --group=TRUE --similarity-cutoff=0.8 \
+  --table-file=example_grouping.txt
+```
+
+Although this lists the `*.txt` file as input, it will actually be looking for a matching `rds` file to use, which has all of the information necessary for the filtering and grouping (see [here](#text-only-false)).
+
+Let's go through all of the options:
+
+  * --enrichment-results: where the enrichment results are saved [default: cc2_results.txt]
+  * --p-cutoff: the maximum p-value to consider significant [default: 0.01] 
+  * --adjusted-p-values: should adjusted p-values be used if they exist? [default: TRUE]
+  * --count-cutoff: minimum number of significant features annotated to an annotation to be considered [default: 2] 
+  * --group: should grouping of annotations be attempted [default: TRUE]
+  * --similarity-cutoff: minimum similarity measure to consider annotations linked [default: 0] 
+  * --grouping-algorithm: what algorithm should be used to find the groups [default: walktrap]
+  * --table-file: the results file to save the results [default: cc2_results_grouped.txt]
+  * --network-file: if desired, save the network as well [default: NULL]
+  
+If you do grouping, you definitely want to adjust `similarity-cutoff` to be something higher, generally, to make smaller groups of terms.
+In my own experience, I've found 0.8 is a good value to use for Gene Ontology terms.
+For other types of annotations, you may want to use a higher or lower similarity cutoff.
+Unfortunately, the outputs you get here will depend on the values of the `p-cutoff`, `count-cutoff`, and `similarity-cutoff` used.
+However, you can iterate on these fairly rapidly because the enrichment is already done.
+If you feel that the CLI is too slow for iterating parameters, you may want to work within R itself, where you can iterate on the graph structure itself.
