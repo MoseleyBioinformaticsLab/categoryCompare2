@@ -117,7 +117,7 @@ run_enrichment.R --features=example_features.json \
 
 # filter and find communities of related GO terms by shared feature annotations
 filter_and_group.R --enrichment-results=example_enrichment.txt \
-  --p-cutoff=0.01 --count-cutoff=2 --group=TRUE --similarity-cutoff=0.8 \
+  --p-cutoff=0.01 --count-cutoff=2 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 \
   --table-file=example_grouping.txt
   
 # cleanup
@@ -221,8 +221,8 @@ Finally, after running the enrichments, we filter to what we think should be sig
 
 ```bash
 filter_and_group.R --enrichment-results=example_enrichment.txt \
-  --p-cutoff=0.01 --count-cutoff=2 --group=TRUE --similarity-cutoff=0.8 \
-  --table-file=example_grouping.txt
+  --p-cutoff=0.01 --count-cutoff=2 --similarity-file=example_similarity.rds \
+  --similarity-cutoff=0.8 --table-file=example_grouping.txt
 ```
 
 Although this lists the `*.txt` file as input, it will actually be looking for a matching `rds` file to use, which has all of the information necessary for the filtering and grouping (see [here](#text-only-false)).
@@ -233,15 +233,16 @@ Let's go through all of the options:
   * --p-cutoff: the maximum p-value to consider significant [default: 0.01] 
   * --adjusted-p-values: should adjusted p-values be used if they exist? [default: TRUE]
   * --count-cutoff: minimum number of significant features annotated to an annotation to be considered [default: 2] 
-  * --group: should grouping of annotations be attempted [default: TRUE]
+  * --similarity-file: should grouping of annotations be attempted and saved [default: annotation_similarity.rds]
   * --similarity-cutoff: minimum similarity measure to consider annotations linked [default: 0] 
   * --grouping-algorithm: what algorithm should be used to find the groups [default: walktrap]
   * --table-file: the results file to save the results [default: cc2_results_grouped.txt]
-  * --network-file: if desired, save the network as well [default: NULL]
+  * --network-file: if desired, save the network as well [default: NULL] (currently not implemented)
   
 If you do grouping, you definitely want to adjust `similarity-cutoff` to be something higher, generally, to make smaller groups of terms.
 In my own experience, I've found 0.8 is a good value to use for Gene Ontology terms.
 For other types of annotations, you may want to use a higher or lower similarity cutoff.
 Unfortunately, the outputs you get here will depend on the values of the `p-cutoff`, `count-cutoff`, and `similarity-cutoff` used.
 However, you can iterate on these fairly rapidly because the enrichment is already done.
-If you feel that the CLI is too slow for iterating parameters, you may want to work within R itself, where you can iterate on the graph structure itself.
+In addition, the annotation similarity network is actually saved as an R `rds` file, and as long as the same filename is used, instead of recalculating the annotation similarities, they will be loaded from the `--similarity-file`.
+This also speeds up the computations considerably.
