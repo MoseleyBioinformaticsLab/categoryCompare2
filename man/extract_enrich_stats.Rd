@@ -2,20 +2,16 @@
 % Please edit documentation in R/combine_enrichments.R
 \name{extract_enrich_stats}
 \alias{extract_enrich_stats}
-\title{add data to graph}
+\title{extract enrich stats}
 \usage{
 extract_enrich_stats(enrichment_result)
 }
 \arguments{
 \item{enrichment_result}{the enrichment result object}
-
-\item{combined_enrichment}{a \code{\link{combined_enrichment}} object}
 }
 \value{
 data.frame
 }
 \description{
-given a \code{\link{combined_enrichment}} object, add the data about the significant 
-and present annotations, their descriptions, links (if present), and all the statistics, 
-and add that data to the annotation graph object.
+Extract statistical table from a single enrichment object.
 }

@@ -576,16 +576,6 @@ setMethod("extract_statistics", signature = list(in_results = "combined_enrichme
                      use_names = base_enrich_names)
 }
 
-#' add data to graph
-#' 
-#' given a \code{\link{combined_enrichment}} object, add the data about the significant 
-#' and present annotations, their descriptions, links (if present), and all the statistics, 
-#' and add that data to the annotation graph object.
-#' 
-#' @param combined_enrichment a \code{\link{combined_enrichment}} object
-#' @exportMethod
-
-
 #' extract enrich stats
 #' 
 #' Extract statistical table from a single enrichment object.
@@ -601,3 +591,13 @@ extract_enrich_stats = function(enrichment_result)
   stats$description = enrichment_result@annotation@description[stats$ID]
   return(stats)
 }
+
+
+#' add data to graph
+#' 
+#' given a \code{\link{combined_enrichment}} object, add the data about the significant 
+#' and present annotations, their descriptions, links (if present), and all the statistics, 
+#' and add that data to the annotation graph object.
+#' 
+#' @param combined_enrichment a \code{\link{combined_enrichment}} object
+#' @exportMethod
