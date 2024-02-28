@@ -1,5 +1,5 @@
 Package: categoryCompare2
-Version: 0.100.8
+Version: 0.100.11
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
         Annotations
 Author: Robert M. Flight <rflight79@gmail.com>
@@ -25,5 +25,5 @@ SystemRequirements: Cytoscape (>= 3.0) (if used for visualization of
 biocViews: Annotation, GO, MultipleComparison, Pathways, GeneExpression
 VignetteBuilder: knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3
