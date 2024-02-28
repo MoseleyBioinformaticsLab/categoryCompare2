@@ -8,7 +8,8 @@ gocats_to_annotation(
   ancestors_file = "ancestors.json",
   namespace_file = "namespace.json",
   annotation_type = "gocatsGO",
-  feature_type = "Uniprot"
+  feature_type = "Uniprot",
+  feature_translation = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ gocats_to_annotation(
 \item{annotation_type}{what annotations are we making? (gocatsGO by default)}
 
 \item{feature_type}{what type of features are we using (assume Uniprot)}
+
+\item{feature_translation}{a data.frame used to convert the feature IDs}
 }
 \value{
 annotation object
