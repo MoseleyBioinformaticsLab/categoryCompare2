@@ -587,7 +587,7 @@ setMethod("extract_statistics", signature = list(in_results = "combined_enrichme
 extract_enrich_stats = function(enrichment_result)
 {
   stats = as.data.frame(enrichment_result@statistics@statistic_data)
-  stats$ID = enrichment_results@statistics@annotation_id
+  stats$ID = enrichment_result@statistics@annotation_id
   stats$description = enrichment_result@annotation@description[stats$ID]
   return(stats)
 }
