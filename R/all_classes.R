@@ -37,7 +37,7 @@ setMethod("show", signature = list(object = "annotation"),
             cat("      Annotation Type:", object@annotation_type, "\n")
             cat("         Feature Type:", object@feature_type, "\n")
             cat("Number of Annotations:", n_annot, "\n")
-            cat("      Number of Genes:", n_gene, "\n")
+            cat("   Number of Features:", n_gene, "\n")
           })
 
 #' annotation constructor
