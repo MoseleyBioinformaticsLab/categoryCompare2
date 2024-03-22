@@ -81,7 +81,7 @@ setMethod("annotation_combinations",
 
   for (in_comb in name_combinations){
     has_match <- apply(sig_matrix, 1, function(in_sig){
-      in_sig == unique_combinations[in_comb, ]
+      identical(in_sig, unique_combinations[in_comb, ])
     })
     combination_assign[has_match] <- in_comb
     description_assign[has_match] <- group_description[in_comb]
