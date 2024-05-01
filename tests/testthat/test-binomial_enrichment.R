@@ -69,3 +69,11 @@ test_that("binomial greater works", {
   
   expect_snapshot_value(binomial_results, style = "serialize")
 })
+
+
+test_that("binomial warning works", {
+  lipid_features = readRDS("lipid_binomial_testing.rds")
+  expect_warning(binomial_feature_enrichment(lipid_features, min_features = 6), "No annotations had more than")
+  
+  expect_no_warning(binomial_feature_enrichment(lipid_features, min_features = 1))
+})

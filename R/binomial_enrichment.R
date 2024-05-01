@@ -49,6 +49,11 @@ binomial_feature_enrichment = function(binomial_features,
   n_feature = sapply(tmp_annot_feature, length)
   keep_annot = n_feature >= min_features
   
+  if (sum(keep_annot) == 0) {
+    warning("No annotations had more than min_features, no tests ran!")
+    return(NULL)
+  }
+  
   tmp_annot_feature = tmp_annot_feature[keep_annot]
   
   binomial_features@annotation@annotation_features = tmp_annot_feature

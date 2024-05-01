@@ -12,7 +12,7 @@ test_that("gocats annotation importing works", {
   list_translation = as.list(ensembl_uniprot)
   
   expect_error(gocats_to_annotation("random_file"))
-  expect_warning(gocats_to_annotation(ancestors_file, "random_file"), "does not exist")
+  expect_warning(gocats_to_annotation(ancestors_file, "random_file"), "random_file does not exist")
   expect_error(gocats_to_annotation(ancestors_file, feature_translation = list_translation), "must be a data.frame")
   expect_error(gocats_to_annotation(ancestors_file, feature_translation = bad_translation), "must contain the columns")
   

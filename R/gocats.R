@@ -44,7 +44,7 @@ gocats_to_annotation = function(ancestors_file = "ancestors.json",
   
   if (!is.null(namespace_file)) {
     if (!file.exists(namespace_file)) {
-      message(paste0(namespace_file, " does not exist. GO namespace will not be updated."))
+      warning(paste0(namespace_file, " does not exist. GO namespace will not be updated."))
       namespaces_short = character(0)
     } else {
       namespaces = jsonlite::fromJSON(namespace_file) |> unlist()
