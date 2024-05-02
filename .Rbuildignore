@@ -24,3 +24,5 @@ test_combine_filter.rda
 ^annotations\.json$
 ^test_cytoscape\.rda$
 ^cc2_results_grouped\.txt$
+^doc$
+^Meta$

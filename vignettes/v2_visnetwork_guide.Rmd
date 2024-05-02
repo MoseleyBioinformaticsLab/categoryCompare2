@@ -1,12 +1,12 @@
 ---
-title: "categoryCompare2: Alternative Visualization"
+title: "categoryCompare2: visNetwork"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 <!--
 % \VignetteEngine{knitr}
-% \VignetteIndexEntry{categoryCompare2: Alternative Visualization}
+% \VignetteIndexEntry{categoryCompare2: visNetwork}
 % \VignetteDepends{categoryCompare2, GO.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork, Cairo}
 % \VignetteKeyword{categoryCompare, meta-analysis, gene ontology, kegg}
 % \VignettePackage{categoryCompare2}

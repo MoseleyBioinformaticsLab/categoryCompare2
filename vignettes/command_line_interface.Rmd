@@ -11,16 +11,18 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-
 if (grepl("mingw", R.version$os)) {
   run_chunks = FALSE
 } else {
   run_chunks = TRUE
 }
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = run_chunks
+)
+
+
 ```
 
 ```{r setup}
@@ -42,7 +44,6 @@ remotes::install("moseleybioinformaticslab/categorycompare2")
 
 ```{r}
 #| label: add-to-path
-#| eval: run_chunks
 cli_location = system.file("exec", package = "categoryCompare2")
 cli_location
 dir(cli_location)
@@ -64,7 +65,6 @@ Assuming that we've saved the path in a shell variable, `CLI_LOCATION`, we can a
 
 ```{sh}
 #| label: add-path-check
-#| eval: run_chunks
 export PATH="$PATH:$CLI_LOCATION"
 chmod 0750 $CLI_LOCATION/*.R 
 ```
@@ -102,7 +102,6 @@ Sys.setenv(TESTLOC = test_loc)
 
 ```{bash}
 #| label: run-everything
-#| eval: run_chunks
 export CURR_DIR=$(pwd)
 export WORKING=$CURR_DIR/cc2_1234
 mkdir -p $WORKING

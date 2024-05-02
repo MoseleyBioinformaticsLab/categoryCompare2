@@ -3,3 +3,5 @@
 .RData
 executable_related/
 inst/doc
+/doc/
+/Meta/
