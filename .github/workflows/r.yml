@@ -43,6 +43,10 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: rcmdcheck
+          
+      - name: Reinstall preprocessCore
+        run: BiocManager::install("preprocessCore", configure.args = c(preprocessCore = "--disable-threading"), force= TRUE, update=TRUE, type = "source")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
 
