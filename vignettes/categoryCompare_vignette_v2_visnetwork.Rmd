@@ -1,4 +1,5 @@
 ---
+title: "categoryCompare2: Alternative Visualization"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -123,15 +124,15 @@ in the GO DAG. We can generate this list using the `GOALL` column of the `org.Hs
 and then filter to the terms of interest, or use them all.
 
 ```{r create_go_annotation}
-go_all_gene <- select(org.Hs.eg.db, keys = gUniverse, columns = c("GOALL", "ONTOLOGYALL"))
+go_all_gene <- AnnotationDbi::select(org.Hs.eg.db, keys = gUniverse, columns = c("GOALL", "ONTOLOGYALL"))
 go_all_gene <- go_all_gene[go_all_gene$ONTOLOGYALL == "BP", ]
 bp_2_gene <- split(go_all_gene$ENTREZID, go_all_gene$GOALL)
 
 bp_2_gene <- lapply(bp_2_gene, unique)
-bp_desc <- select(GO.db, keys = names(bp_2_gene), columns = "TERM", keytype = "GOID")$TERM
+bp_desc <- AnnotationDbi::select(GO.db, keys = names(bp_2_gene), columns = "TERM", keytype = "GOID")$TERM
 names(bp_desc) <- names(bp_2_gene)
 
-bp_annotation <- annotation(annotation_features = bp_2_gene,
+bp_annotation <- categoryCompare2::annotation(annotation_features = bp_2_gene,
                             description = bp_desc,
                             annotation_type = "GO.BP")
 ```

@@ -47,6 +47,10 @@ jobs:
       - name: Reinstall preprocessCore
         run: BiocManager::install("preprocessCore", configure.args = c(preprocessCore = "--disable-threading"), force= TRUE, update=TRUE, type = "source")
         shell: Rscript {0}
+        
+      - name: check os
+        run: R.version$os
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
 

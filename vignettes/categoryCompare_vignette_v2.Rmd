@@ -1,5 +1,5 @@
 ---
-title: "categoryCompare: High-throughput data meta-analysis using feature annotations"
+title: "categoryCompare: High-throughput data meta-analysis using gene annotations, V2"
 author: "Robert M Flight"
 date: "`r Sys.time()`"
 editor_options: 

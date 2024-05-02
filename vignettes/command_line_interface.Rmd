@@ -1,11 +1,11 @@
 ---
-title: "Command Line Interface"
+title: "categoryCompare2: Command Line Interface"
 output: rmarkdown::html_vignette
 date: "`r Sys.time()`"
 editor_options: 
   chunk_output_type: console
 vignette: >
-  %\VignetteIndexEntry{categoryCompare2: Command Line Internet}
+  %\VignetteIndexEntry{categoryCompare2: Command Line Interface}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,6 +15,12 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+if (grepl("mingw", R.version$os)) {
+  run_chunks = FALSE
+} else {
+  run_chunks = TRUE
+}
 ```
 
 ```{r setup}
@@ -36,6 +42,7 @@ remotes::install("moseleybioinformaticslab/categorycompare2")
 
 ```{r}
 #| label: add-to-path
+#| eval: run_chunks
 cli_location = system.file("exec", package = "categoryCompare2")
 cli_location
 dir(cli_location)
@@ -57,13 +64,14 @@ Assuming that we've saved the path in a shell variable, `CLI_LOCATION`, we can a
 
 ```{sh}
 #| label: add-path-check
+#| eval: run_chunks
 export PATH="$PATH:$CLI_LOCATION"
 chmod 0750 $CLI_LOCATION/*.R 
 ```
 
 After we make the scripts executable, we can check that we can actually use it.
 
-```{bash}
+```bash
 categoryCompare2.R --help
 ```
 
@@ -94,7 +102,7 @@ Sys.setenv(TESTLOC = test_loc)
 
 ```{bash}
 #| label: run-everything
-#| eval: false
+#| eval: run_chunks
 export CURR_DIR=$(pwd)
 export WORKING=$CURR_DIR/cc2_1234
 mkdir -p $WORKING
