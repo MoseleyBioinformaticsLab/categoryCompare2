@@ -78,6 +78,11 @@ binomial_feature_enrichment = function(binomial_features,
   binom_stats$num_positive = num_positive
   binom_stats$num_negative = num_negative
   
+  direction = rep(0, length(num_positive))
+  direction[num_positive > num_negative] = 1
+  direction[num_positive < num_negative] = -1
+  binom_stats$direction = direction
+  
   out_stats = new("statistical_results",
                    statistic_data = binom_stats,
                    annotation_id = names(binomial_features@annotation@annotation_features),
