@@ -1,6 +1,43 @@
-2.0.0 Complete redesign! Comparisons are of first importance, enrichments are added on after.
-1.5.1 Fixed vignette issue with new version of limma
-0.99.0 First review in Bioconductor
-0.7.8 Updated the vignette. Removed long lines, added links to figures, fixed some errors
-0.7.4 changed category in ccCompare to categoryName for GENccEnrichResults-class
-0.7.3 First commit
+# categoryCompare2 0.100.22
+
+- Fixed a bug where if nothing was significant, then all annotations were pulled into the graph.
+
+# categoryCompare2 0.100.21
+
+- Added more output in the binomial testing.
+
+# categoryCompare2 0.100.16
+
+- Fixing bugs around binomial testing.
+
+# categoryCompare2 0.100.9
+
+- Better importing of gocats objects.
+
+# categoryCompare2 0.100.8
+
+- Made it possible to do iterative filtering and grouping of the graph in the CLI.
+
+# categoryCompare2 0.100.7
+
+- Fixes to the CLI.
+
+# categoryCompare2 0.100.1
+
+- P-value adjustment is done by default.
+
+# categoryCompare2 0.99.161
+
+- Binomial enrichment.
+
+# categoryCompare2 0.99.160
+
+- Document finding communities in the vignettes.
+
+# categoryCompare2 0.99.159
+
+- CLI executables are available.
+
+# categoryCompare2 0.99.129
+
+- Really became the try inheritor to the original categoryCompare.
