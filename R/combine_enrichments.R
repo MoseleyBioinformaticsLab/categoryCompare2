@@ -70,7 +70,11 @@ setMethod("generate_annotation_graph", signature = list(comb_enrichment = "combi
           function(comb_enrichment, annotation_similarity, low_cut, hi_cut) .generate_annotation_graph(comb_enrichment, annotation_similarity, low_cut, hi_cut))
 
 .generate_annotation_graph <- function(comb_enrichment, annotation_similarity = "combined", low_cut = 5, hi_cut = 500){
-  
+  n_sig = sum(comb_enrichment@statistics@significant@significant)
+  if (n_sig == 0) {
+    warning("Nothing significant!\nTry changing your criteria, or examine the distribution of p-values obtained first.\n\nReturning NULL result.")
+    return(NULL)
+  }
   keep_features <- comb_enrichment@statistics@annotation_id
   annotation_features <- comb_enrichment@annotation@annotation_features[keep_features]
   n_features <- sapply(annotation_features, length)

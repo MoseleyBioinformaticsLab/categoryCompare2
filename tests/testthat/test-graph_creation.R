@@ -66,3 +66,21 @@ test_that("combined graph is correct", {
   test_combined = generate_annotation_similarity_graph(feature_list, "combined")
   expect_snapshot(test_combined@edgeData)
 })
+
+test_that('extraction of significant to graph is correct', {
+  enrichment_data = readRDS("enrichment_data.rds")
+  set.seed(1234)
+  random_genes = sample(enrichment_data$universe, 100)
+  non_enriched = hypergeometric_feature_enrichment(
+    new("hypergeom_features", significant = random_genes,
+        universe = enrichment_data$universe, annotation = enrichment_data$bp_annotation),
+    p_adjust = "BH"
+  )
+  non_list = combine_enrichments(c1 = non_enriched)
+  non_sig = get_significant_annotations(non_list, padjust <= 0.01)
+  expect_warning(generate_annotation_graph(non_sig, low_cut = 2, hi_cut = 1000), regexp = "Nothing significant")
+  
+  non_sig2 = get_significant_annotations(non_list, p <= 0.01)
+  sig2_graph = generate_annotation_graph(non_sig2, low_cut = 2, hi_cut = 1000)
+  expect_equal(graph::numNodes(sig2_graph), 27)
+})
