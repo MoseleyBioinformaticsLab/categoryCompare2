@@ -28,7 +28,7 @@ test_that("fgsea works", {
   
   tmp_p = fgsea_cc2@statistics@statistic_data[["p"]]
   names(tmp_p) = NULL
-  tmp_paths = fgsea_results@statistics@annotation_id
+  tmp_paths = fgsea_cc2@statistics@annotation_id
   expect_equal(tmp_paths, fgsea_fgsea[["pathway"]])
   
   expect_equal(tmp_p,

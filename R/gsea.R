@@ -18,6 +18,7 @@ setClass("gsea_features",
 #' @param min_features the minimum number of features for an annotation (default = 15)
 #' @param max_features the maximum number of features for an annotation (default = 500)
 #' @param return_type  what type of object should be returned? ("cc2" or "fgsea")
+#' @param ... other `fgsea` options
 #' 
 #' @details The runtime is dependent on the maximum size of the provided annotation,
 #'   so the authors of `fgsea` recommend a maximum size of 500. In addition, to calculate
@@ -82,6 +83,9 @@ gsea_feature_enrichment = function(gsea_features,
 #' @return data.table
 enriched_to_fgsea = function(in_enriched)
 {
+  if (!requireNamespace("data.table", quietly = TRUE)) {
+    stop("data.table must be installed!")
+  }
   ranks = in_enriched@ranks
   results = data.table::as.data.table(in_enriched@statistics@statistic_data)
   rename_list = c(pval = "p", padj = "padjust", log2err = "log2err", ES = "es", NES = "nes", size = "size", leadingEdge = "leading_edge")

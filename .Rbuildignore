@@ -4,11 +4,6 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.push_gh_pages\.sh$
-tests.R
-test_data_gen.R
-test_data.RData
-test_table_data.rds
-test_combine_filter.rda
 ^\.github\workflows\.yml$
 ^\.github$
 ^executable_related$
@@ -27,3 +22,4 @@ test_combine_filter.rda
 ^doc$
 ^docs$
 ^_pkgdown\.yml$
+^examples_test_data$

@@ -20,6 +20,8 @@ gsea_feature_enrichment(
 \item{max_features}{the maximum number of features for an annotation (default = 500)}
 
 \item{return_type}{what type of object should be returned? ("cc2" or "fgsea")}
+
+\item{...}{other `fgsea` options}
 }
 \value{
 enriched_result
