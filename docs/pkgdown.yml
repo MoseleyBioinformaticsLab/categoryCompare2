@@ -1,0 +1,11 @@
+pandoc: '3.4'
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  command_line_interface: command_line_interface.html
+  v2_guide: v2_guide.html
+  v2_visnetwork_guide: v2_visnetwork_guide.html
+last_built: 2024-10-30T17:56Z
+urls:
+  reference: https://moseleybioinformaticslab.github.io/categoryCompare2/reference
+  article: https://moseleybioinformaticslab.github.io/categoryCompare2/articles

@@ -51,7 +51,7 @@ setwd(currDir)
 ```
 
 ```{r normalizeAffy, message=FALSE}
-eData <- rma(a)
+eData <- affy::rma(a)
 ```
 
 To make it easier to conceptualize, we will split the data up into two eSet objects by time, and perform all of the manipulations for calculating significantly differentially expressed genes on each eSet object.

@@ -1,3 +1,7 @@
+# categoryCompare2 0.100.25
+
+- adds gene-set enrichment analysis (GSEA) using the `fgsea` package. See `gsea_features` and `gsea_feature_enrichment`.
+
 # categoryCompare2 0.100.22
 
 - Fixed a bug where if nothing was significant, then all annotations were pulled into the graph.
