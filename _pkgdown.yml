@@ -1,0 +1,5 @@
+url: https://moseleybioinformaticslab.github.io/categoryCompare2/
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: breeze-dark

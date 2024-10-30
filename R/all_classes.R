@@ -133,6 +133,7 @@ statistical_results <- setClass("statistical_results",
 enriched_result <- setClass("enriched_result",
                             slots = list(features = "ANY",
                                          universe = "ANY",
+                                         ranks = "ANY",
                                          annotation = "annotation",
                                          statistics = "statistical_results"))
 

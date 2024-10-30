@@ -69,8 +69,14 @@ binomial_feature_enrichment = function(binomial_features,
   }
   
   # now get the number of positive and negative in each annotation
-  num_positive = sapply(binomial_features@annotation@annotation_features, function(x) sum(binomial_features@positivefc %in% x))
-  num_negative = sapply(binomial_features@annotation@annotation_features, function(x) sum(binomial_features@negativefc %in% x))
+  feature_positive = lapply(binomial_features@annotation@annotation_features, function(x){
+    binomial_features@positivefc[binomial_features@positivefc %in% x]
+  })
+  feature_negative = lapply(binomial_features@annotation@annotation_features, function(x){
+    binomial_features@negativefc[binomial_features@negativefc %in% x]
+  })
+  num_positive = sapply(feature_positive, length)
+  num_negative = sapply(feature_negative, length)
   
   binom_stats = binomial_basic(num_positive, num_positive + num_negative, p_expected, direction, conf_level = conf_level)
   

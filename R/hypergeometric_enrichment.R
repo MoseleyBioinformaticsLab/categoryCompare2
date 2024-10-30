@@ -78,7 +78,8 @@ hypergeometric_feature_enrichment <- function(hypergeom_features, direction = "o
   
   out_stats <- new("statistical_results",
                    statistic_data = hyper_stats,
-                   annotation_id = names(hypergeom_features@annotation@annotation_features))
+                   annotation_id = names(hypergeom_features@annotation@annotation_features),
+                   method = "hypergeometric")
   
   out_enrich <- new("enriched_result",
                     features = hypergeom_features@significant,

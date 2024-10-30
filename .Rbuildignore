@@ -25,4 +25,5 @@ test_combine_filter.rda
 ^test_cytoscape\.rda$
 ^cc2_results_grouped\.txt$
 ^doc$
-^Meta$
+^docs$
+^_pkgdown\.yml$
