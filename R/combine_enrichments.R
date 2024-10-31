@@ -104,11 +104,15 @@ setMethod("generate_annotation_graph", signature = list(comb_enrichment = "combi
 #' 
 #' @return graphNEL
 add_data_to_graph <- function(graph, data){
+
   type_convert <- c('STRING','INTEGER','FLOATING','STRING')
   type_defaults <- list(character = "NA", integer = -100, numeric = -100, logical = "NA")
   names(type_convert) <- c('character','integer','numeric','logical')
   
   data_types <- lapply(data, class)
+  keep_types <- vapply(data_types, function(x){x %in% names(type_convert)}, logical(1))
+  data <- data[, keep_types]
+  data_types <- data_types[keep_types]
   
   graph_entries <- graph::nodes(graph)
   data_entries <- rownames(data)
@@ -469,7 +473,15 @@ setMethod("extract_statistics", signature = list(in_results = "statistical_resul
           function(in_results) .extract_statistics_statistical_results(in_results))
 
 .extract_statistics_statistical_results <- function(in_results){
-  out_data <- as.data.frame(in_results@statistic_data)
+  tmp_stats = in_results@statistic_data
+  if ("leading_edge" %in% names(tmp_stats)) {
+    tmp_stats$leading_edge <- NULL
+    out_data <- as.data.frame(tmp_stats)
+    out_data$leading_edge <- in_results@statistic_data$leading_edge
+  } else {
+    out_data <- as.data.frame(tmp_stats)
+  }
+  
   row.names(out_data) <- in_results@annotation_id
   
   out_data

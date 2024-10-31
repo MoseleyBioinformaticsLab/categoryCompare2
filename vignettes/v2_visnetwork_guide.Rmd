@@ -222,8 +222,8 @@ vis_visnetwork(bp_network)
 ```
 
 
-```{r bp_legend, echo = FALSE, results='asis'}
-generate_legend(bp_assign, img = TRUE)
+```{r bp_legend, echo = FALSE}
+generate_legend(bp_assign)
 ```
 
 ```{r}
