@@ -55,10 +55,10 @@ setMethod("annotation_combinations",
     n_col <- ncol(unique_combinations)
     uniq_order <- do.call(order, c(lapply(1:n_col, function(i) unique_combinations[, i]), decreasing=TRUE))
     unique_combinations <- unique_combinations[uniq_order, ]
-  } else {
+  } else if ((nrow(unique_combinations) > 1) && (ncol(unique_combinations) == 1)) {
     uniq_order <- order(unique_combinations, decreasing = TRUE)
     unique_combinations <- unique_combinations[uniq_order, , drop = FALSE]
-  }
+  } 
   
   name_combinations <- paste("G", seq(1, nrow(unique_combinations)), sep = "")
 

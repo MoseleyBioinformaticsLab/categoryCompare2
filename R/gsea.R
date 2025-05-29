@@ -49,6 +49,10 @@ gsea_feature_enrichment = function(gsea_features,
   if (return_type %in% "fgsea") {
     return(gsea_res)
   } else if (return_type %in% "cc2") {
+    if (any(is.na(gsea_res$pval))) {
+      na_res = is.na(gsea_res$pval)
+      gsea_res = gsea_res[!na_res, ]
+    }
     annotation_id = gsea_res$pathway
     gsea_res$pathway = NULL
     rename_list = c(p = "pval", padjust = "padj", log2err = "log2err", es = "ES", nes = "NES", size = "size", leading_edge = "leadingEdge")

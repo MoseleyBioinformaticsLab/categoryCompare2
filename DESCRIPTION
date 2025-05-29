@@ -18,7 +18,7 @@ Depends: R (>= 3.5.0)
 Suggests: knitr, markdown, estrogen, org.Hs.eg.db, hgu95av2.db, limma,
         affy, genefilter, testthat (>= 3.0.0), visNetwork, Cairo,
         DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf,
-        rmarkdown, fgsea, data.table, withr
+        rmarkdown, fgsea, data.table, withr, fgsea
 Imports: Biobase, methods, AnnotationDbi, colorspace, graph, igraph,
         jsonlite, base64enc, dplyr, purrr, rlang, GO.db, stats
 LazyLoad: yes
