@@ -1,3 +1,7 @@
+# categoryCompare2 0.100.28
+
+- adds gene-set enrichment analysis (GSEA) to the command line interface. Note that this is only available by running `run_enrichment.R` directly. Currently, there is no way to modify the GSEA options, such as `min_n` and `max_n`.
+
 # categoryCompare2 0.100.25
 
 - adds gene-set enrichment analysis (GSEA) using the `fgsea` package. See `gsea_features` and `gsea_feature_enrichment`.
