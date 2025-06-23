@@ -77,9 +77,11 @@ categoryCompare2.R --help
 
 Now, we will create a directory to put our input files and results.
 
-## Inputs
+## Hypergeometric Enrichment
 
-`{categoryCompare2}` CLI needs a few different pieces of information to work:
+### Inputs
+
+For hypergeometric enrichment, the `{categoryCompare2}` CLI needs a few different pieces of information to work:
 
 1. Annotations of the features to do enrichment on. An example would be Gene Ontology terms of gene products.
 1. The set of all features that were measured. For RNA-Seq, this would be all genes or transcripts in the genome of the organism.
@@ -89,7 +91,8 @@ For this small example, we are going to use the same estrogen microarray dataset
 We've found the differential sets of genes for each timepoint, 10 and 48 hours.
 The set of all genes measured on the array is in `universe_entrez.txt`, the 10 hour differential genes are in `10_entrez.txt`, and the 48 hour differential genes in `48_entrez.txt`.
 
-## Running
+
+### Running
 
 `{knitr}` is not good at running sequential bash or shell commands, so we are going to go through the whole analysis via CLI here, with some comments, but we will then discuss each one further down, just without any output.
 
@@ -131,7 +134,7 @@ filter_and_group.R --enrichment-results=example_enrichment.txt \
 rm -rf $WORKING
 ```
 
-## Annotations
+### Annotations
 
 OK, let's break that down a little more.
 Annotations are information about the features.
@@ -167,7 +170,7 @@ For example, the Moseley Bioinformatics Lab has a python project, [`gocats`](htt
 One of the `gocats` sub-commands outputs a json structured file of gene to term mappings that can be used as input to `create_annotations.R`, `gocats remap_goterms`.
 
 
-## Features
+### Features
 
 Features are the things we've measured.
 In this example, they are are genes.
@@ -192,7 +195,7 @@ The inputs are:
   * --universe: all the features that were measured
   * --json: the output file
 
-## Running Enrichments
+### Running Enrichments
 
 ```bash
 run_enrichment.R --features=example_features.json \
@@ -222,7 +225,7 @@ If you use `--text-only=TRUE`, then you cannot do [Filter and Group Annotations]
 Depending on the analysis you want to do, or your needs, then that may be fine.
 Just be aware.
 
-## Filter and Group Annotations
+### Filter and Group Annotations
 
 Finally, after running the enrichments, we filter to what we think should be significant, and alternatively group GO terms by similarity and look for communities of GO terms.
 
@@ -253,3 +256,177 @@ Unfortunately, the outputs you get here will depend on the values of the `p-cuto
 However, you can iterate on these fairly rapidly because the enrichment is already done.
 In addition, the annotation similarity network is actually saved as an R `rds` file, and as long as the same filename is used, instead of recalculating the annotation similarities, they will be loaded from the `--similarity-file`.
 This also speeds up the computations considerably.
+
+
+### Example Input File Structure
+
+Here, we give provide examples of what the input files look like:
+
+```
+# 10_entrez.txt
+7083
+54898
+10551
+5111
+990
+4175
+7031
+10439
+4176
+9134
+...
+```
+
+```
+# 48_entrez.txt
+7083
+54898
+10551
+5111
+990
+4175
+7031
+10439
+4176
+9134
+...
+```
+
+```
+# universe.txt
+7083
+54898
+10551
+5111
+990
+4175
+7031
+10439
+4176
+9134
+```
+
+These will result in:
+
+```{json}
+# example_features.json
+{
+  "10_entrez": ["7083", "54898", "10551", "5111", "990", "4175", "7031", ...],
+  "48_entrez": ["7083", "7031", "4605", "7153", "3148", "9768", ...],
+  "universe": ["7083", "54898", "10551", "5111", "990", "4175", "7031", ...]
+}
+```
+
+The JSON input for annotations looks like:
+
+```{json}
+{
+  "7083": ["GO:0005575", "GO:0005575", "GO:0005622", "GO:0005622", ...],
+  "7031": ["GO:0005575", "GO:0005575", "GO:0005622", "GO:0005623", ...],
+  ...
+}
+```
+
+After running `create_annotations.R`, it will look like this:
+
+```{json}
+{
+  "annotation_features": {
+    "GO:0000003": ["338879", "56729", "132141"],
+    "GO:0000045": ["6048", "23766"],
+    "GO:0000079": "124790",
+    "GO:0000086": "11116",
+    "GO:0000122": "124790",
+    "GO:0000149": "83851",
+    "GO:0000165": "27302",
+  }
+}
+```
+
+## Gene Set Enrichment Analysis (GSEA)
+
+Since version 0.100.25, `{categoryCompare2}` can make use of GSEA.
+There are some limitations in the CLI.
+There are currently no options to adjust the number minimum and maximum number of annotated features that an annotation should have to be considered for use in GSEA, and currently those numbers default to *15* and *500*.
+We do anticipate that those values will be changed eventually.
+
+### Inputs
+
+For hypergeometric enrichment, the `{categoryCompare2}` CLI needs a few different pieces of information to work:
+
+1. Annotations of the features to do enrichment on. An example would be Gene Ontology terms of gene products.
+1. Ranked features from one or more experiments.
+
+For this small example, we are going to use the same estrogen microarray dataset as in the main vignette.
+From the tested sets of genes for each timepoint, 10 and 48 hours, we can generate a ranked list of the genes in `10_ranked.txt` and `48_ranked.txt`.
+
+```{r}
+#| label: get-files
+test_loc = system.file("extdata", "test_data", package = "categoryCompare2")
+Sys.setenv(TESTLOC = test_loc)
+```
+
+```{bash}
+#| label: run-everything-gsea
+export CURR_DIR=$(pwd)
+export WORKING=$CURR_DIR/cc2_1234
+mkdir -p $WORKING
+cd $WORKING
+cp $TESTLOC/10_entrez_ranks.txt .
+cp $TESTLOC/48_entrez_ranks.txt .
+
+# get the annotations from installed organism database
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+
+# setup the gene lists
+feature_files_2_json.R --file1=10_entrez_ranks.txt \
+ --file2=48_entrez_ranks.txt \
+ --json=example_features.json
+
+# do the enrichments
+run_enrichment.R --features=example_features.json \
+  --enrichment-test=gsea \
+  --annotations=example_annotations.json \ 
+  --output-file=example_enrichment.txt
+
+# filter and find communities of related GO terms by shared feature annotations
+filter_and_group.R --enrichment-results=example_enrichment.txt \
+  --p-cutoff=0.01 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 \
+  --table-file=example_grouping.txt
+  
+# cleanup
+rm -rf $WORKING
+```
+
+### Example Input File Structure
+
+Note that the `ranked_entrez.txt` has **tabs** ("\t") in between the columns.
+
+```
+# 10_ranked_entrez.txt
+"feature"	"rank"
+"7083"	3.11373254358578
+"54898"	2.93942770961125
+"10551"	2.93219974980482
+"5111"	2.79939639438318
+"990"	2.66225839036303
+"4175"	2.55528186846043
+"7031"	2.8001945355083
+"10439"	2.49153560769811
+"4176"	2.30283141893498
+"9134"	2.22390190377239
+"2237"	2.20132873385815
+```
+
+This gets transformed to JSON with two lists, one for the "feature" and one for the "rank":
+
+```json
+# gsea_features.json
+{
+  "10_entrez_ranks": {
+    "feature": [7083, 54898, 10551, 5111, 990, 4175, 7031, 10439, 4176, ...],
+    "rank": [3.1137, 2.9394, 2.9322, 2.7994, 2.6623, 2.5553, 2.8002, 2.4915, 2.3028, 2.2239, ...]
+  }
+}
+```

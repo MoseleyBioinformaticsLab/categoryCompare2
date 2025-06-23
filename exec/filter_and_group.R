@@ -51,92 +51,121 @@ suppressMessages(library(categoryCompare2))
 
 script_options <- docopt(doc)
 
-main <- function(script_options){
+main <- function(script_options) {
   #print(script_options)
-  
-  grouping_algorithms <- c("walktrap" = "cluster_walktrap",
-                           "spinglass" = "cluster_spinglass",
-                           "optimal" = "cluster_optimal",
-                           "louvain" = "cluster_louvain",
-                           "leading_eigen" = "cluster_leading_eigen",
-                           "label_prop" = "cluster_label_prop",
-                           "fast_greedy" = "cluster_fast_greedy",
-                           "edge_betweenness" = "cluster_edge_betweenness")
-  
+
+  grouping_algorithms <- c(
+    "walktrap" = "cluster_walktrap",
+    "spinglass" = "cluster_spinglass",
+    "optimal" = "cluster_optimal",
+    "louvain" = "cluster_louvain",
+    "leading_eigen" = "cluster_leading_eigen",
+    "label_prop" = "cluster_label_prop",
+    "fast_greedy" = "cluster_fast_greedy",
+    "edge_betweenness" = "cluster_edge_betweenness"
+  )
+
   if (!is.null(script_options$version)) {
     if (script_options$version) {
-      message(paste0("This is categoryCompare2 ", packageVersion("categoryCompare2")))
+      message(paste0(
+        "This is categoryCompare2 ",
+        packageVersion("categoryCompare2")
+      ))
       return()
     }
-    
   }
-  
+
   # fail before doing filtering!
-  enrichment_file <- paste0(tools::file_path_sans_ext(script_options$enrichment_results), ".rds")
+  enrichment_file <- paste0(
+    tools::file_path_sans_ext(script_options$enrichment_results),
+    ".rds"
+  )
   if (file.exists(enrichment_file)) {
     enrichments <- readRDS(enrichment_file)
   } else {
     stop("Enrichment results RDS file does not exist!")
   }
-  
-  
+
+  method_type <- enrichments@enriched[[1]]@statistics@method
+
   p_cutoff_value <- as.double(script_options$p_cutoff)
   if (is.na(p_cutoff_value)) {
     stop("The p-cutoff MUST be a number, or Inf")
   }
   p_cutoff_direction <- "<="
-  
+
   count_cutoff_column <- "counts"
   count_cutoff_value <- as.double(script_options$count_cutoff)
   if (is.na(count_cutoff_value)) {
     stop("The count-cutoff MUST be a number, or Inf")
   }
   count_cutoff_direction <- ">="
-  
+
   if (!is.null(script_options$similarity_file)) {
     similarity_cutoff <- as.double(script_options$similarity_cutoff)
     if (is.na(similarity_cutoff)) {
       stop("The similarity-cutoff MUST be a number!")
     }
   }
-  
-  
+
   if (!(script_options$adjusted_p_values %in% "FALSE")) {
     p_cutoff_column <- "padjust"
   } else {
     p_cutoff_column <- "p"
   }
-  
-  
-  count_call_info <- list(fun = count_cutoff_direction, var_1 = count_cutoff_column, var_2 = count_cutoff_value)
-  p_call_info <- list(fun = p_cutoff_direction, var_1 = p_cutoff_column, var_2 = p_cutoff_value)
-  
-  significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
-  
-  
+
+  count_call_info <- list(
+    fun = count_cutoff_direction,
+    var_1 = count_cutoff_column,
+    var_2 = count_cutoff_value
+  )
+  p_call_info <- list(
+    fun = p_cutoff_direction,
+    var_1 = p_cutoff_column,
+    var_2 = p_cutoff_value
+  )
+
+  if (method_type %in% "hypergeometric") {
+    significant_calls <- list(counts = count_call_info, pvalues = p_call_info)
+  } else if (method_type %in% "gsea") {
+    significant_calls <- list(pvalues = p_call_info)
+  }
+
   significant <- combined_significant_calls(enrichments, significant_calls)
   message("Significant Annotations:")
   print(significant@statistics@significant)
-  
-  n_significant = unlist(significant@statistics@significant@significant) |> sum()
-  
+
+  n_significant = unlist(significant@statistics@significant@significant) |>
+    sum()
+
   if (n_significant == 0) {
-    message("Nothing significant in any enrichments, stopping.\nConsider adjusting `--p-cutoff` or `--count-cutoff`.")
+    message(
+      "Nothing significant in any enrichments, stopping.\nConsider adjusting `--p-cutoff` or `--count-cutoff`."
+    )
     return()
   }
-  
+
   table_dir <- dirname(script_options$table_file)
   if (!dir.exists(table_dir)) {
     message(paste0("Creating directory: ", table_dir))
     dir.create(table_dir, recursive = TRUE)
   }
-  
+
   if (script_options$similarity_file == "NULL") {
     results_table <- generate_table(significant)
-    write.table(results_table, file = script_options$table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
+    write.table(
+      results_table,
+      file = script_options$table_file,
+      sep = "\t",
+      row.names = FALSE,
+      col.names = TRUE
+    )
   } else {
     if (file.exists(script_options$similarity_file)) {
-      message(paste0("Loading annotation similarities from: ", script_options$similarity_file))
+      message(paste0(
+        "Loading annotation similarities from: ",
+        script_options$similarity_file
+      ))
       similarity_graph <- readRDS(script_options$similarity_file)
     } else {
       similarity_graph <- generate_annotation_graph(significant)
@@ -145,21 +174,37 @@ main <- function(script_options){
         message(paste0("Creating directory: ", similarity_dir))
         dir.create(similarity_dir, recursive = TRUE)
       }
-      message(paste0("Saving annotation similarities in: ", script_options$similarity_file))
+      message(paste0(
+        "Saving annotation similarities in: ",
+        script_options$similarity_file
+      ))
       saveRDS(similarity_graph, file = script_options$similarity_file)
     }
-    
+
     if (similarity_cutoff > 0) {
       similarity_graph <- remove_edges(similarity_graph, similarity_cutoff)
     }
     similarity_graph
-    
+
     significant_assignments <- annotation_combinations(similarity_graph)
     graph_communities <- assign_communities(similarity_graph)
-    community_labels <- label_communities(graph_communities, enrichments@annotation)
-    
-    results_table <- table_from_graph(similarity_graph, significant_assignments, community_labels)
-    write.table(results_table, file = script_options$table_file, sep = "\t", row.names = FALSE, col.names = TRUE)
+    community_labels <- label_communities(
+      graph_communities,
+      enrichments@annotation
+    )
+
+    results_table <- table_from_graph(
+      similarity_graph,
+      significant_assignments,
+      community_labels
+    )
+    write.table(
+      results_table,
+      file = script_options$table_file,
+      sep = "\t",
+      row.names = FALSE,
+      col.names = TRUE
+    )
   }
 }
 

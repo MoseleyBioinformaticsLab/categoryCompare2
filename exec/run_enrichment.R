@@ -105,7 +105,7 @@ main <- function(script_options) {
     )
   }
 
-  print(script_options$output_file)
+  #print(script_options$output_file)
   output_dir <- dirname(script_options$output_file)
 
   if (!dir.exists(output_dir)) {
@@ -176,7 +176,7 @@ main <- function(script_options) {
     gene_enrichments <- run_hypergeometric(
       script_options,
       feature_list,
-      annotabion_obj
+      annotation_obj
     )
   } else if (script_options$enrichment_test %in% "gsea") {
     gene_enrichments <- run_gsea(script_options, feature_list, annotation_obj)
