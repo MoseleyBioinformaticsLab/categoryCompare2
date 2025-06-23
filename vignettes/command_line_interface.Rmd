@@ -361,7 +361,7 @@ For this small example, we are going to use the same estrogen microarray dataset
 From the tested sets of genes for each timepoint, 10 and 48 hours, we can generate a ranked list of the genes in `10_ranked.txt` and `48_ranked.txt`.
 
 ```{r}
-#| label: get-files
+#| label: get-files-gsea
 test_loc = system.file("extdata", "test_data", package = "categoryCompare2")
 Sys.setenv(TESTLOC = test_loc)
 ```
@@ -375,25 +375,18 @@ cd $WORKING
 cp $TESTLOC/10_entrez_ranks.txt .
 cp $TESTLOC/48_entrez_ranks.txt .
 
+
 # get the annotations from installed organism database
-create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
-  --annotation-type=GO --json=example_annotations.json
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID --annotation-type=GO --json=example_annotations.json
 
 # setup the gene lists
-feature_files_2_json.R --file1=10_entrez_ranks.txt \
- --file2=48_entrez_ranks.txt \
- --json=example_features.json
+feature_files_2_json.R --file1=10_entrez_ranks.txt --file2=48_entrez_ranks.txt --json=example_features.json
 
 # do the enrichments
-run_enrichment.R --features=example_features.json \
-  --enrichment-test=gsea \
-  --annotations=example_annotations.json \ 
-  --output-file=example_enrichment.txt
+run_enrichment.R --features=example_features.json --enrichment-test=gsea --annotations=example_annotations.json --output-file=example_enrichment.txt
 
 # filter and find communities of related GO terms by shared feature annotations
-filter_and_group.R --enrichment-results=example_enrichment.txt \
-  --p-cutoff=0.01 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 \
-  --table-file=example_grouping.txt
+filter_and_group.R --enrichment-results=example_enrichment.txt  --p-cutoff=0.01 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 --table-file=example_grouping.txt
   
 # cleanup
 rm -rf $WORKING
