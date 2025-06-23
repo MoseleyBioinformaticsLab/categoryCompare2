@@ -25,7 +25,7 @@ The [Vignette](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob
 ## Installation
 
 Installation of this package from Github requires the [remotes][remotesLink]
-package.
+ and [BiocManager](biocmanagerLink) packages.
 
 ```r
 install.packages("BiocManager")
@@ -34,7 +34,8 @@ BiocManager::install("remotes")
 BiocManager::install("moseleybioinformaticslab/categoryCompare2")
 ```
 
-[remotesLink]: https://cran.r-project.org/web/packages/remotes/index.html "remotes"
+[remotesLink]: https://cran.r-project.org/web/packages/remotes/ "remotes"
+[biocmanagerLink]: https://cran.r-project.org/web/packages/BiocManager/ "BiocManager"
 
 ### Mac Installation
 
