@@ -28,9 +28,10 @@ Installation of this package from Github requires the [remotes][remotesLink]
 package.
 
 ```r
-install.packages("remotes")
-library(remotes)
-install_github("MoseleyBioinformaticsLab/categoryCompare2")
+install.packages("BiocManager")
+BiocManager::install("Biobase")
+BiocManager::install("remotes")
+BiocManager::install("moseleybioinformaticslab/categoryCompare2")
 ```
 
 [remotesLink]: https://cran.r-project.org/web/packages/remotes/index.html "remotes"
