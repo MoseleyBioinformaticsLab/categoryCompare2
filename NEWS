@@ -1,3 +1,13 @@
+# categoryCompare2 0.100.30
+
+- adds documentation in the CLI vignette to using GSEA on the command line.
+- fixes `filter_and_group.R` to allow filtering of CLI GSEA results.
+- adds documentation in the CLI vignette about the JSON structure of each of the input files, both for hypergeometric testing and GSEA.
+
+# categoryCompare2 0.100.28
+
+- adds gene-set enrichment analysis (GSEA) to the command line interface. Note that this is only available by running `run_enrichment.R` directly. Currently, there is no way to modify the GSEA options, such as `min_n` and `max_n`.
+
 # categoryCompare2 0.100.25
 
 - adds gene-set enrichment analysis (GSEA) using the `fgsea` package. See `gsea_features` and `gsea_feature_enrichment`.
