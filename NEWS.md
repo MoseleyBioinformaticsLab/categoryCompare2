@@ -1,3 +1,7 @@
+# categoryCompare2 0.100.31
+
+- changes to `gocats_2_annotation`, checking for GO terms with no description, the actual base GO terms for each portion, and adding min and max arguments for the number of features annotated to a term.
+
 # categoryCompare2 0.100.30
 
 - adds documentation in the CLI vignette to using GSEA on the command line.

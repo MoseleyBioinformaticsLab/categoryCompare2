@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.100.30</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.100.31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,7 @@
     <li><a class="dropdown-item" href="../articles/v2_visnetwork_guide.html">categoryCompare2: visNetwork</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -60,8 +61,8 @@
 
       <h1>categoryCompare2: Command Line Interface</h1>
             
-            <h4 data-toc-skip class="date">2025-06-23
-17:14:06.086427</h4>
+            <h4 data-toc-skip class="date">2025-06-26
+15:57:23.818124</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob/HEAD/vignettes/command_line_interface.Rmd" class="external-link"><code>vignettes/command_line_interface.Rmd</code></a></small>
       <div class="d-none name"><code>command_line_interface.Rmd</code></div>
@@ -81,12 +82,25 @@ should be able to do a full analysis from the command line.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>If you don’t have the package installed yet, make sure you install it
+and dependent packages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"moseleybioinformaticslab/categorycompare2"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"Biobase"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span></span>
+<span>  <span class="st">"moseleybioinformaticslab/categoryCompare2"</span>,</span>
+<span>  dependencies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>If you do have it installed, but haven’t used the CLI before, you
+will want to install <strong>at least</strong> <code>docopt</code>, as
+it provides the structure around the CLI.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"docopt"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cli_location</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exec"</span>, package <span class="op">=</span> <span class="st">"categoryCompare2"</span><span class="op">)</span></span>
 <span><span class="va">cli_location</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmpw9V0bk/temp_libpath10dff2495086ba/categoryCompare2/exec"</span></span>
+<span><span class="co">#&gt; [1] "/tmp/RtmpokhGoK/temp_libpath5be8ab68ed/categoryCompare2/exec"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">cli_location</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"</span></span>
 <span><span class="co">#&gt; [4] "filter_and_group.R"     "run_enrichment.R"</span></span>
@@ -95,18 +109,18 @@ should be able to do a full analysis from the command line.</p>
 path, and set them to be executable. I’m going to set them here in R,
 because that’s what I have access to. We show how to do it in the shell
 as well.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">old_path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"PATH"</span><span class="op">)</span></span>
 <span><span class="va">new_path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">old_path</span>, <span class="st">":"</span>, <span class="va">cli_location</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>PATH <span class="op">=</span> <span class="va">new_path</span><span class="op">)</span></span></code></pre></div>
 <p>Assuming that we’ve saved the path in a shell variable,
 <code>CLI_LOCATION</code>, we can add it to the path, and change the
 executables to be executable.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$PATH</span><span class="st">:</span><span class="va">$CLI_LOCATION</span><span class="st">"</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">chmod</span> 0750 <span class="va">$CLI_LOCATION</span>/<span class="pp">*</span>.R </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$PATH</span><span class="st">:</span><span class="va">$CLI_LOCATION</span><span class="st">"</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">chmod</span> 0750 <span class="va">$CLI_LOCATION</span>/<span class="pp">*</span>.R </span></code></pre></div>
 <p>After we make the scripts executable, we can check that we can
 actually use it.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">categoryCompare2.R</span> <span class="at">--help</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">categoryCompare2.R</span> <span class="at">--help</span></span></code></pre></div>
 <p>Now, we will create a directory to put our input files and
 results.</p>
 </div>
@@ -140,51 +154,51 @@ hour differential genes in <code>48_entrez.txt</code>.</p>
 commands, so we are going to go through the whole analysis via CLI here,
 with some comments, but we will then discuss each one further down, just
 without any output.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_loc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test_data"</span>, package <span class="op">=</span> <span class="st">"categoryCompare2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>TESTLOC <span class="op">=</span> <span class="va">test_loc</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">CURR_DIR</span><span class="op">=</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">WORKING</span><span class="op">=</span><span class="va">$CURR_DIR</span>/cc2_1234</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$WORKING</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$WORKING</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/10_entrez.txt .</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/48_entrez.txt .</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/universe_entrez.txt .</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co"># get the annotations from installed organism database</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co"># setup the gene lists</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez.txt <span class="at">--file2</span><span class="op">=</span>48_entrez.txt <span class="dt">\</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  <span class="at">--universe</span><span class="op">=</span>universe_entrez.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co"># do the enrichments</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="dt">\</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co"># filter and find communities of related GO terms by shared feature annotations</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt <span class="dt">\</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--count-cutoff</span><span class="op">=</span>2 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="dt">\</span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>  <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>  </span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co"># cleanup</span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> <span class="va">$WORKING</span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JLoading required namespace: GO.db</span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3J [H [2J [3J [H [2J [3JSignificant Annotations:</span></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; Signficance Cutoffs:</span></span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt;   counts &gt;= 2</span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt;   padjust &lt;= 0.01</span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; Counts:</span></span>
-<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt;    10_entrez 48_entrez counts</span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; G1         1         1    130</span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; G2         1         0    152</span></span>
-<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; G3         0         1     42</span></span>
-<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; G4         0         0  20110</span></span>
-<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; Saving annotation similarities in: example_similarity.rds</span></span>
-<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; Removed 17683 edges from graph</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">CURR_DIR</span><span class="op">=</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">WORKING</span><span class="op">=</span><span class="va">$CURR_DIR</span>/cc2_1234</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$WORKING</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$WORKING</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/10_entrez.txt .</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/48_entrez.txt .</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/universe_entrez.txt .</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co"># get the annotations from installed organism database</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co"># setup the gene lists</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez.txt <span class="at">--file2</span><span class="op">=</span>48_entrez.txt <span class="dt">\</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  <span class="at">--universe</span><span class="op">=</span>universe_entrez.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># do the enrichments</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="dt">\</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>  <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co"># filter and find communities of related GO terms by shared feature annotations</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt <span class="dt">\</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--count-cutoff</span><span class="op">=</span>2 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="dt">\</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>  <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>  </span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> <span class="va">$WORKING</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JLoading required namespace: GO.db</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3J [H [2J [3J [H [2J [3JSignificant Annotations:</span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; Signficance Cutoffs:</span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt;   counts &gt;= 2</span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt;   padjust &lt;= 0.01</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; Counts:</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt;    10_entrez 48_entrez counts</span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; G1         1         1    130</span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; G2         1         0    152</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; G3         0         1     42</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; G4         0         0  20110</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; Saving annotation similarities in: example_similarity.rds</span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; Removed 17683 edges from graph</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="annotations">Annotations<a class="anchor" aria-label="anchor" href="#annotations"></a>
@@ -215,12 +229,12 @@ terms</li>
 <li>–annotation-type: what annotations to pull out</li>
 <li>–json: where the output json should be stored</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span></code></pre></div>
 <p>Alternatively, if you have a source of annotations, you can pass that
 directly using:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--input</span><span class="op">=</span>annotations.json <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--input</span><span class="op">=</span>annotations.json <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span></code></pre></div>
 <p>For example, the Moseley Bioinformatics Lab has a python project, <a href="https://pypi.org/project/GOcats/" class="external-link"><code>gocats</code></a>, that
 enables fuller consideration of term-term relationships in the GO
 ontology structure. One of the <code>gocats</code> sub-commands outputs
@@ -237,8 +251,8 @@ annotation / category enrichment, we need to know what features we
 measured (universe), and then what features we are interested in. Part
 of the utility of <code>categoryCompare2</code> is providing the ability
 to compare the enrichments from multiple lists.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez.txt <span class="at">--file2</span><span class="op">=</span>48_entrez.txt <span class="dt">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="at">--universe</span><span class="op">=</span>universe_entrez.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez.txt <span class="at">--file2</span><span class="op">=</span>48_entrez.txt <span class="dt">\</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="at">--universe</span><span class="op">=</span>universe_entrez.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span></code></pre></div>
 <p>In this case, we can combine up to <strong>four</strong> feature
 lists using the CLI. If you need to combine more than four feature
 lists, you might want to look at the R API directly, or write some code
@@ -256,8 +270,8 @@ taken from the file name. The inputs are:</p>
 <div class="section level3">
 <h3 id="running-enrichments">Running Enrichments<a class="anchor" aria-label="anchor" href="#running-enrichments"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="dt">\</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="dt">\</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span></code></pre></div>
 <p>This runs hypergeometric enrichment for each of the feature lists in
 the output json file from creating <a href="#features">features</a>
 above.</p>
@@ -299,9 +313,9 @@ be fine. Just be aware.</p>
 <p>Finally, after running the enrichments, we filter to what we think
 should be significant, and alternatively group GO terms by similarity
 and look for communities of GO terms.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt <span class="dt">\</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--count-cutoff</span><span class="op">=</span>2 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="dt">\</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt <span class="dt">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--count-cutoff</span><span class="op">=</span>2 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span></code></pre></div>
 <p>Although this lists the <code>*.txt</code> file as input, it will
 actually be looking for a matching <code>rds</code> file to use, which
 has all of the information necessary for the filtering and grouping (see
@@ -382,31 +396,31 @@ considerably.</p>
 <span><span class="fl">4176</span></span>
 <span><span class="fl">9134</span></span></code></pre>
 <p>These will result in:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="er">#</span> <span class="er">example_features.json</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="dt">"10_entrez"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"54898"</span><span class="ot">,</span> <span class="st">"10551"</span><span class="ot">,</span> <span class="st">"5111"</span><span class="ot">,</span> <span class="st">"990"</span><span class="ot">,</span> <span class="st">"4175"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="dt">"48_entrez"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="st">"4605"</span><span class="ot">,</span> <span class="st">"7153"</span><span class="ot">,</span> <span class="st">"3148"</span><span class="ot">,</span> <span class="st">"9768"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="dt">"universe"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"54898"</span><span class="ot">,</span> <span class="st">"10551"</span><span class="ot">,</span> <span class="st">"5111"</span><span class="ot">,</span> <span class="st">"990"</span><span class="ot">,</span> <span class="st">"4175"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span></span>
-<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="er">#</span> <span class="er">example_features.json</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="dt">"10_entrez"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"54898"</span><span class="ot">,</span> <span class="st">"10551"</span><span class="ot">,</span> <span class="st">"5111"</span><span class="ot">,</span> <span class="st">"990"</span><span class="ot">,</span> <span class="st">"4175"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="dt">"48_entrez"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="st">"4605"</span><span class="ot">,</span> <span class="st">"7153"</span><span class="ot">,</span> <span class="st">"3148"</span><span class="ot">,</span> <span class="st">"9768"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="dt">"universe"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"7083"</span><span class="ot">,</span> <span class="st">"54898"</span><span class="ot">,</span> <span class="st">"10551"</span><span class="ot">,</span> <span class="st">"5111"</span><span class="ot">,</span> <span class="st">"990"</span><span class="ot">,</span> <span class="st">"4175"</span><span class="ot">,</span> <span class="st">"7031"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The JSON input for annotations looks like:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="dt">"7083"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="dt">"7031"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="st">"GO:0005623"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="er">...</span></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="dt">"7083"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="dt">"7031"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005575"</span><span class="ot">,</span> <span class="st">"GO:0005622"</span><span class="ot">,</span> <span class="st">"GO:0005623"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>After running <code>create_annotations.R</code>, it will look like
 this:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="dt">"annotation_features"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>    <span class="dt">"GO:0000003"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"338879"</span><span class="ot">,</span> <span class="st">"56729"</span><span class="ot">,</span> <span class="st">"132141"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="dt">"GO:0000045"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"6048"</span><span class="ot">,</span> <span class="st">"23766"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>    <span class="dt">"GO:0000079"</span><span class="fu">:</span> <span class="st">"124790"</span><span class="fu">,</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>    <span class="dt">"GO:0000086"</span><span class="fu">:</span> <span class="st">"11116"</span><span class="fu">,</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>    <span class="dt">"GO:0000122"</span><span class="fu">:</span> <span class="st">"124790"</span><span class="fu">,</span></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    <span class="dt">"GO:0000149"</span><span class="fu">:</span> <span class="st">"83851"</span><span class="fu">,</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>    <span class="dt">"GO:0000165"</span><span class="fu">:</span> <span class="st">"27302"</span><span class="fu">,</span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="dt">"annotation_features"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>    <span class="dt">"GO:0000003"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"338879"</span><span class="ot">,</span> <span class="st">"56729"</span><span class="ot">,</span> <span class="st">"132141"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>    <span class="dt">"GO:0000045"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"6048"</span><span class="ot">,</span> <span class="st">"23766"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>    <span class="dt">"GO:0000079"</span><span class="fu">:</span> <span class="st">"124790"</span><span class="fu">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>    <span class="dt">"GO:0000086"</span><span class="fu">:</span> <span class="st">"11116"</span><span class="fu">,</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    <span class="dt">"GO:0000122"</span><span class="fu">:</span> <span class="st">"124790"</span><span class="fu">,</span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>    <span class="dt">"GO:0000149"</span><span class="fu">:</span> <span class="st">"83851"</span><span class="fu">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    <span class="dt">"GO:0000165"</span><span class="fu">:</span> <span class="st">"27302"</span><span class="fu">,</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -434,54 +448,54 @@ microarray dataset as in the main vignette. From the tested sets of
 genes for each timepoint, 10 and 48 hours, we can generate a ranked list
 of the genes in <code>10_ranked.txt</code> and
 <code>48_ranked.txt</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_loc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test_data"</span>, package <span class="op">=</span> <span class="st">"categoryCompare2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>TESTLOC <span class="op">=</span> <span class="va">test_loc</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">CURR_DIR</span><span class="op">=</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">WORKING</span><span class="op">=</span><span class="va">$CURR_DIR</span>/cc2_1234</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$WORKING</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$WORKING</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/10_entrez_ranks.txt .</span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/48_entrez_ranks.txt .</span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co"># get the annotations from installed organism database</span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span>
-<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co"># setup the gene lists</span></span>
-<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez_ranks.txt <span class="at">--file2</span><span class="op">=</span>48_entrez_ranks.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span>
-<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a><span class="co"># do the enrichments</span></span>
-<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="at">--enrichment-test</span><span class="op">=</span>gsea <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span>
-<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a></span>
-<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a><span class="co"># filter and find communities of related GO terms by shared feature annotations</span></span>
-<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span>
-<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a>  </span>
-<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="co"># cleanup</span></span>
-<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> <span class="va">$WORKING</span></span>
-<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JLoading required namespace: GO.db</span></span>
-<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JNo "universe" provided, assuming ranked features.</span></span>
-<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning messages:</span></span>
-<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="co">#&gt; 1: In preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam,  :</span></span>
-<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a><span class="co">#&gt;   There are ties in the preranked stats (39.03% of the list).</span></span>
-<span id="cb21-30"><a href="#cb21-30" tabindex="-1"></a><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
-<span id="cb21-31"><a href="#cb21-31" tabindex="-1"></a><span class="co">#&gt; 2: In preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam,  :</span></span>
-<span id="cb21-32"><a href="#cb21-32" tabindex="-1"></a><span class="co">#&gt;   There are ties in the preranked stats (34.78% of the list).</span></span>
-<span id="cb21-33"><a href="#cb21-33" tabindex="-1"></a><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
-<span id="cb21-34"><a href="#cb21-34" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JSignificant Annotations:</span></span>
-<span id="cb21-35"><a href="#cb21-35" tabindex="-1"></a><span class="co">#&gt; Signficance Cutoffs:</span></span>
-<span id="cb21-36"><a href="#cb21-36" tabindex="-1"></a><span class="co">#&gt;   padjust &lt;= 0.01</span></span>
-<span id="cb21-37"><a href="#cb21-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb21-38"><a href="#cb21-38" tabindex="-1"></a><span class="co">#&gt; Counts:</span></span>
-<span id="cb21-39"><a href="#cb21-39" tabindex="-1"></a><span class="co">#&gt;    10_entrez_ranks 48_entrez_ranks counts</span></span>
-<span id="cb21-40"><a href="#cb21-40" tabindex="-1"></a><span class="co">#&gt; G1               1               1    312</span></span>
-<span id="cb21-41"><a href="#cb21-41" tabindex="-1"></a><span class="co">#&gt; G2               1               0     56</span></span>
-<span id="cb21-42"><a href="#cb21-42" tabindex="-1"></a><span class="co">#&gt; G3               0               1    428</span></span>
-<span id="cb21-43"><a href="#cb21-43" tabindex="-1"></a><span class="co">#&gt; G4               0               0   4576</span></span>
-<span id="cb21-44"><a href="#cb21-44" tabindex="-1"></a><span class="co">#&gt; Saving annotation similarities in: example_similarity.rds</span></span>
-<span id="cb21-45"><a href="#cb21-45" tabindex="-1"></a><span class="co">#&gt; Removed 127688 edges from graph</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="bu">export</span> <span class="va">CURR_DIR</span><span class="op">=</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">WORKING</span><span class="op">=</span><span class="va">$CURR_DIR</span>/cc2_1234</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$WORKING</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$WORKING</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/10_entrez_ranks.txt .</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$TESTLOC</span>/48_entrez_ranks.txt .</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co"># get the annotations from installed organism database</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="ex">create_annotations.R</span> <span class="at">--orgdb</span><span class="op">=</span>org.Hs.eg.db <span class="at">--feature-type</span><span class="op">=</span>ENTREZID <span class="at">--annotation-type</span><span class="op">=</span>GO <span class="at">--json</span><span class="op">=</span>example_annotations.json</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="co"># setup the gene lists</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="ex">feature_files_2_json.R</span> <span class="at">--file1</span><span class="op">=</span>10_entrez_ranks.txt <span class="at">--file2</span><span class="op">=</span>48_entrez_ranks.txt <span class="at">--json</span><span class="op">=</span>example_features.json</span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a><span class="co"># do the enrichments</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a><span class="ex">run_enrichment.R</span> <span class="at">--features</span><span class="op">=</span>example_features.json <span class="at">--enrichment-test</span><span class="op">=</span>gsea <span class="at">--annotations</span><span class="op">=</span>example_annotations.json <span class="at">--output-file</span><span class="op">=</span>example_enrichment.txt</span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a><span class="co"># filter and find communities of related GO terms by shared feature annotations</span></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a><span class="ex">filter_and_group.R</span> <span class="at">--enrichment-results</span><span class="op">=</span>example_enrichment.txt  <span class="at">--p-cutoff</span><span class="op">=</span>0.01 <span class="at">--similarity-file</span><span class="op">=</span>example_similarity.rds <span class="at">--similarity-cutoff</span><span class="op">=</span>0.8 <span class="at">--table-file</span><span class="op">=</span>example_grouping.txt</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>  </span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> <span class="va">$WORKING</span></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JLoading required namespace: GO.db</span></span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JNo "universe" provided, assuming ranked features.</span></span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning messages:</span></span>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co">#&gt; 1: In preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam,  :</span></span>
+<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a><span class="co">#&gt;   There are ties in the preranked stats (39.03% of the list).</span></span>
+<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
+<span id="cb22-31"><a href="#cb22-31" tabindex="-1"></a><span class="co">#&gt; 2: In preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam,  :</span></span>
+<span id="cb22-32"><a href="#cb22-32" tabindex="-1"></a><span class="co">#&gt;   There are ties in the preranked stats (34.78% of the list).</span></span>
+<span id="cb22-33"><a href="#cb22-33" tabindex="-1"></a><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
+<span id="cb22-34"><a href="#cb22-34" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JSignificant Annotations:</span></span>
+<span id="cb22-35"><a href="#cb22-35" tabindex="-1"></a><span class="co">#&gt; Signficance Cutoffs:</span></span>
+<span id="cb22-36"><a href="#cb22-36" tabindex="-1"></a><span class="co">#&gt;   padjust &lt;= 0.01</span></span>
+<span id="cb22-37"><a href="#cb22-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-38"><a href="#cb22-38" tabindex="-1"></a><span class="co">#&gt; Counts:</span></span>
+<span id="cb22-39"><a href="#cb22-39" tabindex="-1"></a><span class="co">#&gt;    10_entrez_ranks 48_entrez_ranks counts</span></span>
+<span id="cb22-40"><a href="#cb22-40" tabindex="-1"></a><span class="co">#&gt; G1               1               1    318</span></span>
+<span id="cb22-41"><a href="#cb22-41" tabindex="-1"></a><span class="co">#&gt; G2               1               0     83</span></span>
+<span id="cb22-42"><a href="#cb22-42" tabindex="-1"></a><span class="co">#&gt; G3               0               1    379</span></span>
+<span id="cb22-43"><a href="#cb22-43" tabindex="-1"></a><span class="co">#&gt; G4               0               0   4592</span></span>
+<span id="cb22-44"><a href="#cb22-44" tabindex="-1"></a><span class="co">#&gt; Saving annotation similarities in: example_similarity.rds</span></span>
+<span id="cb22-45"><a href="#cb22-45" tabindex="-1"></a><span class="co">#&gt; Removed 123415 edges from graph</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-input-file-structure-1">Example Input File Structure<a class="anchor" aria-label="anchor" href="#example-input-file-structure-1"></a>
@@ -503,13 +517,13 @@ of the genes in <code>10_ranked.txt</code> and
 "2237"  2.20132873385815</code></pre>
 <p>This gets transformed to JSON with two lists, one for the “feature”
 and one for the “rank”:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="er">#</span> <span class="er">gsea_features.json</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="dt">"10_entrez_ranks"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>    <span class="dt">"feature"</span><span class="fu">:</span> <span class="ot">[</span><span class="dv">7083</span><span class="ot">,</span> <span class="dv">54898</span><span class="ot">,</span> <span class="dv">10551</span><span class="ot">,</span> <span class="dv">5111</span><span class="ot">,</span> <span class="dv">990</span><span class="ot">,</span> <span class="dv">4175</span><span class="ot">,</span> <span class="dv">7031</span><span class="ot">,</span> <span class="dv">10439</span><span class="ot">,</span> <span class="dv">4176</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="dt">"rank"</span><span class="fu">:</span> <span class="ot">[</span><span class="fl">3.1137</span><span class="ot">,</span> <span class="fl">2.9394</span><span class="ot">,</span> <span class="fl">2.9322</span><span class="ot">,</span> <span class="fl">2.7994</span><span class="ot">,</span> <span class="fl">2.6623</span><span class="ot">,</span> <span class="fl">2.5553</span><span class="ot">,</span> <span class="fl">2.8002</span><span class="ot">,</span> <span class="fl">2.4915</span><span class="ot">,</span> <span class="fl">2.3028</span><span class="ot">,</span> <span class="fl">2.2239</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="er">#</span> <span class="er">gsea_features.json</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="dt">"10_entrez_ranks"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="dt">"feature"</span><span class="fu">:</span> <span class="ot">[</span><span class="dv">7083</span><span class="ot">,</span> <span class="dv">54898</span><span class="ot">,</span> <span class="dv">10551</span><span class="ot">,</span> <span class="dv">5111</span><span class="ot">,</span> <span class="dv">990</span><span class="ot">,</span> <span class="dv">4175</span><span class="ot">,</span> <span class="dv">7031</span><span class="ot">,</span> <span class="dv">10439</span><span class="ot">,</span> <span class="dv">4176</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>    <span class="dt">"rank"</span><span class="fu">:</span> <span class="ot">[</span><span class="fl">3.1137</span><span class="ot">,</span> <span class="fl">2.9394</span><span class="ot">,</span> <span class="fl">2.9322</span><span class="ot">,</span> <span class="fl">2.7994</span><span class="ot">,</span> <span class="fl">2.6623</span><span class="ot">,</span> <span class="fl">2.5553</span><span class="ot">,</span> <span class="fl">2.8002</span><span class="ot">,</span> <span class="fl">2.4915</span><span class="ot">,</span> <span class="fl">2.3028</span><span class="ot">,</span> <span class="fl">2.2239</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

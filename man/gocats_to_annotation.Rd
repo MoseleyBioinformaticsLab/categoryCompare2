@@ -9,7 +9,9 @@ gocats_to_annotation(
   namespace_file = "namespace.json",
   annotation_type = "gocatsGO",
   feature_type = "Uniprot",
-  feature_translation = NULL
+  feature_translation = NULL,
+  feature_min = 5,
+  feature_max = 5000
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ gocats_to_annotation(
 \item{feature_type}{what type of features are we using (assume Uniprot)}
 
 \item{feature_translation}{a data.frame used to convert the feature IDs}
+
+\item{feature_min}{minimum number of features annotated (default: 5)}
+
+\item{feature_max}{maximum number of features annotated (default: 5000)}
 }
 \value{
 annotation object
