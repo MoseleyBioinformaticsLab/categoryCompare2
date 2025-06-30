@@ -36,10 +36,26 @@ Although it still requires having R and the `{categoryCompare2}` package install
 
 ## Installation
 
+If you don't have the package installed yet, make sure you install it and dependent packages.
+
 ```{r}
 #| label: install
 #| eval: false
-remotes::install("moseleybioinformaticslab/categorycompare2")
+install.packages("BiocManager")
+BiocManager::install("Biobase")
+BiocManager::install("remotes")
+BiocManager::install(
+  "moseleybioinformaticslab/categoryCompare2",
+  dependencies = c("Depends", "Imports", "Suggests")
+)
+```
+
+If you do have it installed, but haven't used the CLI before, you will want to install **at least** `docopt`, as it provides the structure around the CLI.
+
+```{r}
+#| label: docopt
+#| eval: false
+install.packages("docopt")
 ```
 
 ```{r}
