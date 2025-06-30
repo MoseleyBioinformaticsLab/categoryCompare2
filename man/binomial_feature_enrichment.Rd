@@ -10,7 +10,7 @@ binomial_feature_enrichment(
   direction = "two.sided",
   p_adjust = "BH",
   conf_level = 0.95,
-  min_features = 1
+  min_features = 6
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ binomial_feature_enrichment(
 
 \item{conf_level}{the confidence level for the confidence interval (default is 0.95)}
 
-\item{min_features}{a minimum number of features that are annotated to each annotation}
+\item{min_features}{a minimum number of features that are annotated to each annotation (default is 6)}
 }
 \value{
 enriched_result

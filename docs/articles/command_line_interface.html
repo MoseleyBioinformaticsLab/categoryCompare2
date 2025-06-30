@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.100.31</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.100.32</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
       <h1>categoryCompare2: Command Line Interface</h1>
             
             <h4 data-toc-skip class="date">2025-06-30
-14:16:15.353675</h4>
+15:32:52.281292</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob/HEAD/vignettes/command_line_interface.Rmd" class="external-link"><code>vignettes/command_line_interface.Rmd</code></a></small>
       <div class="d-none name"><code>command_line_interface.Rmd</code></div>
@@ -100,7 +100,7 @@ it provides the structure around the CLI.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cli_location</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exec"</span>, package <span class="op">=</span> <span class="st">"categoryCompare2"</span><span class="op">)</span></span>
 <span><span class="va">cli_location</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmppAM4Bu/temp_libpath7fb0aa4d0a9/categoryCompare2/exec"</span></span>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp56eM3D/temp_libpathd49c168e9460/categoryCompare2/exec"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">cli_location</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"</span></span>
 <span><span class="co">#&gt; [4] "filter_and_group.R"     "run_enrichment.R"</span></span>
@@ -490,12 +490,12 @@ of the genes in <code>10_ranked.txt</code> and
 <span id="cb22-37"><a href="#cb22-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb22-38"><a href="#cb22-38" tabindex="-1"></a><span class="co">#&gt; Counts:</span></span>
 <span id="cb22-39"><a href="#cb22-39" tabindex="-1"></a><span class="co">#&gt;    10_entrez_ranks 48_entrez_ranks counts</span></span>
-<span id="cb22-40"><a href="#cb22-40" tabindex="-1"></a><span class="co">#&gt; G1               1               1    314</span></span>
-<span id="cb22-41"><a href="#cb22-41" tabindex="-1"></a><span class="co">#&gt; G2               1               0     76</span></span>
-<span id="cb22-42"><a href="#cb22-42" tabindex="-1"></a><span class="co">#&gt; G3               0               1    415</span></span>
-<span id="cb22-43"><a href="#cb22-43" tabindex="-1"></a><span class="co">#&gt; G4               0               0   4567</span></span>
+<span id="cb22-40"><a href="#cb22-40" tabindex="-1"></a><span class="co">#&gt; G1               1               1    306</span></span>
+<span id="cb22-41"><a href="#cb22-41" tabindex="-1"></a><span class="co">#&gt; G2               1               0     67</span></span>
+<span id="cb22-42"><a href="#cb22-42" tabindex="-1"></a><span class="co">#&gt; G3               0               1    399</span></span>
+<span id="cb22-43"><a href="#cb22-43" tabindex="-1"></a><span class="co">#&gt; G4               0               0   4600</span></span>
 <span id="cb22-44"><a href="#cb22-44" tabindex="-1"></a><span class="co">#&gt; Saving annotation similarities in: example_similarity.rds</span></span>
-<span id="cb22-45"><a href="#cb22-45" tabindex="-1"></a><span class="co">#&gt; Removed 133031 edges from graph</span></span></code></pre></div>
+<span id="cb22-45"><a href="#cb22-45" tabindex="-1"></a><span class="co">#&gt; Removed 120874 edges from graph</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-input-file-structure-1">Example Input File Structure<a class="anchor" aria-label="anchor" href="#example-input-file-structure-1"></a>

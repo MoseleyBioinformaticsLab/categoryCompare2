@@ -21,7 +21,7 @@ combine_enrichments(...)
 \description{
 This is one of the primary workhorse functions behind \pkg{categoryCompare2}.
 The primary function of \code{categoryCompare} is to enable \emph{comparisons}
-of different enrichment analyses. To facilitate that, we must first 
-\strong{combine} one (really, we can do this with a single) or more 
+of different enrichment analyses. To facilitate that, we must first
+\strong{combine} one (really, we can do this with a single) or more
 \code{\link{enriched_result}}.
 }

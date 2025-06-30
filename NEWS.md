@@ -1,3 +1,9 @@
+# categoryCompare2 0.100.32
+
+- changes `binomial_feature_enrichment` `min_features` to **6**, as anything under this is not likely to be useful for binomial testing.
+- fixes some failing tests.
+- adds ability to use `combine_enrichments` on `binomial_enriched` objects.
+
 # categoryCompare2 0.100.31
 
 - changes to `gocats_2_annotation`, checking for GO terms with no description, the actual base GO terms for each portion, and adding min and max arguments for the number of features annotated to a term.
