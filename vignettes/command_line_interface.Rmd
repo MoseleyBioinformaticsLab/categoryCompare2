@@ -430,7 +430,7 @@ Note that the `ranked_entrez.txt` has **tabs** ("\t") in between the columns.
 
 This gets transformed to JSON with two lists, one for the "feature" and one for the "rank":
 
-```json
+```{json}
 # gsea_features.json
 {
   "10_entrez_ranks": {
