@@ -368,7 +368,7 @@ We do anticipate that those values will be changed eventually.
 
 ### Inputs
 
-For hypergeometric enrichment, the `{categoryCompare2}` CLI needs a few different pieces of information to work:
+For GSEA, the `{categoryCompare2}` CLI needs a few different pieces of information to work:
 
 1. Annotations of the features to do enrichment on. An example would be Gene Ontology terms of gene products.
 1. Ranked features from one or more experiments.
