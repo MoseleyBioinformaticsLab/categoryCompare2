@@ -100,7 +100,7 @@ gsea_feature_enrichment = function(
 #'
 #' @export
 #' @return data.table
-gsea_to_fgsea = function(in_gsea) {
+gsea_result_to_fgsea = function(in_gsea) {
   if (!requireNamespace("data.table", quietly = TRUE)) {
     stop("data.table must be installed!")
   }

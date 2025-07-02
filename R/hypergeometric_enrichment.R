@@ -1,4 +1,4 @@
-#' hypergeom feature class
+#' hypergeometric feature class
 #'
 #' class to hold features undergoing hypergeometric enrichment
 #'
@@ -8,13 +8,13 @@
 #'
 #' @export
 setClass(
-  "hypergeom_features",
+  "hypergeometric_features",
   slots = list(significant = "ANY", universe = "ANY", annotation = "annotation")
 )
 
 #' do hypergeometric enrichment
 #'
-#' @param hypergeom_features a hypergeometric_features object
+#' @param hypergeometric_features a hypergeometric_features object
 #' @param direction which direction to do the enrichment (over or under)
 #' @param p_adjust how to correct the p-values (default is "BH")
 #' @param min_features how many features should be annotated before testing it?
@@ -27,25 +27,25 @@ setClass(
 #' @return enriched_result
 #'
 hypergeometric_feature_enrichment <- function(
-  hypergeom_features,
+  hypergeometric_features,
   direction = "over",
   p_adjust = "BH",
   min_features = 1
 ) {
   # cleanup the features and annotations (should be in separate function)
-  hypergeom_features@universe <- unique(hypergeom_features@universe)
+  hypergeometric_features@universe <- unique(hypergeometric_features@universe)
 
-  tmp_annot_feature <- hypergeom_features@annotation@annotation_features
+  tmp_annot_feature <- hypergeometric_features@annotation@annotation_features
   annotation_universe <- unique(unlist(tmp_annot_feature))
 
-  hypergeom_features@universe <- intersect(
-    hypergeom_features@universe,
+  hypergeometric_features@universe <- intersect(
+    hypergeometric_features@universe,
     annotation_universe
   )
   tmp_annot_feature <- lapply(
     tmp_annot_feature,
     intersect,
-    hypergeom_features@universe
+    hypergeometric_features@universe
   )
 
   n_feature <- sapply(tmp_annot_feature, length)
@@ -53,29 +53,29 @@ hypergeometric_feature_enrichment <- function(
 
   tmp_annot_feature <- tmp_annot_feature[keep_annot]
 
-  hypergeom_features@significant <- intersect(
-    hypergeom_features@significant,
-    hypergeom_features@universe
+  hypergeometric_features@significant <- intersect(
+    hypergeometric_features@significant,
+    hypergeometric_features@universe
   )
-  hypergeom_features@annotation@annotation_features <- tmp_annot_feature
+  hypergeometric_features@annotation@annotation_features <- tmp_annot_feature
 
   # this probably needs its own function eventually
-  if (length(hypergeom_features@annotation@description) != 0) {
-    hypergeom_features@annotation@description <- hypergeom_features@annotation@description[names(
+  if (length(hypergeometric_features@annotation@description) != 0) {
+    hypergeometric_features@annotation@description <- hypergeometric_features@annotation@description[names(
       tmp_annot_feature
     )]
   }
 
-  if (length(hypergeom_features@annotation@links) != 0) {
-    hypergeom_features@annotation@links <- hypergeom_features@annotation@links[names(
+  if (length(hypergeometric_features@annotation@links) != 0) {
+    hypergeometric_features@annotation@links <- hypergeometric_features@annotation@links[names(
       tmp_annot_feature
     )]
   }
 
   # now get the counts annotated
   num_white_drawn <- sapply(
-    hypergeom_features@annotation@annotation_features,
-    function(x) sum(hypergeom_features@significant %in% x)
+    hypergeometric_features@annotation@annotation_features,
+    function(x) sum(hypergeometric_features@significant %in% x)
   )
 
   if (length(num_white_drawn) == 0) {
@@ -83,15 +83,15 @@ hypergeometric_feature_enrichment <- function(
   }
 
   num_white <- Biobase::listLen(
-    hypergeom_features@annotation@annotation_features
+    hypergeometric_features@annotation@annotation_features
   )
 
   if (length(num_white) == 0) {
     num_white <- 0
   }
 
-  num_black <- length(hypergeom_features@universe) - num_white
-  num_drawn <- length(hypergeom_features@significant)
+  num_black <- length(hypergeometric_features@universe) - num_white
+  num_drawn <- length(hypergeometric_features@significant)
 
   hyper_stats <- hypergeometric_basic(
     num_white,
@@ -107,16 +107,18 @@ hypergeometric_feature_enrichment <- function(
   out_stats <- new(
     "statistical_results",
     statistic_data = hyper_stats,
-    annotation_id = names(hypergeom_features@annotation@annotation_features),
+    annotation_id = names(
+      hypergeometric_features@annotation@annotation_features
+    ),
     method = "hypergeometric"
   )
 
   out_enrich <- new(
     "hypergeometric_result",
-    features = hypergeom_features@significant,
-    universe = hypergeom_features@universe,
+    features = hypergeometric_features@significant,
+    universe = hypergeometric_features@universe,
     statistics = out_stats,
-    annotation = hypergeom_features@annotation
+    annotation = hypergeometric_features@annotation
   )
 
   out_enrich
