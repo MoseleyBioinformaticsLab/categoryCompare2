@@ -1,5 +1,5 @@
 Package: categoryCompare2
-Version: 0.100.32
+Version: 0.200.1
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
         Annotations
 Authors@R: c(

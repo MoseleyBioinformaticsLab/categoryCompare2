@@ -19,12 +19,6 @@ setMethod(
 )
 
 
-setMethod(
-  "combine_enrichments",
-  signature = "binomial_result",
-  function(...) .combine_enrichments_multiple(...)
-)
-
 #' combine enrichments
 #'
 #' @param ... list of enriched_result

@@ -6,8 +6,8 @@
 \alias{combined_enrichment}
 \title{combined enrichments}
 \description{
-The \code{combined_enrichment} class holds the results of combining several 
-\code{\link{enriched_result}}s together, which includes the original 
+The \code{combined_enrichment} class holds the results of combining several
+\code{\link{enriched_result}}s together, which includes the original
 \code{\link{enriched_result}}s, as well as the \code{\link{cc_graph}}
 and combined \code{\link{annotation}} objects.
 }

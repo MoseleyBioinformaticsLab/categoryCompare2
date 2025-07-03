@@ -14,9 +14,5 @@ the binomial results class
 \item{\code{positivefc}}{the positive log-fold-changed genes, a vector of class ANY}
 
 \item{\code{negativefc}}{the negative log-fold-changed genes}
-
-\item{\code{annotation}}{list giving the annotation to feature relationship}
-
-\item{\code{statistics}}{a \code{\link{statistical_results}} object}
 }}
 
