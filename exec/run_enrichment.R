@@ -151,7 +151,7 @@ main <- function(script_options) {
     gene_enrichments <- lapply(feature_list, function(in_genes) {
       hypergeometric_feature_enrichment(
         new(
-          "hypergeom_features",
+          "hypergeometric_features",
           significant = in_genes,
           universe = feature_universe,
           annotation = annotation_obj

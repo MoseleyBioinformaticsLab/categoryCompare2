@@ -1,3 +1,10 @@
+# categoryCompare2 0.200.2
+
+- changes `hypergeom_features` to `hypergeometric_features`.
+- because the `hypergeometrc_features` necessitates changes to actual code written by any users, I bumped the version from *0.100* to *0.200*.
+- implements `hypergeometric_result`, `gsea_result`, and `binomial_result` as more specific classes of `enrichemnt_result`, which makes all of the combining and filtering work for everything.
+- made the vignettes use pre-processed data so that there won't be any issues from the `affy` package and segfaults.
+
 # categoryCompare2 0.100.32
 
 - changes `binomial_feature_enrichment` `min_features` to **6**, as anything under this is not likely to be useful for binomial testing.

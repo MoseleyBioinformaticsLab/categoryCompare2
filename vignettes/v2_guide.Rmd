@@ -34,23 +34,27 @@ library("estrogen")
 library("limma")
 ```
 
-```{r loadMeta}
+```{r loadMeta, eval=FALSE}
 datadir <- system.file("extdata", package = "estrogen")
-pd <- read.AnnotatedDataFrame(file.path(datadir,"estrogen.txt"), 
-  	header = TRUE, sep = "", row.names = 1)
+pd <- read.AnnotatedDataFrame(
+  file.path(datadir, "estrogen.txt"),
+  header = TRUE,
+  sep = "",
+  row.names = 1
+)
 pData(pd)
 ```
 
 Here you can see the descriptions for each of the arrays. First, we will read in the cel files, and then normalize the data using RMA.
 
-```{r loadAffy}
+```{r loadAffy, eval=FALSE}
 currDir <- getwd()
 setwd(datadir)
-a <- ReadAffy(filenames=rownames(pData(pd)), phenoData = pd, verbose = TRUE)
+a <- ReadAffy(filenames = rownames(pData(pd)), phenoData = pd, verbose = TRUE)
 setwd(currDir)
 ```
 
-```{r normalizeAffy, message=FALSE}
+```{r normalizeAffy, message=FALSE, eval=FALSE}
 eData <- affy::rma(a)
 ```
 
@@ -59,37 +63,58 @@ To make it easier to conceptualize, we will split the data up into two eSet obje
 So for the 10 hour samples:
 
 ```{r edata10}
+e_file <- system.file(
+  "extdata/test_data/estrogen_edata.rds",
+  package = "categoryCompare2"
+)
+eData <- readRDS(e_file)
 e10 <- eData[, eData$time.h == 10]
-e10 <- nsFilter(e10, remove.dupEntrez=TRUE, var.filter=FALSE, 
-        feature.exclude="^AFFX")$eset
+e10 <- nsFilter(
+  e10,
+  remove.dupEntrez = TRUE,
+  var.filter = FALSE,
+  feature.exclude = "^AFFX"
+)$eset
 
 e10$estrogen <- factor(e10$estrogen)
-d10 <- model.matrix(~0 + e10$estrogen)
+d10 <- model.matrix(~ 0 + e10$estrogen)
 colnames(d10) <- unique(e10$estrogen)
 fit10 <- lmFit(e10, d10)
-c10 <- makeContrasts(present - absent, levels=d10)
+c10 <- makeContrasts(present - absent, levels = d10)
 fit10_2 <- contrasts.fit(fit10, c10)
 eB10 <- eBayes(fit10_2)
-table10 <- topTable(eB10, number=nrow(e10), p.value=1, adjust.method="BH")
-table10$Entrez <- unlist(mget(rownames(table10), hgu95av2ENTREZID, ifnotfound=NA))
+table10 <- topTable(eB10, number = nrow(e10), p.value = 1, adjust.method = "BH")
+table10$Entrez <- unlist(mget(
+  rownames(table10),
+  hgu95av2ENTREZID,
+  ifnotfound = NA
+))
 ```
 
 And the 48 hour samples we do the same thing:
 
 ```{r edata48}
 e48 <- eData[, eData$time.h == 48]
-e48 <- nsFilter(e48, remove.dupEntrez=TRUE, var.filter=FALSE, 
-        feature.exclude="^AFFX" )$eset
+e48 <- nsFilter(
+  e48,
+  remove.dupEntrez = TRUE,
+  var.filter = FALSE,
+  feature.exclude = "^AFFX"
+)$eset
 
 e48$estrogen <- factor(e48$estrogen)
-d48 <- model.matrix(~0 + e48$estrogen)
+d48 <- model.matrix(~ 0 + e48$estrogen)
 colnames(d48) <- unique(e48$estrogen)
 fit48 <- lmFit(e48, d48)
-c48 <- makeContrasts(present - absent, levels=d48)
+c48 <- makeContrasts(present - absent, levels = d48)
 fit48_2 <- contrasts.fit(fit48, c48)
 eB48 <- eBayes(fit48_2)
-table48 <- topTable(eB48, number=nrow(e48), p.value=1, adjust.method="BH")
-table48$Entrez <- unlist(mget(rownames(table48), hgu95av2ENTREZID, ifnotfound=NA))
+table48 <- topTable(eB48, number = nrow(e48), p.value = 1, adjust.method = "BH")
+table48$Entrez <- unlist(mget(
+  rownames(table48),
+  hgu95av2ENTREZID,
+  ifnotfound = NA
+))
 ```
 
 And grab all the genes on the array to have a background set.
@@ -124,17 +149,28 @@ in the GO DAG. We can generate this list using the `GOALL` column of the `org.Hs
 and then filter to the terms of interest, or use them all.
 
 ```{r create_go_annotation}
-go_all_gene <- AnnotationDbi::select(org.Hs.eg.db, keys = gUniverse, columns = c("GOALL", "ONTOLOGYALL"))
+go_all_gene <- AnnotationDbi::select(
+  org.Hs.eg.db,
+  keys = gUniverse,
+  columns = c("GOALL", "ONTOLOGYALL")
+)
 go_all_gene <- go_all_gene[go_all_gene$ONTOLOGYALL == "BP", ]
 bp_2_gene <- split(go_all_gene$ENTREZID, go_all_gene$GOALL)
 
 bp_2_gene <- lapply(bp_2_gene, unique)
-bp_desc <- AnnotationDbi::select(GO.db, keys = names(bp_2_gene), columns = "TERM", keytype = "GOID")$TERM
+bp_desc <- AnnotationDbi::select(
+  GO.db,
+  keys = names(bp_2_gene),
+  columns = "TERM",
+  keytype = "GOID"
+)$TERM
 names(bp_desc) <- names(bp_2_gene)
 
-bp_annotation <- categoryCompare2::annotation(annotation_features = bp_2_gene,
-                            description = bp_desc,
-                            annotation_type = "GO.BP")
+bp_annotation <- categoryCompare2::annotation(
+  annotation_features = bp_2_gene,
+  description = bp_desc,
+  annotation_type = "GO.BP"
+)
 ```
 
 ## Do Enrichment
@@ -143,14 +179,22 @@ Now we can do hypergeometric enrichment with each of the gene lists.
 
 ```{r do_enrich}
 g10_enrich <- hypergeometric_feature_enrichment(
-  new("hypergeom_features", significant = g10,
-      universe = gUniverse, annotation = bp_annotation),
+  new(
+    "hypergeometric_features",
+    significant = g10,
+    universe = gUniverse,
+    annotation = bp_annotation
+  ),
   p_adjust = "BH"
 )
 
 g48_enrich <- hypergeometric_feature_enrichment(
-  new("hypergeom_features", significant = g48,
-      universe = gUniverse, annotation = bp_annotation),
+  new(
+    "hypergeometric_features",
+    significant = g48,
+    universe = gUniverse,
+    annotation = bp_annotation
+  ),
   p_adjust = "BH"
 )
 ```
@@ -158,12 +202,15 @@ g48_enrich <- hypergeometric_feature_enrichment(
 ## Combine and Find Significant
 
 ```{r combine_bp}
-bp_combined <- combine_enrichments(g10 = g10_enrich,
-                                  g48 = g48_enrich)
+bp_combined <- combine_enrichments(g10 = g10_enrich, g48 = g48_enrich)
 ```
 
 ```{r sig_bp}
-bp_sig <- get_significant_annotations(bp_combined, padjust <= 0.001, counts >= 2)
+bp_sig <- get_significant_annotations(
+  bp_combined,
+  padjust <= 0.001,
+  counts >= 2
+)
 bp_sig@statistics@significant
 ```
 
