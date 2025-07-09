@@ -22,8 +22,9 @@ h_48_pos = enrichment_data$table48 |>
 
 create_list = function(binomial_results) {
   list(
-    x = binomial_results@statistics@statistic_data$statistic,
-    n = binomial_results@statistics@statistic_data$parameter,
+    x = binomial_results@statistics@statistic_data$num_positive,
+    n = binomial_results@statistics@statistic_data$num_negative +
+      binomial_results@statistics@statistic_data$num_positive,
     p = binomial_results@statistics@statistic_data$null_value,
     alternative = binomial_results@statistics@statistic_data$alternative
   )

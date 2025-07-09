@@ -101,8 +101,6 @@ binomial_feature_enrichment = function(
   )
 
   binom_stats$padjust = p.adjust(binom_stats$p, p_adjust)
-  binom_stats$num_positive = num_positive
-  binom_stats$num_negative = num_negative
 
   direction = rep(0, length(num_positive))
   direction[num_positive > num_negative] = 1
@@ -147,6 +145,11 @@ binomial_basic = function(
   direction = "two.sided",
   conf_level = 0.95
 ) {
+  # the calculations in this function are essentially a re-implementation of the code
+  # in base R stats::binom.test. There were reasons why I re-implemented it,
+  # but they escape me now (2025) looking back to 2022.
+  # I think it's because the binomial.test object returned was not easy to turn into
+  # a list and extract the information from it.
   positive_cases = check_is_positive_integer(positive_cases, "positive_cases")
   total_cases = check_is_positive_integer(total_cases, "total_cases")
 
@@ -280,12 +283,12 @@ binomial_basic = function(
   )
 
   return(list(
-    statistic = positive_cases,
-    parameter = total_cases,
+    num_positive = positive_cases,
+    num_negative = total_cases - positive_cases,
     p = p_values,
     conf_lower = conf_interval[, 1],
     conf_upper = conf_interval[, 2],
-    estimate = positive_cases / total_cases,
+    frac_positive = positive_cases / total_cases,
     null_value = p_expected,
     alternative = direction
   ))

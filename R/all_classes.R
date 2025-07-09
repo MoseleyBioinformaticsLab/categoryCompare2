@@ -139,7 +139,8 @@ statistical_results <- setClass(
 #' @slot annotation list giving the annotation to feature relationship
 #' @slot statistics a \code{\link{statistical_results}} object
 #'
-#' @export
+#' @exportClass enriched_result
+#' @rdname enriched_result
 enriched_result <- setClass(
   "enriched_result",
   slots = list(annotation = "annotation", statistics = "statistical_results")
@@ -149,7 +150,11 @@ enriched_result <- setClass(
 #'
 #' @slot features the significant features
 #' @slot universe the universe of features
+#'
 #' @exportClass hypergeometric_result
+#' @aliases hypergeometric_result-class
+#'
+#' @rdname enriched_result
 hypergeometric_result <- setClass(
   "hypergeometric_result",
   slots = list(features = "ANY", universe = "ANY"),
@@ -160,6 +165,7 @@ hypergeometric_result <- setClass(
 #'
 #' @slot ranks the ranked features
 #' @exportClass gsea_result
+#' @rdname enriched_result
 gsea_result <- setClass(
   "gsea_result",
   slots = list(ranks = "ANY"),
@@ -171,6 +177,7 @@ gsea_result <- setClass(
 #' @param object the enriched_result object to show
 #'
 #' @exportMethod show
+#' @rdname enriched_result
 setMethod(
   "show",
   signature = list(object = "enriched_result"),
@@ -239,6 +246,7 @@ hypergeometric_result <- function(features, universe, annotation, statistics) {
 #' @slot positivefc the positive log-fold-changed genes, a vector of class ANY
 #' @slot negativefc the negative log-fold-changed genes
 #' @exportClass binomial_result
+#' @rdname enriched_result
 binomial_result <- setClass(
   "binomial_result",
   slots = list(
@@ -253,6 +261,7 @@ binomial_result <- setClass(
 #' @param object the binomial_result object to show
 #'
 #' @exportMethod show
+#' @rdname enriched_result
 setMethod(
   "show",
   signature = list(object = "binomial_result"),

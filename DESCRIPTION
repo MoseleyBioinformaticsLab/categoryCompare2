@@ -1,5 +1,5 @@
 Package: categoryCompare2
-Version: 0.200.1
+Version: 0.200.2
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
         Annotations
 Authors@R: c(
@@ -18,7 +18,7 @@ Depends: R (>= 3.5.0)
 Suggests: knitr, markdown, estrogen, org.Hs.eg.db, hgu95av2.db, limma,
         affy, genefilter, testthat (>= 3.0.0), visNetwork, Cairo,
         DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf,
-        rmarkdown, fgsea, data.table, withr, fgsea
+        rmarkdown, fgsea, data.table, withr
 Imports: Biobase, methods, AnnotationDbi, colorspace, graph, igraph,
         jsonlite, base64enc, dplyr, purrr, rlang, GO.db, stats
 LazyLoad: yes

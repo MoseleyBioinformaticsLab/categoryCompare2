@@ -15,7 +15,6 @@ Things that are still needed include:
 
 * Wrapper for initial analysis when given feature data and annotations
 * Example for importing the users own annotations
-* Integration of [`GOCats`](https://github.com/MoseleyBioinformaticsLab/GOcats) Python library for summarizing ontologies
 * Better exploration of features that are linked to specific annotations, including the original data associated with the features
 
 ## Documentation
