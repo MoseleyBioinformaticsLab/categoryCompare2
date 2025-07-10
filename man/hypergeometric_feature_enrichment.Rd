@@ -5,14 +5,14 @@
 \title{do hypergeometric enrichment}
 \usage{
 hypergeometric_feature_enrichment(
-  hypergeom_features,
+  hypergeometric_features,
   direction = "over",
   p_adjust = "BH",
   min_features = 1
 )
 }
 \arguments{
-\item{hypergeom_features}{a hypergeometric_features object}
+\item{hypergeometric_features}{a hypergeometric_features object}
 
 \item{direction}{which direction to do the enrichment (over or under)}
 

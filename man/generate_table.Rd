@@ -5,12 +5,18 @@
 \alias{generate_table,combined_enrichment-method}
 \title{generate statistical table}
 \usage{
-generate_table(comb_enrichment, link_type = "explicit")
+generate_table(comb_enrichment, entries = "signficant", link_type = "explicit")
 
-\S4method{generate_table}{combined_enrichment}(comb_enrichment, link_type = "explicit")
+\S4method{generate_table}{combined_enrichment}(
+  comb_enrichment,
+  entries = "significant",
+  link_type = "explicit"
+)
 }
 \arguments{
 \item{comb_enrichment}{the \code{\link{combined_enrichment}} object}
+
+\item{entries}{which entries to return, "significant" or "all"}
 
 \item{link_type}{should their be an "explicit" link (see details)}
 }

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.100.32</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +79,8 @@
 <h2 id="categorycompare2-alternative-visualization">categoryCompare2: Alternative Visualization<a class="anchor" aria-label="anchor" href="#categorycompare2-alternative-visualization"></a>
 </h2>
 <p>Authored by: <strong>Robert M Flight</strong>
-<code>&lt;rflight79@gmail.com&gt;</code> on 2025-06-30
-16:22:34.248499</p>
+<code>&lt;rflight79@gmail.com&gt;</code> on 2025-07-09
+17:04:16.803923</p>
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
@@ -121,80 +121,79 @@ different than those shown in the vignette.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://bioinf.wehi.edu.au/limma/" class="external-link">"limma"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">datadir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"estrogen"</span><span class="op">)</span></span>
-<span><span class="va">pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/read.AnnotatedDataFrame.html" class="external-link">read.AnnotatedDataFrame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">datadir</span>,<span class="st">"estrogen.txt"</span><span class="op">)</span>, </span>
-<span>    header <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">""</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">pd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/read.AnnotatedDataFrame.html" class="external-link">read.AnnotatedDataFrame</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">datadir</span>, <span class="st">"estrogen.txt"</span><span class="op">)</span>,</span>
+<span>  header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  sep <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  row.names <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData</a></span><span class="op">(</span><span class="va">pd</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##              estrogen time.h</span></span>
-<span><span class="co">## low10-1.cel    absent     10</span></span>
-<span><span class="co">## low10-2.cel    absent     10</span></span>
-<span><span class="co">## high10-1.cel  present     10</span></span>
-<span><span class="co">## high10-2.cel  present     10</span></span>
-<span><span class="co">## low48-1.cel    absent     48</span></span>
-<span><span class="co">## low48-2.cel    absent     48</span></span>
-<span><span class="co">## high48-1.cel  present     48</span></span>
-<span><span class="co">## high48-2.cel  present     48</span></span></code></pre>
 <p>Here you can see the descriptions for each of the arrays. First, we
 will read in the cel files, and then normalize the data using RMA.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">currDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">datadir</span><span class="op">)</span></span>
-<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/affy/man/read.affybatch.html" class="external-link">ReadAffy</a></span><span class="op">(</span>filenames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData</a></span><span class="op">(</span><span class="va">pd</span><span class="op">)</span><span class="op">)</span>, phenoData <span class="op">=</span> <span class="va">pd</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 1 reading low10-1.cel ...instantiating an AffyBatch (intensity a 409600x8 matrix)...done.</span></span>
-<span><span class="co">## Reading in : low10-1.cel</span></span>
-<span><span class="co">## Reading in : low10-2.cel</span></span>
-<span><span class="co">## Reading in : high10-1.cel</span></span>
-<span><span class="co">## Reading in : high10-2.cel</span></span>
-<span><span class="co">## Reading in : low48-1.cel</span></span>
-<span><span class="co">## Reading in : low48-2.cel</span></span>
-<span><span class="co">## Reading in : high48-1.cel</span></span>
-<span><span class="co">## Reading in : high48-2.cel</span></span></code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">currDir</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/affy/man/read.affybatch.html" class="external-link">ReadAffy</a></span><span class="op">(</span>filenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/phenoData.html" class="external-link">pData</a></span><span class="op">(</span><span class="va">pd</span><span class="op">)</span><span class="op">)</span>, phenoData <span class="op">=</span> <span class="va">pd</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">currDir</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">eData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/affy/man/rma.html" class="external-link">rma</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: replacing previous import 'AnnotationDbi::tail' by 'utils::tail' when</span></span>
-<span><span class="co">## loading 'hgu95av2cdf'</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: replacing previous import 'AnnotationDbi::head' by 'utils::head' when</span></span>
-<span><span class="co">## loading 'hgu95av2cdf'</span></span></code></pre>
-<pre><code><span><span class="co">## Background correcting</span></span>
-<span><span class="co">## Normalizing</span></span>
-<span><span class="co">## Calculating Expression</span></span></code></pre>
 <p>To make it easier to conceptualize, we will split the data up into
 two eSet objects by time, and perform all of the manipulations for
 calculating significantly differentially expressed genes on each eSet
 object.</p>
 <p>So for the 10 hour samples:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">e10</span> <span class="op">&lt;-</span> <span class="va">eData</span><span class="op">[</span>, <span class="va">eData</span><span class="op">$</span><span class="va">time.h</span> <span class="op">==</span> <span class="fl">10</span><span class="op">]</span></span>
-<span><span class="va">e10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/genefilter/man/nsFilter.html" class="external-link">nsFilter</a></span><span class="op">(</span><span class="va">e10</span>, remove.dupEntrez<span class="op">=</span><span class="cn">TRUE</span>, var.filter<span class="op">=</span><span class="cn">FALSE</span>, </span>
-<span>        feature.exclude<span class="op">=</span><span class="st">"^AFFX"</span><span class="op">)</span><span class="op">$</span><span class="va">eset</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">e_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>  <span class="st">"extdata/test_data/estrogen_edata.rds"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"categoryCompare2"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">eData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">e_file</span><span class="op">)</span></span>
+<span><span class="va">e10</span> <span class="op">&lt;-</span> <span class="va">eData</span><span class="op">[</span>, <span class="va">eData</span><span class="op">$</span><span class="va">time.h</span> <span class="op">==</span> <span class="fl">10</span><span class="op">]</span></span>
+<span><span class="va">e10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/genefilter/man/nsFilter.html" class="external-link">nsFilter</a></span><span class="op">(</span></span>
+<span>  <span class="va">e10</span>,</span>
+<span>  remove.dupEntrez <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  var.filter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  feature.exclude <span class="op">=</span> <span class="st">"^AFFX"</span></span>
+<span><span class="op">)</span><span class="op">$</span><span class="va">eset</span></span>
 <span></span>
 <span><span class="va">e10</span><span class="op">$</span><span class="va">estrogen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">e10</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
-<span><span class="va">d10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">0</span> <span class="op">+</span> <span class="va">e10</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
+<span><span class="va">d10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">e10</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">d10</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">e10</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
 <span><span class="va">fit10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html" class="external-link">lmFit</a></span><span class="op">(</span><span class="va">e10</span>, <span class="va">d10</span><span class="op">)</span></span>
-<span><span class="va">c10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="va">present</span> <span class="op">-</span> <span class="va">absent</span>, levels<span class="op">=</span><span class="va">d10</span><span class="op">)</span></span>
+<span><span class="va">c10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="va">present</span> <span class="op">-</span> <span class="va">absent</span>, levels <span class="op">=</span> <span class="va">d10</span><span class="op">)</span></span>
 <span><span class="va">fit10_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html" class="external-link">contrasts.fit</a></span><span class="op">(</span><span class="va">fit10</span>, <span class="va">c10</span><span class="op">)</span></span>
 <span><span class="va">eB10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">fit10_2</span><span class="op">)</span></span>
-<span><span class="va">table10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">eB10</span>, number<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">e10</span><span class="op">)</span>, p.value<span class="op">=</span><span class="fl">1</span>, adjust.method<span class="op">=</span><span class="st">"BH"</span><span class="op">)</span></span>
-<span><span class="va">table10</span><span class="op">$</span><span class="va">Entrez</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/get.html" class="external-link">mget</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">table10</span><span class="op">)</span>, <span class="va">hgu95av2ENTREZID</span>, ifnotfound<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">table10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">eB10</span>, number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">e10</span><span class="op">)</span>, p.value <span class="op">=</span> <span class="fl">1</span>, adjust.method <span class="op">=</span> <span class="st">"BH"</span><span class="op">)</span></span>
+<span><span class="va">table10</span><span class="op">$</span><span class="va">Entrez</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/get.html" class="external-link">mget</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">table10</span><span class="op">)</span>,</span>
+<span>  <span class="va">hgu95av2ENTREZID</span>,</span>
+<span>  ifnotfound <span class="op">=</span> <span class="cn">NA</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And the 48 hour samples we do the same thing:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">e48</span> <span class="op">&lt;-</span> <span class="va">eData</span><span class="op">[</span>, <span class="va">eData</span><span class="op">$</span><span class="va">time.h</span> <span class="op">==</span> <span class="fl">48</span><span class="op">]</span></span>
-<span><span class="va">e48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/genefilter/man/nsFilter.html" class="external-link">nsFilter</a></span><span class="op">(</span><span class="va">e48</span>, remove.dupEntrez<span class="op">=</span><span class="cn">TRUE</span>, var.filter<span class="op">=</span><span class="cn">FALSE</span>, </span>
-<span>        feature.exclude<span class="op">=</span><span class="st">"^AFFX"</span> <span class="op">)</span><span class="op">$</span><span class="va">eset</span></span>
+<span><span class="va">e48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/genefilter/man/nsFilter.html" class="external-link">nsFilter</a></span><span class="op">(</span></span>
+<span>  <span class="va">e48</span>,</span>
+<span>  remove.dupEntrez <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  var.filter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  feature.exclude <span class="op">=</span> <span class="st">"^AFFX"</span></span>
+<span><span class="op">)</span><span class="op">$</span><span class="va">eset</span></span>
 <span></span>
 <span><span class="va">e48</span><span class="op">$</span><span class="va">estrogen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">e48</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
-<span><span class="va">d48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">0</span> <span class="op">+</span> <span class="va">e48</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
+<span><span class="va">d48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">e48</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">d48</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">e48</span><span class="op">$</span><span class="va">estrogen</span><span class="op">)</span></span>
 <span><span class="va">fit48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html" class="external-link">lmFit</a></span><span class="op">(</span><span class="va">e48</span>, <span class="va">d48</span><span class="op">)</span></span>
-<span><span class="va">c48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="va">present</span> <span class="op">-</span> <span class="va">absent</span>, levels<span class="op">=</span><span class="va">d48</span><span class="op">)</span></span>
+<span><span class="va">c48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html" class="external-link">makeContrasts</a></span><span class="op">(</span><span class="va">present</span> <span class="op">-</span> <span class="va">absent</span>, levels <span class="op">=</span> <span class="va">d48</span><span class="op">)</span></span>
 <span><span class="va">fit48_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html" class="external-link">contrasts.fit</a></span><span class="op">(</span><span class="va">fit48</span>, <span class="va">c48</span><span class="op">)</span></span>
 <span><span class="va">eB48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html" class="external-link">eBayes</a></span><span class="op">(</span><span class="va">fit48_2</span><span class="op">)</span></span>
-<span><span class="va">table48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">eB48</span>, number<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">e48</span><span class="op">)</span>, p.value<span class="op">=</span><span class="fl">1</span>, adjust.method<span class="op">=</span><span class="st">"BH"</span><span class="op">)</span></span>
-<span><span class="va">table48</span><span class="op">$</span><span class="va">Entrez</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/get.html" class="external-link">mget</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">table48</span><span class="op">)</span>, <span class="va">hgu95av2ENTREZID</span>, ifnotfound<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">table48</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html" class="external-link">topTable</a></span><span class="op">(</span><span class="va">eB48</span>, number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">e48</span><span class="op">)</span>, p.value <span class="op">=</span> <span class="fl">1</span>, adjust.method <span class="op">=</span> <span class="st">"BH"</span><span class="op">)</span></span>
+<span><span class="va">table48</span><span class="op">$</span><span class="va">Entrez</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/get.html" class="external-link">mget</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">table48</span><span class="op">)</span>,</span>
+<span>  <span class="va">hgu95av2ENTREZID</span>,</span>
+<span>  ifnotfound <span class="op">=</span> <span class="cn">NA</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And grab all the genes on the array to have a background set.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gUniverse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">table10</span><span class="op">$</span><span class="va">Entrez</span>, <span class="va">table48</span><span class="op">$</span><span class="va">Entrez</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>For both time points we have generated a list of genes that are
 differentially expressed in the present vs absent samples. To compare
@@ -216,7 +215,7 @@ the analytical paradigm advocated here.</p>
 <div class="section level3">
 <h3 id="create-gene-list">Create Gene List<a class="anchor" aria-label="anchor" href="#create-gene-list"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/MoseleyBioinformaticsLab/categoryCompare2" class="external-link">"categoryCompare2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"GO.db"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"org.Hs.eg.db"</span><span class="op">)</span></span>
@@ -234,49 +233,71 @@ this would be <strong>all</strong> the genes annotated to a particular
 GO term based on inheritance in the GO DAG. We can generate this list
 using the <code>GOALL</code> column of the <code>org.Hs.eg.db</code>,
 and then filter to the terms of interest, or use them all.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">go_all_gene</span> <span class="op">&lt;-</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, keys <span class="op">=</span> <span class="va">gUniverse</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOALL"</span>, <span class="st">"ONTOLOGYALL"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">go_all_gene</span> <span class="op">&lt;-</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>  <span class="va">org.Hs.eg.db</span>,</span>
+<span>  keys <span class="op">=</span> <span class="va">gUniverse</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOALL"</span>, <span class="st">"ONTOLOGYALL"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## 'select()' returned 1:many mapping between keys and columns</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_all_gene</span> <span class="op">&lt;-</span> <span class="va">go_all_gene</span><span class="op">[</span><span class="va">go_all_gene</span><span class="op">$</span><span class="va">ONTOLOGYALL</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="op">]</span></span>
 <span><span class="va">bp_2_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">go_all_gene</span><span class="op">$</span><span class="va">ENTREZID</span>, <span class="va">go_all_gene</span><span class="op">$</span><span class="va">GOALL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bp_2_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">bp_2_gene</span>, <span class="va">unique</span><span class="op">)</span></span>
-<span><span class="va">bp_desc</span> <span class="op">&lt;-</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">GO.db</span>, keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bp_2_gene</span><span class="op">)</span>, columns <span class="op">=</span> <span class="st">"TERM"</span>, keytype <span class="op">=</span> <span class="st">"GOID"</span><span class="op">)</span><span class="op">$</span><span class="va">TERM</span></span></code></pre></div>
+<span><span class="va">bp_desc</span> <span class="op">&lt;-</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>  <span class="va">GO.db</span>,</span>
+<span>  keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bp_2_gene</span><span class="op">)</span>,</span>
+<span>  columns <span class="op">=</span> <span class="st">"TERM"</span>,</span>
+<span>  keytype <span class="op">=</span> <span class="st">"GOID"</span></span>
+<span><span class="op">)</span><span class="op">$</span><span class="va">TERM</span></span></code></pre></div>
 <pre><code><span><span class="co">## 'select()' returned 1:1 mapping between keys and columns</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bp_desc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bp_2_gene</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">bp_annotation</span> <span class="op">&lt;-</span> <span class="fu">categoryCompare2</span><span class="fu">::</span><span class="fu"><a href="../reference/annotation.html">annotation</a></span><span class="op">(</span>annotation_features <span class="op">=</span> <span class="va">bp_2_gene</span>,</span>
-<span>                            description <span class="op">=</span> <span class="va">bp_desc</span>,</span>
-<span>                            annotation_type <span class="op">=</span> <span class="st">"GO.BP"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">bp_annotation</span> <span class="op">&lt;-</span> <span class="fu">categoryCompare2</span><span class="fu">::</span><span class="fu"><a href="../reference/annotation.html">annotation</a></span><span class="op">(</span></span>
+<span>  annotation_features <span class="op">=</span> <span class="va">bp_2_gene</span>,</span>
+<span>  description <span class="op">=</span> <span class="va">bp_desc</span>,</span>
+<span>  annotation_type <span class="op">=</span> <span class="st">"GO.BP"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="do-enrichment">Do Enrichment<a class="anchor" aria-label="anchor" href="#do-enrichment"></a>
 </h3>
 <p>Now we can do hypergeometric enrichment with each of the gene
 lists.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g10_enrich</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hypergeometric_feature_enrichment.html">hypergeometric_feature_enrichment</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"hypergeom_features"</span>, significant <span class="op">=</span> <span class="va">g10</span>,</span>
-<span>      universe <span class="op">=</span> <span class="va">gUniverse</span>, annotation <span class="op">=</span> <span class="va">bp_annotation</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span></span>
+<span>    <span class="st">"hypergeometric_features"</span>,</span>
+<span>    significant <span class="op">=</span> <span class="va">g10</span>,</span>
+<span>    universe <span class="op">=</span> <span class="va">gUniverse</span>,</span>
+<span>    annotation <span class="op">=</span> <span class="va">bp_annotation</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  p_adjust <span class="op">=</span> <span class="st">"BH"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g48_enrich</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hypergeometric_feature_enrichment.html">hypergeometric_feature_enrichment</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"hypergeom_features"</span>, significant <span class="op">=</span> <span class="va">g48</span>,</span>
-<span>      universe <span class="op">=</span> <span class="va">gUniverse</span>, annotation <span class="op">=</span> <span class="va">bp_annotation</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span></span>
+<span>    <span class="st">"hypergeometric_features"</span>,</span>
+<span>    significant <span class="op">=</span> <span class="va">g48</span>,</span>
+<span>    universe <span class="op">=</span> <span class="va">gUniverse</span>,</span>
+<span>    annotation <span class="op">=</span> <span class="va">bp_annotation</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  p_adjust <span class="op">=</span> <span class="st">"BH"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="combine-and-find-significant">Combine and Find Significant<a class="anchor" aria-label="anchor" href="#combine-and-find-significant"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bp_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_enrichments.html">combine_enrichments</a></span><span class="op">(</span>g10 <span class="op">=</span> <span class="va">g10_enrich</span>,</span>
-<span>                                  g48 <span class="op">=</span> <span class="va">g48_enrich</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bp_sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_significant_annotations.html">get_significant_annotations</a></span><span class="op">(</span><span class="va">bp_combined</span>, <span class="va">padjust</span> <span class="op">&lt;=</span> <span class="fl">0.001</span>, <span class="va">counts</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bp_combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_enrichments.html">combine_enrichments</a></span><span class="op">(</span>g10 <span class="op">=</span> <span class="va">g10_enrich</span>, g48 <span class="op">=</span> <span class="va">g48_enrich</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bp_sig</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_significant_annotations.html">get_significant_annotations</a></span><span class="op">(</span></span>
+<span>  <span class="va">bp_combined</span>,</span>
+<span>  <span class="va">padjust</span> <span class="op">&lt;=</span> <span class="fl">0.001</span>,</span>
+<span>  <span class="va">counts</span> <span class="op">&gt;=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">bp_sig</span><span class="op">@</span><span class="va">statistics</span><span class="op">@</span><span class="va">significant</span></span></code></pre></div>
 <pre><code><span><span class="co">## Signficance Cutoffs:</span></span>
 <span><span class="co">##   padjust &lt;= 0.001</span></span>
@@ -292,7 +313,7 @@ lists.</p>
 <div class="section level3">
 <h3 id="generate-graph">Generate Graph<a class="anchor" aria-label="anchor" href="#generate-graph"></a>
 </h3>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_annotation_graph.html">generate_annotation_graph</a></span><span class="op">(</span><span class="va">bp_sig</span><span class="op">)</span></span>
 <span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
@@ -302,10 +323,10 @@ lists.</p>
 <span><span class="co">## G1   1   1     64</span></span>
 <span><span class="co">## G2   1   0     26</span></span>
 <span><span class="co">## G3   0   1     45</span></span></code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/remove_edges.html">remove_edges</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Removed 7530 edges from graph</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
 <span><span class="co">## Number of Nodes = 135 </span></span>
@@ -314,7 +335,7 @@ lists.</p>
 <span><span class="co">## G1   1   1     64</span></span>
 <span><span class="co">## G2   1   0     26</span></span>
 <span><span class="co">## G3   0   1     45</span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_combinations.html">annotation_combinations</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span></span>
 <span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_colors.html">assign_colors</a></span><span class="op">(</span><span class="va">bp_assign</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -331,7 +352,7 @@ html widgets to create interactive visualizations either in the
 <strong>communities</strong>. To do this we run methods that find and
 then label the communities, before generating the visualization and
 table.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_communities</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_communities.html">assign_communities</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span></span>
 <span><span class="va">bp_comm_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/label_communities.html">label_communities</a></span><span class="op">(</span><span class="va">bp_communities</span>, <span class="va">bp_annotation</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -341,7 +362,7 @@ table.</p>
 <p>To provide a list of which GO terms are in each of the communities we
 found, lets generate a table, with the community labels so it makes it
 easier to find them in the graph if desired.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/table_from_graph.html">table_from_graph</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="va">bp_assign</span>, <span class="va">bp_comm_labels</span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">bp_table</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -3006,17 +3027,21 @@ activity</td>
 <div class="section level4">
 <h4 id="actually-visualize-it">Actually Visualize It!<a class="anchor" aria-label="anchor" href="#actually-visualize-it"></a>
 </h4>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/graph_to_visnetwork.html">graph_to_visnetwork</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="va">bp_assign</span>, <span class="va">bp_comm_labels</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_visnetwork.html">vis_visnetwork</a></span><span class="op">(</span><span class="va">bp_network</span><span class="op">)</span></span></code></pre></div>
 <p><img src="v2_visnetwork_guide_files/figure-html/bp_legend-1.png" width="700"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">annotation_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_gene_table.html">annotation_gene_table</a></span><span class="op">(</span><span class="va">bp_combined</span>, <span class="fu">graph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/graph/man/graphNEL-class.html" class="external-link">nodes</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span>, use_db <span class="op">=</span> <span class="va">org.Hs.eg.db</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">annotation_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_gene_table.html">annotation_gene_table</a></span><span class="op">(</span></span>
+<span>  <span class="va">bp_combined</span>,</span>
+<span>  <span class="fu">graph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/graph/man/graphNEL-class.html" class="external-link">nodes</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span>,</span>
+<span>  use_db <span class="op">=</span> <span class="va">org.Hs.eg.db</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>We will show the table that is generated here for the first 3 GO
 terms.</p>
 <p>This one is not run, below you find the table.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/kable_annotation_table.html">kable_annotation_table</a></span><span class="op">(</span><span class="va">annotation_table</span>, header <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/csv_annotation_table.html">csv_annotation_table</a></span><span class="op">(</span><span class="va">annotation_table</span>, out_file <span class="op">=</span> <span class="st">"bp_annotations.csv"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">

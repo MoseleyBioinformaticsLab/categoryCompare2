@@ -19,12 +19,6 @@ setMethod(
 )
 
 
-setMethod(
-  "combine_enrichments",
-  signature = "binomial_result",
-  function(...) .combine_enrichments_multiple(...)
-)
-
 #' combine enrichments
 #'
 #' @param ... list of enriched_result
@@ -197,6 +191,7 @@ add_data_to_graph <- function(graph, data) {
 #' either for investigation or to add data to the \code{\link{cc_graph}}.
 #'
 #' @param comb_enrichment the \code{\link{combined_enrichment}} object
+#' @param entries which entries to return, "significant" or "all"
 #' @param link_type should their be an "explicit" link (see details)
 #' @details the \code{link_type} controls whether to create an "explicit" link
 #'   that is actually a column in the data.frame, or create an "implicit" html link
@@ -208,12 +203,16 @@ add_data_to_graph <- function(graph, data) {
 setMethod(
   "generate_table",
   signature = list(comb_enrichment = "combined_enrichment"),
-  function(comb_enrichment, link_type) {
-    .generate_table(comb_enrichment, link_type)
+  function(comb_enrichment, entries = "significant", link_type = "explicit") {
+    .generate_table(comb_enrichment, entries = entries, link_type = link_type)
   }
 )
 
-.generate_table <- function(comb_enrichment, link_type = "explicit") {
+.generate_table <- function(
+  comb_enrichment,
+  entries = "significant",
+  link_type = "explicit"
+) {
   # get the bits we need
   # from the combined_statistcs we take the statistic_data and significant_annotations,
   # and from the annotation slot we take the description and links, and we put this
@@ -230,7 +229,7 @@ setMethod(
   # ideally we only keep things that were significant in at least one of the
   # enrichments we did, but if nothing is significant in any (implies not having
   # done sig cutoffs yet), then we will just return everything
-  if (sum(keep_data) == 0) {
+  if (sum(keep_data) == 0 || (entries %in% "all")) {
     keep_data <- rep(TRUE, length(keep_data))
   }
 

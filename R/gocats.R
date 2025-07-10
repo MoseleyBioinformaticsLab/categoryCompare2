@@ -102,7 +102,7 @@ gocats_to_annotation = function(
       )) |
       (is.na(descriptions))
   } else {
-    na_description = rep(FALSE, length(annotation_features))
+    na_description = rep(FALSE, length(go_2_gene))
   }
 
   n_features = purrr::map_int(go_2_gene, length)

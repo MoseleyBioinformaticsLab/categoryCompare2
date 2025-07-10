@@ -44,9 +44,12 @@ setGeneric(
 #' generate statistical table
 #'
 #' @export
-setGeneric("generate_table", function(comb_enrichment, link_type = "explicit") {
-  standardGeneric("generate_table")
-})
+setGeneric(
+  "generate_table",
+  function(comb_enrichment, entries = "signficant", link_type = "explicit") {
+    standardGeneric("generate_table")
+  }
+)
 
 #' unique annotation combinations
 #'

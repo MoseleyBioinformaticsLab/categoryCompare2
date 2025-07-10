@@ -60,7 +60,8 @@ test_that("gocats annotation importing works", {
   expect_equal(without_namespace@annotation_features[[1]][1], "O60313")
   expect_equal(without_namespace@annotation_type, "gocatsGO")
   expect_equal(without_namespace@feature_type, "Uniprot")
-  expect_equal(length(without_namespace@annotation_features), 12221)
+  # 12004 comes from latest version of org.Hs.eg.db, will fail locally
+  expect_equal(length(without_namespace@annotation_features), 12004)
 
   without_limits = gocats_to_annotation(
     ancestors_file,
@@ -68,7 +69,8 @@ test_that("gocats annotation importing works", {
     feature_min = 1,
     feature_max = Inf
   )
-  expect_equal(length(without_limits@annotation_features), 22415)
+  # 21847 comes from latest version of org.Hs.eg.db, this fails locally
+  expect_equal(length(without_limits@annotation_features), 21847)
 
   with_translation = gocats_to_annotation(
     ancestors_file,
