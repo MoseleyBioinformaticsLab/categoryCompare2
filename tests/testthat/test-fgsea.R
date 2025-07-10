@@ -6,6 +6,12 @@ names(h10_ranks) = enrichment_data$table10$Entrez
 h48_ranks = enrichment_data$table48$logFC
 names(h48_ranks) = enrichment_data$table48$Entrez
 
+h48_ranks_sort = sort(h48_ranks)
+h48_ranks_order = seq_len(length(h48_ranks_sort))
+names(h48_ranks_order) = names(h48_ranks_sort)
+mid_point = round(length(h48_ranks_order) / 2)
+h48_ranks_order2 = h48_ranks_order - mid_point
+
 test_that("fgsea works", {
   fgsea_features = new(
     "gsea_features",
@@ -77,6 +83,17 @@ withr::with_seed(1234, {
   )
 })
 
+withr::with_seed(1234, {
+  h48_gsea_order = gsea_feature_enrichment(
+    new(
+      "gsea_features",
+      ranks = h48_ranks_order2,
+      annotation = bp_annotation
+    ),
+    min_features = 20,
+    max_features = 200
+  )
+})
 
 gsea_comb = combine_enrichments(h10 = h10_gsea, h48 = h48_gsea)
 
