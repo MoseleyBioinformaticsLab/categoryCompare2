@@ -103,6 +103,7 @@ hypergeometric_feature_enrichment <- function(
 
   hyper_stats$counts <- num_white_drawn[names(hyper_stats$p)]
   hyper_stats$padjust <- p.adjust(hyper_stats$p, p_adjust)
+  hyper_stats$significant <- rep(num_drawn, length(hyper_stats$padjust))
 
   out_stats <- new(
     "statistical_results",
