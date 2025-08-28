@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +79,8 @@
 <h2 id="categorycompare2-alternative-visualization">categoryCompare2: Alternative Visualization<a class="anchor" aria-label="anchor" href="#categorycompare2-alternative-visualization"></a>
 </h2>
 <p>Authored by: <strong>Robert M Flight</strong>
-<code>&lt;rflight79@gmail.com&gt;</code> on 2025-07-09
-17:04:16.803923</p>
+<code>&lt;rflight79@gmail.com&gt;</code> on 2025-08-28
+19:31:23.459262</p>
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
@@ -367,19 +367,21 @@ easier to find them in the graph if desired.</p>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">bp_table</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="5%">
-<col width="34%">
+<col width="4%">
+<col width="29%">
 <col width="4%">
 <col width="4%">
 <col width="4%">
-<col width="6%">
-<col width="5%">
 <col width="5%">
 <col width="4%">
 <col width="4%">
 <col width="6%">
+<col width="4%">
+<col width="4%">
 <col width="5%">
-<col width="5%">
+<col width="4%">
+<col width="4%">
+<col width="6%">
 <col width="2%">
 </colgroup>
 <thead><tr class="header">
@@ -391,11 +393,13 @@ easier to find them in the graph if desired.</p>
 <th align="right">g10.expected</th>
 <th align="right">g10.counts</th>
 <th align="right">g10.padjust</th>
+<th align="right">g10.significant</th>
 <th align="right">g48.p</th>
 <th align="right">g48.odds</th>
 <th align="right">g48.expected</th>
 <th align="right">g48.counts</th>
 <th align="right">g48.padjust</th>
+<th align="right">g48.significant</th>
 <th align="right">group</th>
 </tr></thead>
 <tbody>
@@ -403,6 +407,8 @@ easier to find them in the graph if desired.</p>
 <td align="left"></td>
 <td align="left"><strong>spindle organization</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -424,11 +430,13 @@ easier to find them in the graph if desired.</p>
 <td align="right">9.7765269</td>
 <td align="right">26</td>
 <td align="right">0.0004061</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">11.753385</td>
 <td align="right">1.3966467</td>
 <td align="right">13</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -440,11 +448,13 @@ easier to find them in the graph if desired.</p>
 <td align="right">6.7367665</td>
 <td align="right">19</td>
 <td align="right">0.0023784</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">12.910353</td>
 <td align="right">0.9623952</td>
 <td align="right">10</td>
 <td align="right">0.0000067</td>
+<td align="right">98</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
@@ -456,11 +466,13 @@ easier to find them in the graph if desired.</p>
 <td align="right">6.1616766</td>
 <td align="right">15</td>
 <td align="right">0.0476519</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">12.542390</td>
 <td align="right">0.8802395</td>
 <td align="right">9</td>
 <td align="right">0.0000349</td>
+<td align="right">98</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -473,17 +485,21 @@ mitosis</td>
 <td align="right">8.3798802</td>
 <td align="right">22</td>
 <td align="right">0.0020126</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">12.654264</td>
 <td align="right">1.1971257</td>
 <td align="right">12</td>
 <td align="right">0.0000005</td>
+<td align="right">98</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>cell cycle checkpoint signaling</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -505,11 +521,13 @@ mitosis</td>
 <td align="right">6.0795210</td>
 <td align="right">23</td>
 <td align="right">0.0000027</td>
+<td align="right">686</td>
 <td align="right">0.0017076</td>
 <td align="right">6.376032</td>
 <td align="right">0.8685030</td>
 <td align="right">5</td>
 <td align="right">0.1065655</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
@@ -521,11 +539,13 @@ mitosis</td>
 <td align="right">6.6546108</td>
 <td align="right">27</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0003576</td>
 <td align="right">7.110435</td>
 <td align="right">0.9506587</td>
 <td align="right">6</td>
 <td align="right">0.0309761</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
@@ -537,11 +557,13 @@ mitosis</td>
 <td align="right">4.1077844</td>
 <td align="right">16</td>
 <td align="right">0.0001887</td>
+<td align="right">686</td>
 <td align="right">0.0027179</td>
 <td align="right">7.591119</td>
 <td align="right">0.5868263</td>
 <td align="right">4</td>
 <td align="right">0.1526879</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
@@ -553,11 +575,13 @@ mitosis</td>
 <td align="right">4.3542515</td>
 <td align="right">17</td>
 <td align="right">0.0000912</td>
+<td align="right">686</td>
 <td align="right">0.0003693</td>
 <td align="right">9.189068</td>
 <td align="right">0.6220359</td>
 <td align="right">5</td>
 <td align="right">0.0314121</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
@@ -569,11 +593,13 @@ mitosis</td>
 <td align="right">9.0371257</td>
 <td align="right">39</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">14.159722</td>
 <td align="right">1.2910180</td>
 <td align="right">14</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
@@ -585,17 +611,21 @@ mitosis</td>
 <td align="right">6.7367665</td>
 <td align="right">30</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">18.137937</td>
 <td align="right">0.9623952</td>
 <td align="right">13</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>chromosome segregation</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -617,11 +647,13 @@ mitosis</td>
 <td align="right">9.0371257</td>
 <td align="right">30</td>
 <td align="right">0.0000006</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">16.934094</td>
 <td align="right">1.2910180</td>
 <td align="right">16</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">3</td>
 </tr>
 <tr class="odd">
@@ -633,11 +665,13 @@ mitosis</td>
 <td align="right">10.8445509</td>
 <td align="right">33</td>
 <td align="right">0.0000011</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">16.061842</td>
 <td align="right">1.5492216</td>
 <td align="right">18</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">3</td>
 </tr>
 <tr class="even">
@@ -649,11 +683,13 @@ mitosis</td>
 <td align="right">18.0742515</td>
 <td align="right">45</td>
 <td align="right">0.0000016</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">11.036546</td>
 <td align="right">2.5820359</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">3</td>
 </tr>
 <tr class="odd">
@@ -665,17 +701,21 @@ mitosis</td>
 <td align="right">13.3092216</td>
 <td align="right">37</td>
 <td align="right">0.0000016</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">15.688588</td>
 <td align="right">1.9013174</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>cell cycle phase transition</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -697,11 +737,13 @@ mitosis</td>
 <td align="right">25.9611976</td>
 <td align="right">60</td>
 <td align="right">0.0000001</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">6.441845</td>
 <td align="right">3.7087425</td>
 <td align="right">19</td>
 <td align="right">0.0000008</td>
+<td align="right">98</td>
 <td align="right">4</td>
 </tr>
 <tr class="even">
@@ -713,11 +755,13 @@ mitosis</td>
 <td align="right">26.9470659</td>
 <td align="right">67</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">7.990426</td>
 <td align="right">3.8495808</td>
 <td align="right">23</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">4</td>
 </tr>
 <tr class="odd">
@@ -729,11 +773,13 @@ mitosis</td>
 <td align="right">22.3463473</td>
 <td align="right">56</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.265474</td>
 <td align="right">3.1923353</td>
 <td align="right">22</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">4</td>
 </tr>
 <tr class="even">
@@ -745,11 +791,13 @@ mitosis</td>
 <td align="right">20.9497006</td>
 <td align="right">56</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">7.609177</td>
 <td align="right">2.9928144</td>
 <td align="right">18</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">4</td>
 </tr>
 <tr class="odd">
@@ -761,17 +809,21 @@ mitosis</td>
 <td align="right">16.7597605</td>
 <td align="right">45</td>
 <td align="right">0.0000002</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.051627</td>
 <td align="right">2.3942515</td>
 <td align="right">17</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>meiotic cell cycle</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -793,11 +845,13 @@ mitosis</td>
 <td align="right">11.4196407</td>
 <td align="right">30</td>
 <td align="right">0.0001044</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.863492</td>
 <td align="right">1.6313772</td>
 <td align="right">13</td>
 <td align="right">0.0000015</td>
+<td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="even">
@@ -809,11 +863,13 @@ mitosis</td>
 <td align="right">5.0936527</td>
 <td align="right">17</td>
 <td align="right">0.0007571</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">15.643629</td>
 <td align="right">0.7276647</td>
 <td align="right">9</td>
 <td align="right">0.0000070</td>
+<td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="odd">
@@ -825,11 +881,13 @@ mitosis</td>
 <td align="right">8.2977246</td>
 <td align="right">23</td>
 <td align="right">0.0006592</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">10.191059</td>
 <td align="right">1.1853892</td>
 <td align="right">10</td>
 <td align="right">0.0000416</td>
+<td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="even">
@@ -841,11 +899,13 @@ mitosis</td>
 <td align="right">4.6828743</td>
 <td align="right">14</td>
 <td align="right">0.0108774</td>
+<td align="right">686</td>
 <td align="right">0.0000003</td>
 <td align="right">14.880726</td>
 <td align="right">0.6689820</td>
 <td align="right">8</td>
 <td align="right">0.0000461</td>
+<td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="odd">
@@ -857,11 +917,13 @@ mitosis</td>
 <td align="right">7.3118563</td>
 <td align="right">17</td>
 <td align="right">0.0398172</td>
+<td align="right">686</td>
 <td align="right">0.0000009</td>
 <td align="right">10.329775</td>
 <td align="right">1.0445509</td>
 <td align="right">9</td>
 <td align="right">0.0001326</td>
+<td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="even">
@@ -869,6 +931,8 @@ mitosis</td>
 <td align="left"><strong>negative regulation of mitotic cell
 cycle</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -890,11 +954,13 @@ cycle</strong></td>
 <td align="right">11.5017964</td>
 <td align="right">38</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">10.748677</td>
 <td align="right">1.6431138</td>
 <td align="right">14</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">6</td>
 </tr>
 <tr class="even">
@@ -907,17 +973,21 @@ transition</td>
 <td align="right">8.7906587</td>
 <td align="right">30</td>
 <td align="right">0.0000003</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">13.273342</td>
 <td align="right">1.2558084</td>
 <td align="right">13</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">6</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>organelle fission</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -939,11 +1009,13 @@ transition</td>
 <td align="right">19.7173653</td>
 <td align="right">48</td>
 <td align="right">0.0000011</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">10.003736</td>
 <td align="right">2.8167665</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">7</td>
 </tr>
 <tr class="odd">
@@ -955,11 +1027,13 @@ transition</td>
 <td align="right">21.6069461</td>
 <td align="right">51</td>
 <td align="right">0.0000011</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.027047</td>
 <td align="right">3.0867066</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">7</td>
 </tr>
 <tr class="even">
@@ -971,11 +1045,13 @@ transition</td>
 <td align="right">13.8843114</td>
 <td align="right">36</td>
 <td align="right">0.0000136</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">12.071027</td>
 <td align="right">1.9834731</td>
 <td align="right">18</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">7</td>
 </tr>
 <tr class="odd">
@@ -983,6 +1059,8 @@ transition</td>
 <td align="left"><strong>establishment of chromosome
 localization</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1004,11 +1082,13 @@ localization</strong></td>
 <td align="right">2.7111377</td>
 <td align="right">9</td>
 <td align="right">0.0498075</td>
+<td align="right">686</td>
 <td align="right">0.0000019</td>
 <td align="right">19.867150</td>
 <td align="right">0.3873054</td>
 <td align="right">6</td>
 <td align="right">0.0002745</td>
+<td align="right">98</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
@@ -1020,11 +1100,13 @@ localization</strong></td>
 <td align="right">4.8471856</td>
 <td align="right">14</td>
 <td align="right">0.0150013</td>
+<td align="right">686</td>
 <td align="right">0.0000051</td>
 <td align="right">12.130178</td>
 <td align="right">0.6924551</td>
 <td align="right">7</td>
 <td align="right">0.0006653</td>
+<td align="right">98</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
@@ -1036,17 +1118,21 @@ localization</strong></td>
 <td align="right">4.4364072</td>
 <td align="right">14</td>
 <td align="right">0.0061796</td>
+<td align="right">686</td>
 <td align="right">0.0000028</td>
 <td align="right">13.428805</td>
 <td align="right">0.6337725</td>
 <td align="right">7</td>
 <td align="right">0.0003795</td>
+<td align="right">98</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>DNA biosynthetic process</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1068,11 +1154,13 @@ localization</strong></td>
 <td align="right">10.2694611</td>
 <td align="right">40</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0006377</td>
 <td align="right">5.302477</td>
 <td align="right">1.4670659</td>
 <td align="right">7</td>
 <td align="right">0.0481780</td>
+<td align="right">98</td>
 <td align="right">9</td>
 </tr>
 <tr class="odd">
@@ -1084,11 +1172,13 @@ localization</strong></td>
 <td align="right">6.8189222</td>
 <td align="right">22</td>
 <td align="right">0.0000880</td>
+<td align="right">686</td>
 <td align="right">0.0161796</td>
 <td align="right">4.402370</td>
 <td align="right">0.9741317</td>
 <td align="right">4</td>
 <td align="right">0.5231269</td>
+<td align="right">98</td>
 <td align="right">9</td>
 </tr>
 <tr class="even">
@@ -1100,17 +1190,21 @@ localization</strong></td>
 <td align="right">4.5185629</td>
 <td align="right">20</td>
 <td align="right">0.0000013</td>
+<td align="right">686</td>
 <td align="right">0.0264931</td>
 <td align="right">4.979757</td>
 <td align="right">0.6455090</td>
 <td align="right">3</td>
 <td align="right">0.6799512</td>
+<td align="right">98</td>
 <td align="right">9</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>chromosome separation</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1132,11 +1226,13 @@ localization</strong></td>
 <td align="right">2.2182036</td>
 <td align="right">11</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">38.516959</td>
 <td align="right">0.3168862</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1148,11 +1244,13 @@ localization</strong></td>
 <td align="right">2.9576048</td>
 <td align="right">13</td>
 <td align="right">0.0003836</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">35.952797</td>
 <td align="right">0.4225150</td>
 <td align="right">10</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1164,11 +1262,13 @@ localization</strong></td>
 <td align="right">2.2182036</td>
 <td align="right">11</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">38.516959</td>
 <td align="right">0.3168862</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1181,11 +1281,13 @@ segregation</td>
 <td align="right">2.3003593</td>
 <td align="right">11</td>
 <td align="right">0.0007471</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">36.586667</td>
 <td align="right">0.3286228</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1197,11 +1299,13 @@ segregation</td>
 <td align="right">2.7932934</td>
 <td align="right">12</td>
 <td align="right">0.0009923</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">33.277753</td>
 <td align="right">0.3990419</td>
 <td align="right">9</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1214,11 +1318,13 @@ segregation</td>
 <td align="right">2.3003593</td>
 <td align="right">11</td>
 <td align="right">0.0007471</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">36.586667</td>
 <td align="right">0.3286228</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1230,11 +1336,13 @@ segregation</td>
 <td align="right">2.7932934</td>
 <td align="right">12</td>
 <td align="right">0.0009923</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">28.123077</td>
 <td align="right">0.3990419</td>
 <td align="right">8</td>
 <td align="right">0.0000009</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1247,11 +1355,13 @@ transition</td>
 <td align="right">2.3003593</td>
 <td align="right">11</td>
 <td align="right">0.0007471</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">36.586667</td>
 <td align="right">0.3286228</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1263,11 +1373,13 @@ transition</td>
 <td align="right">3.1219162</td>
 <td align="right">13</td>
 <td align="right">0.0006764</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">33.376623</td>
 <td align="right">0.4459880</td>
 <td align="right">10</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1279,11 +1391,13 @@ transition</td>
 <td align="right">3.0397605</td>
 <td align="right">13</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">25.204598</td>
 <td align="right">0.4342515</td>
 <td align="right">8</td>
 <td align="right">0.0000017</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1295,11 +1409,13 @@ transition</td>
 <td align="right">2.2182036</td>
 <td align="right">11</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">38.516959</td>
 <td align="right">0.3168862</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1311,11 +1427,13 @@ transition</td>
 <td align="right">2.2182036</td>
 <td align="right">11</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">38.516959</td>
 <td align="right">0.3168862</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1328,11 +1446,13 @@ separation</td>
 <td align="right">2.3003593</td>
 <td align="right">11</td>
 <td align="right">0.0007471</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">36.586667</td>
 <td align="right">0.3286228</td>
 <td align="right">8</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1344,11 +1464,13 @@ separation</td>
 <td align="right">4.1077844</td>
 <td align="right">14</td>
 <td align="right">0.0027860</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">23.329545</td>
 <td align="right">0.5868263</td>
 <td align="right">10</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1360,11 +1482,13 @@ separation</td>
 <td align="right">2.3825150</td>
 <td align="right">11</td>
 <td align="right">0.0010208</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">34.840212</td>
 <td align="right">0.3403593</td>
 <td align="right">8</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1377,11 +1501,13 @@ cell cycle</td>
 <td align="right">2.3825150</td>
 <td align="right">11</td>
 <td align="right">0.0010208</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">34.840212</td>
 <td align="right">0.3403593</td>
 <td align="right">8</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
@@ -1393,11 +1519,13 @@ cell cycle</td>
 <td align="right">3.8613174</td>
 <td align="right">14</td>
 <td align="right">0.0015304</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">25.230344</td>
 <td align="right">0.5516168</td>
 <td align="right">10</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -1409,17 +1537,21 @@ cell cycle</td>
 <td align="right">2.3825150</td>
 <td align="right">11</td>
 <td align="right">0.0010208</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">34.840212</td>
 <td align="right">0.3403593</td>
 <td align="right">8</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>negative regulation of cell cycle</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1441,11 +1573,13 @@ cell cycle</td>
 <td align="right">14.9523353</td>
 <td align="right">47</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">8.749369</td>
 <td align="right">2.1360479</td>
 <td align="right">15</td>
 <td align="right">0.0000006</td>
+<td align="right">98</td>
 <td align="right">11</td>
 </tr>
 <tr class="even">
@@ -1457,11 +1591,13 @@ cell cycle</td>
 <td align="right">19.8816766</td>
 <td align="right">53</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">6.929419</td>
 <td align="right">2.8402395</td>
 <td align="right">16</td>
 <td align="right">0.0000035</td>
+<td align="right">98</td>
 <td align="right">11</td>
 </tr>
 <tr class="odd">
@@ -1473,11 +1609,13 @@ cell cycle</td>
 <td align="right">12.3233533</td>
 <td align="right">43</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.946078</td>
 <td align="right">1.7604790</td>
 <td align="right">14</td>
 <td align="right">0.0000005</td>
+<td align="right">98</td>
 <td align="right">11</td>
 </tr>
 <tr class="even">
@@ -1485,6 +1623,8 @@ cell cycle</td>
 <td align="left"><strong>regulation of chromosome
 segregation</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1507,11 +1647,13 @@ cycle</td>
 <td align="right">4.6007186</td>
 <td align="right">15</td>
 <td align="right">0.0026255</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">23.059259</td>
 <td align="right">0.6572455</td>
 <td align="right">11</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="even">
@@ -1524,11 +1666,13 @@ transition</td>
 <td align="right">4.5185629</td>
 <td align="right">15</td>
 <td align="right">0.0022562</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">23.586207</td>
 <td align="right">0.6455090</td>
 <td align="right">11</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="odd">
@@ -1540,11 +1684,13 @@ transition</td>
 <td align="right">5.1758084</td>
 <td align="right">16</td>
 <td align="right">0.0028999</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">22.437756</td>
 <td align="right">0.7394012</td>
 <td align="right">12</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="even">
@@ -1556,11 +1702,13 @@ transition</td>
 <td align="right">4.6828743</td>
 <td align="right">15</td>
 <td align="right">0.0031623</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">22.555222</td>
 <td align="right">0.6689820</td>
 <td align="right">11</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="odd">
@@ -1572,11 +1720,13 @@ transition</td>
 <td align="right">6.3259880</td>
 <td align="right">18</td>
 <td align="right">0.0031614</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">19.566912</td>
 <td align="right">0.9037126</td>
 <td align="right">13</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="even">
@@ -1589,17 +1739,21 @@ cycle</td>
 <td align="right">4.6007186</td>
 <td align="right">15</td>
 <td align="right">0.0026255</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">23.059259</td>
 <td align="right">0.6572455</td>
 <td align="right">11</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">12</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>cell cycle G2/M phase transition</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1621,11 +1775,13 @@ cycle</td>
 <td align="right">7.1475449</td>
 <td align="right">22</td>
 <td align="right">0.0001912</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">15.213023</td>
 <td align="right">1.0210778</td>
 <td align="right">12</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
 <td align="right">13</td>
 </tr>
 <tr class="odd">
@@ -1638,11 +1794,13 @@ cycle</td>
 <td align="right">5.2579641</td>
 <td align="right">19</td>
 <td align="right">0.0000798</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">17.251683</td>
 <td align="right">0.7511377</td>
 <td align="right">10</td>
 <td align="right">0.0000007</td>
+<td align="right">98</td>
 <td align="right">13</td>
 </tr>
 <tr class="even">
@@ -1654,11 +1812,13 @@ cycle</td>
 <td align="right">7.9691018</td>
 <td align="right">24</td>
 <td align="right">0.0001039</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">14.871709</td>
 <td align="right">1.1384431</td>
 <td align="right">13</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">13</td>
 </tr>
 <tr class="odd">
@@ -1670,11 +1830,13 @@ cycle</td>
 <td align="right">5.7508982</td>
 <td align="right">19</td>
 <td align="right">0.0003114</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">15.515151</td>
 <td align="right">0.8215569</td>
 <td align="right">10</td>
 <td align="right">0.0000015</td>
+<td align="right">98</td>
 <td align="right">13</td>
 </tr>
 <tr class="even">
@@ -1682,6 +1844,8 @@ cycle</td>
 <td align="left"><strong>negative regulation of cell cycle G2/M phase
 transition</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1704,11 +1868,13 @@ cycle</td>
 <td align="right">3.1219162</td>
 <td align="right">13</td>
 <td align="right">0.0006764</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">20.399504</td>
 <td align="right">0.4459880</td>
 <td align="right">7</td>
 <td align="right">0.0000399</td>
+<td align="right">98</td>
 <td align="right">14</td>
 </tr>
 <tr class="even">
@@ -1720,11 +1886,13 @@ cycle</td>
 <td align="right">2.6289820</td>
 <td align="right">11</td>
 <td align="right">0.0024601</td>
+<td align="right">686</td>
 <td align="right">0.0000016</td>
 <td align="right">20.633779</td>
 <td align="right">0.3755689</td>
 <td align="right">6</td>
 <td align="right">0.0002290</td>
+<td align="right">98</td>
 <td align="right">14</td>
 </tr>
 <tr class="odd">
@@ -1737,17 +1905,21 @@ transition</td>
 <td align="right">3.2862275</td>
 <td align="right">13</td>
 <td align="right">0.0011223</td>
+<td align="right">686</td>
 <td align="right">0.0000003</td>
 <td align="right">19.158508</td>
 <td align="right">0.4694611</td>
 <td align="right">7</td>
 <td align="right">0.0000545</td>
+<td align="right">98</td>
 <td align="right">14</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>DNA conformation change</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1769,11 +1941,13 @@ transition</td>
 <td align="right">4.2720958</td>
 <td align="right">20</td>
 <td align="right">0.0000005</td>
+<td align="right">686</td>
 <td align="right">0.0000295</td>
 <td align="right">11.634215</td>
 <td align="right">0.6102994</td>
 <td align="right">6</td>
 <td align="right">0.0031932</td>
+<td align="right">98</td>
 <td align="right">15</td>
 </tr>
 <tr class="even">
@@ -1785,11 +1959,13 @@ transition</td>
 <td align="right">4.6828743</td>
 <td align="right">21</td>
 <td align="right">0.0000005</td>
+<td align="right">686</td>
 <td align="right">0.0000040</td>
 <td align="right">12.618462</td>
 <td align="right">0.6689820</td>
 <td align="right">7</td>
 <td align="right">0.0005454</td>
+<td align="right">98</td>
 <td align="right">15</td>
 </tr>
 <tr class="odd">
@@ -1801,17 +1977,21 @@ transition</td>
 <td align="right">5.1758084</td>
 <td align="right">21</td>
 <td align="right">0.0000028</td>
+<td align="right">686</td>
 <td align="right">0.0000080</td>
 <td align="right">11.258242</td>
 <td align="right">0.7394012</td>
 <td align="right">7</td>
 <td align="right">0.0009519</td>
+<td align="right">98</td>
 <td align="right">15</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>regulation of spindle checkpoint</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1833,11 +2013,13 @@ transition</td>
 <td align="right">0.9858683</td>
 <td align="right">7</td>
 <td align="right">0.0014139</td>
+<td align="right">686</td>
 <td align="right">0.0000001</td>
 <td align="right">63.325653</td>
 <td align="right">0.1408383</td>
 <td align="right">5</td>
 <td align="right">0.0000277</td>
+<td align="right">98</td>
 <td align="right">16</td>
 </tr>
 <tr class="even">
@@ -1850,11 +2032,13 @@ checkpoint</td>
 <td align="right">0.9037126</td>
 <td align="right">6</td>
 <td align="right">0.0071487</td>
+<td align="right">686</td>
 <td align="right">0.0000055</td>
 <td align="right">50.121581</td>
 <td align="right">0.1291018</td>
 <td align="right">4</td>
 <td align="right">0.0006991</td>
+<td align="right">98</td>
 <td align="right">16</td>
 </tr>
 <tr class="odd">
@@ -1866,17 +2050,21 @@ checkpoint</td>
 <td align="right">0.9037126</td>
 <td align="right">6</td>
 <td align="right">0.0071487</td>
+<td align="right">686</td>
 <td align="right">0.0000055</td>
 <td align="right">50.121581</td>
 <td align="right">0.1291018</td>
 <td align="right">4</td>
 <td align="right">0.0006991</td>
+<td align="right">98</td>
 <td align="right">16</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>regulation of nuclear division</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1898,11 +2086,13 @@ checkpoint</td>
 <td align="right">6.4081437</td>
 <td align="right">17</td>
 <td align="right">0.0109028</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">15.446046</td>
 <td align="right">0.9154491</td>
 <td align="right">11</td>
 <td align="right">0.0000004</td>
+<td align="right">98</td>
 <td align="right">17</td>
 </tr>
 <tr class="even">
@@ -1914,11 +2104,13 @@ checkpoint</td>
 <td align="right">7.8047904</td>
 <td align="right">18</td>
 <td align="right">0.0339568</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">12.294472</td>
 <td align="right">1.1149701</td>
 <td align="right">11</td>
 <td align="right">0.0000024</td>
+<td align="right">98</td>
 <td align="right">17</td>
 </tr>
 <tr class="odd">
@@ -1926,6 +2118,8 @@ checkpoint</td>
 <td align="left"><strong>positive regulation of chromosome
 separation</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1948,11 +2142,13 @@ separation</td>
 <td align="right">0.9858683</td>
 <td align="right">4</td>
 <td align="right">0.3579328</td>
+<td align="right">686</td>
 <td align="right">0.0000001</td>
 <td align="right">63.325653</td>
 <td align="right">0.1408383</td>
 <td align="right">5</td>
 <td align="right">0.0000277</td>
+<td align="right">98</td>
 <td align="right">18</td>
 </tr>
 <tr class="odd">
@@ -1964,17 +2160,21 @@ separation</td>
 <td align="right">1.6431138</td>
 <td align="right">5</td>
 <td align="right">0.4518054</td>
+<td align="right">686</td>
 <td align="right">0.0000027</td>
 <td align="right">29.523298</td>
 <td align="right">0.2347305</td>
 <td align="right">5</td>
 <td align="right">0.0003724</td>
+<td align="right">98</td>
 <td align="right">18</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>meiotic chromosome segregation</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1996,11 +2196,13 @@ separation</td>
 <td align="right">3.2862275</td>
 <td align="right">9</td>
 <td align="right">0.1620543</td>
+<td align="right">686</td>
 <td align="right">0.0000003</td>
 <td align="right">19.158508</td>
 <td align="right">0.4694611</td>
 <td align="right">7</td>
 <td align="right">0.0000545</td>
+<td align="right">98</td>
 <td align="right">19</td>
 </tr>
 <tr class="even">
@@ -2012,11 +2214,13 @@ separation</td>
 <td align="right">1.9717365</td>
 <td align="right">6</td>
 <td align="right">0.3162607</td>
+<td align="right">686</td>
 <td align="right">0.0000072</td>
 <td align="right">23.296548</td>
 <td align="right">0.2816766</td>
 <td align="right">5</td>
 <td align="right">0.0008596</td>
+<td align="right">98</td>
 <td align="right">19</td>
 </tr>
 <tr class="odd">
@@ -2024,6 +2228,8 @@ separation</td>
 <td align="left"><strong>DNA-templated DNA replication maintenance of
 fidelity</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2045,11 +2251,13 @@ fidelity</strong></td>
 <td align="right">2.2182036</td>
 <td align="right">13</td>
 <td align="right">0.0000095</td>
+<td align="right">686</td>
 <td align="right">0.0037380</td>
 <td align="right">10.826316</td>
 <td align="right">0.3168862</td>
 <td align="right">3</td>
 <td align="right">0.1935512</td>
+<td align="right">98</td>
 <td align="right">20</td>
 </tr>
 <tr class="odd">
@@ -2062,17 +2270,21 @@ fidelity</td>
 <td align="right">2.6289820</td>
 <td align="right">16</td>
 <td align="right">0.0000002</td>
+<td align="right">686</td>
 <td align="right">0.0060761</td>
 <td align="right">8.954265</td>
 <td align="right">0.3755689</td>
 <td align="right">3</td>
 <td align="right">0.2810139</td>
+<td align="right">98</td>
 <td align="right">20</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>telomere organization</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2094,11 +2306,13 @@ fidelity</td>
 <td align="right">8.1334132</td>
 <td align="right">31</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0060263</td>
 <td align="right">4.665980</td>
 <td align="right">1.1619162</td>
 <td align="right">5</td>
 <td align="right">0.2805285</td>
+<td align="right">98</td>
 <td align="right">21</td>
 </tr>
 <tr class="even">
@@ -2110,17 +2324,21 @@ fidelity</td>
 <td align="right">9.2014371</td>
 <td align="right">37</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0019702</td>
 <td align="right">5.011895</td>
 <td align="right">1.3144910</td>
 <td align="right">6</td>
 <td align="right">0.1181049</td>
+<td align="right">98</td>
 <td align="right">21</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>recombinational repair</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2143,11 +2361,13 @@ recombination</td>
 <td align="right">7.4761677</td>
 <td align="right">27</td>
 <td align="right">0.0000006</td>
+<td align="right">686</td>
 <td align="right">0.0000010</td>
 <td align="right">10.075363</td>
 <td align="right">1.0680240</td>
 <td align="right">9</td>
 <td align="right">0.0001586</td>
+<td align="right">98</td>
 <td align="right">22</td>
 </tr>
 <tr class="odd">
@@ -2159,11 +2379,13 @@ recombination</td>
 <td align="right">7.6404790</td>
 <td align="right">28</td>
 <td align="right">0.0000002</td>
+<td align="right">686</td>
 <td align="right">0.0000012</td>
 <td align="right">9.833066</td>
 <td align="right">1.0914970</td>
 <td align="right">9</td>
 <td align="right">0.0001831</td>
+<td align="right">98</td>
 <td align="right">22</td>
 </tr>
 <tr class="even">
@@ -2171,6 +2393,8 @@ recombination</td>
 <td align="left"><strong>regulation of cyclin-dependent protein kinase
 activity</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2193,11 +2417,13 @@ kinase activity</td>
 <td align="right">4.4364072</td>
 <td align="right">13</td>
 <td align="right">0.0200435</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">15.857005</td>
 <td align="right">0.6337725</td>
 <td align="right">8</td>
 <td align="right">0.0000330</td>
+<td align="right">98</td>
 <td align="right">23</td>
 </tr>
 <tr class="even">
@@ -2210,17 +2436,21 @@ activity</td>
 <td align="right">4.5185629</td>
 <td align="right">13</td>
 <td align="right">0.0233513</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">15.517731</td>
 <td align="right">0.6455090</td>
 <td align="right">8</td>
 <td align="right">0.0000368</td>
+<td align="right">98</td>
 <td align="right">23</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>microtubule-based process</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2242,11 +2472,13 @@ activity</td>
 <td align="right">26.8649102</td>
 <td align="right">50</td>
 <td align="right">0.0011654</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">5.376902</td>
 <td align="right">3.8378443</td>
 <td align="right">17</td>
 <td align="right">0.0000360</td>
+<td align="right">98</td>
 <td align="right">24</td>
 </tr>
 <tr class="odd">
@@ -2258,17 +2490,21 @@ activity</td>
 <td align="right">37.6273054</td>
 <td align="right">60</td>
 <td align="right">0.0115335</td>
+<td align="right">686</td>
 <td align="right">0.0000050</td>
 <td align="right">3.994773</td>
 <td align="right">5.3753293</td>
 <td align="right">18</td>
 <td align="right">0.0006576</td>
+<td align="right">98</td>
 <td align="right">24</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>cell cycle DNA replication</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2290,11 +2526,13 @@ activity</td>
 <td align="right">2.3825150</td>
 <td align="right">14</td>
 <td align="right">0.0000031</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">34.840212</td>
 <td align="right">0.3403593</td>
 <td align="right">8</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">25</td>
 </tr>
 <tr class="even">
@@ -2306,11 +2544,13 @@ activity</td>
 <td align="right">2.4646707</td>
 <td align="right">14</td>
 <td align="right">0.0000050</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">33.252525</td>
 <td align="right">0.3520958</td>
 <td align="right">8</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">25</td>
 </tr>
 <tr class="odd">
@@ -2318,6 +2558,8 @@ activity</td>
 <td align="left"><strong>regulation of DNA metabolic
 process</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2339,11 +2581,13 @@ process</strong></td>
 <td align="right">16.2668263</td>
 <td align="right">44</td>
 <td align="right">0.0000002</td>
+<td align="right">686</td>
 <td align="right">0.0022034</td>
 <td align="right">3.771696</td>
 <td align="right">2.3238323</td>
 <td align="right">8</td>
 <td align="right">0.1290505</td>
+<td align="right">98</td>
 <td align="right">26</td>
 </tr>
 <tr class="odd">
@@ -2355,17 +2599,21 @@ process</strong></td>
 <td align="right">26.4541317</td>
 <td align="right">60</td>
 <td align="right">0.0000003</td>
+<td align="right">686</td>
 <td align="right">0.0000045</td>
 <td align="right">4.677014</td>
 <td align="right">3.7791617</td>
 <td align="right">15</td>
 <td align="right">0.0005989</td>
+<td align="right">98</td>
 <td align="right">26</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><strong>other</strong></td>
 <td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2387,11 +2635,13 @@ process</strong></td>
 <td align="right">1.7252695</td>
 <td align="right">11</td>
 <td align="right">0.0000312</td>
+<td align="right">686</td>
 <td align="right">0.0247685</td>
 <td align="right">9.027412</td>
 <td align="right">0.2464671</td>
 <td align="right">2</td>
 <td align="right">0.6459254</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2403,11 +2653,13 @@ process</strong></td>
 <td align="right">2.2182036</td>
 <td align="right">15</td>
 <td align="right">0.0000001</td>
+<td align="right">686</td>
 <td align="right">0.0000132</td>
 <td align="right">20.112414</td>
 <td align="right">0.3168862</td>
 <td align="right">5</td>
 <td align="right">0.0014995</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2419,11 +2671,13 @@ process</strong></td>
 <td align="right">1.2323353</td>
 <td align="right">13</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0006439</td>
 <td align="right">21.684210</td>
 <td align="right">0.1760479</td>
 <td align="right">3</td>
 <td align="right">0.0481780</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2435,11 +2689,13 @@ process</strong></td>
 <td align="right">2.6289820</td>
 <td align="right">12</td>
 <td align="right">0.0005366</td>
+<td align="right">686</td>
 <td align="right">0.0004986</td>
 <td align="right">12.498480</td>
 <td align="right">0.3755689</td>
 <td align="right">4</td>
 <td align="right">0.0393665</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2451,11 +2707,13 @@ process</strong></td>
 <td align="right">2.2182036</td>
 <td align="right">12</td>
 <td align="right">0.0000798</td>
+<td align="right">686</td>
 <td align="right">0.0395659</td>
 <td align="right">6.855833</td>
 <td align="right">0.3168862</td>
 <td align="right">2</td>
 <td align="right">0.8451971</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2467,11 +2725,13 @@ process</strong></td>
 <td align="right">1.4788024</td>
 <td align="right">9</td>
 <td align="right">0.0005330</td>
+<td align="right">686</td>
 <td align="right">0.0184606</td>
 <td align="right">10.723958</td>
 <td align="right">0.2112575</td>
 <td align="right">2</td>
 <td align="right">0.5710414</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2483,11 +2743,13 @@ process</strong></td>
 <td align="right">37.3808383</td>
 <td align="right">65</td>
 <td align="right">0.0006764</td>
+<td align="right">686</td>
 <td align="right">0.0854652</td>
 <td align="right">1.769890</td>
 <td align="right">5.3401198</td>
 <td align="right">9</td>
 <td align="right">1.0000000</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2499,11 +2761,13 @@ process</strong></td>
 <td align="right">9.1192814</td>
 <td align="right">24</td>
 <td align="right">0.0009772</td>
+<td align="right">686</td>
 <td align="right">0.0018822</td>
 <td align="right">5.060248</td>
 <td align="right">1.3027545</td>
 <td align="right">6</td>
 <td align="right">0.1169500</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2515,11 +2779,13 @@ process</strong></td>
 <td align="right">2.1360479</td>
 <td align="right">16</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0033510</td>
 <td align="right">11.298398</td>
 <td align="right">0.3051497</td>
 <td align="right">3</td>
 <td align="right">0.1820863</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2531,11 +2797,13 @@ process</strong></td>
 <td align="right">6.4902994</td>
 <td align="right">23</td>
 <td align="right">0.0000091</td>
+<td align="right">686</td>
 <td align="right">0.0137047</td>
 <td align="right">4.639433</td>
 <td align="right">0.9271856</td>
 <td align="right">4</td>
 <td align="right">0.4608316</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2547,11 +2815,13 @@ process</strong></td>
 <td align="right">10.2694611</td>
 <td align="right">28</td>
 <td align="right">0.0001099</td>
+<td align="right">686</td>
 <td align="right">0.0034199</td>
 <td align="right">4.457253</td>
 <td align="right">1.4670659</td>
 <td align="right">6</td>
 <td align="right">0.1830496</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2563,11 +2833,13 @@ process</strong></td>
 <td align="right">15.9382036</td>
 <td align="right">35</td>
 <td align="right">0.0007776</td>
+<td align="right">686</td>
 <td align="right">0.0262784</td>
 <td align="right">2.797410</td>
 <td align="right">2.2768862</td>
 <td align="right">6</td>
 <td align="right">0.6791041</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2579,11 +2851,13 @@ process</strong></td>
 <td align="right">2.1360479</td>
 <td align="right">12</td>
 <td align="right">0.0000487</td>
+<td align="right">686</td>
 <td align="right">0.0000109</td>
 <td align="right">21.072709</td>
 <td align="right">0.3051497</td>
 <td align="right">5</td>
 <td align="right">0.0012601</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2596,11 +2870,13 @@ replication</td>
 <td align="right">0.6572455</td>
 <td align="right">7</td>
 <td align="right">0.0000322</td>
+<td align="right">686</td>
 <td align="right">0.0000012</td>
 <td align="right">87.744681</td>
 <td align="right">0.0938922</td>
 <td align="right">4</td>
 <td align="right">0.0001794</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2612,11 +2888,13 @@ replication</td>
 <td align="right">13.9664671</td>
 <td align="right">63</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">11.109739</td>
 <td align="right">1.9952096</td>
 <td align="right">17</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2628,11 +2906,13 @@ replication</td>
 <td align="right">8.2155689</td>
 <td align="right">47</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000002</td>
 <td align="right">10.305556</td>
 <td align="right">1.1736527</td>
 <td align="right">10</td>
 <td align="right">0.0000393</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2644,11 +2924,13 @@ replication</td>
 <td align="right">1.3966467</td>
 <td align="right">12</td>
 <td align="right">0.0000001</td>
+<td align="right">686</td>
 <td align="right">0.0000011</td>
 <td align="right">36.917563</td>
 <td align="right">0.1995210</td>
 <td align="right">5</td>
 <td align="right">0.0001673</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2660,11 +2942,13 @@ replication</td>
 <td align="right">6.7367665</td>
 <td align="right">25</td>
 <td align="right">0.0000011</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">14.568723</td>
 <td align="right">0.9623952</td>
 <td align="right">11</td>
 <td align="right">0.0000006</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2676,11 +2960,13 @@ replication</td>
 <td align="right">28.2615569</td>
 <td align="right">82</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">5.866134</td>
 <td align="right">4.0373653</td>
 <td align="right">19</td>
 <td align="right">0.0000027</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2692,11 +2978,13 @@ replication</td>
 <td align="right">13.7200000</td>
 <td align="right">40</td>
 <td align="right">0.0000001</td>
+<td align="right">686</td>
 <td align="right">0.0000001</td>
 <td align="right">8.042322</td>
 <td align="right">1.9600000</td>
 <td align="right">13</td>
 <td align="right">0.0000124</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2708,11 +2996,13 @@ replication</td>
 <td align="right">14.6237126</td>
 <td align="right">43</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000001</td>
 <td align="right">7.495971</td>
 <td align="right">2.0891018</td>
 <td align="right">13</td>
 <td align="right">0.0000256</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2724,11 +3014,13 @@ replication</td>
 <td align="right">35.2447904</td>
 <td align="right">71</td>
 <td align="right">0.0000013</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">5.243315</td>
 <td align="right">5.0349701</td>
 <td align="right">21</td>
 <td align="right">0.0000035</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2741,11 +3033,13 @@ initiation</td>
 <td align="right">0.9037126</td>
 <td align="right">8</td>
 <td align="right">0.0000459</td>
+<td align="right">686</td>
 <td align="right">0.0000055</td>
 <td align="right">50.121581</td>
 <td align="right">0.1291018</td>
 <td align="right">4</td>
 <td align="right">0.0006991</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2757,11 +3051,13 @@ initiation</td>
 <td align="right">12.5698204</td>
 <td align="right">34</td>
 <td align="right">0.0000110</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.727818</td>
 <td align="right">1.7956886</td>
 <td align="right">14</td>
 <td align="right">0.0000006</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2773,11 +3069,13 @@ initiation</td>
 <td align="right">29.5760479</td>
 <td align="right">93</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">10.057752</td>
 <td align="right">4.2251497</td>
 <td align="right">29</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2789,11 +3087,13 @@ initiation</td>
 <td align="right">31.3834731</td>
 <td align="right">64</td>
 <td align="right">0.0000041</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">7.573577</td>
 <td align="right">4.4833533</td>
 <td align="right">25</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2805,11 +3105,13 @@ initiation</td>
 <td align="right">2.4646707</td>
 <td align="right">15</td>
 <td align="right">0.0000006</td>
+<td align="right">686</td>
 <td align="right">0.0000011</td>
 <td align="right">22.358696</td>
 <td align="right">0.3520958</td>
 <td align="right">6</td>
 <td align="right">0.0001610</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2821,11 +3123,13 @@ initiation</td>
 <td align="right">1.2323353</td>
 <td align="right">10</td>
 <td align="right">0.0000057</td>
+<td align="right">686</td>
 <td align="right">0.0000005</td>
 <td align="right">44.311828</td>
 <td align="right">0.1760479</td>
 <td align="right">5</td>
 <td align="right">0.0000864</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2837,11 +3141,13 @@ initiation</td>
 <td align="right">37.9559281</td>
 <td align="right">94</td>
 <td align="right">0.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">9.257988</td>
 <td align="right">5.4222754</td>
 <td align="right">33</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2853,11 +3159,13 @@ initiation</td>
 <td align="right">8.2155689</td>
 <td align="right">12</td>
 <td align="right">1.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000023</td>
 <td align="right">9.068897</td>
 <td align="right">1.1736527</td>
 <td align="right">9</td>
 <td align="right">0.0003187</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2869,11 +3177,13 @@ initiation</td>
 <td align="right">1.9717365</td>
 <td align="right">5</td>
 <td align="right">0.7235861</td>
+<td align="right">686</td>
 <td align="right">0.0000072</td>
 <td align="right">23.296548</td>
 <td align="right">0.2816766</td>
 <td align="right">5</td>
 <td align="right">0.0008596</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2885,11 +3195,13 @@ initiation</td>
 <td align="right">19.0601198</td>
 <td align="right">34</td>
 <td align="right">0.0338113</td>
+<td align="right">686</td>
 <td align="right">0.0000005</td>
 <td align="right">6.142202</td>
 <td align="right">2.7228743</td>
 <td align="right">14</td>
 <td align="right">0.0000728</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2901,11 +3213,13 @@ initiation</td>
 <td align="right">4.6007186</td>
 <td align="right">15</td>
 <td align="right">0.0026255</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">20.271739</td>
 <td align="right">0.6572455</td>
 <td align="right">10</td>
 <td align="right">0.0000002</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2917,11 +3231,13 @@ initiation</td>
 <td align="right">37.4629940</td>
 <td align="right">59</td>
 <td align="right">0.0168343</td>
+<td align="right">686</td>
 <td align="right">0.0000047</td>
 <td align="right">4.014041</td>
 <td align="right">5.3518563</td>
 <td align="right">18</td>
 <td align="right">0.0006242</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2933,11 +3249,13 @@ initiation</td>
 <td align="right">1.4788024</td>
 <td align="right">5</td>
 <td align="right">0.3536241</td>
+<td align="right">686</td>
 <td align="right">0.0000015</td>
 <td align="right">34.073615</td>
 <td align="right">0.2112575</td>
 <td align="right">5</td>
 <td align="right">0.0002225</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2949,11 +3267,13 @@ initiation</td>
 <td align="right">12.9805988</td>
 <td align="right">28</td>
 <td align="right">0.0057751</td>
+<td align="right">686</td>
 <td align="right">0.0000021</td>
 <td align="right">6.971225</td>
 <td align="right">1.8543713</td>
 <td align="right">11</td>
 <td align="right">0.0003011</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2965,11 +3285,13 @@ initiation</td>
 <td align="right">3.4505389</td>
 <td align="right">9</td>
 <td align="right">0.2099832</td>
+<td align="right">686</td>
 <td align="right">0.0000005</td>
 <td align="right">18.059341</td>
 <td align="right">0.4929341</td>
 <td align="right">7</td>
 <td align="right">0.0000757</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -2981,11 +3303,13 @@ initiation</td>
 <td align="right">1.9717365</td>
 <td align="right">7</td>
 <td align="right">0.1015479</td>
+<td align="right">686</td>
 <td align="right">0.0000072</td>
 <td align="right">23.296548</td>
 <td align="right">0.2816766</td>
 <td align="right">5</td>
 <td align="right">0.0008596</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
@@ -2998,11 +3322,13 @@ activity</td>
 <td align="right">0.7394012</td>
 <td align="right">2</td>
 <td align="right">1.0000000</td>
+<td align="right">686</td>
 <td align="right">0.0000021</td>
 <td align="right">70.187234</td>
 <td align="right">0.1056287</td>
 <td align="right">4</td>
 <td align="right">0.0003011</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
@@ -3014,11 +3340,13 @@ activity</td>
 <td align="right">4.6828743</td>
 <td align="right">15</td>
 <td align="right">0.0031623</td>
+<td align="right">686</td>
 <td align="right">0.0000000</td>
 <td align="right">19.838008</td>
 <td align="right">0.6689820</td>
 <td align="right">10</td>
 <td align="right">0.0000003</td>
+<td align="right">98</td>
 <td align="right">27</td>
 </tr>
 </tbody>

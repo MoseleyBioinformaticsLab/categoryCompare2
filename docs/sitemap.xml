@@ -20,6 +20,7 @@
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/binomial_basic.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/binomial_feature_enrichment.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/binomial_features-class.html</loc></url>
+<url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/binomial_features.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/categoryCompare2.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/cc_graph.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/combine_annotation_features.html</loc></url>
@@ -53,11 +54,13 @@
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/graph_to_visnetwork.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/gsea_feature_enrichment.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/gsea_features-class.html</loc></url>
+<url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/gsea_features.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/gsea_result_to_fgsea.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/hypergeom_features-class.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/hypergeometric_basic.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/hypergeometric_feature_enrichment.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/hypergeometric_features-class.html</loc></url>
+<url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/hypergeometric_features.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/index.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/install_executables.html</loc></url>
 <url><loc>https://moseleybioinformaticslab.github.io/categoryCompare2/reference/jaccard_coefficient.html</loc></url>

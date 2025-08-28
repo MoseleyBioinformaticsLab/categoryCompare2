@@ -1,3 +1,7 @@
+# categoryCompare2 0.200.3
+
+- adds the `hypergeometric_features`, `gsea_features` and `binomial_features` constructors as functions to make it easier to remember the arguments for the actual classes of the same names.
+
 # categoryCompare2 0.200.2
 
 - changes `hypergeom_features` to `hypergeometric_features`.
