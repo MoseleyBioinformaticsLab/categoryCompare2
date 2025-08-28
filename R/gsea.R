@@ -11,6 +11,19 @@ setClass(
   slots = list(ranks = "ANY", annotation = "annotation")
 )
 
+#' gsea_features constructor
+#'
+#' Creates a gsea_features-class object.
+#'
+#' @param ranks a named vector of ranks
+#' @param annotation the annotation object
+#'
+#' @export
+#' @return gsea_features-class
+gsea_features = function(ranks, annotation) {
+  new("gsea_features", ranks = ranks, annotation = annotation)
+}
+
 #' do GSEA
 #'
 #' Performs gene-set enrichment analysis using the `fgsea` package.

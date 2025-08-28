@@ -12,6 +12,25 @@ setClass(
   slots = list(significant = "ANY", universe = "ANY", annotation = "annotation")
 )
 
+#' hypergeometric_features constructor
+#'
+#' function to easily construct a hypergeometric_features-class object.
+#'
+#' @param significant the features that are significant
+#' @param universe the background or universe of features measured
+#' @param annotation the annotation object
+#'
+#' @export
+#' @return hypergeometric_features-class
+hypergeometric_features = function(significant, universe, annotation) {
+  new(
+    "hypergeometric_features",
+    significant = significant,
+    universe = universe,
+    annotation = annotation
+  )
+}
+
 #' do hypergeometric enrichment
 #'
 #' @param hypergeometric_features a hypergeometric_features object

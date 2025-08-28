@@ -16,6 +16,25 @@ setClass(
   )
 )
 
+#' binomial_features constructor
+#'
+#' Create the binomial_features-class object.
+#'
+#' @param positivefc the positively changed features
+#' @param negativefc the negatively changed features
+#' @param annotation the annotation object
+#'
+#' @export
+#' @return binomial_features-class
+binomial_features = function(positivefc, negativefc, annotation) {
+  new(
+    "binomial_features",
+    positivefc = positivefc,
+    negativefc = negativefc,
+    annotation = annotation
+  )
+}
+
 #' do binomial testing
 #'
 #' @param binomial_features a binomial_features object
