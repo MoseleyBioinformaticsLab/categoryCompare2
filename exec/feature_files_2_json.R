@@ -128,4 +128,7 @@ if (!("universe" %in% names(file_args))) {
   feature_lists <- get_significant_feature_lists(file_args)
 }
 
-cat(jsonlite::toJSON(feature_lists, pretty = TRUE), file = script_options$json)
+cat(
+  jsonlite::toJSON(feature_lists, pretty = TRUE, auto_unbox = FALSE),
+  file = script_options$json
+)
