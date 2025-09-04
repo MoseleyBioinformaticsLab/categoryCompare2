@@ -104,5 +104,9 @@ test_that("json exporting and importing works properly", {
     annotation_2_json(without_namespace2, json_file = "test_small.json")
     line_data = base::readLines("test_small.json", 20)
     expect_true(grepl("\\[.*\\]", line_data[3]))
+
+    without_namespace2@counts[1] = 1
+    in_annotation = json_2_annotation("test_small.json")
+    expect_equal(without_namespace2, in_annotation)
   })
 })
