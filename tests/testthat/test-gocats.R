@@ -1,17 +1,18 @@
-test_that("gocats annotation importing works", {
-  ancestors_file = system.file(
-    "extdata",
-    "test_data",
-    "ancestors.json.gz",
-    package = "categoryCompare2"
-  )
-  namespace_file = system.file(
-    "extdata",
-    "test_data",
-    "namespace.json.gz",
-    package = "categoryCompare2"
-  )
+ancestors_file = system.file(
+  "extdata",
+  "test_data",
+  "ancestors.json.gz",
+  package = "categoryCompare2"
+)
+namespace_file = system.file(
+  "extdata",
+  "test_data",
+  "namespace.json.gz",
+  package = "categoryCompare2"
+)
 
+
+test_that("gocats annotation importing works", {
   ensembl_keys = AnnotationDbi::keys(
     org.Hs.eg.db::org.Hs.eg.db,
     keytype = "ENSEMBL"
@@ -82,4 +83,30 @@ test_that("gocats annotation importing works", {
   expect_equal(with_translation@annotation_features[[1]][1], "ENSG00000143799")
   expect_equal(with_translation@annotation_type, "whatever")
   expect_equal(with_translation@feature_type, "ENSEMBL")
+})
+
+test_that("json exporting and importing works properly", {
+  without_namespace = gocats_to_annotation(
+    ancestors_file,
+    namespace_file = NULL
+  )
+  withr::with_file("test_all.json", {
+    annotation_2_json(without_namespace, json_file = "test_all.json")
+    in_annotation = json_2_annotation("test_all.json")
+    expect_equal(without_namespace, in_annotation)
+  })
+
+  withr::with_file("test_small.json", {
+    without_namespace2 = without_namespace
+    without_namespace2@annotation_features[[
+      1
+    ]] = without_namespace@annotation_features[[1]][1]
+    annotation_2_json(without_namespace2, json_file = "test_small.json")
+    line_data = base::readLines("test_small.json", 20)
+    expect_true(grepl("\\[.*\\]", line_data[3]))
+
+    without_namespace2@counts[1] = 1
+    in_annotation = json_2_annotation("test_small.json")
+    expect_equal(without_namespace2, in_annotation)
+  })
 })
