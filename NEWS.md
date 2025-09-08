@@ -1,3 +1,7 @@
+# categoryCompare2 0.200.4
+
+- fixes exporting annotation objects to JSON, in that every item should consistently be in a list array, and not a bare string when there is only a single annotated item.
+
 # categoryCompare2 0.200.3
 
 - adds the `hypergeometric_features`, `gsea_features` and `binomial_features` constructors as functions to make it easier to remember the arguments for the actual classes of the same names.

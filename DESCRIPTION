@@ -3,12 +3,30 @@ Version: 0.200.4
 Title: Meta-Analysis of High-Throughput Experiments Using Feature
         Annotations
 Authors@R: c(
-    person(
-      given = c("Robert", "M"), 
-      family = "Flight", 
-      role = c("aut", "cre"), 
-      email = "rflight79@gmail.com", 
-      comment = c(ORCID = "0000-0001-8141-7788")))
+      person(
+                given = c("Robert", "M"), 
+                family = "Flight", 
+                role = c("aut", "cre"), 
+                email = "rflight79@gmail.com", 
+                comment = c(ORCID = "0000-0001-8141-7788")),
+      person(
+                given = c("Hunter", "NB"),
+                family = "Moseley",
+                role = c("aut"),
+                email = "hunter.moseley@gmail.com",
+                comment = c(ORCID = "0000-0003-3995-5368")
+        ),
+        person(
+                given = c("Eric", "D"),
+                family = "Huckvale",
+                role = c("aut"),
+                comment = c(ORCID = "0000-0002-6994-8831")),
+        person(
+                given = c("Eugene", "W"),
+                family = "Hinderer",
+                role = c("aut"),
+                comment = c(ORCID = "0000-0001-8045-7083")
+        ))
 URL: https://github.com/MoseleyBioinformaticsLab/categoryCompare2,
      https://moseleybioinformaticslab.github.io/categoryCompare2
 BugReports:
