@@ -751,7 +751,25 @@ setMethod(
 #' @export
 #' @return data.frame
 extract_enrich_stats = function(enrichment_result) {
-  stats = as.data.frame(enrichment_result@statistics@statistic_data)
+  stat_data = enrichment_result@statistics@statistic_data
+  stat_columns = names(stat_data)
+  n_stat = purrr::imap(stat_data, \(in_data, id) {
+    tmp = as.data.frame(purrr::map_int(in_data, length))
+    names(tmp) = id
+    tmp
+  }) |>
+    purrr::list_cbind()
+
+  needs_list = purrr::map_lgl(n_stat, \(x) {
+    length(unique(unlist(x, use.names = FALSE))) != 1
+  })
+
+  use_list = names(stat_data)[needs_list]
+  use_normal = names(stat_data)[!needs_list]
+  stats = as.data.frame(stat_data[use_normal])
+  for (ilist in use_list) {
+    stats[[ilist]] = I(stat_data[[ilist]])
+  }
   stats$ID = enrichment_result@statistics@annotation_id
   stats$description = enrichment_result@annotation@description[stats$ID]
   return(stats)

@@ -1,3 +1,7 @@
+# categoryCompare2 0.200.5
+
+- fixes getting statistics from `gsea` results, and actually has a test that it works.
+
 # categoryCompare2 0.200.4
 
 - fixes exporting annotation objects to JSON, in that every item should consistently be in a list array, and not a bare string when there is only a single annotated item.

@@ -110,3 +110,8 @@ test_that("gsea filters", {
   expect_gt(sum(gsea_filter@statistics@significant@significant[, 1]), 0)
   expect_gt(sum(gsea_filter@statistics@significant@significant[, 2]), 0)
 })
+
+test_that("gsea stats extract", {
+  gsea_stats = extract_enrich_stats(h10_gsea)
+  expect_snapshot(gsea_stats)
+})
