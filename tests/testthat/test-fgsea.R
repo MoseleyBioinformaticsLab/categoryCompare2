@@ -112,6 +112,7 @@ test_that("gsea filters", {
 })
 
 test_that("gsea stats extract", {
-  gsea_stats = extract_enrich_stats(h10_gsea)
+  gsea_stats = extract_enrich_stats(h10_gsea) |>
+    dplyr::arrange(p)
   expect_snapshot(gsea_stats)
 })

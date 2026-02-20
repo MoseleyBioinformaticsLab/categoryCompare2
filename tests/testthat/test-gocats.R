@@ -58,11 +58,11 @@ test_that("gocats annotation importing works", {
   has_namespace = all(grepl("^BP|^CC|^MF", with_namespace@description))
   expect_true(has_namespace)
 
-  expect_equal(without_namespace@annotation_features[[1]][1], "O60313")
+  expect_equal(without_namespace@annotation_features[[1]][1], "P09430")
   expect_equal(without_namespace@annotation_type, "gocatsGO")
   expect_equal(without_namespace@feature_type, "Uniprot")
-  # 12004 comes from latest version of org.Hs.eg.db, will fail locally
-  expect_equal(length(without_namespace@annotation_features), 12004)
+  # 11927 updated for Bioc 3.22 comes from latest version of org.Hs.eg.db, will fail locally
+  expect_equal(length(without_namespace@annotation_features), 11927)
 
   without_limits = gocats_to_annotation(
     ancestors_file,
@@ -70,8 +70,8 @@ test_that("gocats annotation importing works", {
     feature_min = 1,
     feature_max = Inf
   )
-  # 21847 comes from latest version of org.Hs.eg.db, this fails locally
-  expect_equal(length(without_limits@annotation_features), 21847)
+  # 21633 for Bioc 3.22 comes from latest version of org.Hs.eg.db, this fails locally
+  expect_equal(length(without_limits@annotation_features), 21633)
 
   with_translation = gocats_to_annotation(
     ancestors_file,
@@ -80,7 +80,7 @@ test_that("gocats annotation importing works", {
     annotation_type = "whatever",
     feature_translation = ensembl_uniprot
   )
-  expect_equal(with_translation@annotation_features[[1]][1], "ENSG00000143799")
+  expect_equal(with_translation@annotation_features[[1]][1], "ENSG00000049167")
   expect_equal(with_translation@annotation_type, "whatever")
   expect_equal(with_translation@feature_type, "ENSEMBL")
 })
