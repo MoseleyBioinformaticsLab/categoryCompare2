@@ -1,3 +1,7 @@
+# categoryCompare2 0.200.6
+
+- implements a method for getting a statistical table for a single `enriched_result`.
+
 # categoryCompare2 0.200.5
 
 - fixes getting statistics from `gsea` results, and actually has a test that it works.

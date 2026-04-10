@@ -13,6 +13,7 @@
 ^test_data_gen2\.R$
 ^test_bp\.csv$
 ^test_file2\.json$
+^test_small\.json$
 ^features\.json$
 ^cc2_results$
 ^bp_annotations\.csv$

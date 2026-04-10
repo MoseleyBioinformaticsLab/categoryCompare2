@@ -612,6 +612,52 @@ setMethod(
   out_data
 }
 
+#' extract statistics
+#'
+#' extract single set of statistics from a \code{\link{enriched_result}} object and
+#' create a \code{data.frame}.
+#'
+#' @param in_results the \code{\link{enriched_result}} object
+#' @return data.frame
+#' @exportMethod extract_statistics
+setMethod(
+  "extract_statistics",
+  signature = list(in_results = "enriched_result"),
+  function(in_results) .extract_statistics_enriched_results(in_results)
+)
+
+.extract_statistics_enriched_results <- function(in_enriched) {
+  tmp_stats = .extract_statistics_statistical_results(in_enriched@statistics)
+  tmp_stats$id = rownames(tmp_stats)
+  tmp_stats$description = in_enriched@annotation@description[tmp_stats$id]
+  if ("features" %in% slotNames(in_enriched)) {
+    significant_features = lapply(
+      in_enriched@annotation@annotation_features[tmp_stats$id],
+      \(all_features) {
+        base::intersect(all_features, in_enriched@features)
+      }
+    )
+    tmp_stats$significant_features = significant_features
+  } else if ("posfc" %in% slotNames(in_enriched)) {
+    posfc_features = lapply(
+      in_enriched@annotation@annotation_features[tmp_stats$id],
+      \(all_features) {
+        base::intersect(all_features, in_enriched@posfc)
+      }
+    )
+    negfc_features = lapply(
+      in_enriched@annotation@annotation_features[tmp_stats$id],
+      \(all_features) {
+        base::intersect(all_features, in_enriched@negfc)
+      }
+    )
+    tmp_stats$posfc_features = posfc_features
+    tmp_stats$negfc_features = negfc_features
+  }
+
+  tmp_stats
+}
+
 #' combined_statistics
 #'
 #' constructor function for the combined_statistics object, makes sure that
