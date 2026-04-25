@@ -120,3 +120,40 @@ test_that("get correct sig annotations from combined_enrichment", {
     get_significant_annotations(test_combined, pvalues < 0.05)
   )
 })
+
+single_combined = new(
+  "combined_enrichment",
+  enriched = list(en1 = en1),
+  annotation = new("annotation")
+)
+
+combined_stats <- extract_statistics(single_combined)
+single_combined@statistics <- combined_stats
+
+# this uses pvalues < 0.05
+meas_matrix <- matrix(
+  c(TRUE, TRUE, TRUE),
+  nrow = 3,
+  ncol = 1
+)
+rownames(meas_matrix) <- c("a1", "a2", "a3")
+colnames(meas_matrix) <- c("en1")
+sig_matrix <- meas_matrix
+sig_matrix["a2", ] <- c(FALSE)
+
+
+expected_significant_annotations <- new(
+  "significant_annotations",
+  significant = sig_matrix,
+  measured = meas_matrix,
+  sig_calls = "pvalues < 0.05"
+)
+
+expected_single_combined <- single_combined
+expected_single_combined@statistics@significant <- expected_significant_annotations
+test_that("get correct sig annotations from combined_enrichment with single case", {
+  expect_equal(
+    expected_single_combined,
+    get_significant_annotations(single_combined, pvalues < 0.05)
+  )
+})
