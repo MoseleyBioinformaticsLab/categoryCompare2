@@ -11,7 +11,8 @@ gocats_to_annotation(
   feature_type = "Uniprot",
   feature_translation = NULL,
   feature_min = 5,
-  feature_max = 5000
+  feature_max = 5000,
+  add_description = "yes"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ gocats_to_annotation(
 \item{feature_min}{minimum number of features annotated (default: 5)}
 
 \item{feature_max}{maximum number of features annotated (default: 5000)}
+
+\item{add_description}{should GO.db be queried for annotation descriptions ("yes")}
 }
 \value{
 annotation object

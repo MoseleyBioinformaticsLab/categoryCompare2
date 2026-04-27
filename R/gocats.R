@@ -9,6 +9,7 @@
 #' @param feature_translation a data.frame used to convert the feature IDs
 #' @param feature_min minimum number of features annotated (default: 5)
 #' @param feature_max maximum number of features annotated (default: 5000)
+#' @param add_description should GO.db be queried for annotation descriptions ("yes")
 #'
 #' @return annotation object
 #' @export
@@ -19,7 +20,8 @@ gocats_to_annotation = function(
   feature_type = "Uniprot",
   feature_translation = NULL,
   feature_min = 5,
-  feature_max = 5000
+  feature_max = 5000,
+  add_description = "yes"
 ) {
   stopifnot(file.exists(ancestors_file))
 
@@ -65,7 +67,9 @@ gocats_to_annotation = function(
     namespaces_short = character(0)
   }
 
-  if (requireNamespace("GO.db", quietly = TRUE)) {
+  if (
+    requireNamespace("GO.db", quietly = TRUE) && (add_description %in% "yes")
+  ) {
     descriptions = suppressMessages(
       AnnotationDbi::select(
         GO.db::GO.db,
@@ -77,7 +81,7 @@ gocats_to_annotation = function(
     names(descriptions) = names(go_2_gene)
   } else {
     message(
-      "GO.db is not installed, no descriptions will be added to the GO terms."
+      "GO.db is not installed, or you asked for no descriptions, so no descriptions will be added to the GO terms."
     )
     descriptions = character(0)
   }

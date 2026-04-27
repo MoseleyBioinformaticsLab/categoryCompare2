@@ -25,21 +25,31 @@ test_that("gocats annotation importing works", {
     "must contain the columns"
   )
 
+  without_namespace_description = suppressMessages(gocats_to_annotation(
+    ancestors_file,
+    namespace_file = NULL,
+    add_description = "no"
+  ))
+
+  expect_equal(
+    without_namespace_description@annotation_features[[1]][1],
+    "O60313"
+  )
+  expect_equal(without_namespace_description@annotation_type, "gocatsGO")
+  expect_equal(without_namespace_description@feature_type, "Uniprot")
+  # 11927 updated for Bioc 3.22 comes from latest version of org.Hs.eg.db, will fail locally
+  expect_equal(length(without_namespace_description@annotation_features), 12221)
+
   without_namespace = gocats_to_annotation(
     ancestors_file,
     namespace_file = NULL
   )
-  has_bp = all(grepl("^BP|^CC|^MF", without_namespace@description))
-  expect_true(!has_bp)
-  with_namespace = gocats_to_annotation(ancestors_file, namespace_file)
-  has_namespace = all(grepl("^BP|^CC|^MF", with_namespace@description))
-  expect_true(has_namespace)
+  has_nonamespace = grepl("^BP\\:|^CC\\:|^MF\\:", without_namespace@description)
+  expect_true(all(!has_nonamespace))
 
-  expect_equal(without_namespace@annotation_features[[1]][1], "P09430")
-  expect_equal(without_namespace@annotation_type, "gocatsGO")
-  expect_equal(without_namespace@feature_type, "Uniprot")
-  # 11927 updated for Bioc 3.22 comes from latest version of org.Hs.eg.db, will fail locally
-  expect_equal(length(without_namespace@annotation_features), 11927)
+  with_namespace = gocats_to_annotation(ancestors_file, namespace_file)
+  has_namespace = all(grepl("^BP\\:|^CC\\:|^MF\\:", with_namespace@description))
+  expect_true(has_namespace)
 
   without_limits = gocats_to_annotation(
     ancestors_file,
@@ -48,16 +58,20 @@ test_that("gocats annotation importing works", {
     feature_max = Inf
   )
   # 21633 for Bioc 3.22 comes from latest version of org.Hs.eg.db, this fails locally
-  expect_equal(length(without_limits@annotation_features), 21633)
+  expect_gt(
+    length(without_limits@description),
+    length(without_namespace@description)
+  )
 
-  with_translation = gocats_to_annotation(
+  with_translation = suppressMessages(gocats_to_annotation(
     ancestors_file,
     namespace_file,
     feature_type = "ENSEMBL",
     annotation_type = "whatever",
-    feature_translation = ensembl_uniprot
-  )
-  expect_equal(with_translation@annotation_features[[1]][1], "ENSG00000049167")
+    feature_translation = ensembl_uniprot,
+    add_description = "no"
+  ))
+  expect_equal(with_translation@annotation_features[[1]][1], "ENSG00000143799")
   expect_equal(with_translation@annotation_type, "whatever")
   expect_equal(with_translation@feature_type, "ENSEMBL")
 })
