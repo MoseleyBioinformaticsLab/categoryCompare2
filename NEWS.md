@@ -1,3 +1,8 @@
+# categoryCompare2 0.200.7
+
+- fixes a bug where setting significant annotations where there was only a single enriched object in the combined object would return zero counts for enriched, which is not correct. Added test to verify the fix (#52).
+- fixes testing bugs where numbers of things would change due to changes in GO.db or the entrez annotation packages (#53).
+
 # categoryCompare2 0.200.6
 
 - implements a method for getting a statistical table for a single `enriched_result`.
@@ -12,14 +17,14 @@
 
 # categoryCompare2 0.200.3
 
-- adds the `hypergeometric_features`, `gsea_features` and `binomial_features` constructors as functions to make it easier to remember the arguments for the actual classes of the same names.
+- adds the `hypergeometric_features`, `gsea_features` and `binomial_features` constructors as functions to make it easier to remember the arguments for the actual classes of the same names (#49).
 
 # categoryCompare2 0.200.2
 
 - changes `hypergeom_features` to `hypergeometric_features`.
 - because the `hypergeometrc_features` necessitates changes to actual code written by any users, I bumped the version from *0.100* to *0.200*.
 - implements `hypergeometric_result`, `gsea_result`, and `binomial_result` as more specific classes of `enrichemnt_result`, which makes all of the combining and filtering work for everything.
-- made the vignettes use pre-processed data so that there won't be any issues from the `affy` package and segfaults.
+- made the vignettes use pre-processed data so that there won't be any issues from the `affy` package and segfaults (#50).
 
 # categoryCompare2 0.100.32
 

@@ -8,8 +8,8 @@
 <title>categoryCompare2: visNetwork • categoryCompare2</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="categoryCompare2: visNetwork">
 </head>
 <body>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +79,8 @@
 <h2 id="categorycompare2-alternative-visualization">categoryCompare2: Alternative Visualization<a class="anchor" aria-label="anchor" href="#categorycompare2-alternative-visualization"></a>
 </h2>
 <p>Authored by: <strong>Robert M Flight</strong>
-<code>&lt;rflight79@gmail.com&gt;</code> on 2026-02-05
-15:59:29.86394</p>
+<code>&lt;rflight79@gmail.com&gt;</code> on 2026-04-27
+13:20:02.049586</p>
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
@@ -194,7 +194,7 @@ object.</p>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And grab all the genes on the array to have a background set.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gUniverse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="va">table10</span><span class="op">$</span><span class="va">Entrez</span>, <span class="va">table48</span><span class="op">$</span><span class="va">Entrez</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gUniverse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">union</a></span><span class="op">(</span><span class="va">table10</span><span class="op">$</span><span class="va">Entrez</span>, <span class="va">table48</span><span class="op">$</span><span class="va">Entrez</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>For both time points we have generated a list of genes that are
 differentially expressed in the present vs absent samples. To compare
 the time-points, we could find the common and discordant genes from both
@@ -305,10 +305,10 @@ lists.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Counts:</span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     72</span></span>
-<span><span class="co">## G2   1   0     53</span></span>
-<span><span class="co">## G3   0   1     48</span></span>
-<span><span class="co">## G4   0   0  14118</span></span></code></pre>
+<span><span class="co">## G1   1   1     60</span></span>
+<span><span class="co">## G2   1   0     38</span></span>
+<span><span class="co">## G3   0   1     49</span></span>
+<span><span class="co">## G4   0   0  13764</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="generate-graph">Generate Graph<a class="anchor" aria-label="anchor" href="#generate-graph"></a>
@@ -317,24 +317,24 @@ lists.</p>
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_annotation_graph.html">generate_annotation_graph</a></span><span class="op">(</span><span class="va">bp_sig</span><span class="op">)</span></span>
 <span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
-<span><span class="co">## Number of Nodes = 135 </span></span>
-<span><span class="co">## Number of Edges = 7740 </span></span>
+<span><span class="co">## Number of Nodes = 123 </span></span>
+<span><span class="co">## Number of Edges = 6793 </span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     64</span></span>
-<span><span class="co">## G2   1   0     26</span></span>
-<span><span class="co">## G3   0   1     45</span></span></code></pre>
+<span><span class="co">## G1   1   1     53</span></span>
+<span><span class="co">## G2   1   0     24</span></span>
+<span><span class="co">## G3   0   1     46</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/remove_edges.html">remove_edges</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Removed 7530 edges from graph</span></span></code></pre>
+<pre><code><span><span class="co">## Removed 6593 edges from graph</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
-<span><span class="co">## Number of Nodes = 135 </span></span>
-<span><span class="co">## Number of Edges = 210 </span></span>
+<span><span class="co">## Number of Nodes = 123 </span></span>
+<span><span class="co">## Number of Edges = 200 </span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     64</span></span>
-<span><span class="co">## G2   1   0     26</span></span>
-<span><span class="co">## G3   0   1     45</span></span></code></pre>
+<span><span class="co">## G1   1   1     53</span></span>
+<span><span class="co">## G2   1   0     24</span></span>
+<span><span class="co">## G3   0   1     46</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_combinations.html">annotation_combinations</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span></span>
 <span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_colors.html">assign_colors</a></span><span class="op">(</span><span class="va">bp_assign</span><span class="op">)</span></span></code></pre></div>
@@ -365,22 +365,22 @@ easier to find them in the graph if desired.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/table_from_graph.html">table_from_graph</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="va">bp_assign</span>, <span class="va">bp_comm_labels</span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">bp_table</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="4%">
-<col width="29%">
+<col width="28%">
 <col width="4%">
 <col width="4%">
 <col width="4%">
 <col width="5%">
 <col width="4%">
-<col width="4%">
+<col width="5%">
 <col width="6%">
 <col width="4%">
 <col width="4%">
 <col width="5%">
 <col width="4%">
-<col width="4%">
+<col width="5%">
 <col width="6%">
 <col width="2%">
 </colgroup>
@@ -425,17 +425,17 @@ easier to find them in the graph if desired.</p>
 <td align="left"><a href="GO:0007051" class="uri">GO:0007051</a></td>
 <td align="left">spindle organization</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000029</td>
-<td align="right">3.207006</td>
-<td align="right">9.7765269</td>
+<td align="right">0.0000070</td>
+<td align="right">3.027139</td>
+<td align="right">10.2303351</td>
 <td align="right">26</td>
-<td align="right">0.0004061</td>
-<td align="right">686</td>
+<td align="right">0.0009908</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">11.753385</td>
-<td align="right">1.3966467</td>
+<td align="right">11.185374</td>
+<td align="right">1.4593491</td>
 <td align="right">13</td>
-<td align="right">0.0000003</td>
+<td align="right">0.0000005</td>
 <td align="right">98</td>
 <td align="right">1</td>
 </tr>
@@ -443,17 +443,17 @@ easier to find them in the graph if desired.</p>
 <td align="left"><a href="GO:0007052" class="uri">GO:0007052</a></td>
 <td align="left">mitotic spindle organization</td>
 <td align="left">g48</td>
-<td align="right">0.0000261</td>
-<td align="right">3.436829</td>
-<td align="right">6.7367665</td>
+<td align="right">0.0000397</td>
+<td align="right">3.314717</td>
+<td align="right">6.9302270</td>
 <td align="right">19</td>
-<td align="right">0.0023784</td>
-<td align="right">686</td>
+<td align="right">0.0040651</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">12.910353</td>
-<td align="right">0.9623952</td>
+<td align="right">12.523034</td>
+<td align="right">0.9885913</td>
 <td align="right">10</td>
-<td align="right">0.0000067</td>
+<td align="right">0.0000084</td>
 <td align="right">98</td>
 <td align="right">1</td>
 </tr>
@@ -461,17 +461,17 @@ easier to find them in the graph if desired.</p>
 <td align="left"><a href="GO:0051225" class="uri">GO:0051225</a></td>
 <td align="left">spindle assembly</td>
 <td align="left">g48</td>
-<td align="right">0.0009736</td>
-<td align="right">2.833085</td>
-<td align="right">6.1616766</td>
+<td align="right">0.0017651</td>
+<td align="right">2.642299</td>
+<td align="right">6.5177135</td>
 <td align="right">15</td>
-<td align="right">0.0476519</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">12.542390</td>
-<td align="right">0.8802395</td>
+<td align="right">0.0919640</td>
+<td align="right">687</td>
+<td align="right">0.0000003</td>
+<td align="right">11.786677</td>
+<td align="right">0.9297466</td>
 <td align="right">9</td>
-<td align="right">0.0000349</td>
+<td align="right">0.0000510</td>
 <td align="right">98</td>
 <td align="right">1</td>
 </tr>
@@ -480,235 +480,19 @@ easier to find them in the graph if desired.</p>
 <td align="left">microtubule cytoskeleton organization involved in
 mitosis</td>
 <td align="left">g48</td>
-<td align="right">0.0000207</td>
-<td align="right">3.140964</td>
-<td align="right">8.3798802</td>
+<td align="right">0.0000356</td>
+<td align="right">3.012121</td>
+<td align="right">8.6627837</td>
 <td align="right">22</td>
-<td align="right">0.0020126</td>
-<td align="right">686</td>
+<td align="right">0.0037207</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">12.654264</td>
-<td align="right">1.1971257</td>
+<td align="right">12.207052</td>
+<td align="right">1.2357392</td>
 <td align="right">12</td>
-<td align="right">0.0000005</td>
+<td align="right">0.0000007</td>
 <td align="right">98</td>
 <td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>cell cycle checkpoint signaling</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0000077" class="uri">GO:0000077</a></td>
-<td align="left">DNA damage checkpoint signaling</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">5.178452</td>
-<td align="right">6.0795210</td>
-<td align="right">23</td>
-<td align="right">0.0000027</td>
-<td align="right">686</td>
-<td align="right">0.0017076</td>
-<td align="right">6.376032</td>
-<td align="right">0.8685030</td>
-<td align="right">5</td>
-<td align="right">0.1065655</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0031570" class="uri">GO:0031570</a></td>
-<td align="left">DNA integrity checkpoint signaling</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">5.773900</td>
-<td align="right">6.6546108</td>
-<td align="right">27</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0003576</td>
-<td align="right">7.110435</td>
-<td align="right">0.9506587</td>
-<td align="right">6</td>
-<td align="right">0.0309761</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0044773" class="uri">GO:0044773</a></td>
-<td align="left">mitotic DNA damage checkpoint signaling</td>
-<td align="left">g10</td>
-<td align="right">0.0000013</td>
-<td align="right">5.359087</td>
-<td align="right">4.1077844</td>
-<td align="right">16</td>
-<td align="right">0.0001887</td>
-<td align="right">686</td>
-<td align="right">0.0027179</td>
-<td align="right">7.591119</td>
-<td align="right">0.5868263</td>
-<td align="right">4</td>
-<td align="right">0.1526879</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0044774" class="uri">GO:0044774</a></td>
-<td align="left">mitotic DNA integrity checkpoint signaling</td>
-<td align="left">g10</td>
-<td align="right">0.0000006</td>
-<td align="right">5.384322</td>
-<td align="right">4.3542515</td>
-<td align="right">17</td>
-<td align="right">0.0000912</td>
-<td align="right">686</td>
-<td align="right">0.0003693</td>
-<td align="right">9.189068</td>
-<td align="right">0.6220359</td>
-<td align="right">5</td>
-<td align="right">0.0314121</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0000075" class="uri">GO:0000075</a></td>
-<td align="left">cell cycle checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">6.446372</td>
-<td align="right">9.0371257</td>
-<td align="right">39</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">14.159722</td>
-<td align="right">1.2910180</td>
-<td align="right">14</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0007093" class="uri">GO:0007093</a></td>
-<td align="left">mitotic cell cycle checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">6.694418</td>
-<td align="right">6.7367665</td>
-<td align="right">30</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">18.137937</td>
-<td align="right">0.9623952</td>
-<td align="right">13</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><strong>chromosome segregation</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0000070" class="uri">GO:0000070</a></td>
-<td align="left">mitotic sister chromatid segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">4.335366</td>
-<td align="right">9.0371257</td>
-<td align="right">30</td>
-<td align="right">0.0000006</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">16.934094</td>
-<td align="right">1.2910180</td>
-<td align="right">16</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0000819" class="uri">GO:0000819</a></td>
-<td align="left">sister chromatid segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">3.861664</td>
-<td align="right">10.8445509</td>
-<td align="right">33</td>
-<td align="right">0.0000011</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">16.061842</td>
-<td align="right">1.5492216</td>
-<td align="right">18</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0007059" class="uri">GO:0007059</a></td>
-<td align="left">chromosome segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">3.004279</td>
-<td align="right">18.0742515</td>
-<td align="right">45</td>
-<td align="right">0.0000016</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">11.036546</td>
-<td align="right">2.5820359</td>
-<td align="right">21</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0098813" class="uri">GO:0098813</a></td>
-<td align="left">nuclear chromosome segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">3.438435</td>
-<td align="right">13.3092216</td>
-<td align="right">37</td>
-<td align="right">0.0000016</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">15.688588</td>
-<td align="right">1.9013174</td>
-<td align="right">21</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -726,95 +510,275 @@ mitosis</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0007346" class="uri">GO:0007346</a></td>
 <td align="left">regulation of mitotic cell cycle</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.773562</td>
-<td align="right">25.9611976</td>
+<td align="right">2.727088</td>
+<td align="right">26.3183620</td>
 <td align="right">60</td>
-<td align="right">0.0000001</td>
-<td align="right">686</td>
+<td align="right">0.0000002</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">6.441845</td>
-<td align="right">3.7087425</td>
+<td align="right">6.356582</td>
+<td align="right">3.7542933</td>
 <td align="right">19</td>
-<td align="right">0.0000008</td>
+<td align="right">0.0000010</td>
 <td align="right">98</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0044770" class="uri">GO:0044770</a></td>
 <td align="left">cell cycle phase transition</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.070092</td>
-<td align="right">26.9470659</td>
-<td align="right">67</td>
+<td align="right">3.059389</td>
+<td align="right">27.8859133</td>
+<td align="right">69</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">7.990426</td>
-<td align="right">3.8495808</td>
-<td align="right">23</td>
+<td align="right">8.175245</td>
+<td align="right">3.9779032</td>
+<td align="right">24</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0044772" class="uri">GO:0044772</a></td>
 <td align="left">mitotic cell cycle phase transition</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.065021</td>
-<td align="right">22.3463473</td>
-<td align="right">56</td>
+<td align="right">3.184457</td>
+<td align="right">22.5232377</td>
+<td align="right">58</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">9.265474</td>
-<td align="right">3.1923353</td>
-<td align="right">22</td>
+<td align="right">9.787573</td>
+<td align="right">3.2129218</td>
+<td align="right">23</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:1901987" class="uri">GO:1901987</a></td>
 <td align="left">regulation of cell cycle phase transition</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.334450</td>
-<td align="right">20.9497006</td>
-<td align="right">56</td>
+<td align="right">3.281417</td>
+<td align="right">21.6157079</td>
+<td align="right">57</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">7.609177</td>
-<td align="right">2.9928144</td>
+<td align="right">7.363217</td>
+<td align="right">3.0834634</td>
 <td align="right">18</td>
-<td align="right">0.0000002</td>
+<td align="right">0.0000003</td>
 <td align="right">98</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:1901990" class="uri">GO:1901990</a></td>
 <td align="left">regulation of mitotic cell cycle phase transition</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.313661</td>
-<td align="right">16.7597605</td>
-<td align="right">45</td>
-<td align="right">0.0000002</td>
-<td align="right">686</td>
+<td align="right">3.488421</td>
+<td align="right">16.5005404</td>
+<td align="right">46</td>
 <td align="right">0.0000000</td>
-<td align="right">9.051627</td>
-<td align="right">2.3942515</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">9.227687</td>
+<td align="right">2.3537889</td>
 <td align="right">17</td>
 <td align="right">0.0000001</td>
+<td align="right">98</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>chromosome segregation</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0000070" class="uri">GO:0000070</a></td>
+<td align="left">mitotic sister chromatid segregation</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">4.107415</td>
+<td align="right">9.4053080</td>
+<td align="right">30</td>
+<td align="right">0.0000019</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">16.189149</td>
+<td align="right">1.3416597</td>
+<td align="right">16</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0000819" class="uri">GO:0000819</a></td>
+<td align="left">sister chromatid segregation</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">3.692304</td>
+<td align="right">11.2203675</td>
+<td align="right">33</td>
+<td align="right">0.0000028</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">15.465890</td>
+<td align="right">1.6005764</td>
+<td align="right">18</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0007059" class="uri">GO:0007059</a></td>
+<td align="left">chromosome segregation</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">2.872291</td>
+<td align="right">18.7281134</td>
+<td align="right">45</td>
+<td align="right">0.0000050</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">10.621801</td>
+<td align="right">2.6715504</td>
+<td align="right">21</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0098813" class="uri">GO:0098813</a></td>
+<td align="left">nuclear chromosome segregation</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">3.314335</td>
+<td align="right">13.6954485</td>
+<td align="right">37</td>
+<td align="right">0.0000039</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">15.205016</td>
+<td align="right">1.9536448</td>
+<td align="right">21</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>cell cycle checkpoint signaling</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0000077" class="uri">GO:0000077</a></td>
+<td align="left">DNA damage checkpoint signaling</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">5.718374</td>
+<td align="right">5.6926864</td>
+<td align="right">23</td>
+<td align="right">0.0000009</td>
+<td align="right">687</td>
+<td align="right">0.0012628</td>
+<td align="right">6.859039</td>
+<td align="right">0.8120572</td>
+<td align="right">5</td>
+<td align="right">0.0825711</td>
+<td align="right">98</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0031570" class="uri">GO:0031570</a></td>
+<td align="left">DNA integrity checkpoint signaling</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">6.337570</td>
+<td align="right">6.2702054</td>
+<td align="right">27</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0002563</td>
+<td align="right">7.601553</td>
+<td align="right">0.8944398</td>
+<td align="right">6</td>
+<td align="right">0.0227078</td>
+<td align="right">98</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0000075" class="uri">GO:0000075</a></td>
+<td align="left">cell cycle checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">6.701797</td>
+<td align="right">8.8277891</td>
+<td align="right">39</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">14.580645</td>
+<td align="right">1.2592771</td>
+<td align="right">14</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0007093" class="uri">GO:0007093</a></td>
+<td align="left">mitotic cell cycle checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">7.975779</td>
+<td align="right">6.2702054</td>
+<td align="right">31</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">19.824090</td>
+<td align="right">0.8944398</td>
+<td align="right">13</td>
+<td align="right">0.0000000</td>
 <td align="right">98</td>
 <td align="right">4</td>
 </tr>
@@ -840,53 +804,17 @@ mitosis</td>
 <td align="left"><a href="GO:0051321" class="uri">GO:0051321</a></td>
 <td align="left">meiotic cell cycle</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000007</td>
-<td align="right">3.169753</td>
-<td align="right">11.4196407</td>
+<td align="right">0.0000010</td>
+<td align="right">3.097207</td>
+<td align="right">11.6328810</td>
 <td align="right">30</td>
-<td align="right">0.0001044</td>
-<td align="right">686</td>
+<td align="right">0.0001882</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">9.863492</td>
-<td align="right">1.6313772</td>
+<td align="right">9.679504</td>
+<td align="right">1.6594212</td>
 <td align="right">13</td>
-<td align="right">0.0000015</td>
-<td align="right">98</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0061982" class="uri">GO:0061982</a></td>
-<td align="left">meiosis I cell cycle process</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000064</td>
-<td align="right">4.302375</td>
-<td align="right">5.0936527</td>
-<td align="right">17</td>
-<td align="right">0.0007571</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">15.643629</td>
-<td align="right">0.7276647</td>
-<td align="right">9</td>
-<td align="right">0.0000070</td>
-<td align="right">98</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:1903046" class="uri">GO:1903046</a></td>
-<td align="left">meiotic cell cycle process</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000052</td>
-<td align="right">3.373903</td>
-<td align="right">8.2977246</td>
-<td align="right">23</td>
-<td align="right">0.0006592</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">10.191059</td>
-<td align="right">1.1853892</td>
-<td align="right">10</td>
-<td align="right">0.0000416</td>
+<td align="right">0.0000020</td>
 <td align="right">98</td>
 <td align="right">5</td>
 </tr>
@@ -894,37 +822,145 @@ mitosis</td>
 <td align="left"><a href="GO:0007127" class="uri">GO:0007127</a></td>
 <td align="left">meiosis I</td>
 <td align="left">g48</td>
-<td align="right">0.0001538</td>
-<td align="right">3.692345</td>
-<td align="right">4.6828743</td>
+<td align="right">0.0001608</td>
+<td align="right">3.675248</td>
+<td align="right">4.7026540</td>
 <td align="right">14</td>
-<td align="right">0.0108774</td>
-<td align="right">686</td>
+<td align="right">0.0127789</td>
+<td align="right">687</td>
 <td align="right">0.0000003</td>
-<td align="right">14.880726</td>
-<td align="right">0.6689820</td>
+<td align="right">14.839002</td>
+<td align="right">0.6708298</td>
 <td align="right">8</td>
-<td align="right">0.0000461</td>
+<td align="right">0.0000477</td>
 <td align="right">98</td>
 <td align="right">5</td>
 </tr>
 <tr class="odd">
+<td align="left"><a href="GO:0061982" class="uri">GO:0061982</a></td>
+<td align="left">meiosis I cell cycle process</td>
+<td align="left">g48</td>
+<td align="right">0.0000085</td>
+<td align="right">4.188773</td>
+<td align="right">5.1976702</td>
+<td align="right">17</td>
+<td align="right">0.0011615</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">15.308989</td>
+<td align="right">0.7414435</td>
+<td align="right">9</td>
+<td align="right">0.0000083</td>
+<td align="right">98</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
 <td align="left"><a href="GO:0140013" class="uri">GO:0140013</a></td>
 <td align="left">meiotic nuclear division</td>
 <td align="left">g48</td>
-<td align="right">0.0007968</td>
-<td align="right">2.679455</td>
-<td align="right">7.3118563</td>
+<td align="right">0.0009529</td>
+<td align="right">2.630117</td>
+<td align="right">7.4252432</td>
 <td align="right">17</td>
-<td align="right">0.0398172</td>
-<td align="right">686</td>
-<td align="right">0.0000009</td>
-<td align="right">10.329775</td>
-<td align="right">1.0445509</td>
+<td align="right">0.0554642</td>
+<td align="right">687</td>
+<td align="right">0.0000010</td>
+<td align="right">10.172285</td>
+<td align="right">1.0592050</td>
 <td align="right">9</td>
-<td align="right">0.0001326</td>
+<td align="right">0.0001437</td>
 <td align="right">98</td>
 <td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:1903046" class="uri">GO:1903046</a></td>
+<td align="left">meiotic cell cycle process</td>
+<td align="left">g48</td>
+<td align="right">0.0000079</td>
+<td align="right">3.273343</td>
+<td align="right">8.4977783</td>
+<td align="right">23</td>
+<td align="right">0.0010902</td>
+<td align="right">687</td>
+<td align="right">0.0000003</td>
+<td align="right">9.941349</td>
+<td align="right">1.2122013</td>
+<td align="right">10</td>
+<td align="right">0.0000506</td>
+<td align="right">98</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>negative regulation of cell cycle</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0010948" class="uri">GO:0010948</a></td>
+<td align="left">negative regulation of cell cycle process</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">4.177036</td>
+<td align="right">14.7679837</td>
+<td align="right">47</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">8.887379</td>
+<td align="right">2.1066410</td>
+<td align="right">15</td>
+<td align="right">0.0000005</td>
+<td align="right">98</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0045786" class="uri">GO:0045786</a></td>
+<td align="left">negative regulation of cell cycle</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">3.213583</td>
+<td align="right">19.5531404</td>
+<td align="right">51</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000001</td>
+<td align="right">6.518235</td>
+<td align="right">2.7892398</td>
+<td align="right">15</td>
+<td align="right">0.0000173</td>
+<td align="right">98</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:1901988" class="uri">GO:1901988</a></td>
+<td align="left">negative regulation of cell cycle phase transition</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">4.838270</td>
+<td align="right">12.1278972</td>
+<td align="right">43</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">10.145363</td>
+<td align="right">1.7300348</td>
+<td align="right">14</td>
+<td align="right">0.0000004</td>
+<td align="right">98</td>
+<td align="right">6</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -943,25 +979,25 @@ cycle</strong></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">6</td>
+<td align="right">7</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0045930" class="uri">GO:0045930</a></td>
 <td align="left">negative regulation of mitotic cell cycle</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">4.347555</td>
-<td align="right">11.5017964</td>
-<td align="right">38</td>
+<td align="right">4.426503</td>
+<td align="right">11.0553621</td>
+<td align="right">37</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">10.748677</td>
-<td align="right">1.6431138</td>
-<td align="right">14</td>
-<td align="right">0.0000002</td>
+<td align="right">10.248323</td>
+<td align="right">1.5770385</td>
+<td align="right">13</td>
+<td align="right">0.0000011</td>
 <td align="right">98</td>
-<td align="right">6</td>
+<td align="right">7</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:1901991" class="uri">GO:1901991</a></td>
@@ -969,18 +1005,18 @@ cycle</strong></td>
 transition</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">4.506058</td>
-<td align="right">8.7906587</td>
-<td align="right">30</td>
-<td align="right">0.0000003</td>
-<td align="right">686</td>
+<td align="right">5.110409</td>
+<td align="right">8.3327729</td>
+<td align="right">31</td>
 <td align="right">0.0000000</td>
-<td align="right">13.273342</td>
-<td align="right">1.2558084</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">14.148797</td>
+<td align="right">1.1886634</td>
 <td align="right">13</td>
 <td align="right">0.0000001</td>
 <td align="right">98</td>
-<td align="right">6</td>
+<td align="right">7</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -998,66 +1034,66 @@ transition</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">7</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0000280" class="uri">GO:0000280</a></td>
 <td align="left">nuclear division</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.927900</td>
-<td align="right">19.7173653</td>
+<td align="right">2.823351</td>
+<td align="right">20.2956647</td>
 <td align="right">48</td>
-<td align="right">0.0000011</td>
-<td align="right">686</td>
+<td align="right">0.0000030</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">10.003736</td>
-<td align="right">2.8167665</td>
+<td align="right">9.701818</td>
+<td align="right">2.8951603</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">7</td>
+<td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0048285" class="uri">GO:0048285</a></td>
 <td align="left">organelle fission</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.823147</td>
-<td align="right">21.6069461</td>
+<td align="right">2.717261</td>
+<td align="right">22.2757296</td>
 <td align="right">51</td>
-<td align="right">0.0000011</td>
-<td align="right">686</td>
+<td align="right">0.0000032</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">9.027047</td>
-<td align="right">3.0867066</td>
+<td align="right">8.740416</td>
+<td align="right">3.1776150</td>
 <td align="right">21</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">7</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0140014" class="uri">GO:0140014</a></td>
 <td align="left">mitotic nuclear division</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000001</td>
-<td align="right">3.136102</td>
-<td align="right">13.8843114</td>
+<td align="right">0.0000002</td>
+<td align="right">3.006211</td>
+<td align="right">14.3554702</td>
 <td align="right">36</td>
-<td align="right">0.0000136</td>
-<td align="right">686</td>
+<td align="right">0.0000378</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">12.071027</td>
-<td align="right">1.9834731</td>
+<td align="right">11.643750</td>
+<td align="right">2.0477963</td>
 <td align="right">18</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">7</td>
+<td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td align="left"><strong>establishment of chromosome
-localization</strong></td>
+<td align="left"><strong>negative regulation of cell cycle G2/M phase
+transition</strong></td>
 <td align="left"></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -1071,682 +1107,135 @@ localization</strong></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">8</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0010972" class="uri">GO:0010972</a></td>
+<td align="left">negative regulation of G2/M transition of mitotic cell
+cycle</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000013</td>
+<td align="right">6.336404</td>
+<td align="right">3.2176054</td>
+<td align="right">14</td>
+<td align="right">0.0002276</td>
+<td align="right">687</td>
+<td align="right">0.0000003</td>
+<td align="right">19.704327</td>
+<td align="right">0.4589888</td>
+<td align="right">7</td>
+<td align="right">0.0000477</td>
+<td align="right">98</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0044818" class="uri">GO:0044818</a></td>
+<td align="left">mitotic G2/M transition checkpoint</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000044</td>
+<td align="right">6.773333</td>
+<td align="right">2.6400865</td>
+<td align="right">12</td>
+<td align="right">0.0007044</td>
+<td align="right">687</td>
+<td align="right">0.0000016</td>
+<td align="right">20.576087</td>
+<td align="right">0.3766062</td>
+<td align="right">6</td>
+<td align="right">0.0002288</td>
+<td align="right">98</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:1902750" class="uri">GO:1902750</a></td>
+<td align="left">negative regulation of cell cycle G2/M phase
+transition</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000026</td>
+<td align="right">5.865500</td>
+<td align="right">3.3826108</td>
+<td align="right">14</td>
+<td align="right">0.0004436</td>
+<td align="right">687</td>
+<td align="right">0.0000004</td>
+<td align="right">18.540724</td>
+<td align="right">0.4825267</td>
+<td align="right">7</td>
+<td align="right">0.0000653</td>
+<td align="right">98</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>chromosome localization</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0007080" class="uri">GO:0007080</a></td>
 <td align="left">mitotic metaphase chromosome alignment</td>
 <td align="left">g48</td>
-<td align="right">0.0010316</td>
-<td align="right">4.231905</td>
-<td align="right">2.7111377</td>
-<td align="right">9</td>
-<td align="right">0.0498075</td>
-<td align="right">686</td>
-<td align="right">0.0000019</td>
-<td align="right">19.867150</td>
-<td align="right">0.3873054</td>
-<td align="right">6</td>
-<td align="right">0.0002745</td>
+<td align="right">0.0003750</td>
+<td align="right">4.499261</td>
+<td align="right">2.8875946</td>
+<td align="right">10</td>
+<td align="right">0.0251998</td>
+<td align="right">687</td>
+<td align="right">0.0000001</td>
+<td align="right">22.530220</td>
+<td align="right">0.4119131</td>
+<td align="right">7</td>
+<td align="right">0.0000237</td>
 <td align="right">98</td>
-<td align="right">8</td>
+<td align="right">10</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0051303" class="uri">GO:0051303</a></td>
-<td align="left">establishment of chromosome localization</td>
+<td align="left"><a href="GO:0050000" class="uri">GO:0050000</a></td>
+<td align="left">chromosome localization</td>
 <td align="left">g48</td>
-<td align="right">0.0002278</td>
-<td align="right">3.527315</td>
-<td align="right">4.8471856</td>
-<td align="right">14</td>
-<td align="right">0.0150013</td>
-<td align="right">686</td>
-<td align="right">0.0000051</td>
-<td align="right">12.130178</td>
-<td align="right">0.6924551</td>
-<td align="right">7</td>
-<td align="right">0.0006653</td>
-<td align="right">98</td>
+<td align="right">0.0003400</td>
+<td align="right">3.195334</td>
+<td align="right">5.6101837</td>
+<td align="right">15</td>
+<td align="right">0.0233007</td>
+<td align="right">687</td>
+<td align="right">0.0000011</td>
+<td align="right">12.102222</td>
+<td align="right">0.8002882</td>
 <td align="right">8</td>
+<td align="right">0.0001670</td>
+<td align="right">98</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0051310" class="uri">GO:0051310</a></td>
 <td align="left">metaphase chromosome alignment</td>
 <td align="left">g48</td>
-<td align="right">0.0000817</td>
-<td align="right">3.970833</td>
-<td align="right">4.4364072</td>
-<td align="right">14</td>
-<td align="right">0.0061796</td>
-<td align="right">686</td>
-<td align="right">0.0000028</td>
-<td align="right">13.428805</td>
-<td align="right">0.6337725</td>
-<td align="right">7</td>
-<td align="right">0.0003795</td>
-<td align="right">98</td>
-<td align="right">8</td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><strong>DNA biosynthetic process</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0071897" class="uri">GO:0071897</a></td>
-<td align="left">DNA biosynthetic process</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">5.521034</td>
-<td align="right">10.2694611</td>
-<td align="right">40</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0006377</td>
-<td align="right">5.302477</td>
-<td align="right">1.4670659</td>
-<td align="right">7</td>
-<td align="right">0.0481780</td>
-<td align="right">98</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:2000278" class="uri">GO:2000278</a></td>
-<td align="left">regulation of DNA biosynthetic process</td>
-<td align="left">g10</td>
-<td align="right">0.0000005</td>
-<td align="right">4.129617</td>
-<td align="right">6.8189222</td>
-<td align="right">22</td>
-<td align="right">0.0000880</td>
-<td align="right">686</td>
-<td align="right">0.0161796</td>
-<td align="right">4.402370</td>
-<td align="right">0.9741317</td>
-<td align="right">4</td>
-<td align="right">0.5231269</td>
-<td align="right">98</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:2000573" class="uri">GO:2000573</a></td>
-<td align="left">positive regulation of DNA biosynthetic process</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">6.545688</td>
-<td align="right">4.5185629</td>
-<td align="right">20</td>
-<td align="right">0.0000013</td>
-<td align="right">686</td>
-<td align="right">0.0264931</td>
-<td align="right">4.979757</td>
-<td align="right">0.6455090</td>
-<td align="right">3</td>
-<td align="right">0.6799512</td>
-<td align="right">98</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><strong>chromosome separation</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0007094" class="uri">GO:0007094</a></td>
-<td align="left">mitotic spindle assembly checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000041</td>
-<td align="right">7.789630</td>
-<td align="right">2.2182036</td>
-<td align="right">11</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">38.516959</td>
-<td align="right">0.3168862</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0010965" class="uri">GO:0010965</a></td>
-<td align="left">regulation of mitotic sister chromatid separation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000027</td>
-<td align="right">6.417275</td>
-<td align="right">2.9576048</td>
-<td align="right">13</td>
-<td align="right">0.0003836</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">35.952797</td>
-<td align="right">0.4225150</td>
-<td align="right">10</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0031577" class="uri">GO:0031577</a></td>
-<td align="left">spindle checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000041</td>
-<td align="right">7.789630</td>
-<td align="right">2.2182036</td>
-<td align="right">11</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">38.516959</td>
-<td align="right">0.3168862</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0033046" class="uri">GO:0033046</a></td>
-<td align="left">negative regulation of sister chromatid
-segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000062</td>
-<td align="right">7.330457</td>
-<td align="right">2.3003593</td>
-<td align="right">11</td>
-<td align="right">0.0007471</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">36.586667</td>
-<td align="right">0.3286228</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0033047" class="uri">GO:0033047</a></td>
-<td align="left">regulation of mitotic sister chromatid segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000087</td>
-<td align="right">6.184516</td>
-<td align="right">2.7932934</td>
-<td align="right">12</td>
-<td align="right">0.0009923</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">33.277753</td>
-<td align="right">0.3990419</td>
-<td align="right">9</td>
-<td align="right">0.0000001</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0033048" class="uri">GO:0033048</a></td>
-<td align="left">negative regulation of mitotic sister chromatid
-segregation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000062</td>
-<td align="right">7.330457</td>
-<td align="right">2.3003593</td>
-<td align="right">11</td>
-<td align="right">0.0007471</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">36.586667</td>
-<td align="right">0.3286228</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0045839" class="uri">GO:0045839</a></td>
-<td align="left">negative regulation of mitotic nuclear division</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000087</td>
-<td align="right">6.184516</td>
-<td align="right">2.7932934</td>
-<td align="right">12</td>
-<td align="right">0.0009923</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">28.123077</td>
-<td align="right">0.3990419</td>
-<td align="right">8</td>
-<td align="right">0.0000009</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0045841" class="uri">GO:0045841</a></td>
-<td align="left">negative regulation of mitotic metaphase/anaphase
-transition</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000062</td>
-<td align="right">7.330457</td>
-<td align="right">2.3003593</td>
-<td align="right">11</td>
-<td align="right">0.0007471</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">36.586667</td>
-<td align="right">0.3286228</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0051306" class="uri">GO:0051306</a></td>
-<td align="left">mitotic sister chromatid separation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000054</td>
-<td align="right">5.902348</td>
-<td align="right">3.1219162</td>
-<td align="right">13</td>
-<td align="right">0.0006764</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">33.376623</td>
-<td align="right">0.4459880</td>
-<td align="right">10</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0051784" class="uri">GO:0051784</a></td>
-<td align="left">negative regulation of nuclear division</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000039</td>
-<td align="right">6.149084</td>
-<td align="right">3.0397605</td>
-<td align="right">13</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">25.204598</td>
-<td align="right">0.4342515</td>
-<td align="right">8</td>
-<td align="right">0.0000017</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0071173" class="uri">GO:0071173</a></td>
-<td align="left">spindle assembly checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000041</td>
-<td align="right">7.789630</td>
-<td align="right">2.2182036</td>
-<td align="right">11</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">38.516959</td>
-<td align="right">0.3168862</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0071174" class="uri">GO:0071174</a></td>
-<td align="left">mitotic spindle checkpoint signaling</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000041</td>
-<td align="right">7.789630</td>
-<td align="right">2.2182036</td>
-<td align="right">11</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">38.516959</td>
-<td align="right">0.3168862</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:2000816" class="uri">GO:2000816</a></td>
-<td align="left">negative regulation of mitotic sister chromatid
-separation</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000062</td>
-<td align="right">7.330457</td>
-<td align="right">2.3003593</td>
-<td align="right">11</td>
-<td align="right">0.0007471</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">36.586667</td>
-<td align="right">0.3286228</td>
-<td align="right">8</td>
-<td align="right">0.0000002</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0051304" class="uri">GO:0051304</a></td>
-<td align="left">chromosome separation</td>
-<td align="left">g48</td>
-<td align="right">0.0000322</td>
-<td align="right">4.414352</td>
-<td align="right">4.1077844</td>
-<td align="right">14</td>
-<td align="right">0.0027860</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">23.329545</td>
-<td align="right">0.5868263</td>
-<td align="right">10</td>
-<td align="right">0.0000001</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0051985" class="uri">GO:0051985</a></td>
-<td align="left">negative regulation of chromosome segregation</td>
-<td align="left">g48</td>
-<td align="right">0.0000093</td>
-<td align="right">6.922305</td>
-<td align="right">2.3825150</td>
-<td align="right">11</td>
-<td align="right">0.0010208</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">34.840212</td>
-<td align="right">0.3403593</td>
-<td align="right">8</td>
-<td align="right">0.0000003</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:1902100" class="uri">GO:1902100</a></td>
-<td align="left">negative regulation of metaphase/anaphase transition of
-cell cycle</td>
-<td align="left">g48</td>
-<td align="right">0.0000093</td>
-<td align="right">6.922305</td>
-<td align="right">2.3825150</td>
-<td align="right">11</td>
-<td align="right">0.0010208</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">34.840212</td>
-<td align="right">0.3403593</td>
-<td align="right">8</td>
-<td align="right">0.0000003</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:1905818" class="uri">GO:1905818</a></td>
-<td align="left">regulation of chromosome separation</td>
-<td align="left">g48</td>
-<td align="right">0.0000148</td>
-<td align="right">4.817551</td>
-<td align="right">3.8613174</td>
-<td align="right">14</td>
-<td align="right">0.0015304</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">25.230344</td>
-<td align="right">0.5516168</td>
-<td align="right">10</td>
-<td align="right">0.0000001</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:1905819" class="uri">GO:1905819</a></td>
-<td align="left">negative regulation of chromosome separation</td>
-<td align="left">g48</td>
-<td align="right">0.0000093</td>
-<td align="right">6.922305</td>
-<td align="right">2.3825150</td>
-<td align="right">11</td>
-<td align="right">0.0010208</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">34.840212</td>
-<td align="right">0.3403593</td>
-<td align="right">8</td>
-<td align="right">0.0000003</td>
-<td align="right">98</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>negative regulation of cell cycle</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">11</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0010948" class="uri">GO:0010948</a></td>
-<td align="left">negative regulation of cell cycle process</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">4.102046</td>
-<td align="right">14.9523353</td>
-<td align="right">47</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">8.749369</td>
-<td align="right">2.1360479</td>
+<td align="right">0.0000317</td>
+<td align="right">4.137086</td>
+<td align="right">4.6201513</td>
 <td align="right">15</td>
-<td align="right">0.0000006</td>
+<td align="right">0.0034137</td>
+<td align="right">687</td>
+<td align="right">0.0000002</td>
+<td align="right">15.150000</td>
+<td align="right">0.6590609</td>
+<td align="right">8</td>
+<td align="right">0.0000428</td>
 <td align="right">98</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0045786" class="uri">GO:0045786</a></td>
-<td align="left">negative regulation of cell cycle</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">3.311475</td>
-<td align="right">19.8816766</td>
-<td align="right">53</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">6.929419</td>
-<td align="right">2.8402395</td>
-<td align="right">16</td>
-<td align="right">0.0000035</td>
-<td align="right">98</td>
-<td align="right">11</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:1901988" class="uri">GO:1901988</a></td>
-<td align="left">negative regulation of cell cycle phase transition</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">4.723056</td>
-<td align="right">12.3233533</td>
-<td align="right">43</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">9.946078</td>
-<td align="right">1.7604790</td>
-<td align="right">14</td>
-<td align="right">0.0000005</td>
-<td align="right">98</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>regulation of chromosome
-segregation</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0007091" class="uri">GO:0007091</a></td>
-<td align="left">metaphase/anaphase transition of mitotic cell
-cycle</td>
-<td align="left">g48</td>
-<td align="right">0.0000301</td>
-<td align="right">4.156338</td>
-<td align="right">4.6007186</td>
-<td align="right">15</td>
-<td align="right">0.0026255</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">23.059259</td>
-<td align="right">0.6572455</td>
-<td align="right">11</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0030071" class="uri">GO:0030071</a></td>
-<td align="left">regulation of mitotic metaphase/anaphase
-transition</td>
-<td align="left">g48</td>
-<td align="right">0.0000238</td>
-<td align="right">4.260805</td>
-<td align="right">4.5185629</td>
-<td align="right">15</td>
-<td align="right">0.0022562</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">23.586207</td>
-<td align="right">0.6455090</td>
-<td align="right">11</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0033045" class="uri">GO:0033045</a></td>
-<td align="left">regulation of sister chromatid segregation</td>
-<td align="left">g48</td>
-<td align="right">0.0000339</td>
-<td align="right">3.870181</td>
-<td align="right">5.1758084</td>
-<td align="right">16</td>
-<td align="right">0.0028999</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">22.437756</td>
-<td align="right">0.7394012</td>
-<td align="right">12</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0044784" class="uri">GO:0044784</a></td>
-<td align="left">metaphase/anaphase transition of cell cycle</td>
-<td align="left">g48</td>
-<td align="right">0.0000378</td>
-<td align="right">4.056845</td>
-<td align="right">4.6828743</td>
-<td align="right">15</td>
-<td align="right">0.0031623</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">22.555222</td>
-<td align="right">0.6689820</td>
-<td align="right">11</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0051983" class="uri">GO:0051983</a></td>
-<td align="left">regulation of chromosome segregation</td>
-<td align="left">g48</td>
-<td align="right">0.0000374</td>
-<td align="right">3.473308</td>
-<td align="right">6.3259880</td>
-<td align="right">18</td>
-<td align="right">0.0031614</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">19.566912</td>
-<td align="right">0.9037126</td>
-<td align="right">13</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:1902099" class="uri">GO:1902099</a></td>
-<td align="left">regulation of metaphase/anaphase transition of cell
-cycle</td>
-<td align="left">g48</td>
-<td align="right">0.0000301</td>
-<td align="right">4.156338</td>
-<td align="right">4.6007186</td>
-<td align="right">15</td>
-<td align="right">0.0026255</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">23.059259</td>
-<td align="right">0.6572455</td>
-<td align="right">11</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">12</td>
+<td align="right">10</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1764,354 +1253,612 @@ cycle</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">13</td>
+<td align="right">11</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0000086" class="uri">GO:0000086</a></td>
 <td align="left">G2/M transition of mitotic cell cycle</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000013</td>
-<td align="right">3.873448</td>
-<td align="right">7.1475449</td>
-<td align="right">22</td>
-<td align="right">0.0001912</td>
-<td align="right">686</td>
+<td align="right">0.0000002</td>
+<td align="right">4.091578</td>
+<td align="right">7.5077459</td>
+<td align="right">24</td>
+<td align="right">0.0000413</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">15.213023</td>
-<td align="right">1.0210778</td>
-<td align="right">12</td>
-<td align="right">0.0000001</td>
+<td align="right">17.645022</td>
+<td align="right">1.0709739</td>
+<td align="right">14</td>
+<td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">13</td>
+<td align="right">11</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0010389" class="uri">GO:0010389</a></td>
 <td align="left">regulation of G2/M transition of mitotic cell
 cycle</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000005</td>
-<td align="right">4.822955</td>
-<td align="right">5.2579641</td>
-<td align="right">19</td>
-<td align="right">0.0000798</td>
-<td align="right">686</td>
+<td align="right">0.0000001</td>
+<td align="right">5.060803</td>
+<td align="right">5.3626756</td>
+<td align="right">20</td>
+<td align="right">0.0000295</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">17.251683</td>
-<td align="right">0.7511377</td>
+<td align="right">16.888430</td>
+<td align="right">0.7649814</td>
 <td align="right">10</td>
-<td align="right">0.0000007</td>
+<td align="right">0.0000008</td>
 <td align="right">98</td>
-<td align="right">13</td>
+<td align="right">11</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0044839" class="uri">GO:0044839</a></td>
 <td align="left">cell cycle G2/M phase transition</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000007</td>
-<td align="right">3.769896</td>
-<td align="right">7.9691018</td>
-<td align="right">24</td>
-<td align="right">0.0001039</td>
-<td align="right">686</td>
+<td align="right">0.0000001</td>
+<td align="right">3.914802</td>
+<td align="right">8.4152756</td>
+<td align="right">26</td>
+<td align="right">0.0000292</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">14.871709</td>
-<td align="right">1.1384431</td>
-<td align="right">13</td>
+<td align="right">16.913170</td>
+<td align="right">1.2004323</td>
+<td align="right">15</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">13</td>
+<td align="right">11</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:1902749" class="uri">GO:1902749</a></td>
 <td align="left">regulation of cell cycle G2/M phase transition</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000022</td>
-<td align="right">4.252197</td>
-<td align="right">5.7508982</td>
-<td align="right">19</td>
-<td align="right">0.0003114</td>
-<td align="right">686</td>
+<td align="right">0.0000008</td>
+<td align="right">4.375505</td>
+<td align="right">5.9401945</td>
+<td align="right">20</td>
+<td align="right">0.0001587</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">15.515151</td>
-<td align="right">0.8215569</td>
+<td align="right">14.968842</td>
+<td align="right">0.8473640</td>
 <td align="right">10</td>
-<td align="right">0.0000015</td>
+<td align="right">0.0000022</td>
 <td align="right">98</td>
-<td align="right">13</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>negative regulation of cell cycle G2/M phase
-transition</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">14</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0010972" class="uri">GO:0010972</a></td>
-<td align="left">negative regulation of G2/M transition of mitotic cell
-cycle</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000054</td>
-<td align="right">5.902348</td>
-<td align="right">3.1219162</td>
-<td align="right">13</td>
-<td align="right">0.0006764</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">20.399504</td>
-<td align="right">0.4459880</td>
-<td align="right">7</td>
-<td align="right">0.0000399</td>
-<td align="right">98</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0044818" class="uri">GO:0044818</a></td>
-<td align="left">mitotic G2/M transition checkpoint</td>
-<td align="left">g48</td>
-<td align="right">0.0000275</td>
-<td align="right">5.931076</td>
-<td align="right">2.6289820</td>
 <td align="right">11</td>
-<td align="right">0.0024601</td>
-<td align="right">686</td>
-<td align="right">0.0000016</td>
-<td align="right">20.633779</td>
-<td align="right">0.3755689</td>
-<td align="right">6</td>
-<td align="right">0.0002290</td>
-<td align="right">98</td>
-<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>chromosome separation</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">12</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:1902750" class="uri">GO:1902750</a></td>
-<td align="left">negative regulation of cell cycle G2/M phase
+<td align="left"><a href="GO:0007094" class="uri">GO:0007094</a></td>
+<td align="left">mitotic spindle assembly checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000065</td>
+<td align="right">7.296641</td>
+<td align="right">2.3100757</td>
+<td align="right">11</td>
+<td align="right">0.0009293</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">36.484444</td>
+<td align="right">0.3295304</td>
+<td align="right">8</td>
+<td align="right">0.0000002</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0010965" class="uri">GO:0010965</a></td>
+<td align="left">regulation of mitotic sister chromatid separation</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000041</td>
+<td align="right">6.120673</td>
+<td align="right">3.0526000</td>
+<td align="right">13</td>
+<td align="right">0.0006714</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">34.520202</td>
+<td align="right">0.4354509</td>
+<td align="right">10</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0031577" class="uri">GO:0031577</a></td>
+<td align="left">spindle checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000065</td>
+<td align="right">7.296641</td>
+<td align="right">2.3100757</td>
+<td align="right">11</td>
+<td align="right">0.0009293</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">36.484444</td>
+<td align="right">0.3295304</td>
+<td align="right">8</td>
+<td align="right">0.0000002</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0051784" class="uri">GO:0051784</a></td>
+<td align="left">negative regulation of nuclear division</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000057</td>
+<td align="right">5.875074</td>
+<td align="right">3.1351027</td>
+<td align="right">13</td>
+<td align="right">0.0008622</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">24.293333</td>
+<td align="right">0.4472199</td>
+<td align="right">8</td>
+<td align="right">0.0000023</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0071173" class="uri">GO:0071173</a></td>
+<td align="left">spindle assembly checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000065</td>
+<td align="right">7.296641</td>
+<td align="right">2.3100757</td>
+<td align="right">11</td>
+<td align="right">0.0009293</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">36.484444</td>
+<td align="right">0.3295304</td>
+<td align="right">8</td>
+<td align="right">0.0000002</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0071174" class="uri">GO:0071174</a></td>
+<td align="left">mitotic spindle checkpoint signaling</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000065</td>
+<td align="right">7.296641</td>
+<td align="right">2.3100757</td>
+<td align="right">11</td>
+<td align="right">0.0009293</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">36.484444</td>
+<td align="right">0.3295304</td>
+<td align="right">8</td>
+<td align="right">0.0000002</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0033046" class="uri">GO:0033046</a></td>
+<td align="left">negative regulation of sister chromatid
+segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0000097</td>
+<td align="right">6.890368</td>
+<td align="right">2.3925784</td>
+<td align="right">11</td>
+<td align="right">0.0012689</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">34.742857</td>
+<td align="right">0.3412994</td>
+<td align="right">8</td>
+<td align="right">0.0000003</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0033047" class="uri">GO:0033047</a></td>
+<td align="left">regulation of mitotic sister chromatid segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0000128</td>
+<td align="right">5.887536</td>
+<td align="right">2.8875946</td>
+<td align="right">12</td>
+<td align="right">0.0016295</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">31.904494</td>
+<td align="right">0.4119131</td>
+<td align="right">9</td>
+<td align="right">0.0000001</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0033048" class="uri">GO:0033048</a></td>
+<td align="left">negative regulation of mitotic sister chromatid
+segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0000097</td>
+<td align="right">6.890368</td>
+<td align="right">2.3925784</td>
+<td align="right">11</td>
+<td align="right">0.0012689</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">34.742857</td>
+<td align="right">0.3412994</td>
+<td align="right">8</td>
+<td align="right">0.0000003</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0045839" class="uri">GO:0045839</a></td>
+<td align="left">negative regulation of mitotic nuclear division</td>
+<td align="left">g48</td>
+<td align="right">0.0000128</td>
+<td align="right">5.887536</td>
+<td align="right">2.8875946</td>
+<td align="right">12</td>
+<td align="right">0.0016295</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">27.002469</td>
+<td align="right">0.4119131</td>
+<td align="right">8</td>
+<td align="right">0.0000012</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0045841" class="uri">GO:0045841</a></td>
+<td align="left">negative regulation of mitotic metaphase/anaphase
 transition</td>
 <td align="left">g48</td>
-<td align="right">0.0000104</td>
-<td align="right">5.463706</td>
-<td align="right">3.2862275</td>
-<td align="right">13</td>
-<td align="right">0.0011223</td>
-<td align="right">686</td>
+<td align="right">0.0000097</td>
+<td align="right">6.890368</td>
+<td align="right">2.3925784</td>
+<td align="right">11</td>
+<td align="right">0.0012689</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">34.742857</td>
+<td align="right">0.3412994</td>
+<td align="right">8</td>
 <td align="right">0.0000003</td>
-<td align="right">19.158508</td>
-<td align="right">0.4694611</td>
-<td align="right">7</td>
-<td align="right">0.0000545</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0051304" class="uri">GO:0051304</a></td>
+<td align="left">chromosome separation</td>
+<td align="left">g48</td>
+<td align="right">0.0000430</td>
+<td align="right">4.274607</td>
+<td align="right">4.2076378</td>
+<td align="right">14</td>
+<td align="right">0.0043659</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">22.694013</td>
+<td align="right">0.6002162</td>
+<td align="right">10</td>
+<td align="right">0.0000001</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0051306" class="uri">GO:0051306</a></td>
+<td align="left">mitotic sister chromatid separation</td>
+<td align="left">g48</td>
+<td align="right">0.0000079</td>
+<td align="right">5.648368</td>
+<td align="right">3.2176054</td>
+<td align="right">13</td>
+<td align="right">0.0010902</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">32.131661</td>
+<td align="right">0.4589888</td>
+<td align="right">10</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0051985" class="uri">GO:0051985</a></td>
+<td align="left">negative regulation of chromosome segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0000141</td>
+<td align="right">6.526861</td>
+<td align="right">2.4750811</td>
+<td align="right">11</td>
+<td align="right">0.0017406</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">33.159596</td>
+<td align="right">0.3530683</td>
+<td align="right">8</td>
+<td align="right">0.0000004</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:1902100" class="uri">GO:1902100</a></td>
+<td align="left">negative regulation of metaphase/anaphase transition of
+cell cycle</td>
+<td align="left">g48</td>
+<td align="right">0.0000141</td>
+<td align="right">6.526861</td>
+<td align="right">2.4750811</td>
+<td align="right">11</td>
+<td align="right">0.0017406</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">33.159596</td>
+<td align="right">0.3530683</td>
+<td align="right">8</td>
+<td align="right">0.0000004</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:1905818" class="uri">GO:1905818</a></td>
+<td align="left">regulation of chromosome separation</td>
+<td align="left">g48</td>
+<td align="right">0.0000203</td>
+<td align="right">4.653614</td>
+<td align="right">3.9601297</td>
+<td align="right">14</td>
+<td align="right">0.0023476</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">24.494617</td>
+<td align="right">0.5649093</td>
+<td align="right">10</td>
+<td align="right">0.0000001</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:1905819" class="uri">GO:1905819</a></td>
+<td align="left">negative regulation of chromosome separation</td>
+<td align="left">g48</td>
+<td align="right">0.0000141</td>
+<td align="right">6.526861</td>
+<td align="right">2.4750811</td>
+<td align="right">11</td>
+<td align="right">0.0017406</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">33.159596</td>
+<td align="right">0.3530683</td>
+<td align="right">8</td>
+<td align="right">0.0000004</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:2000816" class="uri">GO:2000816</a></td>
+<td align="left">negative regulation of mitotic sister chromatid
+separation</td>
+<td align="left">g48</td>
+<td align="right">0.0000097</td>
+<td align="right">6.890368</td>
+<td align="right">2.3925784</td>
+<td align="right">11</td>
+<td align="right">0.0012689</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">34.742857</td>
+<td align="right">0.3412994</td>
+<td align="right">8</td>
+<td align="right">0.0000003</td>
+<td align="right">98</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>regulation of chromosome
+segregation</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0007091" class="uri">GO:0007091</a></td>
+<td align="left">metaphase/anaphase transition of mitotic cell
+cycle</td>
+<td align="left">g48</td>
+<td align="right">0.0000397</td>
+<td align="right">4.038053</td>
+<td align="right">4.7026540</td>
+<td align="right">15</td>
+<td align="right">0.0040651</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">22.492004</td>
+<td align="right">0.6708298</td>
+<td align="right">11</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0030071" class="uri">GO:0030071</a></td>
+<td align="left">regulation of mitotic metaphase/anaphase
+transition</td>
+<td align="left">g48</td>
+<td align="right">0.0000317</td>
+<td align="right">4.137086</td>
+<td align="right">4.6201513</td>
+<td align="right">15</td>
+<td align="right">0.0034137</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">22.994636</td>
+<td align="right">0.6590609</td>
+<td align="right">11</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0033045" class="uri">GO:0033045</a></td>
+<td align="left">regulation of sister chromatid segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0000440</td>
+<td align="right">3.771485</td>
+<td align="right">5.2801729</td>
+<td align="right">16</td>
+<td align="right">0.0044352</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">21.941861</td>
+<td align="right">0.7532124</td>
+<td align="right">12</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0044784" class="uri">GO:0044784</a></td>
+<td align="left">metaphase/anaphase transition of cell cycle</td>
+<td align="left">g48</td>
+<td align="right">0.0000496</td>
+<td align="right">3.943625</td>
+<td align="right">4.7851567</td>
+<td align="right">15</td>
+<td align="right">0.0047576</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">22.010761</td>
+<td align="right">0.6825988</td>
+<td align="right">11</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0051983" class="uri">GO:0051983</a></td>
+<td align="left">regulation of chromosome segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0001630</td>
+<td align="right">3.152508</td>
+<td align="right">6.4352108</td>
+<td align="right">17</td>
+<td align="right">0.0128811</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">19.209412</td>
+<td align="right">0.9179777</td>
+<td align="right">13</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:1902099" class="uri">GO:1902099</a></td>
+<td align="left">regulation of metaphase/anaphase transition of cell
+cycle</td>
+<td align="left">g48</td>
+<td align="right">0.0000397</td>
+<td align="right">4.038053</td>
+<td align="right">4.7026540</td>
+<td align="right">15</td>
+<td align="right">0.0040651</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">22.492004</td>
+<td align="right">0.6708298</td>
+<td align="right">11</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>regulation of DNA biosynthetic
+process</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:2000278" class="uri">GO:2000278</a></td>
+<td align="left">regulation of DNA biosynthetic process</td>
+<td align="left">g10</td>
+<td align="right">0.0000002</td>
+<td align="right">5.271688</td>
+<td align="right">4.9501621</td>
+<td align="right">19</td>
+<td align="right">0.0000360</td>
+<td align="right">687</td>
+<td align="right">0.0053152</td>
+<td align="right">6.210486</td>
+<td align="right">0.7061367</td>
+<td align="right">4</td>
+<td align="right">0.2464644</td>
 <td align="right">98</td>
 <td align="right">14</td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"><strong>DNA conformation change</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0032508" class="uri">GO:0032508</a></td>
-<td align="left">DNA duplex unwinding</td>
+<td align="left"><a href="GO:2000573" class="uri">GO:2000573</a></td>
+<td align="left">positive regulation of DNA biosynthetic process</td>
 <td align="left">g10</td>
 <td align="right">0.0000000</td>
-<td align="right">7.162162</td>
-<td align="right">4.2720958</td>
-<td align="right">20</td>
-<td align="right">0.0000005</td>
-<td align="right">686</td>
-<td align="right">0.0000295</td>
-<td align="right">11.634215</td>
-<td align="right">0.6102994</td>
-<td align="right">6</td>
-<td align="right">0.0031932</td>
-<td align="right">98</td>
-<td align="right">15</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0032392" class="uri">GO:0032392</a></td>
-<td align="left">DNA geometric change</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">6.691228</td>
-<td align="right">4.6828743</td>
-<td align="right">21</td>
-<td align="right">0.0000005</td>
-<td align="right">686</td>
-<td align="right">0.0000040</td>
-<td align="right">12.618462</td>
-<td align="right">0.6689820</td>
-<td align="right">7</td>
-<td align="right">0.0005454</td>
-<td align="right">98</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0071103" class="uri">GO:0071103</a></td>
-<td align="left">DNA conformation change</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">5.730827</td>
-<td align="right">5.1758084</td>
-<td align="right">21</td>
-<td align="right">0.0000028</td>
-<td align="right">686</td>
-<td align="right">0.0000080</td>
-<td align="right">11.258242</td>
-<td align="right">0.7394012</td>
-<td align="right">7</td>
-<td align="right">0.0009519</td>
-<td align="right">98</td>
-<td align="right">15</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>regulation of spindle checkpoint</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="right">9.084948</td>
+<td align="right">2.9700973</td>
 <td align="right">16</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0090231" class="uri">GO:0090231</a></td>
-<td align="left">regulation of spindle checkpoint</td>
-<td align="left">g48</td>
-<td align="right">0.0000135</td>
-<td align="right">15.791753</td>
-<td align="right">0.9858683</td>
-<td align="right">7</td>
-<td align="right">0.0014139</td>
-<td align="right">686</td>
-<td align="right">0.0000001</td>
-<td align="right">63.325653</td>
-<td align="right">0.1408383</td>
-<td align="right">5</td>
-<td align="right">0.0000277</td>
+<td align="right">0.0000018</td>
+<td align="right">687</td>
+<td align="right">0.0667043</td>
+<td align="right">5.021446</td>
+<td align="right">0.4236820</td>
+<td align="right">2</td>
+<td align="right">1.0000000</td>
 <td align="right">98</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0090266" class="uri">GO:0090266</a></td>
-<td align="left">regulation of mitotic cell cycle spindle assembly
-checkpoint</td>
-<td align="left">g48</td>
-<td align="right">0.0000970</td>
-<td align="right">13.515882</td>
-<td align="right">0.9037126</td>
-<td align="right">6</td>
-<td align="right">0.0071487</td>
-<td align="right">686</td>
-<td align="right">0.0000055</td>
-<td align="right">50.121581</td>
-<td align="right">0.1291018</td>
-<td align="right">4</td>
-<td align="right">0.0006991</td>
-<td align="right">98</td>
-<td align="right">16</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:1903504" class="uri">GO:1903504</a></td>
-<td align="left">regulation of mitotic spindle checkpoint</td>
-<td align="left">g48</td>
-<td align="right">0.0000970</td>
-<td align="right">13.515882</td>
-<td align="right">0.9037126</td>
-<td align="right">6</td>
-<td align="right">0.0071487</td>
-<td align="right">686</td>
-<td align="right">0.0000055</td>
-<td align="right">50.121581</td>
-<td align="right">0.1291018</td>
-<td align="right">4</td>
-<td align="right">0.0006991</td>
-<td align="right">98</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>regulation of nuclear division</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">17</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0007088" class="uri">GO:0007088</a></td>
-<td align="left">regulation of mitotic nuclear division</td>
-<td align="left">g48</td>
-<td align="right">0.0001549</td>
-<td align="right">3.167218</td>
-<td align="right">6.4081437</td>
-<td align="right">17</td>
-<td align="right">0.0109028</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">15.446046</td>
-<td align="right">0.9154491</td>
-<td align="right">11</td>
-<td align="right">0.0000004</td>
-<td align="right">98</td>
-<td align="right">17</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0051783" class="uri">GO:0051783</a></td>
-<td align="left">regulation of nuclear division</td>
-<td align="left">g48</td>
-<td align="right">0.0006249</td>
-<td align="right">2.655067</td>
-<td align="right">7.8047904</td>
-<td align="right">18</td>
-<td align="right">0.0339568</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">12.294472</td>
-<td align="right">1.1149701</td>
-<td align="right">11</td>
-<td align="right">0.0000024</td>
-<td align="right">98</td>
-<td align="right">17</td>
+<td align="right">14</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -2130,210 +1877,46 @@ separation</strong></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">18</td>
+<td align="right">15</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:1901970" class="uri">GO:1901970</a></td>
 <td align="left">positive regulation of mitotic sister chromatid
 separation</td>
 <td align="left">g48</td>
-<td align="right">0.0130991</td>
-<td align="right">5.612903</td>
-<td align="right">0.9858683</td>
+<td align="right">0.0179681</td>
+<td align="right">4.965674</td>
+<td align="right">1.0725351</td>
 <td align="right">4</td>
-<td align="right">0.3579328</td>
-<td align="right">686</td>
-<td align="right">0.0000001</td>
-<td align="right">63.325653</td>
-<td align="right">0.1408383</td>
+<td align="right">0.4679284</td>
+<td align="right">687</td>
+<td align="right">0.0000002</td>
+<td align="right">55.248656</td>
+<td align="right">0.1529963</td>
 <td align="right">5</td>
-<td align="right">0.0000277</td>
+<td align="right">0.0000428</td>
 <td align="right">98</td>
-<td align="right">18</td>
+<td align="right">15</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:1905820" class="uri">GO:1905820</a></td>
 <td align="left">positive regulation of chromosome separation</td>
 <td align="left">g48</td>
-<td align="right">0.0202334</td>
-<td align="right">3.744004</td>
-<td align="right">1.6431138</td>
+<td align="right">0.0252188</td>
+<td align="right">3.493402</td>
+<td align="right">1.7325567</td>
 <td align="right">5</td>
-<td align="right">0.4518054</td>
-<td align="right">686</td>
-<td align="right">0.0000027</td>
-<td align="right">29.523298</td>
-<td align="right">0.2347305</td>
+<td align="right">0.5672621</td>
+<td align="right">687</td>
+<td align="right">0.0000036</td>
+<td align="right">27.597446</td>
+<td align="right">0.2471478</td>
 <td align="right">5</td>
-<td align="right">0.0003724</td>
+<td align="right">0.0004870</td>
 <td align="right">98</td>
-<td align="right">18</td>
+<td align="right">15</td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"><strong>meiotic chromosome segregation</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">19</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0045132" class="uri">GO:0045132</a></td>
-<td align="left">meiotic chromosome segregation</td>
-<td align="left">g48</td>
-<td align="right">0.0043544</td>
-<td align="right">3.273312</td>
-<td align="right">3.2862275</td>
-<td align="right">9</td>
-<td align="right">0.1620543</td>
-<td align="right">686</td>
-<td align="right">0.0000003</td>
-<td align="right">19.158508</td>
-<td align="right">0.4694611</td>
-<td align="right">7</td>
-<td align="right">0.0000545</td>
-<td align="right">98</td>
-<td align="right">19</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0045143" class="uri">GO:0045143</a></td>
-<td align="left">homologous chromosome segregation</td>
-<td align="left">g48</td>
-<td align="right">0.0112189</td>
-<td align="right">3.748039</td>
-<td align="right">1.9717365</td>
-<td align="right">6</td>
-<td align="right">0.3162607</td>
-<td align="right">686</td>
-<td align="right">0.0000072</td>
-<td align="right">23.296548</td>
-<td align="right">0.2816766</td>
-<td align="right">5</td>
-<td align="right">0.0008596</td>
-<td align="right">98</td>
-<td align="right">19</td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><strong>DNA-templated DNA replication maintenance of
-fidelity</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0031297" class="uri">GO:0031297</a></td>
-<td align="left">replication fork processing</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">10.555084</td>
-<td align="right">2.2182036</td>
-<td align="right">13</td>
-<td align="right">0.0000095</td>
-<td align="right">686</td>
-<td align="right">0.0037380</td>
-<td align="right">10.826316</td>
-<td align="right">0.3168862</td>
-<td align="right">3</td>
-<td align="right">0.1935512</td>
-<td align="right">98</td>
-<td align="right">20</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0045005" class="uri">GO:0045005</a></td>
-<td align="left">DNA-templated DNA replication maintenance of
-fidelity</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">11.414925</td>
-<td align="right">2.6289820</td>
-<td align="right">16</td>
-<td align="right">0.0000002</td>
-<td align="right">686</td>
-<td align="right">0.0060761</td>
-<td align="right">8.954265</td>
-<td align="right">0.3755689</td>
-<td align="right">3</td>
-<td align="right">0.2810139</td>
-<td align="right">98</td>
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>telomere organization</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">21</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0000723" class="uri">GO:0000723</a></td>
-<td align="left">telomere maintenance</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">5.286843</td>
-<td align="right">8.1334132</td>
-<td align="right">31</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0060263</td>
-<td align="right">4.665980</td>
-<td align="right">1.1619162</td>
-<td align="right">5</td>
-<td align="right">0.2805285</td>
-<td align="right">98</td>
-<td align="right">21</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0032200" class="uri">GO:0032200</a></td>
-<td align="left">telomere organization</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">5.768731</td>
-<td align="right">9.2014371</td>
-<td align="right">37</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0019702</td>
-<td align="right">5.011895</td>
-<td align="right">1.3144910</td>
-<td align="right">6</td>
-<td align="right">0.1181049</td>
-<td align="right">98</td>
-<td align="right">21</td>
-</tr>
-<tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>recombinational repair</strong></td>
 <td align="left"></td>
@@ -2349,105 +1932,48 @@ fidelity</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">22</td>
+<td align="right">16</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><a href="GO:0000724" class="uri">GO:0000724</a></td>
 <td align="left">double-strand break repair via homologous
 recombination</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">4.865326</td>
-<td align="right">7.4761677</td>
-<td align="right">27</td>
-<td align="right">0.0000006</td>
-<td align="right">686</td>
-<td align="right">0.0000010</td>
-<td align="right">10.075363</td>
-<td align="right">1.0680240</td>
-<td align="right">9</td>
-<td align="right">0.0001586</td>
+<td align="right">4.484967</td>
+<td align="right">8.8277891</td>
+<td align="right">30</td>
+<td align="right">0.0000004</td>
+<td align="right">687</td>
+<td align="right">0.0000004</td>
+<td align="right">9.526710</td>
+<td align="right">1.2592771</td>
+<td align="right">10</td>
+<td align="right">0.0000693</td>
 <td align="right">98</td>
-<td align="right">22</td>
+<td align="right">16</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><a href="GO:0000725" class="uri">GO:0000725</a></td>
 <td align="left">recombinational repair</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">4.974795</td>
-<td align="right">7.6404790</td>
-<td align="right">28</td>
+<td align="right">4.581418</td>
+<td align="right">8.9927945</td>
+<td align="right">31</td>
 <td align="right">0.0000002</td>
-<td align="right">686</td>
-<td align="right">0.0000012</td>
-<td align="right">9.833066</td>
-<td align="right">1.0914970</td>
-<td align="right">9</td>
-<td align="right">0.0001831</td>
+<td align="right">687</td>
+<td align="right">0.0000005</td>
+<td align="right">9.331956</td>
+<td align="right">1.2828149</td>
+<td align="right">10</td>
+<td align="right">0.0000797</td>
 <td align="right">98</td>
-<td align="right">22</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>regulation of cyclin-dependent protein kinase
-activity</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">23</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0000079" class="uri">GO:0000079</a></td>
-<td align="left">regulation of cyclin-dependent protein serine/threonine
-kinase activity</td>
-<td align="left">g48</td>
-<td align="right">0.0003254</td>
-<td align="right">3.591454</td>
-<td align="right">4.4364072</td>
-<td align="right">13</td>
-<td align="right">0.0200435</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">15.857005</td>
-<td align="right">0.6337725</td>
-<td align="right">8</td>
-<td align="right">0.0000330</td>
-<td align="right">98</td>
-<td align="right">23</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:1904029" class="uri">GO:1904029</a></td>
-<td align="left">regulation of cyclin-dependent protein kinase
-activity</td>
-<td align="left">g48</td>
-<td align="right">0.0003947</td>
-<td align="right">3.505484</td>
-<td align="right">4.5185629</td>
-<td align="right">13</td>
-<td align="right">0.0233513</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">15.517731</td>
-<td align="right">0.6455090</td>
-<td align="right">8</td>
-<td align="right">0.0000368</td>
-<td align="right">98</td>
-<td align="right">23</td>
+<td align="right">16</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td align="left"><strong>microtubule-based process</strong></td>
+<td align="left"><strong>DNA replication</strong></td>
 <td align="left"></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -2461,97 +1987,97 @@ activity</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">24</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0000226" class="uri">GO:0000226</a></td>
-<td align="left">microtubule cytoskeleton organization</td>
-<td align="left">g48</td>
-<td align="right">0.0000108</td>
-<td align="right">2.096531</td>
-<td align="right">26.8649102</td>
-<td align="right">50</td>
-<td align="right">0.0011654</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">5.376902</td>
-<td align="right">3.8378443</td>
 <td align="right">17</td>
-<td align="right">0.0000360</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0006260" class="uri">GO:0006260</a></td>
+<td align="left">DNA replication</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">6.904838</td>
+<td align="right">14.5204756</td>
+<td align="right">64</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">10.652225</td>
+<td align="right">2.0713342</td>
+<td align="right">17</td>
+<td align="right">0.0000000</td>
 <td align="right">98</td>
-<td align="right">24</td>
+<td align="right">17</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0007017" class="uri">GO:0007017</a></td>
-<td align="left">microtubule-based process</td>
-<td align="left">g48</td>
-<td align="right">0.0001646</td>
-<td align="right">1.749803</td>
-<td align="right">37.6273054</td>
-<td align="right">60</td>
-<td align="right">0.0115335</td>
-<td align="right">686</td>
-<td align="right">0.0000050</td>
-<td align="right">3.994773</td>
-<td align="right">5.3753293</td>
+<td align="left"><a href="GO:0006261" class="uri">GO:0006261</a></td>
+<td align="left">DNA-templated DNA replication</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">9.333025</td>
+<td align="right">8.9927945</td>
+<td align="right">48</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000001</td>
+<td align="right">10.490382</td>
+<td align="right">1.2828149</td>
+<td align="right">11</td>
+<td align="right">0.0000097</td>
+<td align="right">98</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>regulation of nuclear division</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">18</td>
-<td align="right">0.0006576</td>
-<td align="right">98</td>
-<td align="right">24</td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><strong>cell cycle DNA replication</strong></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">25</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0033260" class="uri">GO:0033260</a></td>
-<td align="left">nuclear DNA replication</td>
-<td align="left">g10,g48</td>
+<td align="left"><a href="GO:0007088" class="uri">GO:0007088</a></td>
+<td align="left">regulation of mitotic nuclear division</td>
+<td align="left">g48</td>
+<td align="right">0.0002256</td>
+<td align="right">3.051623</td>
+<td align="right">6.6002162</td>
+<td align="right">17</td>
+<td align="right">0.0168703</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">10.623611</td>
-<td align="right">2.3825150</td>
-<td align="right">14</td>
-<td align="right">0.0000031</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">34.840212</td>
-<td align="right">0.3403593</td>
-<td align="right">8</td>
-<td align="right">0.0000003</td>
+<td align="right">14.952524</td>
+<td align="right">0.9415156</td>
+<td align="right">11</td>
+<td align="right">0.0000005</td>
 <td align="right">98</td>
-<td align="right">25</td>
+<td align="right">18</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="GO:0044786" class="uri">GO:0044786</a></td>
-<td align="left">cell cycle DNA replication</td>
-<td align="left">g10,g48</td>
+<td align="left"><a href="GO:0051783" class="uri">GO:0051783</a></td>
+<td align="left">regulation of nuclear division</td>
+<td align="left">g48</td>
+<td align="right">0.0008491</td>
+<td align="right">2.575126</td>
+<td align="right">8.0027621</td>
+<td align="right">18</td>
+<td align="right">0.0496320</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">9.958333</td>
-<td align="right">2.4646707</td>
-<td align="right">14</td>
-<td align="right">0.0000050</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">33.252525</td>
-<td align="right">0.3520958</td>
-<td align="right">8</td>
-<td align="right">0.0000003</td>
+<td align="right">11.971799</td>
+<td align="right">1.1415876</td>
+<td align="right">11</td>
+<td align="right">0.0000032</td>
 <td align="right">98</td>
-<td align="right">25</td>
+<td align="right">18</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -2570,45 +2096,430 @@ process</strong></td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">26</td>
+<td align="right">19</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="GO:0051054" class="uri">GO:0051054</a></td>
 <td align="left">positive regulation of DNA metabolic process</td>
 <td align="left">g10</td>
 <td align="right">0.0000000</td>
-<td align="right">3.342234</td>
-<td align="right">16.2668263</td>
-<td align="right">44</td>
-<td align="right">0.0000002</td>
-<td align="right">686</td>
-<td align="right">0.0022034</td>
-<td align="right">3.771696</td>
-<td align="right">2.3238323</td>
-<td align="right">8</td>
-<td align="right">0.1290505</td>
+<td align="right">3.413823</td>
+<td align="right">15.2629999</td>
+<td align="right">42</td>
+<td align="right">0.0000003</td>
+<td align="right">687</td>
+<td align="right">0.0060259</td>
+<td align="right">3.479257</td>
+<td align="right">2.1772547</td>
+<td align="right">7</td>
+<td align="right">0.2636052</td>
 <td align="right">98</td>
-<td align="right">26</td>
+<td align="right">19</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="GO:0051052" class="uri">GO:0051052</a></td>
 <td align="left">regulation of DNA metabolic process</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.707851</td>
-<td align="right">26.4541317</td>
+<td align="right">2.876259</td>
+<td align="right">25.2458268</td>
 <td align="right">60</td>
+<td align="right">0.0000001</td>
+<td align="right">687</td>
+<td align="right">0.0000005</td>
+<td align="right">5.341632</td>
+<td align="right">3.6012970</td>
+<td align="right">16</td>
+<td align="right">0.0000723</td>
+<td align="right">98</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>positive regulation of ubiquitin-protein
+transferase activity</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0051443" class="uri">GO:0051443</a></td>
+<td align="left">positive regulation of ubiquitin-protein transferase
+activity</td>
+<td align="left">g48</td>
+<td align="right">0.1365378</td>
+<td align="right">3.714842</td>
+<td align="right">0.6600216</td>
+<td align="right">2</td>
+<td align="right">1.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000012</td>
+<td align="right">87.500000</td>
+<td align="right">0.0941516</td>
+<td align="right">4</td>
+<td align="right">0.0001747</td>
+<td align="right">98</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:1904668" class="uri">GO:1904668</a></td>
+<td align="left">positive regulation of ubiquitin protein ligase
+activity</td>
+<td align="left">g48</td>
+<td align="right">0.0815704</td>
+<td align="right">5.573723</td>
+<td align="right">0.4950162</td>
+<td align="right">2</td>
+<td align="right">0.9188912</td>
+<td align="right">687</td>
 <td align="right">0.0000003</td>
-<td align="right">686</td>
-<td align="right">0.0000045</td>
-<td align="right">4.677014</td>
-<td align="right">3.7791617</td>
+<td align="right">175.042553</td>
+<td align="right">0.0706137</td>
+<td align="right">4</td>
+<td align="right">0.0000456</td>
+<td align="right">98</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>meiotic chromosome segregation</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0045132" class="uri">GO:0045132</a></td>
+<td align="left">meiotic chromosome segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0044778</td>
+<td align="right">3.258207</td>
+<td align="right">3.3001081</td>
+<td align="right">9</td>
+<td align="right">0.1837478</td>
+<td align="right">687</td>
+<td align="right">0.0000003</td>
+<td align="right">19.104895</td>
+<td align="right">0.4707578</td>
+<td align="right">7</td>
+<td align="right">0.0000553</td>
+<td align="right">98</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0045143" class="uri">GO:0045143</a></td>
+<td align="left">homologous chromosome segregation</td>
+<td align="left">g48</td>
+<td align="right">0.0114429</td>
+<td align="right">3.730788</td>
+<td align="right">1.9800648</td>
+<td align="right">6</td>
+<td align="right">0.3553170</td>
+<td align="right">687</td>
+<td align="right">0.0000073</td>
+<td align="right">23.231466</td>
+<td align="right">0.2824547</td>
+<td align="right">5</td>
+<td align="right">0.0009257</td>
+<td align="right">98</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>telomere organization</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0000723" class="uri">GO:0000723</a></td>
+<td align="left">telomere maintenance</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">5.283315</td>
+<td align="right">8.4152756</td>
+<td align="right">32</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0069056</td>
+<td align="right">4.507261</td>
+<td align="right">1.2004323</td>
+<td align="right">5</td>
+<td align="right">0.2946732</td>
+<td align="right">98</td>
+<td align="right">22</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0032200" class="uri">GO:0032200</a></td>
+<td align="left">telomere organization</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">5.503759</td>
+<td align="right">9.2403026</td>
+<td align="right">36</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0019975</td>
+<td align="right">4.997744</td>
+<td align="right">1.3181218</td>
+<td align="right">6</td>
+<td align="right">0.1129586</td>
+<td align="right">98</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>mitotic DNA integrity checkpoint
+signaling</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0044773" class="uri">GO:0044773</a></td>
+<td align="left">mitotic DNA damage checkpoint signaling</td>
+<td align="left">g10</td>
+<td align="right">0.0000001</td>
+<td align="right">7.263189</td>
+<td align="right">3.3826108</td>
+<td align="right">16</td>
+<td align="right">0.0000137</td>
+<td align="right">687</td>
+<td align="right">0.0013084</td>
+<td align="right">9.421507</td>
+<td align="right">0.4825267</td>
+<td align="right">4</td>
+<td align="right">0.0825711</td>
+<td align="right">98</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0044774" class="uri">GO:0044774</a></td>
+<td align="left">mitotic DNA integrity checkpoint signaling</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">7.154284</td>
+<td align="right">3.6301189</td>
+<td align="right">17</td>
+<td align="right">0.0000065</td>
+<td align="right">687</td>
+<td align="right">0.0001538</td>
+<td align="right">11.290323</td>
+<td align="right">0.5178336</td>
+<td align="right">5</td>
+<td align="right">0.0144605</td>
+<td align="right">98</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>positive regulation of chromosome
+organization</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">24</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0032206" class="uri">GO:0032206</a></td>
+<td align="left">positive regulation of telomere maintenance</td>
+<td align="left">g10</td>
+<td align="right">0.0000053</td>
+<td align="right">4.993435</td>
+<td align="right">4.0426324</td>
 <td align="right">15</td>
-<td align="right">0.0005989</td>
+<td align="right">0.0008188</td>
+<td align="right">687</td>
+<td align="right">0.4411013</td>
+<td align="right">1.757088</td>
+<td align="right">0.5766783</td>
+<td align="right">1</td>
+<td align="right">1.0000000</td>
+<td align="right">98</td>
+<td align="right">24</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:2001252" class="uri">GO:2001252</a></td>
+<td align="left">positive regulation of chromosome organization</td>
+<td align="left">g10</td>
+<td align="right">0.0000008</td>
+<td align="right">4.375505</td>
+<td align="right">5.9401945</td>
+<td align="right">20</td>
+<td align="right">0.0001587</td>
+<td align="right">687</td>
+<td align="right">0.0526481</td>
+<td align="right">3.734554</td>
+<td align="right">0.8473640</td>
+<td align="right">3</td>
+<td align="right">0.9611395</td>
+<td align="right">98</td>
+<td align="right">24</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong>cell cycle DNA replication</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="GO:0033260" class="uri">GO:0033260</a></td>
+<td align="left">nuclear DNA replication</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">10.636161</td>
+<td align="right">2.5575838</td>
+<td align="right">15</td>
+<td align="right">0.0000013</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">37.723698</td>
+<td align="right">0.3648373</td>
+<td align="right">9</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0044786" class="uri">GO:0044786</a></td>
+<td align="left">cell cycle DNA replication</td>
+<td align="left">g10,g48</td>
+<td align="right">0.0000000</td>
+<td align="right">10.009191</td>
+<td align="right">2.6400865</td>
+<td align="right">15</td>
+<td align="right">0.0000021</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">36.079140</td>
+<td align="right">0.3766062</td>
+<td align="right">9</td>
+<td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong>DNA-templated DNA replication maintenance of
+fidelity</strong></td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">26</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0031297" class="uri">GO:0031297</a></td>
+<td align="left">replication fork processing</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">10.177298</td>
+<td align="right">2.9700973</td>
+<td align="right">17</td>
+<td align="right">0.0000002</td>
+<td align="right">687</td>
+<td align="right">0.0007960</td>
+<td align="right">10.900266</td>
+<td align="right">0.4236820</td>
+<td align="right">4</td>
+<td align="right">0.0577893</td>
 <td align="right">98</td>
 <td align="right">26</td>
 </tr>
 <tr class="even">
+<td align="left"><a href="GO:0045005" class="uri">GO:0045005</a></td>
+<td align="left">DNA-templated DNA replication maintenance of
+fidelity</td>
+<td align="left">g10</td>
+<td align="right">0.0000000</td>
+<td align="right">10.319433</td>
+<td align="right">3.3001081</td>
+<td align="right">19</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0011914</td>
+<td align="right">9.684397</td>
+<td align="right">0.4707578</td>
+<td align="right">4</td>
+<td align="right">0.0789242</td>
+<td align="right">98</td>
+<td align="right">26</td>
+</tr>
+<tr class="odd">
 <td align="left"></td>
 <td align="left"><strong>other</strong></td>
 <td align="left"></td>
@@ -2626,21 +2537,39 @@ process</strong></td>
 <td align="right">NA</td>
 <td align="right">27</td>
 </tr>
+<tr class="even">
+<td align="left"><a href="GO:0000082" class="uri">GO:0000082</a></td>
+<td align="left">G1/S transition of mitotic cell cycle</td>
+<td align="left">g10</td>
+<td align="right">0.0000045</td>
+<td align="right">2.837466</td>
+<td align="right">12.4579080</td>
+<td align="right">30</td>
+<td align="right">0.0007149</td>
+<td align="right">687</td>
+<td align="right">0.0000102</td>
+<td align="right">6.518375</td>
+<td align="right">1.7771106</td>
+<td align="right">10</td>
+<td align="right">0.0012229</td>
+<td align="right">98</td>
+<td align="right">27</td>
+</tr>
 <tr class="odd">
 <td align="left"><a href="GO:0000731" class="uri">GO:0000731</a></td>
 <td align="left">DNA synthesis involved in DNA repair</td>
 <td align="left">g10</td>
-<td align="right">0.0000002</td>
-<td align="right">12.473185</td>
-<td align="right">1.7252695</td>
+<td align="right">0.0000003</td>
+<td align="right">11.285503</td>
+<td align="right">1.8150594</td>
 <td align="right">11</td>
-<td align="right">0.0000312</td>
-<td align="right">686</td>
-<td align="right">0.0247685</td>
-<td align="right">9.027412</td>
-<td align="right">0.2464671</td>
+<td align="right">0.0000691</td>
+<td align="right">687</td>
+<td align="right">0.0271782</td>
+<td align="right">8.551042</td>
+<td align="right">0.2589168</td>
 <td align="right">2</td>
-<td align="right">0.6459254</td>
+<td align="right">0.6703483</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2649,16 +2578,16 @@ process</strong></td>
 <td align="left">DNA replication initiation</td>
 <td align="left">g10</td>
 <td align="right">0.0000000</td>
-<td align="right">14.254843</td>
-<td align="right">2.2182036</td>
+<td align="right">14.188988</td>
+<td align="right">2.2275730</td>
 <td align="right">15</td>
 <td align="right">0.0000001</td>
-<td align="right">686</td>
-<td align="right">0.0000132</td>
-<td align="right">20.112414</td>
-<td align="right">0.3168862</td>
+<td align="right">687</td>
+<td align="right">0.0000134</td>
+<td align="right">20.056207</td>
+<td align="right">0.3177615</td>
 <td align="right">5</td>
-<td align="right">0.0014995</td>
+<td align="right">0.0015661</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2667,142 +2596,70 @@ process</strong></td>
 <td align="left">DNA strand elongation involved in DNA replication</td>
 <td align="left">g10</td>
 <td align="right">0.0000000</td>
-<td align="right">74.001486</td>
-<td align="right">1.2323353</td>
+<td align="right">73.660237</td>
+<td align="right">1.2375405</td>
 <td align="right">13</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0006439</td>
-<td align="right">21.684210</td>
-<td align="right">0.1760479</td>
+<td align="right">687</td>
+<td align="right">0.0006491</td>
+<td align="right">21.623684</td>
+<td align="right">0.1765342</td>
 <td align="right">3</td>
-<td align="right">0.0481780</td>
+<td align="right">0.0493398</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="GO:0006284" class="uri">GO:0006284</a></td>
-<td align="left">base-excision repair</td>
-<td align="left">g10</td>
-<td align="right">0.0000042</td>
-<td align="right">6.804748</td>
-<td align="right">2.6289820</td>
-<td align="right">12</td>
-<td align="right">0.0005366</td>
-<td align="right">686</td>
-<td align="right">0.0004986</td>
-<td align="right">12.498480</td>
-<td align="right">0.3755689</td>
-<td align="right">4</td>
-<td align="right">0.0393665</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
 <td align="left"><a href="GO:0006298" class="uri">GO:0006298</a></td>
 <td align="left">mismatch repair</td>
 <td align="left">g10</td>
-<td align="right">0.0000005</td>
-<td align="right">9.078932</td>
-<td align="right">2.2182036</td>
+<td align="right">0.0000008</td>
+<td align="right">8.471111</td>
+<td align="right">2.3100757</td>
 <td align="right">12</td>
-<td align="right">0.0000798</td>
-<td align="right">686</td>
-<td align="right">0.0395659</td>
-<td align="right">6.855833</td>
-<td align="right">0.3168862</td>
+<td align="right">0.0001566</td>
+<td align="right">687</td>
+<td align="right">0.0425010</td>
+<td align="right">6.572917</td>
+<td align="right">0.3295304</td>
 <td align="right">2</td>
-<td align="right">0.8451971</td>
+<td align="right">0.8519193</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><a href="GO:0006301" class="uri">GO:0006301</a></td>
 <td align="left">postreplication repair</td>
 <td align="left">g10</td>
-<td align="right">0.0000040</td>
-<td align="right">11.307238</td>
-<td align="right">1.4788024</td>
+<td align="right">0.0000041</td>
+<td align="right">11.255162</td>
+<td align="right">1.4850486</td>
 <td align="right">9</td>
-<td align="right">0.0005330</td>
-<td align="right">686</td>
-<td align="right">0.0184606</td>
-<td align="right">10.723958</td>
-<td align="right">0.2112575</td>
+<td align="right">0.0006778</td>
+<td align="right">687</td>
+<td align="right">0.0185565</td>
+<td align="right">10.694010</td>
+<td align="right">0.2118410</td>
 <td align="right">2</td>
-<td align="right">0.5710414</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0006325" class="uri">GO:0006325</a></td>
-<td align="left">chromatin organization</td>
-<td align="left">g10</td>
-<td align="right">0.0000054</td>
-<td align="right">1.952228</td>
-<td align="right">37.3808383</td>
-<td align="right">65</td>
-<td align="right">0.0006764</td>
-<td align="right">686</td>
-<td align="right">0.0854652</td>
-<td align="right">1.769890</td>
-<td align="right">5.3401198</td>
-<td align="right">9</td>
-<td align="right">1.0000000</td>
+<td align="right">0.5551394</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="GO:0009411" class="uri">GO:0009411</a></td>
-<td align="left">response to UV</td>
-<td align="left">g10</td>
-<td align="right">0.0000084</td>
-<td align="right">3.157412</td>
-<td align="right">9.1192814</td>
-<td align="right">24</td>
-<td align="right">0.0009772</td>
-<td align="right">686</td>
-<td align="right">0.0018822</td>
-<td align="right">5.060248</td>
-<td align="right">1.3027545</td>
-<td align="right">6</td>
-<td align="right">0.1169500</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
 <td align="left"><a href="GO:0022616" class="uri">GO:0022616</a></td>
 <td align="left">DNA strand elongation</td>
 <td align="left">g10</td>
 <td align="right">0.0000000</td>
-<td align="right">18.278209</td>
-<td align="right">2.1360479</td>
+<td align="right">18.193741</td>
+<td align="right">2.1450703</td>
 <td align="right">16</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0033510</td>
-<td align="right">11.298398</td>
-<td align="right">0.3051497</td>
+<td align="right">687</td>
+<td align="right">0.0033770</td>
+<td align="right">11.266819</td>
+<td align="right">0.3059926</td>
 <td align="right">3</td>
-<td align="right">0.1820863</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0034502" class="uri">GO:0034502</a></td>
-<td align="left">protein localization to chromosome</td>
-<td align="left">g10</td>
-<td align="right">0.0000000</td>
-<td align="right">4.712993</td>
-<td align="right">6.4902994</td>
-<td align="right">23</td>
-<td align="right">0.0000091</td>
-<td align="right">686</td>
-<td align="right">0.0137047</td>
-<td align="right">4.639433</td>
-<td align="right">0.9271856</td>
-<td align="right">4</td>
-<td align="right">0.4608316</td>
+<td align="right">0.1702075</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2810,126 +2667,90 @@ process</strong></td>
 <td align="left"><a href="GO:0042770" class="uri">GO:0042770</a></td>
 <td align="left">signal transduction in response to DNA damage</td>
 <td align="left">g10</td>
-<td align="right">0.0000007</td>
-<td align="right">3.319588</td>
-<td align="right">10.2694611</td>
-<td align="right">28</td>
-<td align="right">0.0001099</td>
-<td align="right">686</td>
-<td align="right">0.0034199</td>
-<td align="right">4.457253</td>
-<td align="right">1.4670659</td>
+<td align="right">0.0000012</td>
+<td align="right">3.132506</td>
+<td align="right">11.1378648</td>
+<td align="right">29</td>
+<td align="right">0.0002256</td>
+<td align="right">687</td>
+<td align="right">0.0050543</td>
+<td align="right">4.095046</td>
+<td align="right">1.5888075</td>
 <td align="right">6</td>
-<td align="right">0.1830496</td>
+<td align="right">0.2359415</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="GO:1901293" class="uri">GO:1901293</a></td>
-<td align="left">nucleoside phosphate biosynthetic process</td>
+<td align="left"><a href="GO:0071897" class="uri">GO:0071897</a></td>
+<td align="left">DNA biosynthetic process</td>
 <td align="left">g10</td>
-<td align="right">0.0000066</td>
-<td align="right">2.537702</td>
-<td align="right">15.9382036</td>
-<td align="right">35</td>
-<td align="right">0.0007776</td>
-<td align="right">686</td>
-<td align="right">0.0262784</td>
-<td align="right">2.797410</td>
-<td align="right">2.2768862</td>
-<td align="right">6</td>
-<td align="right">0.6791041</td>
+<td align="right">0.0000000</td>
+<td align="right">6.618081</td>
+<td align="right">8.6627837</td>
+<td align="right">38</td>
+<td align="right">0.0000000</td>
+<td align="right">687</td>
+<td align="right">0.0000301</td>
+<td align="right">7.452005</td>
+<td align="right">1.2357392</td>
+<td align="right">8</td>
+<td align="right">0.0031727</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:1901976" class="uri">GO:1901976</a></td>
-<td align="left">regulation of cell cycle checkpoint</td>
+<td align="left"><a href="GO:1901293" class="uri">GO:1901293</a></td>
+<td align="left">nucleoside phosphate biosynthetic process</td>
 <td align="left">g10</td>
-<td align="right">0.0000003</td>
-<td align="right">9.728699</td>
-<td align="right">2.1360479</td>
-<td align="right">12</td>
-<td align="right">0.0000487</td>
-<td align="right">686</td>
-<td align="right">0.0000109</td>
-<td align="right">21.072709</td>
-<td align="right">0.3051497</td>
-<td align="right">5</td>
-<td align="right">0.0012601</td>
+<td align="right">0.0000049</td>
+<td align="right">2.468761</td>
+<td align="right">17.7380809</td>
+<td align="right">38</td>
+<td align="right">0.0007709</td>
+<td align="right">687</td>
+<td align="right">0.0408801</td>
+<td align="right">2.502600</td>
+<td align="right">2.5303230</td>
+<td align="right">6</td>
+<td align="right">0.8306317</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
+<td align="left"><a href="GO:1901976" class="uri">GO:1901976</a></td>
+<td align="left">regulation of cell cycle checkpoint</td>
+<td align="left">g10</td>
+<td align="right">0.0000013</td>
+<td align="right">7.971765</td>
+<td align="right">2.3925784</td>
+<td align="right">12</td>
+<td align="right">0.0002276</td>
+<td align="right">687</td>
+<td align="right">0.0000193</td>
+<td align="right">18.380376</td>
+<td align="right">0.3412994</td>
+<td align="right">5</td>
+<td align="right">0.0021355</td>
+<td align="right">98</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="GO:0000727" class="uri">GO:0000727</a></td>
 <td align="left">double-strand break repair via break-induced
 replication</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000002</td>
-<td align="right">79.000000</td>
-<td align="right">0.6572455</td>
+<td align="right">78.636765</td>
+<td align="right">0.6600216</td>
 <td align="right">7</td>
-<td align="right">0.0000322</td>
-<td align="right">686</td>
+<td align="right">0.0000402</td>
+<td align="right">687</td>
 <td align="right">0.0000012</td>
-<td align="right">87.744681</td>
-<td align="right">0.0938922</td>
+<td align="right">87.500000</td>
+<td align="right">0.0941516</td>
 <td align="right">4</td>
-<td align="right">0.0001794</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0006260" class="uri">GO:0006260</a></td>
-<td align="left">DNA replication</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">7.141972</td>
-<td align="right">13.9664671</td>
-<td align="right">63</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">11.109739</td>
-<td align="right">1.9952096</td>
-<td align="right">17</td>
-<td align="right">0.0000000</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="GO:0006261" class="uri">GO:0006261</a></td>
-<td align="left">DNA-templated DNA replication</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">10.562406</td>
-<td align="right">8.2155689</td>
-<td align="right">47</td>
-<td align="right">0.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000002</td>
-<td align="right">10.305556</td>
-<td align="right">1.1736527</td>
-<td align="right">10</td>
-<td align="right">0.0000393</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0006268" class="uri">GO:0006268</a></td>
-<td align="left">DNA unwinding involved in DNA replication</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">27.272404</td>
-<td align="right">1.3966467</td>
-<td align="right">12</td>
-<td align="right">0.0000001</td>
-<td align="right">686</td>
-<td align="right">0.0000011</td>
-<td align="right">36.917563</td>
-<td align="right">0.1995210</td>
-<td align="right">5</td>
-<td align="right">0.0001673</td>
+<td align="right">0.0001747</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2937,17 +2758,17 @@ replication</td>
 <td align="left"><a href="GO:0006275" class="uri">GO:0006275</a></td>
 <td align="left">regulation of DNA replication</td>
 <td align="left">g10,g48</td>
+<td align="right">0.0000013</td>
+<td align="right">4.212338</td>
+<td align="right">6.1052000</td>
+<td align="right">20</td>
+<td align="right">0.0002363</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">5.047509</td>
-<td align="right">6.7367665</td>
-<td align="right">25</td>
-<td align="right">0.0000011</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">14.568723</td>
-<td align="right">0.9623952</td>
-<td align="right">11</td>
-<td align="right">0.0000006</td>
+<td align="right">14.497514</td>
+<td align="right">0.8709019</td>
+<td align="right">10</td>
+<td align="right">0.0000028</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2956,16 +2777,16 @@ replication</td>
 <td align="left">DNA repair</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.835524</td>
-<td align="right">28.2615569</td>
-<td align="right">82</td>
+<td align="right">3.767273</td>
+<td align="right">29.7834754</td>
+<td align="right">85</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">5.866134</td>
-<td align="right">4.0373653</td>
+<td align="right">5.546413</td>
+<td align="right">4.2485889</td>
 <td align="right">19</td>
-<td align="right">0.0000027</td>
+<td align="right">0.0000061</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2974,16 +2795,16 @@ replication</td>
 <td align="left">double-strand break repair</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.674703</td>
-<td align="right">13.7200000</td>
-<td align="right">40</td>
+<td align="right">3.576974</td>
+<td align="right">15.0979945</td>
+<td align="right">43</td>
 <td align="right">0.0000001</td>
-<td align="right">686</td>
-<td align="right">0.0000001</td>
-<td align="right">8.042322</td>
-<td align="right">1.9600000</td>
+<td align="right">687</td>
+<td align="right">0.0000002</td>
+<td align="right">7.250311</td>
+<td align="right">2.1537168</td>
 <td align="right">13</td>
-<td align="right">0.0000124</td>
+<td align="right">0.0000346</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -2992,16 +2813,16 @@ replication</td>
 <td align="left">DNA recombination</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.729589</td>
-<td align="right">14.6237126</td>
-<td align="right">43</td>
+<td align="right">3.607890</td>
+<td align="right">16.0880269</td>
+<td align="right">46</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000001</td>
-<td align="right">7.495971</td>
-<td align="right">2.0891018</td>
-<td align="right">13</td>
-<td align="right">0.0000256</td>
+<td align="right">7.410681</td>
+<td align="right">2.2949442</td>
+<td align="right">14</td>
+<td align="right">0.0000104</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3010,16 +2831,16 @@ replication</td>
 <td align="left">regulation of cell cycle process</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.356025</td>
-<td align="right">35.2447904</td>
-<td align="right">71</td>
-<td align="right">0.0000013</td>
-<td align="right">686</td>
+<td align="right">2.293814</td>
+<td align="right">36.5486970</td>
+<td align="right">72</td>
+<td align="right">0.0000029</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">5.243315</td>
-<td align="right">5.0349701</td>
+<td align="right">5.045454</td>
+<td align="right">5.2136424</td>
 <td align="right">21</td>
-<td align="right">0.0000035</td>
+<td align="right">0.0000062</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3029,16 +2850,16 @@ replication</td>
 initiation</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000003</td>
-<td align="right">30.131760</td>
-<td align="right">0.9037126</td>
+<td align="right">29.993127</td>
+<td align="right">0.9075297</td>
 <td align="right">8</td>
-<td align="right">0.0000459</td>
-<td align="right">686</td>
-<td align="right">0.0000055</td>
-<td align="right">50.121581</td>
-<td align="right">0.1291018</td>
+<td align="right">0.0000565</td>
+<td align="right">687</td>
+<td align="right">0.0000056</td>
+<td align="right">49.981763</td>
+<td align="right">0.1294584</td>
 <td align="right">4</td>
-<td align="right">0.0006991</td>
+<td align="right">0.0007475</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3046,17 +2867,17 @@ initiation</td>
 <td align="left"><a href="GO:0033044" class="uri">GO:0033044</a></td>
 <td align="left">regulation of chromosome organization</td>
 <td align="left">g10,g48</td>
-<td align="right">0.0000001</td>
-<td align="right">3.306310</td>
-<td align="right">12.5698204</td>
-<td align="right">34</td>
-<td align="right">0.0000110</td>
-<td align="right">686</td>
 <td align="right">0.0000000</td>
-<td align="right">9.727818</td>
-<td align="right">1.7956886</td>
-<td align="right">14</td>
-<td align="right">0.0000006</td>
+<td align="right">3.555713</td>
+<td align="right">12.6229134</td>
+<td align="right">36</td>
+<td align="right">0.0000016</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">8.836723</td>
+<td align="right">1.8006485</td>
+<td align="right">13</td>
+<td align="right">0.0000049</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3065,15 +2886,15 @@ initiation</td>
 <td align="left">chromosome organization</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">4.344828</td>
-<td align="right">29.5760479</td>
-<td align="right">93</td>
+<td align="right">3.786010</td>
+<td align="right">27.0608863</td>
+<td align="right">78</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">10.057752</td>
-<td align="right">4.2251497</td>
-<td align="right">29</td>
+<td align="right">8.958362</td>
+<td align="right">3.8602138</td>
+<td align="right">25</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
 <td align="right">27</td>
@@ -3083,70 +2904,70 @@ initiation</td>
 <td align="left">cell division</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">2.376914</td>
-<td align="right">31.3834731</td>
+<td align="right">2.312187</td>
+<td align="right">32.0935511</td>
 <td align="right">64</td>
-<td align="right">0.0000041</td>
-<td align="right">686</td>
+<td align="right">0.0000112</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">7.573577</td>
-<td align="right">4.4833533</td>
-<td align="right">25</td>
+<td align="right">7.825069</td>
+<td align="right">4.5781194</td>
+<td align="right">26</td>
 <td align="right">0.0000000</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0090329" class="uri">GO:0090329</a></td>
-<td align="left">regulation of DNA-templated DNA replication</td>
-<td align="left">g10,g48</td>
-<td align="right">0.0000000</td>
-<td align="right">11.399404</td>
-<td align="right">2.4646707</td>
-<td align="right">15</td>
-<td align="right">0.0000006</td>
-<td align="right">686</td>
-<td align="right">0.0000011</td>
-<td align="right">22.358696</td>
-<td align="right">0.3520958</td>
-<td align="right">6</td>
-<td align="right">0.0001610</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="even">
 <td align="left"><a href="GO:1902969" class="uri">GO:1902969</a></td>
 <td align="left">mitotic DNA replication</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">22.659763</td>
-<td align="right">1.2323353</td>
-<td align="right">10</td>
-<td align="right">0.0000057</td>
-<td align="right">686</td>
-<td align="right">0.0000005</td>
-<td align="right">44.311828</td>
-<td align="right">0.1760479</td>
-<td align="right">5</td>
-<td align="right">0.0000864</td>
+<td align="right">20.703649</td>
+<td align="right">1.4025459</td>
+<td align="right">11</td>
+<td align="right">0.0000025</td>
+<td align="right">687</td>
+<td align="right">0.0000000</td>
+<td align="right">48.723320</td>
+<td align="right">0.2000721</td>
+<td align="right">6</td>
+<td align="right">0.0000053</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><a href="GO:1903047" class="uri">GO:1903047</a></td>
 <td align="left">mitotic cell cycle process</td>
 <td align="left">g10,g48</td>
 <td align="right">0.0000000</td>
-<td align="right">3.148061</td>
-<td align="right">37.9559281</td>
-<td align="right">94</td>
+<td align="right">3.103393</td>
+<td align="right">39.2712862</td>
+<td align="right">96</td>
 <td align="right">0.0000000</td>
-<td align="right">686</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">9.257988</td>
-<td align="right">5.4222754</td>
-<td align="right">33</td>
+<td align="right">9.359375</td>
+<td align="right">5.6020175</td>
+<td align="right">34</td>
 <td align="right">0.0000000</td>
+<td align="right">98</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="GO:0000226" class="uri">GO:0000226</a></td>
+<td align="left">microtubule cytoskeleton organization</td>
+<td align="left">g48</td>
+<td align="right">0.0000656</td>
+<td align="right">1.933876</td>
+<td align="right">28.7109403</td>
+<td align="right">50</td>
+<td align="right">0.0060068</td>
+<td align="right">687</td>
+<td align="right">0.0000005</td>
+<td align="right">5.007870</td>
+<td align="right">4.0955927</td>
+<td align="right">17</td>
+<td align="right">0.0000785</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3154,71 +2975,35 @@ initiation</td>
 <td align="left"><a href="GO:0000910" class="uri">GO:0000910</a></td>
 <td align="left">cytokinesis</td>
 <td align="left">g48</td>
-<td align="right">0.1173880</td>
-<td align="right">1.532776</td>
-<td align="right">8.2155689</td>
-<td align="right">12</td>
+<td align="right">0.2568559</td>
+<td align="right">1.292354</td>
+<td align="right">8.7452864</td>
+<td align="right">11</td>
 <td align="right">1.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000023</td>
-<td align="right">9.068897</td>
-<td align="right">1.1736527</td>
+<td align="right">687</td>
+<td align="right">0.0000038</td>
+<td align="right">8.477702</td>
+<td align="right">1.2475081</td>
 <td align="right">9</td>
-<td align="right">0.0003187</td>
+<td align="right">0.0005168</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0007143" class="uri">GO:0007143</a></td>
-<td align="left">female meiotic nuclear division</td>
-<td align="left">g48</td>
-<td align="right">0.0423042</td>
-<td align="right">2.954247</td>
-<td align="right">1.9717365</td>
-<td align="right">5</td>
-<td align="right">0.7235861</td>
-<td align="right">686</td>
-<td align="right">0.0000072</td>
-<td align="right">23.296548</td>
-<td align="right">0.2816766</td>
-<td align="right">5</td>
-<td align="right">0.0008596</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="even">
 <td align="left"><a href="GO:0010639" class="uri">GO:0010639</a></td>
 <td align="left">negative regulation of organelle organization</td>
 <td align="left">g48</td>
-<td align="right">0.0006199</td>
-<td align="right">1.966320</td>
-<td align="right">19.0601198</td>
+<td align="right">0.0007806</td>
+<td align="right">1.936907</td>
+<td align="right">19.3056323</td>
 <td align="right">34</td>
-<td align="right">0.0338113</td>
-<td align="right">686</td>
-<td align="right">0.0000005</td>
-<td align="right">6.142202</td>
-<td align="right">2.7228743</td>
-<td align="right">14</td>
-<td align="right">0.0000728</td>
-<td align="right">98</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="GO:0031100" class="uri">GO:0031100</a></td>
-<td align="left">animal organ regeneration</td>
-<td align="left">g48</td>
-<td align="right">0.0000301</td>
-<td align="right">4.156338</td>
-<td align="right">4.6007186</td>
-<td align="right">15</td>
-<td align="right">0.0026255</td>
-<td align="right">686</td>
-<td align="right">0.0000000</td>
-<td align="right">20.271739</td>
-<td align="right">0.6572455</td>
-<td align="right">10</td>
-<td align="right">0.0000002</td>
+<td align="right">0.0470060</td>
+<td align="right">687</td>
+<td align="right">0.0000032</td>
+<td align="right">5.541868</td>
+<td align="right">2.7539330</td>
+<td align="right">13</td>
+<td align="right">0.0004389</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3226,17 +3011,17 @@ initiation</td>
 <td align="left"><a href="GO:0051338" class="uri">GO:0051338</a></td>
 <td align="left">regulation of transferase activity</td>
 <td align="left">g48</td>
-<td align="right">0.0002615</td>
-<td align="right">1.722460</td>
-<td align="right">37.4629940</td>
-<td align="right">59</td>
-<td align="right">0.0168343</td>
-<td align="right">686</td>
-<td align="right">0.0000047</td>
-<td align="right">4.014041</td>
-<td align="right">5.3518563</td>
-<td align="right">18</td>
-<td align="right">0.0006242</td>
+<td align="right">0.0005224</td>
+<td align="right">2.036351</td>
+<td align="right">17.4080701</td>
+<td align="right">32</td>
+<td align="right">0.0339590</td>
+<td align="right">687</td>
+<td align="right">0.0000010</td>
+<td align="right">6.203387</td>
+<td align="right">2.4832473</td>
+<td align="right">13</td>
+<td align="right">0.0001462</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3244,17 +3029,17 @@ initiation</td>
 <td align="left"><a href="GO:0051984" class="uri">GO:0051984</a></td>
 <td align="left">positive regulation of chromosome segregation</td>
 <td align="left">g48</td>
-<td align="right">0.0128177</td>
-<td align="right">4.321134</td>
-<td align="right">1.4788024</td>
+<td align="right">0.0165229</td>
+<td align="right">3.993507</td>
+<td align="right">1.5675513</td>
 <td align="right">5</td>
-<td align="right">0.3536241</td>
-<td align="right">686</td>
-<td align="right">0.0000015</td>
-<td align="right">34.073615</td>
-<td align="right">0.2112575</td>
+<td align="right">0.4560508</td>
+<td align="right">687</td>
+<td align="right">0.0000021</td>
+<td align="right">31.547619</td>
+<td align="right">0.2236099</td>
 <td align="right">5</td>
-<td align="right">0.0002225</td>
+<td align="right">0.0002921</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3262,72 +3047,72 @@ initiation</td>
 <td align="left"><a href="GO:0090068" class="uri">GO:0090068</a></td>
 <td align="left">positive regulation of cell cycle process</td>
 <td align="left">g48</td>
-<td align="right">0.0000760</td>
-<td align="right">2.466121</td>
-<td align="right">12.9805988</td>
-<td align="right">28</td>
-<td align="right">0.0057751</td>
-<td align="right">686</td>
-<td align="right">0.0000021</td>
-<td align="right">6.971225</td>
-<td align="right">1.8543713</td>
+<td align="right">0.0004205</td>
+<td align="right">2.223913</td>
+<td align="right">13.6129458</td>
+<td align="right">27</td>
+<td align="right">0.0277249</td>
+<td align="right">687</td>
+<td align="right">0.0000033</td>
+<td align="right">6.629721</td>
+<td align="right">1.9418758</td>
 <td align="right">11</td>
-<td align="right">0.0003011</td>
+<td align="right">0.0004613</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:0090307" class="uri">GO:0090307</a></td>
-<td align="left">mitotic spindle assembly</td>
+<td align="left"><a href="GO:0090231" class="uri">GO:0090231</a></td>
+<td align="left">regulation of spindle checkpoint</td>
 <td align="left">g48</td>
-<td align="right">0.0061271</td>
-<td align="right">3.074124</td>
-<td align="right">3.4505389</td>
-<td align="right">9</td>
-<td align="right">0.2099832</td>
-<td align="right">686</td>
-<td align="right">0.0000005</td>
-<td align="right">18.059341</td>
-<td align="right">0.4929341</td>
+<td align="right">0.0000278</td>
+<td align="right">13.097549</td>
+<td align="right">1.0725351</td>
 <td align="right">7</td>
-<td align="right">0.0000757</td>
+<td align="right">0.0031241</td>
+<td align="right">687</td>
+<td align="right">0.0000002</td>
+<td align="right">55.248656</td>
+<td align="right">0.1529963</td>
+<td align="right">5</td>
+<td align="right">0.0000428</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="GO:0097421" class="uri">GO:0097421</a></td>
-<td align="left">liver regeneration</td>
+<td align="left"><a href="GO:0090307" class="uri">GO:0090307</a></td>
+<td align="left">mitotic spindle assembly</td>
 <td align="left">g48</td>
-<td align="right">0.0024515</td>
-<td align="right">4.637356</td>
-<td align="right">1.9717365</td>
+<td align="right">0.0086364</td>
+<td align="right">2.884324</td>
+<td align="right">3.6301189</td>
+<td align="right">9</td>
+<td align="right">0.3057009</td>
+<td align="right">687</td>
+<td align="right">0.0000007</td>
+<td align="right">17.031185</td>
+<td align="right">0.5178336</td>
 <td align="right">7</td>
-<td align="right">0.1015479</td>
-<td align="right">686</td>
-<td align="right">0.0000072</td>
-<td align="right">23.296548</td>
-<td align="right">0.2816766</td>
-<td align="right">5</td>
-<td align="right">0.0008596</td>
+<td align="right">0.0001023</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="GO:1904668" class="uri">GO:1904668</a></td>
-<td align="left">positive regulation of ubiquitin protein ligase
-activity</td>
+<td align="left"><a href="GO:1901992" class="uri">GO:1901992</a></td>
+<td align="left">positive regulation of mitotic cell cycle phase
+transition</td>
 <td align="left">g48</td>
-<td align="right">0.1652168</td>
-<td align="right">3.198413</td>
-<td align="right">0.7394012</td>
-<td align="right">2</td>
-<td align="right">1.0000000</td>
-<td align="right">686</td>
-<td align="right">0.0000021</td>
-<td align="right">70.187234</td>
-<td align="right">0.1056287</td>
-<td align="right">4</td>
-<td align="right">0.0003011</td>
+<td align="right">0.0000931</td>
+<td align="right">3.684977</td>
+<td align="right">5.0326648</td>
+<td align="right">15</td>
+<td align="right">0.0080440</td>
+<td align="right">687</td>
+<td align="right">0.0000065</td>
+<td align="right">11.645299</td>
+<td align="right">0.7179056</td>
+<td align="right">7</td>
+<td align="right">0.0008425</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3335,17 +3120,17 @@ activity</td>
 <td align="left"><a href="GO:2001251" class="uri">GO:2001251</a></td>
 <td align="left">negative regulation of chromosome organization</td>
 <td align="left">g48</td>
-<td align="right">0.0000378</td>
-<td align="right">4.056845</td>
-<td align="right">4.6828743</td>
-<td align="right">15</td>
-<td align="right">0.0031623</td>
-<td align="right">686</td>
+<td align="right">0.0002380</td>
+<td align="right">3.510979</td>
+<td align="right">4.8676594</td>
+<td align="right">14</td>
+<td align="right">0.0175183</td>
+<td align="right">687</td>
 <td align="right">0.0000000</td>
-<td align="right">19.838008</td>
-<td align="right">0.6689820</td>
-<td align="right">10</td>
-<td align="right">0.0000003</td>
+<td align="right">16.541798</td>
+<td align="right">0.6943677</td>
+<td align="right">9</td>
+<td align="right">0.0000049</td>
 <td align="right">98</td>
 <td align="right">27</td>
 </tr>
@@ -3359,7 +3144,7 @@ activity</td>
 <code class="sourceCode R"><span><span class="va">bp_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/graph_to_visnetwork.html">graph_to_visnetwork</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="va">bp_assign</span>, <span class="va">bp_comm_labels</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_visnetwork.html">vis_visnetwork</a></span><span class="op">(</span><span class="va">bp_network</span><span class="op">)</span></span></code></pre></div>
-<p><img src="v2_visnetwork_guide_files/figure-html/bp_legend-1.png" width="700"></p>
+<p><img src="v2_visnetwork_guide_files/figure-html/bp_legend-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">annotation_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_gene_table.html">annotation_gene_table</a></span><span class="op">(</span></span>
 <span>  <span class="va">bp_combined</span>,</span>
@@ -3496,7 +3281,7 @@ chromatid segregation<a class="anchor" aria-label="anchor" href="#go0000070---mi
 <tr class="even">
 <td align="left">23212</td>
 <td align="left">RRS1</td>
-<td align="left">ribosome biogenesis regulator 1 homolog</td>
+<td align="left">regulator of ribosome synthesis 1</td>
 <td align="left">g10</td>
 </tr>
 <tr class="odd">
@@ -3734,7 +3519,7 @@ chromatid segregation<a class="anchor" aria-label="anchor" href="#go0000070---mi
 <tr class="even">
 <td align="left">23212</td>
 <td align="left">RRS1</td>
-<td align="left">ribosome biogenesis regulator 1 homolog</td>
+<td align="left">regulator of ribosome synthesis 1</td>
 <td align="left">g10</td>
 </tr>
 <tr class="odd">
@@ -3972,7 +3757,7 @@ chromatid segregation<a class="anchor" aria-label="anchor" href="#go0000070---mi
 <tr class="even">
 <td align="left">23212</td>
 <td align="left">RRS1</td>
-<td align="left">ribosome biogenesis regulator 1 homolog</td>
+<td align="left">regulator of ribosome synthesis 1</td>
 <td align="left">g10</td>
 </tr>
 <tr class="odd">
@@ -4100,7 +3885,7 @@ chromatid segregation<a class="anchor" aria-label="anchor" href="#go0000070---mi
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

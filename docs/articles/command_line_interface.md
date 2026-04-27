@@ -1,0 +1,558 @@
+# categoryCompare2: Command Line Interface
+
+``` r
+
+library(categoryCompare2)
+```
+
+In addition to using it as part of an R script, there are some utilities
+included in `{CategoryCompare2}` to allow use from the command line.
+This is known as a **command line interface**, or CLI.
+
+Although it still requires having R and the
+[categoryCompare2](https://github.com/MoseleyBioinformaticsLab/categoryCompare2)
+package installed, once installed, you should be able to do a full
+analysis from the command line.
+
+## Installation
+
+If you don’t have the package installed yet, make sure you install it
+and dependent packages.
+
+``` r
+
+install.packages("BiocManager")
+BiocManager::install("Biobase")
+BiocManager::install("remotes")
+BiocManager::install(
+  "moseleybioinformaticslab/categoryCompare2",
+  dependencies = c("Depends", "Imports", "Suggests")
+)
+```
+
+If you do have it installed, but haven’t used the CLI before, you will
+want to install **at least** `docopt`, as it provides the structure
+around the CLI.
+
+``` r
+
+install.packages("docopt")
+```
+
+``` r
+
+cli_location = system.file("exec", package = "categoryCompare2")
+cli_location
+#> [1] "/tmp/Rtmp7Pmvrm/temp_libpathde364a261413/categoryCompare2/exec"
+dir(cli_location)
+#> [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"
+#> [4] "filter_and_group.R"     "run_enrichment.R"
+Sys.setenv(CLI_LOCATION = cli_location)
+```
+
+Assuming you are on a linux type system, we can add these to the path,
+and set them to be executable. I’m going to set them here in R, because
+that’s what I have access to. We show how to do it in the shell as well.
+
+``` r
+
+old_path = Sys.getenv("PATH")
+new_path = paste0(old_path, ":", cli_location)
+Sys.setenv(PATH = new_path)
+```
+
+Assuming that we’ve saved the path in a shell variable, `CLI_LOCATION`,
+we can add it to the path, and change the executables to be executable.
+
+``` sh
+export PATH="$PATH:$CLI_LOCATION"
+chmod 0750 $CLI_LOCATION/*.R 
+```
+
+After we make the scripts executable, we can check that we can actually
+use it.
+
+``` bash
+categoryCompare2.R --help
+```
+
+Now, we will create a directory to put our input files and results.
+
+## Hypergeometric Enrichment
+
+### Inputs
+
+For hypergeometric enrichment, the
+[categoryCompare2](https://github.com/MoseleyBioinformaticsLab/categoryCompare2)
+CLI needs a few different pieces of information to work:
+
+1.  Annotations of the features to do enrichment on. An example would be
+    Gene Ontology terms of gene products.
+2.  The set of all features that were measured. For RNA-Seq, this would
+    be all genes or transcripts in the genome of the organism.
+3.  One or more sets of differentially expressed features (genes or
+    transcripts).
+
+For this small example, we are going to use the same estrogen microarray
+dataset as in the main vignette. We’ve found the differential sets of
+genes for each timepoint, 10 and 48 hours. The set of all genes measured
+on the array is in `universe_entrez.txt`, the 10 hour differential genes
+are in `10_entrez.txt`, and the 48 hour differential genes in
+`48_entrez.txt`.
+
+### Running
+
+[knitr](https://yihui.org/knitr/) is not good at running sequential bash
+or shell commands, so we are going to go through the whole analysis via
+CLI here, with some comments, but we will then discuss each one further
+down, just without any output.
+
+``` r
+
+test_loc = system.file("extdata", "test_data", package = "categoryCompare2")
+Sys.setenv(TESTLOC = test_loc)
+```
+
+``` bash
+export CURR_DIR=$(pwd)
+export WORKING=$CURR_DIR/cc2_1234
+mkdir -p $WORKING
+cd $WORKING
+cp $TESTLOC/10_entrez.txt .
+cp $TESTLOC/48_entrez.txt .
+cp $TESTLOC/universe_entrez.txt .
+
+# get the annotations from installed organism database
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+
+# setup the gene lists
+feature_files_2_json.R --file1=10_entrez.txt --file2=48_entrez.txt \
+  --universe=universe_entrez.txt --json=example_features.json
+
+# do the enrichments
+run_enrichment.R --features=example_features.json \
+  --annotations=example_annotations.json --output-file=example_enrichment.txt
+
+# filter and find communities of related GO terms by shared feature annotations
+filter_and_group.R --enrichment-results=example_enrichment.txt \
+  --p-cutoff=0.01 --count-cutoff=2 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 \
+  --table-file=example_grouping.txt
+  
+# cleanup
+rm -rf $WORKING
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error in library(categoryCompare2) : 
+#>   there is no package called ‘categoryCompare2’
+#> Calls: suppressMessages -> withCallingHandlers -> library
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+#>   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure
+#> Calls: loadNamespace ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody
+#> In addition: Warning message:
+#> package ‘yaml’ was built under R version 4.5.0 
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody
+#> In addition: Warning message:
+#> package ‘yaml’ was built under R version 4.5.0 
+#> Execution halted
+```
+
+### Annotations
+
+OK, let’s break that down a little more. Annotations are information
+about the features. For example, for gene products, we have Gene
+Ontology terms, that describe what pathways those products are involved
+in (Biological Process), any chemical transformations or binding
+properties those gene products might do (Molecular Function), and where
+in a cell or other biological structure they might be (Cellular
+Component). Other common gene product annotations are also biological
+pathway membership like those from Kyoto Encyclopedia of Genes and
+Genomes (KEGG), or pathways from Reactome. Similarly, chemical compounds
+might be annotated to pathways in KEGG and Reactome.
+
+One of the more common feature annotations are Gene Ontology (GO) terms.
+Bioconductor includes GO terms in their organism databases (org-db),
+such as `org.Hs.eg.db`, which is the organism database for *Homo
+sapiens*, indexed by Entrez Gene (`eg`).
+
+`categoryCompare2` includes a CLI utility for getting the GO terms from
+the included org-db into a form that can be used by the rest of the CLI,
+`create_annotations.R`.
+
+The arguments are:
+
+- –orgdb: which org-db to use
+- –feature-type: what type of feature IDs should be used to map to GO
+  terms
+- –annotation-type: what annotations to pull out
+- –json: where the output json should be stored
+
+``` bash
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+```
+
+Alternatively, if you have a source of annotations, you can pass that
+directly using:
+
+``` bash
+create_annotations.R --input=annotations.json --feature-type=ENTREZID \
+  --annotation-type=GO --json=example_annotations.json
+```
+
+For example, the Moseley Bioinformatics Lab has a python project,
+[`gocats`](https://pypi.org/project/GOcats/), that enables fuller
+consideration of term-term relationships in the GO ontology structure.
+One of the `gocats` sub-commands outputs a json structured file of gene
+to term mappings that can be used as input to `create_annotations.R`,
+`gocats remap_goterms`.
+
+### Features
+
+Features are the things we’ve measured. In this example, they are are
+genes. They can also be metabolites, chromosomal regions, etc. For
+annotation / category enrichment, we need to know what features we
+measured (universe), and then what features we are interested in. Part
+of the utility of `categoryCompare2` is providing the ability to compare
+the enrichments from multiple lists.
+
+``` bash
+feature_files_2_json.R --file1=10_entrez.txt --file2=48_entrez.txt \
+  --universe=universe_entrez.txt --json=example_features.json
+```
+
+In this case, we can combine up to **four** feature lists using the CLI.
+If you need to combine more than four feature lists, you might want to
+look at the R API directly, or write some code to create your JSON file
+directly. The name of the group of features is taken from the file name.
+The inputs are:
+
+- –file1: a set of features (required)
+- –file2: another set of features (optional)
+- –file3: more features (optional)
+- –file4: more features (optional)
+- –universe: all the features that were measured
+- –json: the output file
+
+### Running Enrichments
+
+``` bash
+run_enrichment.R --features=example_features.json \
+  --annotations=example_annotations.json --output-file=example_enrichment.txt
+```
+
+This runs hypergeometric enrichment for each of the feature lists in the
+output json file from creating [features](#features) above.
+
+At the very least, there should be the features, annotations, and the
+output. A full list of options includes:
+
+- –config: a YAML configuration file
+- –default-config: display a default configuration file
+- –features: the JSON file containing the features (genes) \[default:
+  features.json\]
+- –annotations: the annotations to use, as a file \[default:
+  annotations.json\]
+- –enrichment-test: what type of test to do \[default: hypergeometric\]
+- –enrichment-direction: do you want over- or under-enrichment
+  \[default: over\]
+- –p-adjustment: what kind of p-value correction to perform \[default:
+  BH\]
+- –output-file: Where to save the results \[default: cc2_results.txt\]
+- –text-only: should only the text file be generated? \[default: FALSE\]
+
+### Text Only FALSE
+
+It’s very important, if you want to do anything further on the CLI with
+your results, that you keep `--text-only=FALSE`. The next step in the
+CLI uses an `rds` file that is generated by default from the enrichment
+results. If you use `--text-only=TRUE`, then you cannot do [Filter and
+Group Annotations](#filter-and-group-annotations). Depending on the
+analysis you want to do, or your needs, then that may be fine. Just be
+aware.
+
+### Filter and Group Annotations
+
+Finally, after running the enrichments, we filter to what we think
+should be significant, and alternatively group GO terms by similarity
+and look for communities of GO terms.
+
+``` bash
+filter_and_group.R --enrichment-results=example_enrichment.txt \
+  --p-cutoff=0.01 --count-cutoff=2 --similarity-file=example_similarity.rds \
+  --similarity-cutoff=0.8 --table-file=example_grouping.txt
+```
+
+Although this lists the `*.txt` file as input, it will actually be
+looking for a matching `rds` file to use, which has all of the
+information necessary for the filtering and grouping (see
+[here](#text-only-false)).
+
+Let’s go through all of the options:
+
+- –enrichment-results: where the enrichment results are saved \[default:
+  cc2_results.txt\]
+- –p-cutoff: the maximum p-value to consider significant \[default:
+  0.01\]
+- –adjusted-p-values: should adjusted p-values be used if they exist?
+  \[default: TRUE\]
+- –count-cutoff: minimum number of significant features annotated to an
+  annotation to be considered \[default: 2\]
+- –similarity-file: should grouping of annotations be attempted and
+  saved \[default: annotation_similarity.rds\]
+- –similarity-cutoff: minimum similarity measure to consider annotations
+  linked \[default: 0\]
+- –grouping-algorithm: what algorithm should be used to find the groups
+  \[default: walktrap\]
+- –table-file: the results file to save the results \[default:
+  cc2_results_grouped.txt\]
+- –network-file: if desired, save the network as well \[default: NULL\]
+  (currently not implemented)
+
+If you do grouping, you definitely want to adjust `similarity-cutoff` to
+be something higher, generally, to make smaller groups of terms. In my
+own experience, I’ve found 0.8 is a good value to use for Gene Ontology
+terms. For other types of annotations, you may want to use a higher or
+lower similarity cutoff. Unfortunately, the outputs you get here will
+depend on the values of the `p-cutoff`, `count-cutoff`, and
+`similarity-cutoff` used. However, you can iterate on these fairly
+rapidly because the enrichment is already done. In addition, the
+annotation similarity network is actually saved as an R `rds` file, and
+as long as the same filename is used, instead of recalculating the
+annotation similarities, they will be loaded from the
+`--similarity-file`. This also speeds up the computations considerably.
+
+### Example Input File Structure
+
+Here, we give provide examples of what the input files look like:
+
+    # 10_entrez.txt
+    7083
+    54898
+    10551
+    5111
+    990
+    4175
+    7031
+    10439
+    4176
+    9134
+    ...
+
+    # 48_entrez.txt
+    7083
+    54898
+    10551
+    5111
+    990
+    4175
+    7031
+    10439
+    4176
+    9134
+    ...
+
+    # universe.txt
+    7083
+    54898
+    10551
+    5111
+    990
+    4175
+    7031
+    10439
+    4176
+    9134
+
+These will result in:
+
+``` json
+# example_features.json
+{
+  "10_entrez": ["7083", "54898", "10551", "5111", "990", "4175", "7031", ...],
+  "48_entrez": ["7083", "7031", "4605", "7153", "3148", "9768", ...],
+  "universe": ["7083", "54898", "10551", "5111", "990", "4175", "7031", ...]
+}
+```
+
+The JSON input for annotations looks like:
+
+``` json
+{
+  "7083": ["GO:0005575", "GO:0005575", "GO:0005622", "GO:0005622", ...],
+  "7031": ["GO:0005575", "GO:0005575", "GO:0005622", "GO:0005623", ...],
+  ...
+}
+```
+
+After running `create_annotations.R`, it will look like this:
+
+``` json
+{
+  "annotation_features": {
+    "GO:0000003": ["338879", "56729", "132141"],
+    "GO:0000045": ["6048", "23766"],
+    "GO:0000079": "124790",
+    "GO:0000086": "11116",
+    "GO:0000122": "124790",
+    "GO:0000149": "83851",
+    "GO:0000165": "27302",
+  }
+}
+```
+
+## Gene Set Enrichment Analysis (GSEA)
+
+Since version 0.100.25,
+[categoryCompare2](https://github.com/MoseleyBioinformaticsLab/categoryCompare2)
+can make use of GSEA. There are some limitations in the CLI. There are
+currently no options to adjust the number minimum and maximum number of
+annotated features that an annotation should have to be considered for
+use in GSEA, and currently those numbers default to *15* and *500*. We
+do anticipate that those values will be changed eventually.
+
+### Inputs
+
+For GSEA, the
+[categoryCompare2](https://github.com/MoseleyBioinformaticsLab/categoryCompare2)
+CLI needs a few different pieces of information to work:
+
+1.  Annotations of the features to do enrichment on. An example would be
+    Gene Ontology terms of gene products.
+2.  Ranked features from one or more experiments.
+
+For this small example, we are going to use the same estrogen microarray
+dataset as in the main vignette. From the tested sets of genes for each
+timepoint, 10 and 48 hours, we can generate a ranked list of the genes
+in `10_ranked.txt` and `48_ranked.txt`.
+
+``` r
+
+test_loc = system.file("extdata", "test_data", package = "categoryCompare2")
+Sys.setenv(TESTLOC = test_loc)
+```
+
+``` bash
+export CURR_DIR=$(pwd)
+export WORKING=$CURR_DIR/cc2_1234
+mkdir -p $WORKING
+cd $WORKING
+cp $TESTLOC/10_entrez_ranks.txt .
+cp $TESTLOC/48_entrez_ranks.txt .
+
+
+# get the annotations from installed organism database
+create_annotations.R --orgdb=org.Hs.eg.db --feature-type=ENTREZID --annotation-type=GO --json=example_annotations.json
+
+# setup the gene lists
+feature_files_2_json.R --file1=10_entrez_ranks.txt --file2=48_entrez_ranks.txt --json=example_features.json
+
+# do the enrichments
+run_enrichment.R --features=example_features.json --enrichment-test=gsea --annotations=example_annotations.json --output-file=example_enrichment.txt
+
+# filter and find communities of related GO terms by shared feature annotations
+filter_and_group.R --enrichment-results=example_enrichment.txt  --p-cutoff=0.01 --similarity-file=example_similarity.rds --similarity-cutoff=0.8 --table-file=example_grouping.txt
+  
+# cleanup
+rm -rf $WORKING
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error in library(categoryCompare2) : 
+#>   there is no package called ‘categoryCompare2’
+#> Calls: suppressMessages -> withCallingHandlers -> library
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+#>   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure
+#> Calls: loadNamespace ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody
+#> In addition: Warning message:
+#> package ‘yaml’ was built under R version 4.5.0 
+#> Execution halted
+#> WARNING: ignoring environment value of R_HOME
+#>  [H [2J [3JWarning message:
+#> package ‘docopt’ was built under R version 4.5.0 
+#> Warning message:
+#> package ‘jsonlite’ was built under R version 4.5.0 
+#> Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody
+#> In addition: Warning message:
+#> package ‘yaml’ was built under R version 4.5.0 
+#> Execution halted
+```
+
+### Example Input File Structure
+
+Note that the `ranked_entrez.txt` has **tabs** (“) in between the
+columns.
+
+    # 10_ranked_entrez.txt
+    "feature"   "rank"
+    "7083"  3.11373254358578
+    "54898" 2.93942770961125
+    "10551" 2.93219974980482
+    "5111"  2.79939639438318
+    "990"   2.66225839036303
+    "4175"  2.55528186846043
+    "7031"  2.8001945355083
+    "10439" 2.49153560769811
+    "4176"  2.30283141893498
+    "9134"  2.22390190377239
+    "2237"  2.20132873385815
+
+This gets transformed to JSON with two lists, one for the “feature” and
+one for the “rank”:
+
+``` json
+# gsea_features.json
+{
+  "10_entrez_ranks": {
+    "feature": [7083, 54898, 10551, 5111, 990, 4175, 7031, 10439, 4176, ...],
+    "rank": [3.1137, 2.9394, 2.9322, 2.7994, 2.6623, 2.5553, 2.8002, 2.4915, 2.3028, 2.2239, ...]
+  }
+}
+```

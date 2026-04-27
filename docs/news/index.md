@@ -1,0 +1,128 @@
+# Changelog
+
+## categoryCompare2 0.200.7
+
+- fixes a bug where setting significant annotations where there was only
+  a single enriched object in the combined object would return zero
+  counts for enriched, which is not correct. Added test to verify the
+  fix
+  ([\#52](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues/52)).
+- fixes testing bugs where numbers of things would change due to changes
+  in GO.db or the entrez annotation packages
+  ([\#53](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues/53)).
+
+## categoryCompare2 0.200.6
+
+- implements a method for getting a statistical table for a single
+  `enriched_result`.
+
+## categoryCompare2 0.200.5
+
+- fixes getting statistics from `gsea` results, and actually has a test
+  that it works.
+
+## categoryCompare2 0.200.4
+
+- fixes exporting annotation objects to JSON, in that every item should
+  consistently be in a list array, and not a bare string when there is
+  only a single annotated item.
+
+## categoryCompare2 0.200.3
+
+- adds the `hypergeometric_features`, `gsea_features` and
+  `binomial_features` constructors as functions to make it easier to
+  remember the arguments for the actual classes of the same names
+  ([\#49](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues/49)).
+
+## categoryCompare2 0.200.2
+
+- changes `hypergeom_features` to `hypergeometric_features`.
+- because the `hypergeometrc_features` necessitates changes to actual
+  code written by any users, I bumped the version from *0.100* to
+  *0.200*.
+- implements `hypergeometric_result`, `gsea_result`, and
+  `binomial_result` as more specific classes of `enrichemnt_result`,
+  which makes all of the combining and filtering work for everything.
+- made the vignettes use pre-processed data so that there won’t be any
+  issues from the `affy` package and segfaults
+  ([\#50](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/issues/50)).
+
+## categoryCompare2 0.100.32
+
+- changes `binomial_feature_enrichment` `min_features` to **6**, as
+  anything under this is not likely to be useful for binomial testing.
+- fixes some failing tests.
+- adds ability to use `combine_enrichments` on `binomial_enriched`
+  objects.
+
+## categoryCompare2 0.100.31
+
+- changes to `gocats_2_annotation`, checking for GO terms with no
+  description, the actual base GO terms for each portion, and adding min
+  and max arguments for the number of features annotated to a term.
+
+## categoryCompare2 0.100.30
+
+- adds documentation in the CLI vignette to using GSEA on the command
+  line.
+- fixes `filter_and_group.R` to allow filtering of CLI GSEA results.
+- adds documentation in the CLI vignette about the JSON structure of
+  each of the input files, both for hypergeometric testing and GSEA.
+
+## categoryCompare2 0.100.28
+
+- adds gene-set enrichment analysis (GSEA) to the command line
+  interface. Note that this is only available by running
+  `run_enrichment.R` directly. Currently, there is no way to modify the
+  GSEA options, such as `min_n` and `max_n`.
+
+## categoryCompare2 0.100.25
+
+- adds gene-set enrichment analysis (GSEA) using the `fgsea` package.
+  See `gsea_features` and `gsea_feature_enrichment`.
+
+## categoryCompare2 0.100.22
+
+- Fixed a bug where if nothing was significant, then all annotations
+  were pulled into the graph.
+
+## categoryCompare2 0.100.21
+
+- Added more output in the binomial testing.
+
+## categoryCompare2 0.100.16
+
+- Fixing bugs around binomial testing.
+
+## categoryCompare2 0.100.9
+
+- Better importing of gocats objects.
+
+## categoryCompare2 0.100.8
+
+- Made it possible to do iterative filtering and grouping of the graph
+  in the CLI.
+
+## categoryCompare2 0.100.7
+
+- Fixes to the CLI.
+
+## categoryCompare2 0.100.1
+
+- P-value adjustment is done by default.
+
+## categoryCompare2 0.99.161
+
+- Binomial enrichment.
+
+## categoryCompare2 0.99.160
+
+- Document finding communities in the vignettes.
+
+## categoryCompare2 0.99.159
+
+- CLI executables are available.
+
+## categoryCompare2 0.99.129
+
+- Really became the try inheritor to the original categoryCompare.

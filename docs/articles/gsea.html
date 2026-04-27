@@ -8,8 +8,8 @@
 <title>Gene Set Enrichment Analysis • categoryCompare2</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Gene Set Enrichment Analysis">
 </head>
 <body>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,8 @@
                         <h4 data-toc-skip class="author">Robert M
 Flight</h4>
             
-            <h4 data-toc-skip class="date">2026-02-05
-15:56:44.192727</h4>
+            <h4 data-toc-skip class="date">2026-04-27
+13:17:01.365994</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob/HEAD/vignettes/gsea.Rmd" class="external-link"><code>vignettes/gsea.Rmd</code></a></small>
       <div class="d-none name"><code>gsea.Rmd</code></div>
@@ -257,10 +257,10 @@ compare the enrichments between the two timepoints.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Counts:</span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     96</span></span>
-<span><span class="co">## G2   1   0     19</span></span>
-<span><span class="co">## G3   0   1     99</span></span>
-<span><span class="co">## G4   0   0   2953</span></span></code></pre>
+<span><span class="co">## G1   1   1     89</span></span>
+<span><span class="co">## G2   1   0     15</span></span>
+<span><span class="co">## G3   0   1     93</span></span>
+<span><span class="co">## G4   0   0   2970</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="generate-graph">Generate Graph<a class="anchor" aria-label="anchor" href="#generate-graph"></a>
@@ -269,24 +269,24 @@ compare the enrichments between the two timepoints.</p>
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_annotation_graph.html">generate_annotation_graph</a></span><span class="op">(</span><span class="va">bp_sig</span><span class="op">)</span></span>
 <span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
-<span><span class="co">## Number of Nodes = 214 </span></span>
-<span><span class="co">## Number of Edges = 12659 </span></span>
+<span><span class="co">## Number of Nodes = 197 </span></span>
+<span><span class="co">## Number of Edges = 11792 </span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     96</span></span>
-<span><span class="co">## G2   1   0     19</span></span>
-<span><span class="co">## G3   0   1     99</span></span></code></pre>
+<span><span class="co">## G1   1   1     89</span></span>
+<span><span class="co">## G2   1   0     15</span></span>
+<span><span class="co">## G3   0   1     93</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/remove_edges.html">remove_edges</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Removed 12380 edges from graph</span></span></code></pre>
+<pre><code><span><span class="co">## Removed 11539 edges from graph</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_graph</span></span></code></pre></div>
 <pre><code><span><span class="co">## A cc_graph with</span></span>
-<span><span class="co">## Number of Nodes = 214 </span></span>
-<span><span class="co">## Number of Edges = 279 </span></span>
+<span><span class="co">## Number of Nodes = 197 </span></span>
+<span><span class="co">## Number of Edges = 253 </span></span>
 <span><span class="co">##    g10 g48 counts</span></span>
-<span><span class="co">## G1   1   1     96</span></span>
-<span><span class="co">## G2   1   0     19</span></span>
-<span><span class="co">## G3   0   1     99</span></span></code></pre>
+<span><span class="co">## G1   1   1     89</span></span>
+<span><span class="co">## G2   1   0     15</span></span>
+<span><span class="co">## G3   0   1     93</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotation_combinations.html">annotation_combinations</a></span><span class="op">(</span><span class="va">bp_graph</span><span class="op">)</span></span>
 <span><span class="va">bp_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_colors.html">assign_colors</a></span><span class="op">(</span><span class="va">bp_assign</span><span class="op">)</span></span></code></pre></div>
@@ -308,7 +308,7 @@ table.</p>
 <code class="sourceCode R"><span><span class="va">bp_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/graph_to_visnetwork.html">graph_to_visnetwork</a></span><span class="op">(</span><span class="va">bp_graph</span>, <span class="va">bp_assign</span>, <span class="va">bp_comm_labels</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_visnetwork.html">vis_visnetwork</a></span><span class="op">(</span><span class="va">bp_network</span><span class="op">)</span></span></code></pre></div>
-<p><img src="gsea_files/figure-html/bp_legend-1.png" width="700"></p>
+<p><img src="gsea_files/figure-html/bp_legend-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -322,7 +322,7 @@ table.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
