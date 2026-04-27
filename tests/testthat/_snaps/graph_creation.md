@@ -1,4 +1,4 @@
-# jaccard graph is correct
+# various graph properties are correct / combined calculations are correct
 
     Code
       test_jaccard@edgeData
@@ -54,7 +54,7 @@
       
       
 
-# overlap graph is correct
+---
 
     Code
       test_overlap@edgeData
@@ -110,7 +110,7 @@
       
       
 
-# combined graph is correct
+---
 
     Code
       test_combined@edgeData

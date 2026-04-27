@@ -1,28 +1,5 @@
-ancestors_file = system.file(
-  "extdata",
-  "test_data",
-  "ancestors.json.gz",
-  package = "categoryCompare2"
-)
-namespace_file = system.file(
-  "extdata",
-  "test_data",
-  "namespace.json.gz",
-  package = "categoryCompare2"
-)
-
-
 test_that("gocats annotation importing works", {
-  ensembl_keys = AnnotationDbi::keys(
-    org.Hs.eg.db::org.Hs.eg.db,
-    keytype = "ENSEMBL"
-  )
-  ensembl_uniprot = suppressMessages(AnnotationDbi::select(
-    org.Hs.eg.db::org.Hs.eg.db,
-    keys = ensembl_keys,
-    keytype = "ENSEMBL",
-    columns = c("ENSEMBL", "UNIPROT")
-  ))
+  ensembl_uniprot = enrichment_data$uniprot_to_ensembl
   names(ensembl_uniprot) = c("to", "from")
   ensembl_uniprot = ensembl_uniprot[
     !(is.na(ensembl_uniprot$to)) & !is.na(ensembl_uniprot$from),
