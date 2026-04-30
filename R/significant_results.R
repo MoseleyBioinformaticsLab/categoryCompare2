@@ -70,7 +70,15 @@ setMethod(
 .get_significant_stat_results <- function(in_results, queries) {
   stopifnot(length(queries) > 0)
 
+  if (rlang::quo_get_expr(queries[[1]]) == "queries") {
+    queries = purrr::map(queries, rlang::eval_tidy)
+  }
+
   out_ids <- in_results@annotation_id
+
+  if (inherits(queries[[1]], "quosures") && inherits(queries[[1]], "list")) {
+    queries = queries[[1]]
+  }
 
   sig_entries <- multi_query_list(in_results@statistic_data, queries)
 

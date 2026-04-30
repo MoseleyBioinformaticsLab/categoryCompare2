@@ -149,7 +149,10 @@ test_that("binomial does normal stuff", {
   expect_equal(n_h10, n_h48)
 
   # filtering --------------
-  binomial_filter = get_significant_annotations(binomial_comb, padjust <= 0.05)
+  binomial_filter = get_significant_annotations(
+    binomial_comb,
+    padjust <= 0.05
+  )
 
   expect_gt(sum(binomial_filter@statistics@significant@significant[, 1]), 0)
   expect_gt(sum(binomial_filter@statistics@significant@significant[, 2]), 0)
