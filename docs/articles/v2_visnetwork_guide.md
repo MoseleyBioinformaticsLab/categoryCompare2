@@ -2,8 +2,8 @@
 
 ## categoryCompare2: Alternative Visualization
 
-Authored by: **Robert M Flight** `<rflight79@gmail.com>` on 2026-04-27
-13:20:02.049586
+Authored by: **Robert M Flight** `<rflight79@gmail.com>` on 2026-04-30
+18:32:38.732368
 
 ### Introduction
 
@@ -268,8 +268,8 @@ bp_sig@statistics@significant
 ```
 
     ## Signficance Cutoffs:
-    ##   padjust <= 0.001
-    ##   counts >= 2
+    ##   ~padjust <= 0.001
+    ##   ~counts >= 2
     ## 
     ## Counts:
     ##    g10 g48 counts

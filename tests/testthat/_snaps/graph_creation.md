@@ -1,4 +1,4 @@
-# various graph properties are correct / combined calculations are correct
+# various graph properties are correct
 
     Code
       test_jaccard@edgeData

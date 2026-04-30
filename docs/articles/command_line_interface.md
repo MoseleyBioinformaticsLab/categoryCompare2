@@ -43,7 +43,7 @@ install.packages("docopt")
 
 cli_location = system.file("exec", package = "categoryCompare2")
 cli_location
-#> [1] "/tmp/Rtmp7Pmvrm/temp_libpathde364a261413/categoryCompare2/exec"
+#> [1] "/tmp/RtmpaMl5II/temp_libpath1bcb8589fa92c/categoryCompare2/exec"
 dir(cli_location)
 #> [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"
 #> [4] "filter_and_group.R"     "run_enrichment.R"
@@ -146,9 +146,11 @@ rm -rf $WORKING
 #> package ‘docopt’ was built under R version 4.5.0 
 #> Warning message:
 #> package ‘jsonlite’ was built under R version 4.5.0 
-#> Error in library(categoryCompare2) : 
-#>   there is no package called ‘categoryCompare2’
-#> Calls: suppressMessages -> withCallingHandlers -> library
+#> Error: package or namespace load failed for ‘categoryCompare2’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure
+#> In addition: Warning message:
+#> package ‘categoryCompare2’ was built under R version 4.5.2 
 #> Execution halted
 #> WARNING: ignoring environment value of R_HOME
 #>  [H [2J [3JWarning message:
@@ -487,9 +489,11 @@ rm -rf $WORKING
 #> package ‘docopt’ was built under R version 4.5.0 
 #> Warning message:
 #> package ‘jsonlite’ was built under R version 4.5.0 
-#> Error in library(categoryCompare2) : 
-#>   there is no package called ‘categoryCompare2’
-#> Calls: suppressMessages -> withCallingHandlers -> library
+#> Error: package or namespace load failed for ‘categoryCompare2’ in dyn.load(file, DLLpath = DLLpath, ...):
+#>  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':
+#>   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure
+#> In addition: Warning message:
+#> package ‘categoryCompare2’ was built under R version 4.5.2 
 #> Execution halted
 #> WARNING: ignoring environment value of R_HOME
 #>  [H [2J [3JWarning message:

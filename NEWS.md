@@ -1,3 +1,7 @@
+# categoryCompare2 0.200.8
+
+- fixes a long standing non-standard evaluation bug where if you tried to use an argument in a filtering operation, it would fail if it was within another function, or run in another process (#29).
+
 # categoryCompare2 0.200.7
 
 - fixes a bug where setting significant annotations where there was only a single enriched object in the combined object would return zero counts for enriched, which is not correct. Added test to verify the fix (#52).

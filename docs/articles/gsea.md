@@ -208,7 +208,7 @@ bp_sig@statistics@significant
 ```
 
     ## Signficance Cutoffs:
-    ##   padjust <= 0.001
+    ##   ~padjust <= 0.001
     ## 
     ## Counts:
     ##    g10 g48 counts

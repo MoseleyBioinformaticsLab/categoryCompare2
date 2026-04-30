@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">categoryCompare2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.200.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,8 +61,8 @@
 
       <h1>categoryCompare2: Command Line Interface</h1>
             
-            <h4 data-toc-skip class="date">2026-04-27
-13:16:40.763039</h4>
+            <h4 data-toc-skip class="date">2026-04-30
+18:26:11.157189</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MoseleyBioinformaticsLab/categoryCompare2/blob/HEAD/vignettes/command_line_interface.Rmd" class="external-link"><code>vignettes/command_line_interface.Rmd</code></a></small>
       <div class="d-none name"><code>command_line_interface.Rmd</code></div>
@@ -100,7 +100,7 @@ it provides the structure around the CLI.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cli_location</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"exec"</span>, package <span class="op">=</span> <span class="st">"categoryCompare2"</span><span class="op">)</span></span>
 <span><span class="va">cli_location</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp7Pmvrm/temp_libpathde364a261413/categoryCompare2/exec"</span></span>
+<span><span class="co">#&gt; [1] "/tmp/RtmpaMl5II/temp_libpath1bcb8589fa92c/categoryCompare2/exec"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">cli_location</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"</span></span>
 <span><span class="co">#&gt; [4] "filter_and_group.R"     "run_enrichment.R"</span></span>
@@ -189,42 +189,44 @@ without any output.</p>
 <span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
 <span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
 <span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; Error in library(categoryCompare2) : </span></span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt;   there is no package called ‘categoryCompare2’</span></span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; Calls: suppressMessages -&gt; withCallingHandlers -&gt; library</span></span>
-<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; Error in dyn.load(file, DLLpath = DLLpath, ...) : </span></span>
-<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="co">#&gt;   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
-<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
-<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="co">#&gt; Calls: loadNamespace ... namespaceImport -&gt; loadNamespace -&gt; library.dynam -&gt; dyn.load</span></span>
-<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
-<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
-<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
-<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
-<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
-<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
-<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
-<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
-<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
-<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
-<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span></code></pre></div>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘categoryCompare2’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; package ‘categoryCompare2’ was built under R version 4.5.2 </span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="co">#&gt; Error in dyn.load(file, DLLpath = DLLpath, ...) : </span></span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="co">#&gt;   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="co">#&gt; Calls: loadNamespace ... namespaceImport -&gt; loadNamespace -&gt; library.dynam -&gt; dyn.load</span></span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="annotations">Annotations<a class="anchor" aria-label="anchor" href="#annotations"></a>
@@ -504,42 +506,44 @@ of the genes in <code>10_ranked.txt</code> and
 <span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
 <span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
 <span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co">#&gt; Error in library(categoryCompare2) : </span></span>
-<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a><span class="co">#&gt;   there is no package called ‘categoryCompare2’</span></span>
-<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a><span class="co">#&gt; Calls: suppressMessages -&gt; withCallingHandlers -&gt; library</span></span>
-<span id="cb22-31"><a href="#cb22-31" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb22-32"><a href="#cb22-32" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb22-33"><a href="#cb22-33" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb22-34"><a href="#cb22-34" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb22-35"><a href="#cb22-35" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb22-36"><a href="#cb22-36" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb22-37"><a href="#cb22-37" tabindex="-1"></a><span class="co">#&gt; Error in dyn.load(file, DLLpath = DLLpath, ...) : </span></span>
-<span id="cb22-38"><a href="#cb22-38" tabindex="-1"></a><span class="co">#&gt;   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
-<span id="cb22-39"><a href="#cb22-39" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
-<span id="cb22-40"><a href="#cb22-40" tabindex="-1"></a><span class="co">#&gt; Calls: loadNamespace ... namespaceImport -&gt; loadNamespace -&gt; library.dynam -&gt; dyn.load</span></span>
-<span id="cb22-41"><a href="#cb22-41" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb22-42"><a href="#cb22-42" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb22-43"><a href="#cb22-43" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb22-44"><a href="#cb22-44" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb22-45"><a href="#cb22-45" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb22-46"><a href="#cb22-46" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb22-47"><a href="#cb22-47" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
-<span id="cb22-48"><a href="#cb22-48" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
-<span id="cb22-49"><a href="#cb22-49" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
-<span id="cb22-50"><a href="#cb22-50" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
-<span id="cb22-51"><a href="#cb22-51" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
-<span id="cb22-52"><a href="#cb22-52" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
-<span id="cb22-53"><a href="#cb22-53" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
-<span id="cb22-54"><a href="#cb22-54" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
-<span id="cb22-55"><a href="#cb22-55" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
-<span id="cb22-56"><a href="#cb22-56" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
-<span id="cb22-57"><a href="#cb22-57" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
-<span id="cb22-58"><a href="#cb22-58" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
-<span id="cb22-59"><a href="#cb22-59" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
-<span id="cb22-60"><a href="#cb22-60" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
-<span id="cb22-61"><a href="#cb22-61" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
-<span id="cb22-62"><a href="#cb22-62" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
-<span id="cb22-63"><a href="#cb22-63" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span></code></pre></div>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘categoryCompare2’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
+<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
+<span id="cb22-31"><a href="#cb22-31" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb22-32"><a href="#cb22-32" tabindex="-1"></a><span class="co">#&gt; package ‘categoryCompare2’ was built under R version 4.5.2 </span></span>
+<span id="cb22-33"><a href="#cb22-33" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb22-34"><a href="#cb22-34" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb22-35"><a href="#cb22-35" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb22-36"><a href="#cb22-36" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb22-37"><a href="#cb22-37" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb22-38"><a href="#cb22-38" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb22-39"><a href="#cb22-39" tabindex="-1"></a><span class="co">#&gt; Error in dyn.load(file, DLLpath = DLLpath, ...) : </span></span>
+<span id="cb22-40"><a href="#cb22-40" tabindex="-1"></a><span class="co">#&gt;   unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so':</span></span>
+<span id="cb22-41"><a href="#cb22-41" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/rlang/1.1.7/34c0d101f4613098abc538b82e0d86c5/rlang/libs/rlang.so: undefined symbol: R_mkClosure</span></span>
+<span id="cb22-42"><a href="#cb22-42" tabindex="-1"></a><span class="co">#&gt; Calls: loadNamespace ... namespaceImport -&gt; loadNamespace -&gt; library.dynam -&gt; dyn.load</span></span>
+<span id="cb22-43"><a href="#cb22-43" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb22-44"><a href="#cb22-44" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb22-45"><a href="#cb22-45" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb22-46"><a href="#cb22-46" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb22-47"><a href="#cb22-47" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb22-48"><a href="#cb22-48" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb22-49"><a href="#cb22-49" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb22-50"><a href="#cb22-50" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
+<span id="cb22-51"><a href="#cb22-51" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
+<span id="cb22-52"><a href="#cb22-52" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb22-53"><a href="#cb22-53" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
+<span id="cb22-54"><a href="#cb22-54" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span>
+<span id="cb22-55"><a href="#cb22-55" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">: ignoring environment value of R_HOME</span></span>
+<span id="cb22-56"><a href="#cb22-56" tabindex="-1"></a><span class="co">#&gt;  [H [2J [3JWarning message:</span></span>
+<span id="cb22-57"><a href="#cb22-57" tabindex="-1"></a><span class="co">#&gt; package ‘docopt’ was built under R version 4.5.0 </span></span>
+<span id="cb22-58"><a href="#cb22-58" tabindex="-1"></a><span class="co">#&gt; Warning message:</span></span>
+<span id="cb22-59"><a href="#cb22-59" tabindex="-1"></a><span class="co">#&gt; package ‘jsonlite’ was built under R version 4.5.0 </span></span>
+<span id="cb22-60"><a href="#cb22-60" tabindex="-1"></a><span class="co">#&gt; Error: package or namespace load failed for ‘yaml’ in dyn.load(file, DLLpath = DLLpath, ...):</span></span>
+<span id="cb22-61"><a href="#cb22-61" tabindex="-1"></a><span class="co">#&gt;  unable to load shared object '/home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so':</span></span>
+<span id="cb22-62"><a href="#cb22-62" tabindex="-1"></a><span class="co">#&gt;   /home/rmflight/.cache/R/renv/cache/v5/linux-pop-jammy/R-4.5/x86_64-pc-linux-gnu/yaml/2.3.12/7cd77cb32abd9220d744307e9fc94ffb/yaml/libs/yaml.so: undefined symbol: R_ClosureBody</span></span>
+<span id="cb22-63"><a href="#cb22-63" tabindex="-1"></a><span class="co">#&gt; In addition: Warning message:</span></span>
+<span id="cb22-64"><a href="#cb22-64" tabindex="-1"></a><span class="co">#&gt; package ‘yaml’ was built under R version 4.5.0 </span></span>
+<span id="cb22-65"><a href="#cb22-65" tabindex="-1"></a><span class="co">#&gt; Execution halted</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-input-file-structure-1">Example Input File Structure<a class="anchor" aria-label="anchor" href="#example-input-file-structure-1"></a>
