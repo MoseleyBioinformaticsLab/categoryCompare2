@@ -52,7 +52,7 @@ so that we can define appropriate expressions.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">multi_query_list</span><span class="op">(</span><span class="va">list_to_query</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">multi_query_list</span><span class="op">(</span><span class="va">list_to_query</span>, <span class="va">queries</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,8 +63,8 @@ so that we can define appropriate expressions.</p>
 <dd><p>the list to run the query on</p></dd>
 
 
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>the expressions that do the queries</p></dd>
+<dt id="arg-queries">queries<a class="anchor" aria-label="anchor" href="#arg-queries"></a></dt>
+<dd><p>the expressions that do the queries (as rlang::enquos)</p></dd>
 
 </dl></div>
     <div class="section level2">
