@@ -4,12 +4,12 @@
 \alias{multi_query_list}
 \title{index a list}
 \usage{
-multi_query_list(list_to_query, ...)
+multi_query_list(list_to_query, queries)
 }
 \arguments{
 \item{list_to_query}{the list to run the query on}
 
-\item{...}{the expressions that do the queries}
+\item{queries}{the expressions that do the queries (as rlang::enquos)}
 }
 \value{
 logical "&" of all queries

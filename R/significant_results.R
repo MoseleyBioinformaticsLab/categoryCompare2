@@ -5,7 +5,7 @@
 #' so that we can define appropriate expressions.
 #'
 #' @param list_to_query the list to run the query on
-#' @param ... the expressions that do the queries
+#' @param queries the expressions that do the queries (as rlang::enquos)
 #'
 #' @export
 #' @return logical "&" of all queries
