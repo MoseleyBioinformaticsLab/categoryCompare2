@@ -34,7 +34,7 @@ BugReports:
 License: MIT + file LICENSE
 Depends: R (>= 3.5.0)
 Suggests: knitr, markdown, estrogen, org.Hs.eg.db, hgu95av2.db, limma,
-        affy, genefilter, testthat (>= 3.0.0), visNetwork, Cairo,
+        affy, genefilter, testthat (>= 3.0.0), visNetwork, ragg,
         DiagrammeR, KEGGREST, docopt (>= 0.7.0), RCy3, hgu95av2cdf,
         rmarkdown, fgsea, data.table, withr
 Imports: Biobase, methods, AnnotationDbi, colorspace, graph, igraph,
