@@ -21,7 +21,7 @@ json_annotation_reversal(
 \item{annotation_type}{the type of annotations}
 }
 \value{
-the json object, invisibly
+the json file
 }
 \description{
 Given a JSON file of features to annotations, reverse to turn it into

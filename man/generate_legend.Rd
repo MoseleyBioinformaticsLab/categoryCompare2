@@ -25,7 +25,7 @@ generate_legend(
 
 \item{height}{how high should it be}
 
-\item{pointsize}{the pointsize parameter for Cairo, determines textsize in the image}
+\item{pointsize}{the pointsize parameter for ragg, determines textsize in the image}
 
 \item{...}{any other parameter to \code{pie}}
 }

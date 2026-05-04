@@ -24,3 +24,4 @@
 ^docs$
 ^_pkgdown\.yml$
 ^examples_test_data$
+^Meta$
