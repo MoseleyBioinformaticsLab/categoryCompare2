@@ -40,7 +40,7 @@ generate_legend(
 
 - pointsize:
 
-  the pointsize parameter for Cairo, determines textsize in the image
+  the pointsize parameter for ragg, determines textsize in the image
 
 - ...:
 

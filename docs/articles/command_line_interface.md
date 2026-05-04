@@ -43,7 +43,7 @@ install.packages("docopt")
 
 cli_location = system.file("exec", package = "categoryCompare2")
 cli_location
-#> [1] "/tmp/Rtmp34MAZU/temp_libpath2269b7baf8d9/categoryCompare2/exec"
+#> [1] "/tmp/RtmpPuckrw/temp_libpath1a9971ed056e3/categoryCompare2/exec"
 dir(cli_location)
 #> [1] "categoryCompare2.R"     "create_annotations.R"   "feature_files_2_json.R"
 #> [4] "filter_and_group.R"     "run_enrichment.R"

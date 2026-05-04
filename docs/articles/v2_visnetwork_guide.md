@@ -2,8 +2,8 @@
 
 ## categoryCompare2: Alternative Visualization
 
-Authored by: **Robert M Flight** `<rflight79@gmail.com>` on 2026-05-01
-09:23:54.921927
+Authored by: **Robert M Flight** `<rflight79@gmail.com>` on 2026-05-04
+15:59:38.973338
 
 ### Introduction
 

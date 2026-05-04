@@ -1,5 +1,9 @@
 # Changelog
 
+## categoryCompare2 0.200.9
+
+- added more tests to up the test coverage, and a test coverage badge.
+
 ## categoryCompare2 0.200.8
 
 - fixes a long standing non-standard evaluation bug where if you tried
