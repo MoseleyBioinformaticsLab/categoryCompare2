@@ -221,7 +221,7 @@ assign_colors <- function(in_assign, type = "experiment") {
 #' @return list of png files that are pie graphs
 #' @importFrom colorspace desaturate
 generate_piecharts <- function(grp_matrix, use_color) {
-  check_package_installed("Cairo")
+  check_package_installed("ragg")
   n_grp <- nrow(grp_matrix)
   n_color <- length(use_color)
 
@@ -250,12 +250,12 @@ generate_piecharts <- function(grp_matrix, use_color) {
     )
 
     out_file <- tempfile(i_grp, fileext = ".png")
-    Cairo::Cairo(
+    ragg::agg_png(
+      filename = out_file,
+      units = "px",
       width = 640,
       height = 640,
-      file = out_file,
-      type = "png",
-      bg = "transparent"
+      background = "transparent"
     )
     par(mai = c(0, 0, 0, 0))
     pie(pie_area, col = tmp_color, clockwise = TRUE)
@@ -503,7 +503,7 @@ setMethod(
 #' @param img should a base64 encoded data uri be returned for embedding?
 #' @param width how wide should the image be if saving to an image
 #' @param height how high should it be
-#' @param pointsize the pointsize parameter for Cairo, determines textsize in the image
+#' @param pointsize the pointsize parameter for ragg, determines textsize in the image
 #' @param ... any other parameter to \code{pie}
 #'
 #' @return NULL
@@ -533,11 +533,11 @@ generate_legend <- function(
       par(mai = c(0, 0, 0, 0), ps = pointsize)
       pie(pie_area, labels = use_labels, col = use_color, clockwise = TRUE, ...)
     } else {
-      check_package_installed("Cairo")
+      check_package_installed("ragg")
       out_file <- tempfile(pattern = "legendfile", fileext = ".png")
-      Cairo::CairoPNG(
-        file = out_file,
-        bg = "white",
+      ragg::agg_png(
+        filename = out_file,
+        background = "white",
         width = width,
         height = height,
         pointsize = pointsize

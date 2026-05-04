@@ -101,3 +101,28 @@ test_that("json exporting and importing works properly", {
     expect_equal(without_namespace2, in_annotation)
   })
 })
+
+test_that("json reversal works", {
+  withr::with_file("reversed.json", {
+    out_res = json_annotation_reversal(
+      ancestors_file,
+      out_file = "reversed.json"
+    )
+    tmp_json = jsonlite::fromJSON("reversed.json", simplifyVector = FALSE)
+    expect_equal(
+      names(tmp_json),
+      c("annotation_features", "counts", "annotation_type", "feature_type")
+    )
+    expect_equal(
+      head(names(tmp_json$annotation_features)),
+      c(
+        "GO:0000002",
+        "GO:0000003",
+        "GO:0000009",
+        "GO:0000010",
+        "GO:0000012",
+        "GO:0000014"
+      )
+    )
+  })
+})

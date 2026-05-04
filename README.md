@@ -1,3 +1,6 @@
+[![categoryCompare2 status badge](https://moseleybioinformaticslab.r-universe.dev/badges/categoryCompare2)](https://moseleybioinformaticslab.r-universe.dev/categoryCompare2)
+[![covr2gh coverage](https://raw.githubusercontent.com/MoseleyBioinformaticsLab/categoryCompare2/refs/heads/covr2gh-storage/badges/main/coverage_badge.svg)](https://github.com/MoseleyBioinformaticsLab/categoryCompare2/actions/workflows/covr2gh.yaml)
+
 # categoryCompare2
 
 A Bioconductor package for meta analysis of high-throughput datasets using 

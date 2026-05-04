@@ -7,7 +7,7 @@ editor_options:
 <!--
 % \VignetteEngine{knitr::rmarkdown}
 % \VignetteIndexEntry{categoryCompare2: visNetwork}
-% \VignetteDepends{categoryCompare2, GO.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork, Cairo}
+% \VignetteDepends{categoryCompare2, GO.db, affy, hgu95av2.db, genefilter, estrogen, limma, DiagrammeR, visNetwork, ragg}
 % \VignetteKeyword{categoryCompare, meta-analysis, gene ontology, kegg}
 % \VignettePackage{categoryCompare2}
 -->

@@ -134,6 +134,24 @@ test_that("get correct sig annotations from combined_enrichment", {
     expected_sig_combined,
     get_significant_annotations(test_combined, pvalues < 0.05)
   )
+
+  expected_sig = new(
+    "node_assign",
+    groups = structure(
+      c(TRUE, TRUE, FALSE, TRUE, FALSE, TRUE),
+      dim = 3:2,
+      dimnames = list(c("G1", "G2", "G3"), c("en1", "en2"))
+    ),
+    assignments = c(a1 = "G1", a2 = "G3", a3 = "G2", a4 = "G3"),
+    description = c(a1 = "en1,en2", a2 = "en2", a3 = "en1", a4 = "en2"),
+    colors = character(0),
+    color_type = character(0),
+    pie_locs = NULL
+  )
+  expect_equal(
+    expected_sig,
+    annotation_combinations(expected_significant_annotations)
+  )
 })
 
 
@@ -207,5 +225,27 @@ test_that("get correct sig annotations from combined_enrichment with single case
   expect_equal(
     expected_single_combined,
     get_significant_annotations(single_combined, pvalues < 0.05)
+  )
+
+  # check annotation_combinations --------
+  exp_sig = new(
+    "node_assign",
+    groups = structure(
+      c(TRUE, FALSE),
+      dim = 2:1,
+      dimnames = list(
+        c("G1", "G2"),
+        "en1"
+      )
+    ),
+    assignments = c(a1 = "G1", a2 = "G2", a3 = "G1"),
+    description = c(a1 = "en1", a2 = "", a3 = "en1"),
+    colors = character(0),
+    color_type = character(0),
+    pie_locs = NULL
+  )
+  expect_equal(
+    exp_sig,
+    annotation_combinations(expected_significant_annotations)
   )
 })

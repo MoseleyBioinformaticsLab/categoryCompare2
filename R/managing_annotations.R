@@ -243,7 +243,7 @@ json_2_annotation <- function(json_file) {
 #'
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-#' @return the json object, invisibly
+#' @return the json file
 #'
 json_annotation_reversal <- function(
   json_file,
@@ -294,5 +294,5 @@ json_annotation_reversal <- function(
   )
 
   out_json <- annotation_2_json(out_annotation, out_file)
-  out_json
+  invisible(out_file)
 }
