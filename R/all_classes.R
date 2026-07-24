@@ -94,6 +94,12 @@ annotation <- function(
 
   counts <- vapply(annotation_features, length, numeric(1))
 
+  if (length(counts) == 0 || all(counts == 0)) {
+    stop(
+      "There are either no annotations, or no features associated with them."
+    )
+  }
+
   # print(class(annotation_features))
   # print(class(annotation_type))
   # print(class(description))
